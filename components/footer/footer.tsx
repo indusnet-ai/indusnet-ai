@@ -113,6 +113,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/assessment" className="text-muted-foreground hover:text-white text-sm transition-colors">
+                  AI Scoper Tool
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="text-muted-foreground hover:text-white text-sm transition-colors">
                   Book Consultation
                 </Link>
