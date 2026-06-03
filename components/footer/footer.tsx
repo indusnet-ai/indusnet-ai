@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Cpu, Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
-import { Linkedin, Twitter, Github } from "@/components/ui/brand-icons";
+import { Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
+import { Linkedin, Twitter, Github, EyeLogo } from "@/components/ui/brand-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -56,7 +56,7 @@ export function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2 group w-fit">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 group-hover:border-primary/40 transition-all">
-                <Cpu className="w-4 h-4 text-primary" />
+                <EyeLogo className="w-4 h-4 text-primary" />
               </div>
               <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-primary/80 bg-clip-text text-transparent">
                 INDUSNET <span className="text-primary">AI</span>

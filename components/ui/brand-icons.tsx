@@ -62,3 +62,28 @@ export const Github = ({ size = 16, className, ...props }: IconProps) => (
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
 );
+
+export const EyeLogo = ({ size = 16, className, ...props }: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
+    {/* Outer Eye Shape */}
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    {/* Tech scanning circular orbit around iris */}
+    <circle cx="12" cy="12" r="5.5" strokeDasharray="3 2" strokeWidth="1" className="opacity-70" />
+    {/* Solid Iris */}
+    <circle cx="12" cy="12" r="3" />
+    {/* Tech pupil center point */}
+    <circle cx="12" cy="12" r="1" fill="currentColor" />
+  </svg>
+);
