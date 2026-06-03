@@ -128,7 +128,7 @@ export default function AboutPage() {
                 <UserCheck className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="text-sm font-bold text-white">Abhishek Rungta</p>
+                <p className="text-sm font-bold text-white">Selvakumaran D</p>
                 <p className="text-xs text-muted-foreground">Founder & Managing Director | Certified CPMAI Facilitator</p>
               </div>
             </div>
