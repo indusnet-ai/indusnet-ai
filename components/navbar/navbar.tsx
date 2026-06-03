@@ -3,11 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Cpu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { EyeLogo } from "@/components/ui/brand-icons";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -51,7 +50,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2 group">
           <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <EyeLogo className="w-5 h-5 text-primary group-hover:text-accent transition-colors duration-300" />
+            <Cpu className="w-5 h-5 text-primary group-hover:text-accent transition-colors duration-300" />
           </div>
           <span className="font-sans font-bold text-xl tracking-tight bg-gradient-to-r from-white via-white to-primary/80 bg-clip-text text-transparent group-hover:to-accent transition-all duration-300">
             INDUSNET <span className="text-primary group-hover:text-accent transition-colors">AI</span>
@@ -104,7 +103,7 @@ export function Navbar() {
             <SheetContent side="right" className="w-[300px] sm:w-[350px] bg-background/95 backdrop-blur-xl border-l border-border/40 p-6 flex flex-col justify-between">
               <div className="flex flex-col gap-8 mt-6">
                 <div className="flex items-center gap-2">
-                  <EyeLogo className="w-6 h-6 text-primary" />
+                  <Cpu className="w-6 h-6 text-primary" />
                   <span className="font-bold text-lg bg-gradient-to-r from-white to-primary/80 bg-clip-text text-transparent">
                     INDUSNET <span className="text-primary">AI</span>
                   </span>
