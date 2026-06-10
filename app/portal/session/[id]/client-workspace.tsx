@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useAuth } from "../../auth-context";
+import { useAuth, API_BASE_URL } from "../../auth-context";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -125,7 +125,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
 
     try {
       const savedToken = localStorage.getItem("copilot_token");
-      const res = await fetch(`http://127.0.0.1:8000/sessions/${sessionId}/chat`, {
+      const res = await fetch(`${API_BASE_URL}/sessions/${sessionId}/chat`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${savedToken}`,
