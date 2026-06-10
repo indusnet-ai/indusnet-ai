@@ -15,6 +15,7 @@ const navLinks = [
   { name: "Industries", href: "/industries" },
   { name: "Training", href: "/training" },
   { name: "AI Scoper", href: "/assessment" },
+  { name: "Tender Portal", href: "/portal" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
