@@ -11,7 +11,12 @@ app = FastAPI(title="Smart Tender Copilot API", version="0.1.0")
 # Enable CORS for Next.js client calls
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust for production per security requirements
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://indusnet-ai.com",
+        "https://www.indusnet-ai.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
