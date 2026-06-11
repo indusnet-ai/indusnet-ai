@@ -11,11 +11,60 @@ class AgentState(TypedDict):
     response: str
     compliance_score: float
 
+def filter_relevant_context(uploaded_text: str, matrix: List[Dict[str, Any]]) -> str:
+    # Build a set of clean keywords from the titles/descriptions of all checklist items
+    keywords = set()
+    for req in matrix:
+        text_source = req.get("title", "") + " " + req.get("description", "")
+        for word in text_source.lower().split():
+            cleaned = "".join(c for c in word if c.isalnum())
+            if len(cleaned) > 3:  # Only words longer than 3 chars
+                keywords.add(cleaned)
+                
+    # Add common compliance synonyms
+    synonyms = [
+        "iso", "certification", "certificate", "standards", "compliance", "register",
+        "turnover", "financial", "audited", "revenue", "sheet", "profit", "loss", "balance",
+        "experience", "completion", "client", "project", "completed", "reference",
+        "registration", "incorporation", "license", "gst", "pan", "incorporation",
+        "tq", "pq", "technical", "qualification", "commercial", "bid", "analysis",
+        "valuation", "audit", "sluice", "gate", "valve"
+    ]
+    keywords.update(synonyms)
+    
+    # Split text into paragraphs or lines
+    paragraphs = uploaded_text.split("\n")
+    filtered_paras = []
+    
+    for para in paragraphs:
+        if not para.strip():
+            continue
+        para_clean = para.lower()
+        # If the paragraph contains any of our key compliance terms, keep it
+        if any(kw in para_clean for kw in keywords):
+            filtered_paras.append(para.strip())
+            
+    # If nothing matched, return a fallback snippet (first 10,000 characters)
+    if not filtered_paras:
+        return uploaded_text[:10000]
+        
+    # Reconstruct the text
+    result = "\n\n".join(filtered_paras)
+    
+    # Cap total character size to prevent huge context sizes (~10k tokens max)
+    if len(result) > 40000:
+        result = result[:40000] + "\n\n[CONTEXT TRUNCATED FOR CONCISENESS]"
+        
+    return result
+
 def evaluate_compliance(state: AgentState) -> AgentState:
     matrix = state["requirement_matrix"]
     uploaded = state["uploaded_context"]
     
-    if not uploaded.strip():
+    # Identify pending/missing items only
+    pending_matrix = [r for r in matrix if r["status"] != "verified"]
+    
+    if not uploaded.strip() or not pending_matrix:
         # Calculate current score based on existing items
         verified_count = sum(1 for r in matrix if r["status"] == "verified")
         score = (verified_count / len(matrix)) * 100 if matrix else 0.0
@@ -51,22 +100,26 @@ def evaluate_compliance(state: AgentState) -> AgentState:
 
     try:
         client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        
+        # Filter context dynamically to remove boilerplate, reducing tokens by up to 90%
+        filtered_context = filter_relevant_context(uploaded, pending_matrix)
+        
         prompt = f"""
         You are an expert compliance evaluation agent.
-        Your task is to analyze the extracted document context and verify it against the requirements checklist.
+        Your task is to analyze the extracted document context and verify it against the pending requirements checklist.
         
-        Here is the current requirement matrix:
-        {json.dumps(matrix, indent=2)}
+        Here is the current pending requirements list to evaluate:
+        {json.dumps(pending_matrix, indent=2)}
         
-        Here is the extracted document text uploaded by the bidder:
-        {uploaded}
+        Here is the filtered extracted document context uploaded by the bidder:
+        {filtered_context}
         
         Evaluate each requirement. For each requirement, determine if the document provides sufficient proof.
         If a requirement is now proven, change its status to "verified" and write detailed audit proof notes in the "notes" field.
         If the document mentions the requirement but details are insufficient or show failure, mark it as "missing" or keep as "pending" with notes explaining why.
         If the document doesn't address the requirement, preserve its current status and notes.
         
-        Return the updated requirement matrix as a JSON object with key "requirements" in the exact same structure.
+        Return the updated requirements as a JSON object with key "requirements" in the exact same structure.
         """
         
         response = client.chat.completions.create(
@@ -80,11 +133,21 @@ def evaluate_compliance(state: AgentState) -> AgentState:
         
         data = json.loads(response.choices[0].message.content)
         if "requirements" in data:
-            updated_matrix = data["requirements"]
-            verified_count = sum(1 for r in updated_matrix if r["status"] == "verified")
-            score = (verified_count / len(updated_matrix)) * 100 if updated_matrix else 0.0
+            updated_pending = {r["title"]: r for r in data["requirements"]}
             
-            state["requirement_matrix"] = updated_matrix
+            # Merge back into the master matrix
+            merged_matrix = []
+            for req in matrix:
+                if req["status"] == "verified":
+                    merged_matrix.append(req)
+                else:
+                    updated_req = updated_pending.get(req["title"], req)
+                    merged_matrix.append(updated_req)
+                    
+            verified_count = sum(1 for r in merged_matrix if r["status"] == "verified")
+            score = (verified_count / len(merged_matrix)) * 100 if merged_matrix else 0.0
+            
+            state["requirement_matrix"] = merged_matrix
             state["compliance_score"] = round(score, 2)
             
     except Exception as e:
