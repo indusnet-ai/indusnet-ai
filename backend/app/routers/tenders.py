@@ -6,7 +6,7 @@ import json
 from app.db import get_db
 from app.routers.auth import get_current_user, get_current_evaluator
 from app import models, schemas
-from app.utils.parsers import extract_text_from_pdf
+from app.utils.parsers import extract_text_from_file
 from app.utils.matrix_generator import generate_requirement_matrix
 from app.agents.copilot import copilot_graph
 
@@ -23,7 +23,7 @@ async def create_tender(
     requirement_matrix = []
     if file:
         file_bytes = await file.read()
-        tender_text = extract_text_from_pdf(file_bytes)
+        tender_text = extract_text_from_file(file.filename, file_bytes)
         requirement_matrix = generate_requirement_matrix(tender_text)
         
     db_tender = models.Tender(
@@ -156,7 +156,7 @@ async def chat_session(
     uploaded_text = ""
     if file:
         file_bytes = await file.read()
-        uploaded_text = extract_text_from_pdf(file_bytes)
+        uploaded_text = extract_text_from_file(file.filename, file_bytes)
         
     last_chat = db.query(models.ChatHistory).filter(
         models.ChatHistory.session_id == session_id

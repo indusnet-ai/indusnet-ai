@@ -81,10 +81,13 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      if (file.type === "application/pdf") {
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.name.toLowerCase().endsWith(".docx");
+      
+      if (isPdf || isDocx) {
         setAttachedFile(file);
       } else {
-        alert("Only PDF files are supported for automated compliance extraction.");
+        alert("Only PDF and DOCX files are supported for automated compliance extraction.");
       }
     }
   };
@@ -92,10 +95,13 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      if (file.type === "application/pdf") {
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+      const isDocx = file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.name.toLowerCase().endsWith(".docx");
+
+      if (isPdf || isDocx) {
         setAttachedFile(file);
       } else {
-        alert("Only PDF files are supported.");
+        alert("Only PDF and DOCX files are supported.");
       }
     }
   };
@@ -273,8 +279,8 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
           {dragActive && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#030014]/90 z-20 pointer-events-none">
               <UploadCloud className="w-12 h-12 text-primary animate-bounce" />
-              <span className="text-xs font-bold text-white">Drop Bid compliance PDF to parse</span>
-              <span className="text-[10px] text-muted-foreground">Supported format: PDF documents</span>
+              <span className="text-xs font-bold text-white">Drop Bid compliance document to parse</span>
+              <span className="text-[10px] text-muted-foreground">Supported formats: PDF and DOCX documents</span>
             </div>
           )}
 
@@ -353,7 +359,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                 type="file" 
                 id="file-upload" 
                 onChange={handleFileChange}
-                accept="application/pdf"
+                accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx"
                 className="hidden" 
               />
               <Button
@@ -367,7 +373,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
               </Button>
               <Input
                 type="text"
-                placeholder="Type a response or drag/drop compliance PDF here..."
+                placeholder="Type a response or drag/drop compliance document (PDF/DOCX) here..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="rounded-lg bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs flex-grow"
