@@ -63,12 +63,38 @@ def extract_text_from_docx(file_bytes: bytes) -> str:
         
     return text.strip()
 
+def extract_text_from_zip(file_bytes: bytes) -> str:
+    combined_text = ""
+    try:
+        with zipfile.ZipFile(io.BytesIO(file_bytes)) as z:
+            for filename in z.namelist():
+                # Skip directories, system/metadata files, and macOS-specific archives
+                if filename.endswith('/') or '__MACOSX' in filename or filename.startswith('.'):
+                    continue
+                
+                logger.info(f"Extracting and parsing file from ZIP: {filename}")
+                try:
+                    with z.open(filename) as f:
+                        content_bytes = f.read()
+                        file_text = extract_text_from_file(filename, content_bytes)
+                        if file_text.strip():
+                            combined_text += f"\n--- FILE: {filename} ---\n{file_text}\n"
+                except Exception as fe:
+                    logger.error(f"Failed to read zipped file {filename}: {fe}")
+    except Exception as e:
+        logger.error(f"Failed to parse ZIP archive: {e}")
+        combined_text = "[ZIP EXTRACT ERROR] Unable to parse ZIP archive."
+        
+    return combined_text.strip()
+
 def extract_text_from_file(file_name: str, file_bytes: bytes) -> str:
     name_lower = file_name.lower()
     if name_lower.endswith(".pdf"):
         return extract_text_from_pdf(file_bytes)
     elif name_lower.endswith(".docx"):
         return extract_text_from_docx(file_bytes)
+    elif name_lower.endswith(".zip"):
+        return extract_text_from_zip(file_bytes)
     else:
         # Fallback text representation
         try:

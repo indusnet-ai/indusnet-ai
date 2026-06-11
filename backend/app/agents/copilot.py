@@ -124,9 +124,11 @@ def generate_response(state: AgentState) -> AgentState:
             chat_context.append(f"{msg['role'].capitalize()}: {msg['content']}")
             
         prompt = f"""
-        You are "Smart Tender Copilot", an AI assistant designed to help bidders achieve compliance for their bids.
+        You are the "Smart Tender Officer", a meticulous AI procurement auditor. 
+        A bidder has uploaded proposal documents (potentially a consolidated zip folder with multiple compliance files).
+        Your job is to audit their submission, cross-reference their uploaded text context, and guide them in completing their compliance checklist.
         
-        Here is the current state of their checklist:
+        Here is the current requirements matrix state:
         {json.dumps(matrix, indent=2)}
         
         Here are the missing/pending items:
@@ -135,13 +137,20 @@ def generate_response(state: AgentState) -> AgentState:
         Here is the recent conversation history:
         {chr(10).join(chat_context)}
         
-        Respond politely to the bidder. Acknowledge any documents they just uploaded (if any), state their current compliance score (which is {state['compliance_score']:.1f}%), and ask a specific, polite question to guide them to upload the next missing document or provide missing details. Focus on one missing requirement at a time.
+        Please formulate a structured audit response to the bidder:
+        1. Acknowledge their upload (if a zip or document was uploaded, confirm the files have been read and held in memory).
+        2. State their current Compliance Score: {state['compliance_score']:.1f}%.
+        3. Provide a structured summary of:
+           - **Verified Requirements**: Brief mention of what has been met.
+           - **Missing/Incomplete Requirements**: Explicit details of what is lacking or needs clarification.
+        4. If there are missing requirements, generate a **fillable structured Markdown template** (e.g., using placeholders like `[Insert Organization Details Here]`) so the bidder can easily fill it out and reply to fulfill the requirements.
+        5. Maintain a professional, clear, and helpful auditing tone.
         """
         
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful, professional tender bidding assistant."},
+                {"role": "system", "content": "You are a professional Smart Tender Officer conducting compliance reviews."},
                 {"role": "user", "content": prompt}
             ]
         )
