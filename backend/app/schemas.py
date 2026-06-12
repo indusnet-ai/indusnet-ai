@@ -67,6 +67,7 @@ class SessionOut(BaseModel):
     tender: Optional[TenderOut] = None
     tender_id: str
     company_id: str
+    company: Optional[CompanyOut] = None
     user_id: str
     status: str
     compliance_score: float

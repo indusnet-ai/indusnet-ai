@@ -89,9 +89,10 @@ def list_sessions(
 ):
     if current_user.role == "internal_evaluator":
         sessions = db.query(models.BidderSession).all()
-        # Eagerly load tender relation
+        # Eagerly load tender and company relations
         for s in sessions:
             s.tender = db.query(models.Tender).filter(models.Tender.id == s.tender_id).first()
+            s.company = db.query(models.BiddingCompany).filter(models.BiddingCompany.id == s.company_id).first()
         return sessions
     else:
         sessions = db.query(models.BidderSession).filter(
@@ -99,6 +100,7 @@ def list_sessions(
         ).all()
         for s in sessions:
             s.tender = db.query(models.Tender).filter(models.Tender.id == s.tender_id).first()
+            s.company = db.query(models.BiddingCompany).filter(models.BiddingCompany.id == s.company_id).first()
         return sessions
 
 @router.get("/sessions/{session_id}")
@@ -219,4 +221,45 @@ async def chat_session(
         "response": final_state["response"],
         "compliance_score": final_state["compliance_score"],
         "requirement_matrix": final_state["requirement_matrix"]
+    }
+
+@router.get("/tenders/{tender_id}/comparative-evaluation")
+def get_comparative_evaluation(
+    tender_id: str,
+    db: Session = Depends(get_db),
+    current_user: models.PortalUser = Depends(get_current_user)
+):
+    if current_user.role != "internal_evaluator":
+        raise HTTPException(status_code=403, detail="Only evaluators can access comparative reports")
+        
+    tender = db.query(models.Tender).filter(models.Tender.id == tender_id).first()
+    if not tender:
+        raise HTTPException(status_code=404, detail="Tender not found")
+        
+    sessions = db.query(models.BidderSession).filter(models.BidderSession.tender_id == tender_id).all()
+    
+    comparative_data = []
+    for s in sessions:
+        last_chat = db.query(models.ChatHistory).filter(
+            models.ChatHistory.session_id == s.id
+        ).order_by(models.ChatHistory.created_at.desc()).first()
+        
+        matrix = []
+        if last_chat and last_chat.extracted_data:
+            matrix = last_chat.extracted_data
+        else:
+            matrix = tender.requirement_matrix or []
+            
+        company = db.query(models.BiddingCompany).filter(models.BiddingCompany.id == s.company_id).first()
+        
+        comparative_data.append({
+            "session_id": s.id,
+            "company_name": company.name if company else f"Bidder #{s.id[:8]}",
+            "compliance_score": float(s.compliance_score),
+            "matrix": matrix
+        })
+        
+    return {
+        "tender": tender,
+        "comparative_matrix": comparative_data
     }
