@@ -186,42 +186,49 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
   return (
     <div className="flex-grow flex flex-col h-screen max-h-screen overflow-hidden pt-20">
       {/* Top Header Bar */}
-      <div className="bg-[#030014]/60 backdrop-blur-md border-b border-border/10 px-6 py-4 flex items-center justify-between">
+      <header className="bg-[#030014]/60 backdrop-blur-md border-b border-border/10 px-6 py-4 flex items-center justify-between" role="banner">
         <div className="flex items-center gap-4">
-          <Button asChild variant="ghost" size="icon" className="text-muted-foreground hover:text-white rounded-full">
+          <Button asChild variant="ghost" size="icon" aria-label="Go back to dashboard" className="text-zinc-400 hover:text-white rounded-full focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
             <Link href="/portal/dashboard">
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             </Link>
           </Button>
           <div className="flex flex-col text-left">
             <h1 className="text-sm font-bold text-white flex items-center gap-2">
               {tender?.title || "Tender Loading..."}
             </h1>
-            <span className="text-[10px] text-muted-foreground">Active Compliance Scoping Workspace</span>
+            <span className="text-[10px] text-zinc-400">Active Compliance Scoping Workspace</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Compliance Score:</span>
-          <Badge className="bg-primary/20 border-primary/30 text-primary font-bold text-xs rounded px-2.5 py-0.5">
+          <span className="text-xs text-zinc-400">Compliance Score:</span>
+          <Badge className="bg-primary/20 border-primary/30 text-primary font-bold text-xs rounded px-2.5 py-0.5" role="status" aria-live="polite">
             {score.toFixed(0)}%
           </Badge>
         </div>
-      </div>
+      </header>
 
       {/* Main Split Screen */}
       <div className="flex-grow flex flex-col md:flex-row overflow-hidden">
         
         {/* Left Checklist panel (40% width) */}
-        <div className="w-full md:w-[40%] border-r border-border/10 flex flex-col overflow-y-auto bg-white/[0.01] p-6 text-left gap-6">
+        <section className="w-full md:w-[40%] border-r border-border/10 flex flex-col overflow-y-auto bg-white/[0.01] p-6 text-left gap-6" aria-labelledby="matrix-heading">
           <div className="flex flex-col gap-2">
-            <h2 className="text-sm font-bold text-white uppercase tracking-wider">Requirement Matrix Checklist</h2>
-            <p className="text-[10px] text-muted-foreground leading-relaxed">
+            <h2 id="matrix-heading" className="text-sm font-bold text-white uppercase tracking-wider">Requirement Matrix Checklist</h2>
+            <p className="text-[10px] text-zinc-400 leading-relaxed">
               Upload compliance documents in the chat window to satisfy individual checklist items. The agent automatically reviews files and registers audit notes.
             </p>
           </div>
 
           {/* Checklist progress bar */}
-          <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden border border-border/10">
+          <div 
+            className="w-full bg-white/5 h-2 rounded-full overflow-hidden border border-border/10"
+            role="progressbar"
+            aria-valuenow={score}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Compliance checklist verification progress"
+          >
             <div 
               className="bg-gradient-to-r from-primary to-accent h-full transition-all duration-500" 
               style={{ width: `${score}%` }}
@@ -244,28 +251,37 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                 <div className="flex items-start justify-between gap-2 pl-2">
                   <div className="flex flex-col gap-0.5">
                     <span className="text-xs font-bold text-white">{req.title}</span>
-                    <span className="text-[10px] text-muted-foreground leading-relaxed">
+                    <span className="text-[10px] text-white/70 leading-relaxed">
                       {req.description}
                     </span>
                   </div>
                   {req.status === "verified" ? (
-                    <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="sr-only">Status: Verified</span>
+                    </>
                   ) : req.status === "missing" ? (
-                    <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <>
+                      <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="sr-only">Status: Missing details</span>
+                    </>
                   ) : (
-                    <HelpCircle className="w-4 h-4 text-muted-foreground/50 shrink-0 mt-0.5" />
+                    <>
+                      <HelpCircle className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="sr-only">Status: Pending review</span>
+                    </>
                   )}
                 </div>
 
                 {req.notes && (
-                  <div className="mt-1.5 pt-2 border-t border-border/5 pl-2 text-[10px] text-muted-foreground italic bg-black/10 p-2 rounded">
+                  <div className="mt-1.5 pt-2 border-t border-border/5 pl-2 text-[10px] text-white/80 italic bg-black/20 p-2 rounded">
                     <strong>Audit Proof:</strong> {req.notes}
                   </div>
                 )}
               </Card>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Right Chat panel (60% width) */}
         <div 
@@ -287,15 +303,21 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
           )}
 
           {/* Chat Messages Log */}
-          <div className="flex-grow overflow-y-auto p-6 flex flex-col gap-4">
+          <div 
+            className="flex-grow overflow-y-auto p-6 flex flex-col gap-4 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none"
+            tabIndex={0}
+            role="log"
+            aria-live="polite"
+            aria-label="Tender Copilot chat messages"
+          >
             {chats.length === 0 ? (
               <div className="my-auto flex flex-col items-center gap-4 text-center p-8">
                 <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <Bot className="w-6 h-6 text-primary animate-pulse" />
+                  <Bot className="w-6 h-6 text-primary animate-pulse" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col gap-1.5 max-w-sm">
                   <span className="text-xs font-bold text-white">Smart Tender Copilot Online</span>
-                  <span className="text-[10px] text-muted-foreground leading-relaxed">
+                  <span className="text-[10px] text-zinc-400 leading-relaxed">
                     Hello! I am your AI Tender Compliance checker. Please upload your registration certificates, audited financial reports, or security PDFs. I will automatically audit them against our checklist matrix!
                   </span>
                 </div>
@@ -312,17 +334,17 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                     chat.sender === "user" 
                       ? "bg-accent/10 border border-accent/20 text-accent" 
                       : "bg-primary/10 border border-primary/20 text-primary"
-                  }`}>
+                  }`} aria-hidden="true">
                     {chat.sender === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider">
+                    <span className="text-[9px] text-zinc-400 uppercase font-bold tracking-wider">
                       {chat.sender === "user" ? "You (Bidder)" : "Tender Copilot"}
                     </span>
                     <div className={`p-3.5 rounded-2xl text-xs leading-relaxed whitespace-pre-wrap ${
                       chat.sender === "user" 
                         ? "bg-accent/10 border border-accent/20 text-white rounded-tr-none" 
-                        : "bg-white/5 border border-border/10 text-muted-foreground rounded-tl-none"
+                        : "bg-white/5 border border-border/10 text-white/90 rounded-tl-none"
                     }`}>
                       {chat.message}
                     </div>
@@ -356,7 +378,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
               </div>
             )}
 
-            <form onSubmit={handleSend} className="flex items-center gap-2">
+            <form onSubmit={handleSend} aria-label="Send message or upload compliance document" className="flex items-center gap-2">
               <input 
                 type="file" 
                 id="file-upload" 
@@ -369,24 +391,27 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                 onClick={() => document.getElementById("file-upload")?.click()}
                 variant="outline"
                 size="icon"
-                className="rounded-lg border-border/40 hover:bg-white/5 shrink-0"
+                aria-label="Attach compliance document (PDF, Word, or ZIP)"
+                className="rounded-lg border-border/40 hover:bg-white/5 shrink-0 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
-                <Paperclip className="w-4 h-4 text-muted-foreground" />
+                <Paperclip className="w-4 h-4 text-zinc-400" aria-hidden="true" />
               </Button>
               <Input
                 type="text"
                 placeholder="Type a response or drag/drop files/ZIP here..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="rounded-lg bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs flex-grow"
+                aria-label="Chat input message"
+                className="rounded-lg bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs flex-grow focus-visible:ring-2"
                 disabled={sending}
               />
               <Button
                 type="submit"
                 disabled={sending || (!message.trim() && !attachedFile)}
-                className="rounded-lg bg-gradient-to-r from-primary to-accent hover:brightness-110 text-white shrink-0"
+                aria-label="Send"
+                className="rounded-lg bg-gradient-to-r from-primary to-accent hover:brightness-110 text-white shrink-0 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                {sending ? <Activity className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {sending ? <Activity className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Send className="w-4 h-4" aria-hidden="true" />}
               </Button>
             </form>
           </div>

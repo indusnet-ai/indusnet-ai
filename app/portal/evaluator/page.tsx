@@ -105,22 +105,22 @@ export default function EvaluatorDashboard() {
 
   if (loading || fetching) {
     return (
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-center justify-center" role="status" aria-live="polite">
         <div className="flex flex-col items-center gap-3">
-          <Activity className="w-8 h-8 text-primary animate-spin" />
-          <span className="text-xs text-muted-foreground">Loading evaluator dashboard...</span>
+          <Activity className="w-8 h-8 text-primary animate-spin" aria-hidden="true" />
+          <span className="text-xs text-zinc-400">Loading evaluator dashboard...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto w-full gap-8">
+    <main className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto w-full gap-8" role="main">
       
       {/* Header profile bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/10 pb-6">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/10 pb-6">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-bold text-accent">
+          <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center font-bold text-accent" aria-hidden="true">
             {user?.name ? user.name[0].toUpperCase() : "E"}
           </div>
           <div className="flex flex-col text-left">
@@ -130,7 +130,7 @@ export default function EvaluatorDashboard() {
                 Internal Evaluator
               </Badge>
             </h1>
-            <span className="text-xs text-muted-foreground">Manage tender checklists and monitor bidder submission compliance</span>
+            <span className="text-xs text-zinc-400">Manage tender checklists and monitor bidder submission compliance</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -138,48 +138,50 @@ export default function EvaluatorDashboard() {
             variant="ghost" 
             size="icon" 
             onClick={loadSessions}
-            className="rounded-full text-muted-foreground hover:text-white"
+            aria-label="Refresh bidding sessions"
+            className="rounded-full text-zinc-400 hover:text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-4 h-4" aria-hidden="true" />
           </Button>
           <Button 
             variant="outline" 
             onClick={logout} 
-            className="rounded-full border-border/40 hover:bg-white/5 text-xs text-muted-foreground"
+            aria-label="Log Out"
+            className="rounded-full border-border/40 hover:bg-white/5 text-xs text-zinc-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
-            <LogOut className="w-3.5 h-3.5 mr-1.5" /> Log Out
+            <LogOut className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" /> Log Out
           </Button>
         </div>
-      </div>
+      </header>
 
       {/* Main grids */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left items-start">
         
         {/* Active Bids Monitoring Board */}
-        <div className="lg:col-span-8 flex flex-col gap-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider">
-            <BarChart2 className="w-5 h-5 text-accent" /> Bidder Sessions & Progress
+        <section className="lg:col-span-8 flex flex-col gap-4" aria-labelledby="board-heading">
+          <h2 id="board-heading" className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+            <BarChart2 className="w-5 h-5 text-accent" aria-hidden="true" /> Bidder Sessions & Progress
           </h2>
 
           {sessions.length === 0 ? (
-            <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-muted-foreground text-xs">
+            <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
               No bidders have initialized any sessions yet.
             </div>
           ) : (
             <div className="flex flex-col gap-4">
               {sessions.map((session) => (
-                <Card key={session.id} className="glassmorphism-card border-none p-5 flex flex-col gap-4">
+                <article key={session.id} className="glassmorphism-card border-none p-5 flex flex-col gap-4">
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs text-muted-foreground uppercase font-bold tracking-wider">
+                      <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
                         {session.tender?.title || "Tender Title"}
                       </span>
-                      <span className="text-sm font-bold text-white flex items-center gap-1.5">
-                        <Building className="w-4 h-4 text-primary" /> Session ID: {session.id.substring(0, 8)}...
-                      </span>
+                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                        <Building className="w-4 h-4 text-primary" aria-hidden="true" /> Session ID: {session.id.substring(0, 8)}...
+                      </h3>
                     </div>
                     <div className="flex flex-col items-end gap-1">
-                      <span className="text-[10px] text-muted-foreground">Compliance Score</span>
+                      <span className="text-[10px] text-zinc-400">Compliance Score</span>
                       <Badge className={`font-bold text-xs rounded px-2.5 py-0.5 ${
                         parseFloat(session.compliance_score) === 100 
                           ? "bg-green-500/10 border-green-500/20 text-green-400" 
@@ -192,67 +194,69 @@ export default function EvaluatorDashboard() {
 
                   <div className="grid grid-cols-2 gap-4 border-t border-border/5 pt-4 text-xs">
                     <div className="flex flex-col gap-0.5">
-                      <span className="text-muted-foreground text-[10px]">Session Status</span>
+                      <span className="text-zinc-400 text-[10px]">Session Status</span>
                       <span className="text-white capitalize">{session.status.replace("_", " ")}</span>
                     </div>
                     <div className="flex flex-col gap-0.5 text-right">
-                      <span className="text-muted-foreground text-[10px]">Last Active</span>
+                      <span className="text-zinc-400 text-[10px]">Last Active</span>
                       <span className="text-white">
                         {new Date(session.last_activity).toLocaleDateString()} {new Date(session.last_activity).toLocaleTimeString()}
                       </span>
                     </div>
                   </div>
 
-                  <Button asChild className="w-full rounded-lg bg-white/5 border border-border/40 hover:bg-white/10 text-white text-xs mt-1">
-                    <Link href={`/portal/session/${session.id}`}>
+                  <Button asChild className="w-full rounded-lg bg-white/5 border border-border/40 hover:bg-white/10 text-white text-xs mt-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                    <Link href={`/portal/session/${session.id}`} aria-label={`Open compliance transcript for session ${session.id.substring(0, 8)}`}>
                       Open Compliance Transcript
                     </Link>
                   </Button>
-                </Card>
+                </article>
               ))}
             </div>
           )}
-        </div>
+        </section>
 
         {/* AI Requirement Matrix Publisher Form */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <h2 className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider">
-            <Plus className="w-5 h-5 text-primary" /> Publish New Tender
+        <section className="lg:col-span-4 flex flex-col gap-4" aria-labelledby="publish-heading">
+          <h2 id="publish-heading" className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+            <Plus className="w-5 h-5 text-primary" aria-hidden="true" /> Publish New Tender
           </h2>
 
           <Card className="glassmorphism-card border-none p-6">
-            <form onSubmit={handlePublishTender} className="flex flex-col gap-4">
+            <form onSubmit={handlePublishTender} aria-labelledby="publish-heading" className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <label htmlFor="tender-title" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
                   Tender Title
                 </label>
                 <Input
                   type="text"
+                  id="tender-title"
                   placeholder="e.g. Enterprise AI Agent Deployment 2026"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 text-xs"
+                  className="rounded-lg bg-white/5 border-border/40 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                   required
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <label htmlFor="tender-desc" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
                   Description
                 </label>
                 <Textarea
+                  id="tender-desc"
                   placeholder="Briefly summarize the tender goals..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 text-xs min-h-[80px]"
+                  className="rounded-lg bg-white/5 border-border/40 text-xs text-white min-h-[80px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <label htmlFor="tender-pdf" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
                   Tender Specifications (PDF)
                 </label>
-                <div className="border border-dashed border-border/40 hover:border-primary/50 transition-all rounded-lg p-4 text-center cursor-pointer relative">
+                <div className="border border-dashed border-border/40 hover:border-primary/50 transition-all rounded-lg p-4 text-center cursor-pointer relative focus-within:ring-2 focus-within:ring-primary">
                   <input
                     type="file"
                     id="tender-pdf"
@@ -260,8 +264,8 @@ export default function EvaluatorDashboard() {
                     onChange={handleFileChange}
                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
-                  <FileText className="w-6 h-6 text-primary mx-auto mb-1.5" />
-                  <span className="text-[10px] text-muted-foreground block truncate max-w-[200px] mx-auto">
+                  <FileText className="w-6 h-6 text-primary mx-auto mb-1.5" aria-hidden="true" />
+                  <span className="text-[10px] text-zinc-400 block truncate max-w-[200px] mx-auto">
                     {tenderFile ? tenderFile.name : "Select Tender PDF File"}
                   </span>
                 </div>
@@ -270,14 +274,14 @@ export default function EvaluatorDashboard() {
               <Button
                 type="submit"
                 disabled={publishing}
-                className="w-full rounded-lg bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs py-5 mt-2 hover:brightness-110"
+                className="w-full rounded-lg bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs py-5 mt-2 hover:brightness-110 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 {publishing ? "Extracting Requirements..." : "Publish & Generate Matrix"}
               </Button>
             </form>
           </Card>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }

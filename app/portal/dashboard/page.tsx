@@ -73,21 +73,21 @@ export default function BidderDashboard() {
 
   if (loading || fetching) {
     return (
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-center justify-center" role="status" aria-live="polite">
         <div className="flex flex-col items-center gap-3">
-          <Activity className="w-8 h-8 text-primary animate-spin" />
-          <span className="text-xs text-muted-foreground">Loading workspace details...</span>
+          <Activity className="w-8 h-8 text-primary animate-spin" aria-hidden="true" />
+          <span className="text-xs text-zinc-400">Loading workspace details...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto w-full gap-8">
+    <main className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto w-full gap-8" role="main">
       {/* Header Profile bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/10 pb-6">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/10 pb-6">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-primary">
+          <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-primary" aria-hidden="true">
             {user?.name ? user.name[0].toUpperCase() : "U"}
           </div>
           <div className="flex flex-col text-left">
@@ -97,62 +97,63 @@ export default function BidderDashboard() {
                 Bidder
               </Badge>
             </h1>
-            <span className="text-xs text-muted-foreground">Representing your registered bidding organization</span>
+            <span className="text-xs text-zinc-400">Representing your registered bidding organization</span>
           </div>
         </div>
         <Button 
           variant="outline" 
           onClick={logout} 
-          className="rounded-full border-border/40 hover:bg-white/5 text-xs text-muted-foreground self-start md:self-center"
+          aria-label="Log Out"
+          className="rounded-full border-border/40 hover:bg-white/5 text-xs text-zinc-400 self-start md:self-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
         >
-          <LogOut className="w-3.5 h-3.5 mr-1.5" /> Log Out
+          <LogOut className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" /> Log Out
         </Button>
-      </div>
+      </header>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-6" aria-label="Bidder Statistics Summary">
         <Card className="glassmorphism-card border-none text-left p-6 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center" aria-hidden="true">
             <FileText className="w-5 h-5 text-primary" />
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-bold text-white">{tenders.length}</span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Available Tenders</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Available Tenders</span>
           </div>
         </Card>
         <Card className="glassmorphism-card border-none text-left p-6 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center" aria-hidden="true">
             <CheckCircle2 className="w-5 h-5 text-green-400" />
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-bold text-white">
               {sessions.filter(s => parseFloat(s.compliance_score) === 100).length}
             </span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Compliant Sessions</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Compliant Sessions</span>
           </div>
         </Card>
         <Card className="glassmorphism-card border-none text-left p-6 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center" aria-hidden="true">
             <AlertCircle className="w-5 h-5 text-yellow-400" />
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-bold text-white">
               {sessions.filter(s => parseFloat(s.compliance_score) < 100).length}
             </span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">In-Progress Bids</span>
+            <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">In-Progress Bids</span>
           </div>
         </Card>
-      </div>
+      </section>
 
       {/* Main grids */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
         {/* Open Tenders list */}
-        <div className="lg:col-span-8 flex flex-col gap-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <FolderOpen className="w-5 h-5 text-primary" /> Active RFPs & Tenders
+        <section className="lg:col-span-8 flex flex-col gap-4" aria-labelledby="tenders-heading">
+          <h2 id="tenders-heading" className="text-lg font-bold text-white flex items-center gap-2">
+            <FolderOpen className="w-5 h-5 text-primary" aria-hidden="true" /> Active RFPs & Tenders
           </h2>
           {tenders.length === 0 ? (
-            <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-muted-foreground text-xs">
+            <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
               No active tenders found at this moment.
             </div>
           ) : (
@@ -160,14 +161,14 @@ export default function BidderDashboard() {
               {tenders.map((tender) => {
                 const session = sessions.find(s => s.tender_id === tender.id);
                 return (
-                  <Card key={tender.id} className="glassmorphism-card border-none overflow-hidden hover:border-primary/20 transition-all duration-300">
+                  <article key={tender.id} className="glassmorphism-card border-none overflow-hidden hover:border-primary/20 transition-all duration-300">
                     <CardHeader className="p-6">
                       <div className="flex justify-between items-start gap-4">
                         <div>
-                          <CardTitle className="text-base font-bold text-white">{tender.title}</CardTitle>
-                          <CardDescription className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+                          <h3 className="text-base font-bold text-white">{tender.title}</h3>
+                          <p className="text-xs text-white/70 mt-1.5 leading-relaxed">
                             {tender.description || "No description provided."}
-                          </CardDescription>
+                          </p>
                         </div>
                         {session ? (
                           <Badge className="bg-green-500/10 border-green-500/20 text-green-400 text-[9px] rounded">
@@ -183,66 +184,67 @@ export default function BidderDashboard() {
                     <CardContent className="px-6 pb-6 pt-0 flex justify-between items-center border-t border-border/5 mt-2 pt-4">
                       {session ? (
                         <div className="flex items-center gap-2">
-                          <div className="text-[10px] text-muted-foreground">Compliance Score:</div>
+                          <div className="text-[10px] text-zinc-400">Compliance Score:</div>
                           <div className="text-xs font-bold text-white bg-white/5 px-2 py-0.5 rounded border border-border/15">
                             {parseFloat(session.compliance_score).toFixed(0)}%
                           </div>
                         </div>
                       ) : (
-                        <div className="text-[10px] text-muted-foreground">No bid started yet.</div>
+                        <div className="text-[10px] text-zinc-400">No bid started yet.</div>
                       )}
                       <Button
                         onClick={() => startOrResumeSession(tender.id)}
-                        className={`rounded-full text-xs font-semibold px-5 group ${
+                        aria-label={session ? `Launch workspace for ${tender.title}` : `Begin proposal for ${tender.title}`}
+                        className={`rounded-full text-xs font-semibold px-5 group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                           session 
                             ? "bg-white/5 border border-border/40 hover:bg-white/10 text-white" 
                             : "bg-gradient-to-r from-primary to-accent text-white hover:brightness-110"
                         }`}
                       >
                         {session ? "Launch Workspace" : "Begin Proposal"}{" "}
-                        <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-0.5 transition-transform" />
+                        <ArrowRight className="w-3.5 h-3.5 ml-1.5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
                       </Button>
                     </CardContent>
-                  </Card>
+                  </article>
                 );
               })}
             </div>
           )}
-        </div>
+        </section>
 
         {/* Corporate Workspace Guidelines */}
-        <div className="lg:col-span-4 flex flex-col gap-4">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <UserCheck className="w-5 h-5 text-accent" /> Bidder Guidelines
+        <aside className="lg:col-span-4 flex flex-col gap-4" aria-labelledby="guidelines-heading">
+          <h2 id="guidelines-heading" className="text-lg font-bold text-white flex items-center gap-2">
+            <UserCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Bidder Guidelines
           </h2>
           <Card className="glassmorphism-card border-none p-6 flex flex-col gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-xs font-bold text-white">1. Connect Copilot Workspace</span>
-              <span className="text-[10px] text-muted-foreground leading-relaxed">
+              <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Start a bid on any open tender above. This initiates a secure session linked to your company profile.
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-xs font-bold text-white">2. Check Checklist Matrix</span>
-              <span className="text-[10px] text-muted-foreground leading-relaxed">
+              <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Review the list of required certificates, turnover proofs, and technical credentials in the workspace checklist.
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-xs font-bold text-white">3. Upload Supporting Documents</span>
-              <span className="text-[10px] text-muted-foreground leading-relaxed">
+              <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Drag-and-drop your company files (PDF) in the workspace chat. The Copilot will automatically analyze compliance.
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-xs font-bold text-white">4. Resolve Missing Clauses</span>
-              <span className="text-[10px] text-muted-foreground leading-relaxed">
+              <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Engage in natural conversation to clarify gaps, explain details, or provide compliance updates.
               </span>
             </div>
           </Card>
-        </div>
+        </aside>
       </div>
-    </div>
+    </main>
   );
 }
