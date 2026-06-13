@@ -206,7 +206,7 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                 <MapPin className="w-3.5 h-3.5 text-primary" />
-                <span>33, 2nd Cross Street Dr Seethapathy Nagar, Velachery, Ch 600042</span>
+                <span>Number 46 First Floor, Tansi Nagar, Velachery, Ch 600042</span>
               </div>
             </div>
           </div>

@@ -503,7 +503,7 @@ export default function ContactPage() {
                     <div>
                       <p className="text-[10px] text-muted-foreground uppercase font-bold">Headquarters Address</p>
                       <p className="text-xs text-white leading-relaxed">
-                        33, 2nd Cross Street Dr Seethapathy Nagar, Velachery, Ch 600042
+                        Number 46 First Floor, Tansi Nagar, Velachery, Ch 600042
                       </p>
                     </div>
                   </div>
@@ -523,7 +523,7 @@ export default function ContactPage() {
                   </div>
                   <h4 className="font-bold text-white text-sm">Indusnet AI Corporate Campus</h4>
                   <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-                    Corporate Campus situated in Seethapathy Nagar, Velachery, Chennai. Fully equipped with private GPU computing clusters and certified training rooms.
+                    Corporate Campus situated in Tansi Nagar, Velachery, Chennai. Fully equipped with private GPU computing clusters and certified training rooms.
                   </p>
                 </div>
               </CardContent>
