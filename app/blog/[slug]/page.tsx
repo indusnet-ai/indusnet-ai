@@ -26,7 +26,7 @@ const articlesData: Record<string, ArticleData> = {
     category: "AI Architecture",
     date: "May 28, 2026",
     readTime: "6 min read",
-    author: "Selvakumaran D",
+    author: "Senthilkumar Elu",
     desc: "A deep dive into how semantic search databases connect Large Language Models to private corporate files safely, bypassing model hallucinations and third-party data leaks.",
     icon: BrainCircuit,
     content: (
@@ -76,7 +76,7 @@ const articlesData: Record<string, ArticleData> = {
     category: "Workflow Automation",
     date: "May 20, 2026",
     readTime: "5 min read",
-    author: "Selvakumaran D",
+    author: "Senthilkumar Elu",
     desc: "Discover why standard chat interfaces are fading, replaced by autonomous agents utilizing tools, loops, self-correction, and multiple supervisor models.",
     icon: Sparkles,
     content: (
@@ -135,7 +135,7 @@ const articlesData: Record<string, ArticleData> = {
     category: "Healthcare Compliance",
     date: "May 12, 2026",
     readTime: "4 min read",
-    author: "Selvakumaran D",
+    author: "Senthilkumar Elu",
     desc: "How hospital systems are deploying ambient clinical transcription recorders and diagnostic support networks completely inside private, audit-ready VPC subnets.",
     icon: HeartPulse,
     content: (
@@ -177,7 +177,7 @@ const articlesData: Record<string, ArticleData> = {
     category: "Infrastructure",
     date: "May 04, 2026",
     readTime: "7 min read",
-    author: "Selvakumaran D",
+    author: "Senthilkumar Elu",
     desc: "Model pricing is dropping, but private hardware custody is rising. Why enterprise leaders are investing in private local GPU cloud configurations.",
     icon: Building2,
     content: (
@@ -218,7 +218,7 @@ const articlesData: Record<string, ArticleData> = {
     category: "Enterprise Strategy",
     date: "April 26, 2026",
     readTime: "5 min read",
-    author: "Selvakumaran D",
+    author: "Senthilkumar Elu",
     desc: "Reconciling invoices, auto-updating CRMs, and compiling regulatory portfolios: where the highest ROI lies in 2026 for automated workflows.",
     icon: ShieldCheck,
     content: (
