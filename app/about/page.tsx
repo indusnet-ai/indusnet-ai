@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Target, Compass, Sparkles, Award, Cpu, ShieldCheck, Zap, ArrowRight, UserCheck } from "lucide-react";
+import { Target, Compass, Sparkles, Award, Cpu, ShieldCheck, Zap, ArrowRight, UserCheck, Briefcase, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -214,7 +214,38 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. CALL TO ACTION */}
+      {/* 6. CAREERS & RECRUITMENT */}
+      <section className="container mx-auto px-4 md:px-6 max-w-4xl">
+        <div className="glassmorphism-card rounded-3xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-12 gap-8 items-center text-left">
+          <div className="md:col-span-8 flex flex-col gap-4">
+            <Badge className="bg-accent/10 border-accent/20 text-accent w-fit rounded-full px-3 py-1 text-xs">
+              Careers & Talent Acquisition
+            </Badge>
+            <h2 className="text-3xl font-extrabold text-white tracking-tight leading-tight">
+              Join the <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Next Generation</span> of AI Engineering
+            </h2>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              We are constantly seeking brilliant software architects, prompt engineers, and AI developers who want to build secure, agentic machine learning solutions for enterprise environments.
+            </p>
+          </div>
+          <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-3 justify-center w-full">
+            <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300 w-full">
+              <Link href="/careers" className="flex items-center justify-center gap-2">
+                <Briefcase className="w-4 h-4" />
+                Browse Careers
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="rounded-full border-border/40 hover:bg-white/5 text-white hover:text-white w-full">
+              <Link href="/portal/hr" className="flex items-center justify-center gap-2">
+                <Users className="w-4 h-4 text-primary" />
+                HR Portal Access
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CALL TO ACTION */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="glassmorphism-card rounded-3xl py-12 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white">Let's Create Your AI Strategy Together</h2>
