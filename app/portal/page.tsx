@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, ShieldCheck, Mail, Lock, User, Building } from "lucide-react";
+import { Sparkles, ShieldCheck, Mail, Lock, User, Building, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 export default function PortalLoginPage() {
@@ -15,6 +15,7 @@ export default function PortalLoginPage() {
   const [role, setRole] = React.useState<"bidder" | "internal_evaluator">("bidder");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [name, setName] = React.useState("");
   const [companyName, setCompanyName] = React.useState("");
   const [errorMsg, setErrorMsg] = React.useState("");
@@ -160,14 +161,26 @@ export default function PortalLoginPage() {
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
                 <Input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 pl-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                  className="rounded-lg bg-white/5 border-border/40 pl-10 pr-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                   required
                   aria-label="Password"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="w-4 h-4" aria-hidden="true" />
+                  )}
+                </button>
               </div>
 
               <Button
