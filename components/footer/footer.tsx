@@ -204,9 +204,18 @@ export function Footer() {
                   info@indusnet-ai.com
                 </a>
               </div>
-              <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
-                <MapPin className="w-3.5 h-3.5 text-primary" />
-                <span>Number 46 First Floor, Tansi Nagar, Velachery, Ch 600042</span>
+              <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
+                <MapPin className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <span className="font-semibold text-white/90">Chennai (HQ): </span>
+                    <span>Number 46 First Floor, Tansi Nagar, Velachery, Chennai 600042</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold text-white/90">Singapore: </span>
+                    <span>51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, SG 408933</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

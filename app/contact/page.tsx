@@ -463,15 +463,14 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 3. CORPORATE DETAIL CARDS & GOOGLE MAPS PLACEHOLDER */}
       <section className="container mx-auto px-4 md:px-6 max-w-5xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Details */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             <Card className="glassmorphism-card border-none text-left flex-grow">
               <CardContent className="p-6 flex flex-col gap-5 justify-center h-full">
-                <h3 className="font-bold text-white text-base">Office Contact Details</h3>
-                <div className="flex flex-col gap-4">
+                <h3 className="font-bold text-white text-base border-b border-white/10 pb-2">Office Contact Details</h3>
+                <div className="flex flex-col gap-5">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Mail className="w-4 h-4 text-primary" />
@@ -484,27 +483,52 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Phone className="w-4 h-4 text-accent" />
+                  {/* Chennai HQ */}
+                  <div className="border-t border-white/5 pt-4 flex flex-col gap-2.5">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] rounded font-bold uppercase tracking-wider">India (HQ)</Badge>
+                      <span className="text-xs font-semibold text-white/90">Chennai Corporate Campus</span>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold">Phone</p>
-                      <a href="tel:+919884915977" className="text-xs text-white hover:text-accent transition-colors">
+
+                    <div className="flex items-start gap-3 pl-0.5">
+                      <MapPin className="w-3.5 h-3.5 text-primary/75 mt-0.5 flex-shrink-0" />
+                      <p className="text-xs text-white/80 leading-relaxed">
+                        Number 46 First Floor, Tansi Nagar, Velachery, Chennai 600042
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-3 pl-0.5">
+                      <Phone className="w-3.5 h-3.5 text-accent/75 mt-0.5 flex-shrink-0" />
+                      <a href="tel:+919884915977" className="text-xs text-white/80 hover:text-accent transition-colors">
                         +91-988-491-5977
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <MapPin className="w-4 h-4 text-primary" />
+                  {/* Singapore Office */}
+                  <div className="border-t border-white/5 pt-4 flex flex-col gap-2.5">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-accent/20 text-accent border-accent/30 text-[9px] rounded font-bold uppercase tracking-wider">Singapore</Badge>
+                      <span className="text-xs font-semibold text-white/90">Singapore Regional Office</span>
                     </div>
-                    <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold">Headquarters Address</p>
-                      <p className="text-xs text-white leading-relaxed">
-                        Number 46 First Floor, Tansi Nagar, Velachery, Ch 600042
+
+                    <div className="flex items-start gap-3 pl-0.5">
+                      <MapPin className="w-3.5 h-3.5 text-primary/75 mt-0.5 flex-shrink-0" />
+                      <p className="text-xs text-white/80 leading-relaxed">
+                        51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, Singapore 408933
                       </p>
+                    </div>
+
+                    <div className="flex items-start gap-3 pl-0.5">
+                      <Phone className="w-3.5 h-3.5 text-accent/75 mt-0.5 flex-shrink-0" />
+                      <div className="flex flex-col gap-1">
+                        <a href="tel:+6594483805" className="text-xs text-white/80 hover:text-accent transition-colors">
+                          +65-9448-3805
+                        </a>
+                        <a href="tel:+6567474753" className="text-xs text-white/80 hover:text-accent transition-colors">
+                          +65-6747-4753
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -514,17 +538,37 @@ export default function ContactPage() {
 
           {/* Maps Static Placeholder Card */}
           <div className="lg:col-span-7">
-            <Card className="glassmorphism-card border-none text-left overflow-hidden h-full">
-              <CardContent className="p-0 relative h-full min-h-[220px] flex items-center justify-center bg-black/40 group">
+            <Card className="glassmorphism-card border-none text-left overflow-hidden h-full flex flex-col justify-center">
+              <CardContent className="p-8 relative h-full flex flex-col justify-center bg-black/40 group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-accent/10 opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-                <div className="z-10 flex flex-col items-center gap-3 text-center p-6">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
-                    <Map className="w-5 h-5 text-primary" />
+                <div className="z-10 flex flex-col gap-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+                      <Map className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-sm">Our Global Presence</h4>
+                      <p className="text-[10px] text-muted-foreground">Certified AI infrastructure and consulting spaces</p>
+                    </div>
                   </div>
-                  <h4 className="font-bold text-white text-sm">Indusnet AI Corporate Campus</h4>
-                  <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-                    Corporate Campus situated in Tansi Nagar, Velachery, Chennai. Fully equipped with private GPU computing clusters and certified training rooms.
-                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+                    <div className="bg-white/5 border border-white/5 p-4 rounded-xl flex flex-col gap-2 hover:border-primary/30 transition-colors">
+                      <span className="text-[10px] font-bold text-primary uppercase tracking-wide">India Campus</span>
+                      <h5 className="font-semibold text-white text-xs">Chennai Technical HQ</h5>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        Fully equipped with private GPU computing clusters, certified CPMAI training spaces, and core engineering hubs.
+                      </p>
+                    </div>
+
+                    <div className="bg-white/5 border border-white/5 p-4 rounded-xl flex flex-col gap-2 hover:border-accent/30 transition-colors">
+                      <span className="text-[10px] font-bold text-accent uppercase tracking-wide">Singapore Hub</span>
+                      <h5 className="font-semibold text-white text-xs">Asia-Pacific Regional Office</h5>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        Serving APAC enterprises with bespoke LLM implementations, AI governance alignment, and strategic consulting.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
