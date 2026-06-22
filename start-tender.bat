@@ -14,14 +14,15 @@ if %ERRORLEVEL% EQU 0 (
     set FRONTEND_RUNNING=0
 )
 
-:: Check if port 8000 is already in use
-netstat -aon | findstr :8000 | findstr LISTENING >nul
+:: Check if port 8001 is already in use
+netstat -aon | findstr :8001 | findstr LISTENING >nul
 if %ERRORLEVEL% EQU 0 (
-    echo [Warning] FastAPI backend is already running on port 8000.
+    echo [Warning] FastAPI backend is already running on port 8001.
     set BACKEND_RUNNING=1
 ) else (
     set BACKEND_RUNNING=0
 )
+
 
 if "%FRONTEND_RUNNING%"=="1" (
     if "%BACKEND_RUNNING%"=="1" (

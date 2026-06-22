@@ -42,3 +42,6 @@ app_startup.log
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# uploads
+public/uploads/

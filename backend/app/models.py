@@ -67,3 +67,65 @@ class ChatHistory(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     session = relationship("BidderSession", back_populates="chats")
+
+class JobPosition(Base):
+    __tablename__ = "job_positions"
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    title = Column(String(255), nullable=False)
+    department = Column(String(100), nullable=False)
+    employment_type = Column(String(50), nullable=False)
+    location = Column(String(100), nullable=False)
+    salary_range = Column(String(100), nullable=False)
+    description = Column(Text, nullable=False)
+    requirements = Column(Text, nullable=False)
+    status = Column(String(20), default="active", nullable=False)  # 'active', 'draft', 'closed'
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    applications = relationship("CandidateApplication", back_populates="job", cascade="all, delete-orphan")
+
+class CandidateApplication(Base):
+    __tablename__ = "candidate_applications"
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    job_id = Column(String(36), ForeignKey("job_positions.id", ondelete="CASCADE"), nullable=False)
+    
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=False)
+    phone = Column(String(50), nullable=False)
+    
+    current_company = Column(String(255), nullable=True)
+    current_designation = Column(String(255), nullable=True)
+    
+    experience_years = Column(Numeric(5, 2), default=0.00, nullable=False)
+    
+    expected_salary = Column(String(100), nullable=True)
+    notice_period = Column(String(100), nullable=True)
+    
+    linkedin_url = Column(Text, nullable=True)
+    portfolio_url = Column(Text, nullable=True)
+    
+    resume_url = Column(Text, nullable=False)
+    application_status = Column(String(50), default="applied", nullable=False)  # 'applied', 'review', 'interview', 'offered', 'rejected'
+    
+    ai_score = Column(Numeric(5, 2), default=0.00, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    job = relationship("JobPosition", back_populates="applications")
+    analysis = relationship("CandidateAIAnalysis", back_populates="candidate", uselist=False, cascade="all, delete-orphan")
+
+class CandidateAIAnalysis(Base):
+    __tablename__ = "candidate_ai_analysis"
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    candidate_id = Column(String(36), ForeignKey("candidate_applications.id", ondelete="CASCADE"), nullable=False)
+    
+    parsed_resume = Column(JSON, nullable=True)  # JSON representation of resume text components
+    skills = Column(JSON, nullable=True)  # JSON array of skills
+    strengths = Column(JSON, nullable=True)  # JSON array of strengths
+    weaknesses = Column(JSON, nullable=True)  # JSON array of weaknesses
+    
+    job_match_score = Column(Numeric(5, 2), default=0.00, nullable=False)
+    summary = Column(Text, nullable=True)
+    recommended_interview_questions = Column(JSON, nullable=True)  # JSON array of interview questions
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    candidate = relationship("CandidateApplication", back_populates="analysis")
+

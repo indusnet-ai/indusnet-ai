@@ -59,7 +59,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(data.access_token);
     setUser(data.user);
 
-    if (data.user.role === "internal_evaluator") {
+    if (data.user.role === "hr_manager") {
+      router.push("/portal/hr");
+    } else if (data.user.role === "internal_evaluator") {
       router.push("/portal/evaluator");
     } else {
       router.push("/portal/dashboard");
@@ -84,7 +86,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(data.access_token);
     setUser(data.user);
 
-    if (data.user.role === "internal_evaluator") {
+    if (data.user.role === "hr_manager") {
+      router.push("/portal/hr");
+    } else if (data.user.role === "internal_evaluator") {
       router.push("/portal/evaluator");
     } else {
       router.push("/portal/dashboard");

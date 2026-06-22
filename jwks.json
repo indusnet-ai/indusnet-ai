@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "kid": "epic-key-1",
+      "use": "sig",
+      "alg": "RS384",
+      "n": "m6Z-BzCNVqgEn_mb1UnGRuSsdkeKCsSl7ao7ZrJe4LdmenTFwbynNih0Jphm56M5Hri5iv0ydPOfT954FJDp0l8we-8v7QjDkPPtkNaFkhs7XcvbCNanMrFaUvOTxJUzO2P2S4Z0ebU0Sb01Yl6E8wS9Ny73m2lzPLaOmoq1FSF1Jpbh798O50dMFYW3GhkvYSByxwFHFq-QjebPmicLbjYX9k7UlQjcuCsu60g-GxzEhCse2SdOBhc7OwL47cItKcU3kcETZ6kUHpMNsxuARs4kTzm_Fg5v69h11U8ynTGnobIGX4BzdWyr9ggJUNsW8CXelSqBOq5gr0qL5tYB3N1Ocm_MLc-L4enekTV4f2tmWxEyVl93GaxDudUcXms_qBjNcu3l6c35UXg7JOpRuPA1sL2o3-qXmqW0UOWOjf9TyLZ26QDip1YtES51QepRx9FqHmeIZmV9ePGTbVOe_kChxRK1ZD4Znlc3oPCI3eNc-3HqaiHqEnz2LsbXPfEwLZT8GYwYQNS0h1wN_4gOujFsgoQkBO6MIvKWvoV0BT_1F1YZk07h2lGxi-2Rt_rcamUiAIj1-CseM3LZNbS7A6P_kUzAzT571qq00_1w3WvkQqk_Dg1aJ4rTnGZWtQOZbpUY81KeNKmzWd61i9MkdVzGuxM5KjFCowjlmfaXFi8",
+      "e": "AQAB"
+    }
+  ]
+}

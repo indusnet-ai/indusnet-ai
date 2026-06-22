@@ -15,7 +15,7 @@ console.log("--------------------------------------------------");
 console.log(`[Backend] Starting uvicorn from: ${pythonPath}...`);
 const backend = spawn(
   pythonPath,
-  ["-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+  ["-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"],
   {
     cwd: path.join(process.cwd(), "backend"),
     stdio: "inherit",
