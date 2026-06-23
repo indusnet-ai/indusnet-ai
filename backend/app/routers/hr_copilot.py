@@ -111,10 +111,83 @@ COPILOT_TOOLS = [
                 "required": ["candidate_name", "job_title", "salary", "start_date"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "create_job_position",
+            "description": "Creates and posts a new job position in the system with details like title, department, employment type, location, salary range, description, and requirements.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "The title of the job position (e.g. Senior Frontend Developer)"
+                    },
+                    "department": {
+                        "type": "string",
+                        "description": "The department (e.g. Engineering, Sales, HR)"
+                    },
+                    "employment_type": {
+                        "type": "string",
+                        "description": "The employment type (e.g. Full-time, Part-time, Contract, Internship)"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Location of the job (e.g. Singapore, Chennai, Remote)"
+                    },
+                    "salary_range": {
+                        "type": "string",
+                        "description": "Monthly or annual salary range (e.g. SGD 8,000 - 10,000 / month)"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Full description of the role, responsibilities, and scope"
+                    },
+                    "requirements": {
+                        "type": "string",
+                        "description": "Required skills, qualifications, and experience (e.g. 5+ years of React, TypeScript)"
+                    }
+                },
+                "required": ["title", "department", "employment_type", "location", "salary_range", "description", "requirements"]
+            }
+        }
     }
 ]
 
 # Database Tool Executors
+def run_create_job_position(
+    db: Session,
+    title: str,
+    department: str,
+    employment_type: str,
+    location: str,
+    salary_range: str,
+    description: str,
+    requirements: str
+) -> str:
+    db_job = models.JobPosition(
+        title=title,
+        department=department,
+        employment_type=employment_type,
+        location=location,
+        salary_range=salary_range,
+        description=description,
+        requirements=requirements,
+        status="active"
+    )
+    db.add(db_job)
+    db.commit()
+    db.refresh(db_job)
+    return json.dumps({
+        "id": db_job.id,
+        "title": db_job.title,
+        "department": db_job.department,
+        "location": db_job.location,
+        "status": db_job.status,
+        "success": True
+    })
+
 def run_list_job_positions(db: Session) -> str:
     jobs = db.query(models.JobPosition).all()
     out = []
@@ -287,7 +360,7 @@ def copilot_chat(
                 "role": "system",
                 "content": (
                     "You are the Indusnet AI Recruitment Copilot, a senior talent acquisition assistant. "
-                    "You help the HR manager query the database of candidates and jobs, search candidates by skills/experience, "
+                    "You help the HR manager query the database of candidates and jobs, create and post new job positions, search candidates by skills/experience, "
                     "rank candidates, and draft employment offer letters.\n"
                     "Always output professional, detailed markdown responses. When requested to draft an offer letter, "
                     "use the draft_offer_letter tool to create the initial structure, and then expand it into a comprehensive "
@@ -331,6 +404,17 @@ def copilot_chat(
                 result = ""
                 if func_name == "list_job_positions":
                     result = run_list_job_positions(db)
+                elif func_name == "create_job_position":
+                    result = run_create_job_position(
+                        db,
+                        title=arguments.get("title"),
+                        department=arguments.get("department"),
+                        employment_type=arguments.get("employment_type"),
+                        location=arguments.get("location"),
+                        salary_range=arguments.get("salary_range"),
+                        description=arguments.get("description"),
+                        requirements=arguments.get("requirements")
+                    )
                 elif func_name == "get_candidates_for_job":
                     result = run_get_candidates_for_job(db, arguments.get("job_id"))
                 elif func_name == "search_candidates_by_skills":
