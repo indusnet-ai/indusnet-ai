@@ -31,28 +31,28 @@ const services = [
     description: "Multi-channel generative customer service agents resolving up to 80% of support queries autonomously.",
     icon: Bot,
     badge: "Enterprise Ready",
-    href: "/services"
+    href: "/services/generative-ai"
   },
   {
     title: "Enterprise RAG Solutions",
     description: "Intelligent cognitive search connecting LLMs to your private SharePoint, Notion, or custom databases securely.",
     icon: Search,
     badge: "Highly Popular",
-    href: "/services"
+    href: "/services/generative-ai"
   },
   {
     title: "Autonomous AI Agents",
     description: "Self-correcting agentic workflows executing complex multi-step digital operations across multiple APIs.",
     icon: Zap,
     badge: "Next-Gen AI",
-    href: "/services"
+    href: "/services/generative-ai"
   },
   {
     title: "AI Workflow Automation",
     description: "Streamline back-office bottlenecks, document processing, and reporting with customized LLM intelligence.",
     icon: Cpu,
     badge: "Maximize ROI",
-    href: "/services"
+    href: "/services/generative-ai"
   },
   {
     title: "Computer Vision",

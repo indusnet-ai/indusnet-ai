@@ -238,6 +238,36 @@ export default function ServicesPage() {
         </motion.p>
       </section>
 
+      {/* FEATURED: GENERATIVE AI SERVICES */}
+      <section className="container mx-auto px-4 md:px-6 max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Card className="relative overflow-hidden border border-primary/20 bg-gradient-to-r from-primary/5 via-accent/5 to-transparent backdrop-blur-xl">
+            <div className="absolute top-0 right-0 -z-10 w-60 h-60 rounded-full bg-primary/10 blur-[80px]" />
+            <CardContent className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-left">
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-primary/25 text-primary border-primary/30 text-xs">Featured Services</Badge>
+                  <span className="text-xs font-semibold text-accent flex items-center gap-1"><Sparkles className="w-3 h-3"/> Free Workshop Scoping</span>
+                </div>
+                <h3 className="text-2xl font-extrabold text-white">Generative AI Services & LLM Deployments</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm max-w-xl leading-relaxed">
+                  Design roadmap workshops, private RAG installations, custom agent pipelines, and local model training. Move securely from sandbox validation to high-volume production.
+                </p>
+              </div>
+              <Button asChild className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 shrink-0">
+                <Link href="/services/generative-ai" className="flex items-center gap-1.5">
+                  Explore GenAI <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </section>
+
       {/* 2. TABBED SERVICES EXPLORER */}
       <section className="container mx-auto px-4 md:px-6 max-w-6xl">
         <Tabs defaultValue="core" className="w-full flex flex-col items-center gap-12">
