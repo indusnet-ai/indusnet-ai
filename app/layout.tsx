@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar/navbar";
 import { Footer } from "@/components/footer/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
-import { AIInProductionPopup } from "@/components/ai-in-production-popup";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -77,7 +76,6 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
-            <AIInProductionPopup />
           </div>
         </ThemeProvider>
       </body>
