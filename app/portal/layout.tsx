@@ -9,7 +9,7 @@ export default function PortalLayout({
 }) {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-[#030014] text-white flex flex-col font-sans">
+      <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
         {children}
       </div>
     </AuthProvider>

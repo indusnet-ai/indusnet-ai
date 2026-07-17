@@ -52,7 +52,7 @@ export default function PortalLoginPage() {
       
       <div className="w-full max-w-md flex flex-col gap-6">
         <Link href="/" aria-label="Indusnet Copilot Homepage" className="flex items-center gap-2 justify-center group self-center mb-2 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded">
-          <span className="font-sans font-extrabold text-2xl tracking-tight bg-gradient-to-r from-white via-white to-primary/80 bg-clip-text text-transparent group-hover:to-accent transition-all duration-300">
+          <span className="font-sans font-extrabold text-2xl tracking-tight bg-gradient-to-r from-foreground via-foreground to-primary/80 bg-clip-text text-transparent group-hover:to-accent transition-all duration-300">
             INDUSNET <span className="text-primary">COPILOT</span>
           </span>
         </Link>
@@ -60,14 +60,14 @@ export default function PortalLoginPage() {
         <Card className="glassmorphism-card border-none text-left relative overflow-hidden">
           <CardHeader className="space-y-1 pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-xl font-bold text-white" id="card-title">
+              <CardTitle className="text-xl font-bold text-foreground" id="card-title">
                 {isLogin ? "Welcome Back" : "Create Account"}
               </CardTitle>
               <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2">
                 Tender Portal
               </Badge>
             </div>
-            <CardDescription className="text-xs text-white/75" id="card-desc">
+            <CardDescription className="text-xs text-muted-foreground" id="card-desc">
               {isLogin
                 ? "Sign in to access your bidding workspace or review submissions"
                 : "Register to manage company bids and track compliance"}
@@ -86,7 +86,7 @@ export default function PortalLoginPage() {
               {!isLogin && (
                 <>
                   {/* Role Selection */}
-                  <div className="grid grid-cols-2 gap-2 p-1 bg-white/5 rounded-lg border border-border/10 mb-2" role="radiogroup" aria-label="Portal Role Selection">
+                  <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-lg border border-border/40 mb-2" role="radiogroup" aria-label="Portal Role Selection">
                     <button
                       type="button"
                       onClick={() => setRole("bidder")}
@@ -95,7 +95,7 @@ export default function PortalLoginPage() {
                       className={`py-1.5 text-xs font-semibold rounded-md transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                         role === "bidder"
                           ? "bg-primary text-white"
-                          : "text-muted-foreground hover:text-white"
+                          : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
                       Bidding Org
@@ -108,7 +108,7 @@ export default function PortalLoginPage() {
                       className={`py-1.5 text-xs font-semibold rounded-md transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
                         role === "internal_evaluator"
                           ? "bg-primary text-white"
-                          : "text-muted-foreground hover:text-white"
+                          : "text-muted-foreground hover:text-foreground"
                       }`}
                     >
                       Evaluator
@@ -116,13 +116,13 @@ export default function PortalLoginPage() {
                   </div>
 
                   <div className="relative">
-                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
                     <Input
                       type="text"
                       placeholder="Full Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="rounded-lg bg-white/5 border-border/40 pl-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                      className="rounded-lg bg-muted border-border/40 pl-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                       required
                       aria-label="Full Name"
                     />
@@ -130,13 +130,13 @@ export default function PortalLoginPage() {
 
                   {role === "bidder" && (
                     <div className="relative">
-                      <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+                      <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
                       <Input
                         type="text"
                         placeholder="Company Name"
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        className="rounded-lg bg-white/5 border-border/40 pl-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                        className="rounded-lg bg-muted border-border/40 pl-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                         required
                         aria-label="Company Name"
                       />
@@ -146,33 +146,33 @@ export default function PortalLoginPage() {
               )}
 
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
                 <Input
                   type="email"
                   placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 pl-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                  className="rounded-lg bg-muted border-border/40 pl-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                   required
                   aria-label="Email Address"
                 />
               </div>
 
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" aria-hidden="true" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 pl-10 pr-10 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                  className="rounded-lg bg-muted border-border/40 pl-10 pr-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                   required
                   aria-label="Password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded p-1"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -194,7 +194,7 @@ export default function PortalLoginPage() {
           </CardContent>
 
           <CardFooter className="pt-2 pb-6 border-t border-border/10 flex justify-center text-[11px]">
-            <span className="text-white/60">
+            <span className="text-muted-foreground">
               {isLogin ? "Don't have a corporate account?" : "Already registered?"}
             </span>
             <button

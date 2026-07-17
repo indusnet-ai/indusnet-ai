@@ -265,7 +265,7 @@ export default function EvaluatorDashboard() {
             {user?.name ? user.name[0].toUpperCase() : "E"}
           </div>
           <div className="flex flex-col text-left">
-            <h1 className="text-xl font-bold text-white flex items-center gap-2">
+            <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
               Welcome, {user?.name || "Evaluator"}
               <Badge className="bg-accent/10 border-accent/20 text-accent text-[10px] rounded px-2 badge-header">
                 Internal Evaluator
@@ -280,7 +280,7 @@ export default function EvaluatorDashboard() {
             size="icon" 
             onClick={loadData}
             aria-label="Refresh bidding sessions"
-            className="rounded-full text-zinc-400 hover:text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            className="rounded-full text-zinc-400 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <RefreshCw className="w-4 h-4" aria-hidden="true" />
           </Button>
@@ -288,7 +288,7 @@ export default function EvaluatorDashboard() {
             variant="outline" 
             onClick={logout} 
             aria-label="Log Out"
-            className="rounded-full border-border/40 hover:bg-white/5 text-xs text-zinc-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            className="rounded-full border-border/40 hover:bg-muted text-xs text-zinc-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <LogOut className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" /> Log Out
           </Button>
@@ -309,8 +309,8 @@ export default function EvaluatorDashboard() {
               aria-selected={activeTab === "board"}
               className={`py-2 px-4 text-xs font-semibold border-b-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeTab === "board"
-                  ? "border-primary text-white"
-                  : "border-transparent text-zinc-400 hover:text-white"
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-zinc-400 hover:text-foreground"
               }`}
             >
               Active Sessions
@@ -326,8 +326,8 @@ export default function EvaluatorDashboard() {
               aria-selected={activeTab === "comparative"}
               className={`py-2 px-4 text-xs font-semibold border-b-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeTab === "comparative"
-                  ? "border-primary text-white"
-                  : "border-transparent text-zinc-400 hover:text-white"
+                  ? "border-primary text-foreground"
+                  : "border-transparent text-zinc-400 hover:text-foreground"
               }`}
             >
               Comparative Evaluation Sheet
@@ -337,12 +337,12 @@ export default function EvaluatorDashboard() {
           {/* TAB 1 CONTENT: Monitoring Board */}
           {activeTab === "board" && (
             <section className="flex flex-col gap-4" aria-labelledby="board-heading">
-              <h2 id="board-heading" className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider no-print">
+              <h2 id="board-heading" className="text-base font-bold text-foreground flex items-center gap-2 uppercase tracking-wider no-print">
                 <BarChart2 className="w-5 h-5 text-accent" aria-hidden="true" /> Bidder Sessions & Progress
               </h2>
 
               {sessions.length === 0 ? (
-                <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
+                <div className="bg-muted border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
                   No bidders have initialized any sessions yet.
                 </div>
               ) : (
@@ -354,7 +354,7 @@ export default function EvaluatorDashboard() {
                           <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
                             {session.tender?.title || "Tender Title"}
                           </span>
-                          <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                          <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
                             <Building className="w-4 h-4 text-primary" aria-hidden="true" /> 
                             {session.company?.name || `Bidder #${session.id.substring(0, 8)}`}
                           </h3>
@@ -374,17 +374,17 @@ export default function EvaluatorDashboard() {
                       <div className="grid grid-cols-2 gap-4 border-t border-border/5 pt-4 text-xs">
                         <div className="flex flex-col gap-0.5">
                           <span className="text-zinc-400 text-[10px]">Session Status</span>
-                          <span className="text-white capitalize">{session.status.replace("_", " ")}</span>
+                          <span className="text-foreground capitalize">{session.status.replace("_", " ")}</span>
                         </div>
                         <div className="flex flex-col gap-0.5 text-right">
                           <span className="text-zinc-400 text-[10px]">Last Active</span>
-                          <span className="text-white">
+                          <span className="text-foreground">
                             {new Date(session.last_activity).toLocaleDateString()} {new Date(session.last_activity).toLocaleTimeString()}
                           </span>
                         </div>
                       </div>
 
-                      <Button asChild className="w-full rounded-lg bg-white/5 border border-border/40 hover:bg-white/10 text-white text-xs mt-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                      <Button asChild className="w-full rounded-lg bg-muted border border-border/40 hover:bg-muted/80 text-foreground text-xs mt-1 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
                         <Link href={`/portal/session/${session.id}`} aria-label={`Open compliance transcript for ${session.company?.name || 'session'}`}>
                           Open Compliance Transcript
                         </Link>
@@ -401,7 +401,7 @@ export default function EvaluatorDashboard() {
             <section className="flex flex-col gap-4" aria-labelledby="comparative-heading">
               
               {/* Tender Selector Header (no-print) */}
-              <div className="flex flex-col gap-2 p-5 bg-white/5 rounded-xl border border-border/10 no-print">
+              <div className="flex flex-col gap-2 p-5 bg-muted rounded-xl border border-border/10 no-print">
                 <label htmlFor="tender-select" className="text-xs font-semibold text-zinc-300">
                   Select Active Tender Scope:
                 </label>
@@ -409,7 +409,7 @@ export default function EvaluatorDashboard() {
                   id="tender-select"
                   value={selectedTenderId}
                   onChange={(e) => handleTenderSelect(e.target.value)}
-                  className="w-full py-2 px-3 bg-neutral-900 border border-border/40 text-xs rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full py-2 px-3 bg-background border border-border/40 text-xs rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="">-- Choose an active tender --</option>
                   {tenders.map((t) => (
@@ -431,32 +431,32 @@ export default function EvaluatorDashboard() {
                 <div className="flex flex-col gap-6 print-sheet">
                   
                   {/* EDIT PANEL (no-print) - Customize header content */}
-                  <div className="bg-white/5 border border-border/10 p-4 rounded-xl flex flex-col gap-3 no-print">
+                  <div className="bg-muted border border-border/10 p-4 rounded-xl flex flex-col gap-3 no-print">
                     <h3 className="text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
                       <Settings className="w-4 h-4" /> Sheet Header Customization
                     </h3>
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div className="flex flex-col gap-1">
                         <label className="text-[10px] text-zinc-400 uppercase font-semibold">Organization / Client Name</label>
-                        <Input value={orgHeader} onChange={(e) => setOrgHeader(e.target.value)} className="bg-neutral-950/80 border-border/30 py-1.5 h-8 text-xs text-white" />
+                        <Input value={orgHeader} onChange={(e) => setOrgHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
                         <label className="text-[10px] text-zinc-400 uppercase font-semibold">Evaluation Sheet Title</label>
-                        <Input value={docHeader} onChange={(e) => setDocHeader(e.target.value)} className="bg-neutral-950/80 border-border/30 py-1.5 h-8 text-xs text-white" />
+                        <Input value={docHeader} onChange={(e) => setDocHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
                         <label className="text-[10px] text-zinc-400 uppercase font-semibold">Tender No. / Code</label>
-                        <Input value={tenderNoHeader} onChange={(e) => setTenderNoHeader(e.target.value)} className="bg-neutral-950/80 border-border/30 py-1.5 h-8 text-xs text-white" />
+                        <Input value={tenderNoHeader} onChange={(e) => setTenderNoHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
                         <label className="text-[10px] text-zinc-400 uppercase font-semibold">Name of Work</label>
-                        <Input value={workNameHeader} onChange={(e) => setWorkNameHeader(e.target.value)} className="bg-neutral-950/80 border-border/30 py-1.5 h-8 text-xs text-white" />
+                        <Input value={workNameHeader} onChange={(e) => setWorkNameHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                     </div>
                     
                     {/* Action buttons */}
                     <div className="flex justify-end gap-2 mt-2">
-                      <Button onClick={exportToCSV} variant="outline" size="sm" className="border-border/40 text-xs text-zinc-300 hover:bg-white/5">
+                      <Button onClick={exportToCSV} variant="outline" size="sm" className="border-border/40 text-xs text-zinc-300 hover:bg-muted">
                         <Download className="w-3.5 h-3.5 mr-1.5" /> Export Excel CSV
                       </Button>
                       <Button onClick={() => window.print()} className="bg-primary text-white text-xs hover:brightness-110">
@@ -466,10 +466,10 @@ export default function EvaluatorDashboard() {
                   </div>
 
                   {/* EXCEL SHEET (Printable Grid) */}
-                  <div className="bg-[#030014]/50 border border-border/10 rounded-xl overflow-hidden shadow-2xl p-6 text-white print-container flex flex-col gap-4">
+                  <div className="bg-background/50 border border-border/10 rounded-xl overflow-hidden shadow-2xl p-6 text-foreground print-container flex flex-col gap-4">
                     
                     {/* Sheet Header block */}
-                    <div className="text-center flex flex-col gap-1 border-b border-white/20 pb-4">
+                    <div className="text-center flex flex-col gap-1 border-b border-border pb-4">
                       <div className="text-xs uppercase tracking-wider font-extrabold text-primary print:text-black">
                         {orgHeader}
                       </div>
@@ -491,16 +491,16 @@ export default function EvaluatorDashboard() {
                       </div>
                     ) : (
                       <div className="overflow-x-auto w-full max-w-full">
-                        <table className="w-full text-xs text-left border-collapse border border-white/10 excel-table">
+                        <table className="w-full text-xs text-left border-collapse border border-border excel-table">
                           <thead>
-                            <tr className="bg-white/5 border-b border-white/10">
-                              <th className="p-3 border border-white/10 w-[70px] text-center font-bold text-zinc-300 uppercase print:text-black">Sl. No.</th>
-                              <th className="p-3 border border-white/10 w-[200px] font-bold text-zinc-300 uppercase print:text-black">Item Description</th>
-                              <th className="p-3 border border-white/10 w-[220px] font-bold text-zinc-300 uppercase print:text-black">Tender Requirement</th>
+                            <tr className="bg-muted border-b border-border">
+                              <th className="p-3 border border-border w-[70px] text-center font-bold text-zinc-300 uppercase print:text-black">Sl. No.</th>
+                              <th className="p-3 border border-border w-[200px] font-bold text-zinc-300 uppercase print:text-black">Item Description</th>
+                              <th className="p-3 border border-border w-[220px] font-bold text-zinc-300 uppercase print:text-black">Tender Requirement</th>
                               
                               {/* Bidder columns */}
                               {comparativeReport.comparative_matrix.map((b: any, idx: number) => (
-                                <th key={b.session_id} className="p-3 border border-white/10 text-center font-bold text-primary print:text-black">
+                                <th key={b.session_id} className="p-3 border border-border text-center font-bold text-primary print:text-black">
                                   <div className="flex flex-col items-center">
                                     <span className="truncate max-w-[150px]">M/s. {b.company_name}</span>
                                     <span className="text-[10px] font-semibold text-zinc-400 mt-0.5">({b.compliance_score.toFixed(0)}% Compliant)</span>
@@ -511,14 +511,14 @@ export default function EvaluatorDashboard() {
                           </thead>
                           <tbody>
                             {comparativeReport.tender.requirement_matrix && comparativeReport.tender.requirement_matrix.map((req: any, reqIdx: number) => (
-                              <tr key={req.id || reqIdx} className="hover:bg-white/[0.02] border-b border-white/5">
-                                <td className="p-3 border border-white/10 text-center text-zinc-300 font-bold print:text-black">
+                              <tr key={req.id || reqIdx} className="hover:bg-muted/50 border-b border-border/50">
+                                <td className="p-3 border border-border text-center text-zinc-300 font-bold print:text-black">
                                   {(reqIdx + 1).toFixed(1)}
                                 </td>
-                                <td className="p-3 border border-white/10 font-bold text-white print:text-black">
+                                <td className="p-3 border border-border font-bold text-foreground print:text-black">
                                   {req.title}
                                 </td>
-                                <td className="p-3 border border-white/10 text-zinc-300 print:text-black leading-relaxed">
+                                <td className="p-3 border border-border text-zinc-300 print:text-black leading-relaxed">
                                   {req.description}
                                 </td>
                                 
@@ -526,7 +526,7 @@ export default function EvaluatorDashboard() {
                                 {comparativeReport.comparative_matrix.map((b: any) => {
                                   const bidderReq = b.matrix.find((r: any) => r.title === req.title);
                                   return (
-                                    <td key={b.session_id} className="p-3 border border-white/10 text-[11px] align-top">
+                                    <td key={b.session_id} className="p-3 border border-border text-[11px] align-top">
                                       {bidderReq ? (
                                         <div className="flex flex-col gap-1.5">
                                           <div className="flex items-center gap-1.5">
@@ -551,7 +551,7 @@ export default function EvaluatorDashboard() {
                                             )}
                                           </div>
                                           {bidderReq.notes && (
-                                            <p className="text-[10px] text-zinc-400 leading-relaxed italic bg-black/10 p-2 rounded print:border print:border-black">
+                                            <p className="text-[10px] text-zinc-400 leading-relaxed italic bg-muted p-2 rounded print:border print:border-black">
                                               {bidderReq.notes}
                                             </p>
                                           )}
@@ -578,7 +578,7 @@ export default function EvaluatorDashboard() {
 
         {/* Right Hand: AI Publisher Form (no-print) */}
         <section className="lg:col-span-4 flex flex-col gap-4 no-print" aria-labelledby="publish-heading">
-          <h2 id="publish-heading" className="text-base font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+          <h2 id="publish-heading" className="text-base font-bold text-foreground flex items-center gap-2 uppercase tracking-wider">
             <Plus className="w-5 h-5 text-primary" aria-hidden="true" /> Publish New Tender
           </h2>
 
@@ -594,7 +594,7 @@ export default function EvaluatorDashboard() {
                   placeholder="e.g. Enterprise AI Agent Deployment 2026"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 text-xs text-white focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                  className="rounded-lg bg-muted border-border/40 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                   required
                 />
               </div>
@@ -608,7 +608,7 @@ export default function EvaluatorDashboard() {
                   placeholder="Briefly summarize the tender goals..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="rounded-lg bg-white/5 border-border/40 text-xs text-white min-h-[80px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                  className="rounded-lg bg-muted border-border/40 text-xs text-foreground min-h-[80px] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
                 />
               </div>
 
@@ -618,11 +618,11 @@ export default function EvaluatorDashboard() {
                 </label>
                 <div className="border border-dashed border-border/40 hover:border-primary/50 transition-all rounded-lg p-4 text-center cursor-pointer relative focus-within:ring-2 focus-within:ring-primary">
                   <input
-                    type="file"
-                    id="tender-pdf"
-                    accept="application/pdf"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 opacity-0 cursor-pointer"
+                     type="file"
+                     id="tender-pdf"
+                     accept="application/pdf"
+                     onChange={handleFileChange}
+                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
                   <FileText className="w-6 h-6 text-primary mx-auto mb-1.5" aria-hidden="true" />
                   <span className="text-[10px] text-zinc-400 block truncate max-w-[200px] mx-auto">

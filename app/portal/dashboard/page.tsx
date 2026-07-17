@@ -91,7 +91,7 @@ export default function BidderDashboard() {
             {user?.name ? user.name[0].toUpperCase() : "U"}
           </div>
           <div className="flex flex-col text-left">
-            <h1 className="text-xl font-bold text-white flex items-center gap-2">
+            <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
               Welcome, {user?.name || "User"}
               <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2">
                 Bidder
@@ -104,7 +104,7 @@ export default function BidderDashboard() {
           variant="outline" 
           onClick={logout} 
           aria-label="Log Out"
-          className="rounded-full border-border/40 hover:bg-white/5 text-xs text-zinc-400 self-start md:self-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+          className="rounded-full border-border/40 hover:bg-muted text-xs text-zinc-400 self-start md:self-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
         >
           <LogOut className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" /> Log Out
         </Button>
@@ -117,7 +117,7 @@ export default function BidderDashboard() {
             <FileText className="w-5 h-5 text-primary" />
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-white">{tenders.length}</span>
+            <span className="text-2xl font-bold text-foreground">{tenders.length}</span>
             <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Available Tenders</span>
           </div>
         </Card>
@@ -126,7 +126,7 @@ export default function BidderDashboard() {
             <CheckCircle2 className="w-5 h-5 text-green-400" />
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-white">
+            <span className="text-2xl font-bold text-foreground">
               {sessions.filter(s => parseFloat(s.compliance_score) === 100).length}
             </span>
             <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Compliant Sessions</span>
@@ -137,7 +137,7 @@ export default function BidderDashboard() {
             <AlertCircle className="w-5 h-5 text-yellow-400" />
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-white">
+            <span className="text-2xl font-bold text-foreground">
               {sessions.filter(s => parseFloat(s.compliance_score) < 100).length}
             </span>
             <span className="text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">In-Progress Bids</span>
@@ -149,11 +149,11 @@ export default function BidderDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
         {/* Open Tenders list */}
         <section className="lg:col-span-8 flex flex-col gap-4" aria-labelledby="tenders-heading">
-          <h2 id="tenders-heading" className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 id="tenders-heading" className="text-lg font-bold text-foreground flex items-center gap-2">
             <FolderOpen className="w-5 h-5 text-primary" aria-hidden="true" /> Active RFPs & Tenders
           </h2>
           {tenders.length === 0 ? (
-            <div className="bg-white/5 border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
+            <div className="bg-muted border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
               No active tenders found at this moment.
             </div>
           ) : (
@@ -165,8 +165,8 @@ export default function BidderDashboard() {
                     <CardHeader className="p-6">
                       <div className="flex justify-between items-start gap-4">
                         <div>
-                          <h3 className="text-base font-bold text-white">{tender.title}</h3>
-                          <p className="text-xs text-white/70 mt-1.5 leading-relaxed">
+                          <h3 className="text-base font-bold text-foreground">{tender.title}</h3>
+                          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
                             {tender.description || "No description provided."}
                           </p>
                         </div>
@@ -185,7 +185,7 @@ export default function BidderDashboard() {
                       {session ? (
                         <div className="flex items-center gap-2">
                           <div className="text-[10px] text-zinc-400">Compliance Score:</div>
-                          <div className="text-xs font-bold text-white bg-white/5 px-2 py-0.5 rounded border border-border/15">
+                          <div className="text-xs font-bold text-foreground bg-muted px-2 py-0.5 rounded border border-border/15">
                             {parseFloat(session.compliance_score).toFixed(0)}%
                           </div>
                         </div>
@@ -197,7 +197,7 @@ export default function BidderDashboard() {
                         aria-label={session ? `Launch workspace for ${tender.title}` : `Begin proposal for ${tender.title}`}
                         className={`rounded-full text-xs font-semibold px-5 group focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                           session 
-                            ? "bg-white/5 border border-border/40 hover:bg-white/10 text-white" 
+                            ? "bg-muted border border-border/40 hover:bg-muted/80 text-foreground" 
                             : "bg-gradient-to-r from-primary to-accent text-white hover:brightness-110"
                         }`}
                       >
@@ -214,30 +214,30 @@ export default function BidderDashboard() {
 
         {/* Corporate Workspace Guidelines */}
         <aside className="lg:col-span-4 flex flex-col gap-4" aria-labelledby="guidelines-heading">
-          <h2 id="guidelines-heading" className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 id="guidelines-heading" className="text-lg font-bold text-foreground flex items-center gap-2">
             <UserCheck className="w-5 h-5 text-accent" aria-hidden="true" /> Bidder Guidelines
           </h2>
           <Card className="glassmorphism-card border-none p-6 flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-xs font-bold text-white">1. Connect Copilot Workspace</span>
+              <span className="text-xs font-bold text-foreground">1. Connect Copilot Workspace</span>
               <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Start a bid on any open tender above. This initiates a secure session linked to your company profile.
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-xs font-bold text-white">2. Check Checklist Matrix</span>
+              <span className="text-xs font-bold text-foreground">2. Check Checklist Matrix</span>
               <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Review the list of required certificates, turnover proofs, and technical credentials in the workspace checklist.
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-xs font-bold text-white">3. Upload Supporting Documents</span>
+              <span className="text-xs font-bold text-foreground">3. Upload Supporting Documents</span>
               <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Drag-and-drop your company files (PDF) in the workspace chat. The Copilot will automatically analyze compliance.
               </span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-xs font-bold text-white">4. Resolve Missing Clauses</span>
+              <span className="text-xs font-bold text-foreground">4. Resolve Missing Clauses</span>
               <span className="text-[10px] text-zinc-400 leading-relaxed">
                 Engage in natural conversation to clarify gaps, explain details, or provide compliance updates.
               </span>
