@@ -207,7 +207,7 @@ export default function HRCopilotPage() {
 
             <div className="text-zinc-400 text-[11px] leading-relaxed">
               <strong className="text-white block mb-1">Corporate Addresses:</strong>
-              • Chennai: Velachery HQ (Senthilkumar Elu)<br />
+              • Chennai: Velachery HQ (Srinivasan Subramani, CEO)<br />
               • Singapore: Ubi Ave Office (+65-9448-3805)
             </div>
           </Card>
