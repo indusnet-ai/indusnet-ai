@@ -56,6 +56,7 @@ class BidderSession(Base):
     user_id = Column(String(36), ForeignKey("portal_users.id", ondelete="CASCADE"), nullable=False)
     status = Column(String(50), default="in_progress", nullable=False)  # 'in_progress', 'submitted', 'evaluated'
     compliance_score = Column(Numeric(5, 2), default=0.00, nullable=False)
+    submitted_at = Column(DateTime, nullable=True)
     last_activity = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 

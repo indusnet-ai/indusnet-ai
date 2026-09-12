@@ -181,6 +181,25 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
     );
   }
 
+  const [submitting, setSubmitting] = React.useState(false);
+
+  const handleSubmitProposal = async () => {
+    if (!confirm("Are you sure you want to officially submit your bid proposal for evaluator review?")) {
+      return;
+    }
+    try {
+      setSubmitting(true);
+      const updatedSession = await apiFetch(`/sessions/${sessionId}/submit`, { method: "POST" });
+      setSession(updatedSession);
+      alert("Proposal officially submitted!");
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      alert(err.message || "Failed to submit proposal");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const score = session ? parseFloat(session.compliance_score) : 0.00;
 
   return (
@@ -200,11 +219,27 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
             <span className="text-[10px] text-zinc-400">Active Compliance Scoping Workspace</span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-400">Compliance Score:</span>
-          <Badge className="bg-primary/20 border-primary/30 text-primary font-bold text-xs rounded px-2.5 py-0.5" role="status" aria-live="polite">
-            {score.toFixed(0)}%
-          </Badge>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-zinc-400">Compliance Score:</span>
+            <Badge className="bg-primary/20 border-primary/30 text-primary font-bold text-xs rounded px-2.5 py-0.5" role="status" aria-live="polite">
+              {score.toFixed(0)}%
+            </Badge>
+          </div>
+
+          {session?.status === "submitted" ? (
+            <Badge className="bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-bold text-xs rounded px-3 py-1.5 flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5" /> Proposal Submitted
+            </Badge>
+          ) : (
+            <Button
+              onClick={handleSubmitProposal}
+              disabled={submitting}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-3.5 py-1.5 h-8 rounded-lg shadow-md transition-all"
+            >
+              {submitting ? "Submitting..." : "Submit Official Proposal"}
+            </Button>
+          )}
         </div>
       </header>
 

@@ -264,3 +264,24 @@ def get_comparative_evaluation(
         "tender": tender,
         "comparative_matrix": comparative_data
     }
+
+@router.post("/sessions/{session_id}/submit", response_model=schemas.SessionOut)
+def submit_session_proposal(
+    session_id: str,
+    db: Session = Depends(get_db),
+    current_user: models.PortalUser = Depends(get_current_user)
+):
+    session = db.query(models.BidderSession).filter(models.BidderSession.id == session_id).first()
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    if current_user.role != "internal_evaluator" and session.company_id != current_user.company_id:
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    session.status = "submitted"
+    session.submitted_at = datetime.utcnow()
+    session.last_activity = datetime.utcnow()
+
+    db.commit()
+    db.refresh(session)
+    return session

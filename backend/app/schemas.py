@@ -71,6 +71,7 @@ class SessionOut(BaseModel):
     user_id: str
     status: str
     compliance_score: float
+    submitted_at: Optional[datetime] = None
     last_activity: datetime
     created_at: datetime
     class Config:
