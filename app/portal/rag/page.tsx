@@ -75,7 +75,7 @@ export default function RAGPortalPage() {
   const [messages, setMessages] = useState<Array<{ sender: "user" | "assistant"; text: string; sources?: any[]; timestamp: string }>>([
     {
       sender: "assistant",
-      text: "Welcome to the Indus Secure Enterprise RAG Engine Workstation. I am connected to your private Qdrant vector database (Collection: Metro Financial Underwriting Rules). How can I assist your compliance research today?",
+      text: "Welcome to the Indusnet AI RAG Engine Interactive Demo. How can I assist your compliance research today?",
       timestamp: "09:00 AM"
     }
   ]);
@@ -178,11 +178,11 @@ export default function RAGPortalPage() {
       const preset = PRESET_RESPONSES[query];
       const answerText = preset 
         ? preset.answer 
-        : `Synthesizing response for query: "${query}" across ${selectedCollection.docsCount} pre-indexed compliance documents.\n\nKey Finding: The system identified 4 matching vector chunks in Qdrant with an average similarity score of 97.6%. All compliance constraints are verified against current VPC-isolated guidelines.`;
+        : `Synthesizing response for query: "${query}" across ${selectedCollection.docsCount} pre-indexed compliance documents.\n\nKey Finding: Based on the sample compliance documents, the system identified relevant reference sections. All compliance constraints are aligned with standard guidelines.`;
 
       const sourceList = preset ? preset.sources : [
-        { doc: documents[0]?.filename || "Metro_Underwriting_Guidelines.pdf", chunk: "Chunk #14 (p. 6)", similarity: "97.8%", excerpt: "Retrieved matching embedding vector from Qdrant private instance..." },
-        { doc: documents[1]?.filename || "Compliance_Log.docx", chunk: "Chunk #91 (p. 22)", similarity: "95.4%", excerpt: "Verified against role-based security subnet policies..." }
+        { doc: documents[0]?.filename || "Metro_Underwriting_Guidelines.pdf", chunk: "Section (p. 6)", similarity: "Sample Match", excerpt: "Sample relevant text passage from document reference..." },
+        { doc: documents[1]?.filename || "Compliance_Log.docx", chunk: "Section (p. 22)", similarity: "Sample Match", excerpt: "Verified against compliance policies..." }
       ];
 
       setMessages((prev) => [

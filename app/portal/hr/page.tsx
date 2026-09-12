@@ -136,7 +136,13 @@ export default function HRDashboard() {
       }));
       setApplications((prev) => prev.map(app => app.id === selectedCandidateId ? { ...app, application_status: statusVal } : app));
       
-      alert(`Status updated to ${statusVal} and corresponding email notification sent.`);
+      const emailStatus = updatedApp.email_status;
+      const emailMsg = emailStatus === "sent"
+        ? `Status updated to ${statusVal}. Email notification sent.`
+        : emailStatus === "not_configured"
+        ? `Status updated to ${statusVal}. Logged (Email Not Configured - SMTP credentials missing).`
+        : `Status updated to ${statusVal}. Logged (Email Notification Unconfigured).`;
+      alert(emailMsg);
     } catch (err: any) {
       alert("Failed to update candidate status: " + err.message);
     }
@@ -509,8 +515,8 @@ export default function HRDashboard() {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
 
-    // Blockquotes
-    html = html.replace(/^>\s+(.*?)$/gm, '<blockquote style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">$1</blockquote>');
+    // Blockquotes (matching &gt; or > at line start)
+    html = html.replace(/^(?:&gt;|>)\s+(.*?)$/gm, '<blockquote style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">$1</blockquote>');
 
     // Tables
     html = html.replace(/(?:\|.*\|(?:\n|$))+/g, (tableContent) => {

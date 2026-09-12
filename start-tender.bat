@@ -33,4 +33,4 @@ if "%FRONTEND_RUNNING%"=="1" (
 )
 
 :: Run the dev server and log output to app_startup.log
-npm run dev -- -p 3005 > app_startup.log 2>&1
+npm run dev > app_startup.log 2>&1

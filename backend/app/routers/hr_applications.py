@@ -232,14 +232,16 @@ def update_application_status(
                         "salary": application.expected_salary or "As discussed during the interview",
                         "start_date": "To be determined"
                     }
-                send_recruitment_email(
+                email_res = send_recruitment_email(
                     email_type=email_type,
                     recipient_email=application.email,
                     candidate_name=application.name,
                     job_title=job.title if job else "Position",
                     context=context
                 )
+                setattr(application, "email_status", email_res)
         except Exception as e:
             logger.error(f"Failed to send automated status transition email: {e}")
+            setattr(application, "email_status", "failed")
             
     return application

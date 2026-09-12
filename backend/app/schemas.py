@@ -150,6 +150,7 @@ class CandidateApplicationOut(BaseModel):
     portfolio_url: Optional[str]
     resume_url: str
     application_status: str
+    email_status: Optional[str] = None
     ai_score: float
     created_at: datetime
     class Config:

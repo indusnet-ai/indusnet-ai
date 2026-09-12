@@ -12,7 +12,6 @@ import Link from "next/link";
 export default function PortalLoginPage() {
   const { login, register, loading, user } = useAuth();
   const [isLogin, setIsLogin] = React.useState(true);
-  const [role, setRole] = React.useState<"bidder" | "internal_evaluator">("bidder");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -34,8 +33,8 @@ export default function PortalLoginPage() {
           email,
           password,
           name: name || undefined,
-          company_name: role === "bidder" ? companyName : undefined,
-          role,
+          company_name: companyName || undefined,
+          role: "bidder",
         });
       }
     } catch (err: any) {

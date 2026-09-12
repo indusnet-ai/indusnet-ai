@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import * as React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,6 +9,24 @@ import {
   ArrowLeft, Calendar, Clock, Sparkles, BrainCircuit, HeartPulse, 
   Building2, ShieldCheck, CheckCircle2, ChevronRight 
 } from "lucide-react";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const article = articlesData[slug];
+  if (!article) {
+    return {
+      title: "Article Not Found | Indusnet AI",
+    };
+  }
+  return {
+    title: `${article.title} | Indusnet AI Insights`,
+    description: article.desc,
+  };
+}
 
 interface ArticleData {
   title: string;

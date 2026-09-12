@@ -7,6 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "",
     "/about",
     "/services",
+    "/services/generative-ai",
     "/industries",
     "/training",
     "/assessment",
@@ -14,6 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/blog",
     "/contact",
     "/careers",
+    "/privacy",
+    "/terms",
   ];
 
   const blogSlugs = [
