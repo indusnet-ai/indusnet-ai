@@ -1,121 +1,91 @@
-# Indusnet AI — Premium Enterprise AI Solutions Website
+# Indusnet AI — Enterprise AI Solutions & Portals
 
-Production-ready modern enterprise website for **Indusnet AI** (https://indusnet-ai.com/). This project serves as a highly polished portal positioning Indusnet AI as a leading AI consulting, custom AI solutions engineering, and certified CPMAI training provider.
-
----
-
-## 🚀 Technology Stack
-- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
-- **Core**: React 19, TypeScript
-- **Styling**: Tailwind CSS v4
-- **Primitives**: Base UI & shadcn/ui
-- **Animations**: Framer Motion
-- **Database / API**: Supabase JS SDK (PostgreSQL)
-- **Deployment**: Vercel-ready
+Production-ready modern enterprise application for **Indusnet AI** (https://indusnetai.com/). Features public enterprise marketing pages, Smart Tender Bidding Copilot, HR Candidate Portal, and RAG Prototype Engine.
 
 ---
 
-## 📂 Project Directory Structure
+## 🚀 Tech Stack
+
+- **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Framer Motion, Lucide Icons
+- **Backend**: FastAPI (Python 3.11), SQLAlchemy, Pydantic v2, PyJWT, LangGraph
+- **Database**: SQLite (`copilot.db`) or Supabase PostgreSQL
+- **Gateway**: Next.js Same-Origin API Gateway (`/api/backend/*`)
+
+---
+
+## 👥 User Roles & Access Control
+
+1. **Bidder (`bidder`)**:
+   - Registered publicly via portal.
+   - Tied to isolated `BiddingCompany`.
+   - Access to bid scoping workspace (`/portal/session/[id]`) and official proposal submission (`POST /sessions/{id}/submit`).
+2. **Internal Evaluator (`internal_evaluator`)**:
+   - Created via CLI (`python backend/scripts/create_staff_user.py`).
+   - Access to comparative matrix evaluation dashboard (`/portal/evaluator`).
+3. **HR Manager (`hr_manager`)**:
+   - Created via CLI (`python backend/scripts/create_staff_user.py`).
+   - Access to candidate pipelines, job posting management, automated resume scoring, and candidate offer generation (`/portal/hr`).
+
+---
+
+## 📂 Repository Structure
 
 ```bash
-/app                  # Next.js App Router (pages and API routes)
-  /about              # About Us page
-  /api                # API endpoint routing
-    /consultations    # Lead logging & scheduling API
-    /newsletter       # Newsletter subscription API
-  /blog               # Technical Insights publications listing
-  /contact            # Multi-channel contact & strategy call scheduler
-  /industries         # Sector-specific AI use-case matrices
-  /portfolio          # Detailed enterprise case studies
-  /services           # 9 core detailed service catalog cards
-  /training           # certified CPMAI & developer syllabus bootcamps
-  globals.css         # Dark theme tokens, glassmorphism, & grid backgrounds
-  layout.tsx          # Default layout with ThemeProvider, Navbar, & Footer
-  page.tsx            # Cosmic AI Homepage
-/components           # Reusable UI component modules
-  /navbar             # Sticky Glassmorphism Header
-  /footer             # Modern multi-column footer
-  /ui                 # Primitive buttons, inputs, sheet trigger drawer
-  theme-provider.tsx  # next-themes dark mode toggle wrapper
-  scroll-progress.tsx # Glowing custom viewport scroll height tracker
-/lib                  # Utilities (Supabase Client, clsx merges)
-/supabase             # DDL SQL Schema scripts
-/public               # SVG assets, logos, and static placeholders
+/app                        # Next.js 16 App Router
+  /api/backend/[...path]   # Unified Same-Origin API Gateway
+  /careers                  # Public careers and application portal
+  /portal                   # Authentication & role-based portals
+    /dashboard              # Bidder dashboard
+    /evaluator              # Internal Evaluator dashboard
+    /hr                     # HR Manager Candidate & Offer portal
+    /rag                    # RAG Workstation (Demo / Prototype)
+    /session/[id]           # Smart Tender Scoping Workspace
+/backend                    # FastAPI Application
+  /app
+    /agents                 # LangGraph compliance copilot
+    /routers                # Auth, Tenders, HR, RAG endpoints
+    /utils                  # Storage, Parsers, Rate limiting, Email
+    config.py               # Environment configuration
+    main.py                 # FastAPI application root & CORS
+  /scripts                  # CLI management utilities (create_staff_user.py)
+/components                 # UI components and ThemeProvider
+/tests                      # Test suites (hr.test.ts)
+DEPLOYMENT_GUIDE.md         # Production deployment & Docker setup
 ```
 
 ---
 
-## 🛠️ Local Startup & Execution
+## 🛠️ Local Development Quickstart
 
-### 1. Prerequisite Installations
-Ensure Node.js v18.x or v20.x is active on your machine.
-
-### 2. Configure Environment Variables
-Copy the `.env.example` template into a new `.env.local` file at the root directory:
+### 1. Backend Setup
 ```bash
-cp .env.example .env.local
+cd backend
+python -m venv .venv
+# On Windows:
+.venv\Scripts\activate
+# On Linux/Mac:
+source .venv/bin/activate
+
+pip install -r requirements.txt
 ```
-Fill in your Supabase connection parameters:
+
+Create `backend/.env`:
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-api-key-here
+DATABASE_URL=sqlite:///./copilot.db
+JWT_SECRET=your_generated_64_char_random_secret_key
+OPENAI_API_KEY=sk-your-openai-api-key
 ```
-*Note: If these variables are not set, the contact and newsletter forms automatically run in a **Graceful Simulation Mode**, allowing full visual prototyping without crashes.*
 
-### 3. Install NPM Packages
+Run FastAPI server on port 8000 (or 8001):
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+### 2. Frontend Setup
+In project root:
 ```bash
 npm install
+npm run dev -- -p 3005
 ```
 
-### 4. Run Development Server
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) inside your web browser.
-
----
-
-## 💾 Database SQL Schemas (PostgreSQL)
-Initialize your database by running the DDL scripts from `/supabase/schema.sql` inside the **Supabase SQL Editor**:
-
-```sql
--- 1. Newsletter subscription table
-CREATE TABLE IF NOT EXISTS public.newsletter (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    status VARCHAR(50) DEFAULT 'active' NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- 2. Consultations booking table
-CREATE TABLE IF NOT EXISTS public.consultations (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    company VARCHAR(150),
-    service VARCHAR(100) NOT NULL,
-    booking_date VARCHAR(50),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-
--- 3. Generic leads table (general inquiries)
-CREATE TABLE IF NOT EXISTS public.leads (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    company VARCHAR(150),
-    message TEXT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
-);
-```
-
----
-
-## 🌐 Production Cloud Deployment (Vercel)
-
-1. Push your local workspace directory to a secure **GitHub** repository.
-2. Link the repository inside your **Vercel Console**.
-3. In **Environment Variables**, append the matching Supabase production keys:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Click **Deploy**. Vercel will build the optimized serverless Next.js edge assets.
+Open [http://localhost:3005](http://localhost:3005) in browser.
