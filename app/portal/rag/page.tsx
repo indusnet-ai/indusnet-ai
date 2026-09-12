@@ -232,7 +232,7 @@ export default function RAGPortalPage() {
       return;
     }
 
-    setUploadStatus("Uploading source file -> Extracting text chunks -> Generating vector embeddings -> Indexing into Qdrant...");
+    setUploadStatus("Uploading source file -> Extracting text chunks -> Generating embeddings -> Indexing demo collection...");
 
     // Try backend upload endpoint if file selected
     if (selectedFile) {
@@ -273,7 +273,7 @@ export default function RAGPortalPage() {
         chunks: Math.floor(Math.random() * 150) + 40,
         type: uploadTab === "web" ? "URL" : uploadTab === "youtube" ? "YOUTUBE" : uploadTab === "podcast" ? "AUDIO" : name.split('.').pop()?.toUpperCase() || "PDF",
         uploadedAt: new Date().toISOString().split('T')[0],
-        status: "Indexed in Qdrant"
+        status: "Indexed (Demo)"
       };
 
       setDocuments((prev) => [newDoc, ...prev]);
@@ -549,7 +549,7 @@ export default function RAGPortalPage() {
                     {msg.sources && msg.sources.length > 0 && (
                       <div className="mt-4 pt-3 border-t border-border/40 flex flex-col gap-2">
                         <span className="text-[10px] uppercase font-bold text-accent tracking-wider flex items-center gap-1">
-                          <Database className="w-3 h-3" /> Retrieved Qdrant Citations ({msg.sources.length})
+                          <Database className="w-3 h-3" /> Retrieved Citations ({msg.sources.length})
                         </span>
                         <div className="grid grid-cols-1 gap-2">
                           {msg.sources.map((src: any, sIdx: number) => (
@@ -578,7 +578,7 @@ export default function RAGPortalPage() {
               {isSearching && (
                 <div className="flex items-center gap-2 text-xs text-muted-foreground p-3 bg-muted/40 border border-border rounded-xl w-fit animate-pulse">
                   <RefreshCw className="w-4 h-4 text-primary animate-spin" />
-                  <span>Searching Qdrant vector store & generating LLM citations...</span>
+                  <span>Searching knowledge base & generating citations...</span>
                 </div>
               )}
               <div ref={chatBottomRef} />
@@ -627,7 +627,7 @@ export default function RAGPortalPage() {
             <CardContent className="p-6 flex flex-col gap-5">
               <div className="flex items-center justify-between border-b border-border pb-3">
                 <h3 className="font-bold text-sm text-foreground flex items-center gap-2">
-                  <Upload className="w-4 h-4 text-accent" /> Ingest Knowledge Source to Qdrant
+                  <Upload className="w-4 h-4 text-accent" /> Ingest Knowledge Source
                 </h3>
                 <button 
                   onClick={() => setShowUploadModal(false)}
@@ -713,7 +713,7 @@ export default function RAGPortalPage() {
                         </p>
                         <p className="text-[11px] text-muted-foreground mt-0.5">
                           {selectedFile 
-                            ? `${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB • Ready for Qdrant Indexing`
+                            ? `${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB • Ready for Indexing`
                             : "Supports PDF, DOCX, TXT, SQL, and CSV files"}
                         </p>
                       </div>
@@ -750,7 +750,7 @@ export default function RAGPortalPage() {
                       placeholder="https://www.youtube.com/watch?v=example"
                       className="bg-muted border-border text-foreground text-xs rounded-xl"
                     />
-                    <p className="text-[10px] text-muted-foreground mt-1">Fetches auto-generated/closed caption transcripts for Qdrant vector search.</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">Fetches auto-generated/closed caption transcripts for semantic search.</p>
                   </div>
                 )}
 

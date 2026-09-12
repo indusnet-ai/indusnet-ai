@@ -26,6 +26,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
   const [message, setMessage] = React.useState("");
   const [attachedFile, setAttachedFile] = React.useState<File | null>(null);
   const [sending, setSending] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
   const [dragActive, setDragActive] = React.useState(false);
 
   const chatEndRef = React.useRef<HTMLDivElement>(null);
@@ -181,8 +182,6 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
     );
   }
 
-  const [submitting, setSubmitting] = React.useState(false);
-
   const handleSubmitProposal = async () => {
     if (!confirm("Are you sure you want to officially submit your bid proposal for evaluator review?")) {
       return;
@@ -205,23 +204,23 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
   return (
     <div className="flex-grow flex flex-col h-screen max-h-screen overflow-hidden pt-20">
       {/* Top Header Bar */}
-      <header className="bg-[#030014]/60 backdrop-blur-md border-b border-border/10 px-6 py-4 flex items-center justify-between" role="banner">
+      <header className="bg-background/80 backdrop-blur-md border-b border-border px-6 py-4 flex items-center justify-between" role="banner">
         <div className="flex items-center gap-4">
-          <Button asChild variant="ghost" size="icon" aria-label="Go back to dashboard" className="text-zinc-400 hover:text-white rounded-full focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
+          <Button asChild variant="ghost" size="icon" aria-label="Go back to dashboard" className="text-muted-foreground hover:text-foreground rounded-full focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
             <Link href="/portal/dashboard">
               <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             </Link>
           </Button>
           <div className="flex flex-col text-left">
-            <h1 className="text-sm font-bold text-white flex items-center gap-2">
+            <h1 className="text-sm font-bold text-foreground flex items-center gap-2">
               {tender?.title || "Tender Loading..."}
             </h1>
-            <span className="text-[10px] text-zinc-400">Active Compliance Scoping Workspace</span>
+            <span className="text-[10px] text-muted-foreground">Active Compliance Scoping Workspace</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <span className="text-xs text-zinc-400">Compliance Score:</span>
+            <span className="text-xs text-muted-foreground">Compliance Score:</span>
             <Badge className="bg-primary/20 border-primary/30 text-primary font-bold text-xs rounded px-2.5 py-0.5" role="status" aria-live="polite">
               {score.toFixed(0)}%
             </Badge>
@@ -247,17 +246,17 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
       <div className="flex-grow flex flex-col md:flex-row overflow-hidden">
         
         {/* Left Checklist panel (40% width) */}
-        <section className="w-full md:w-[40%] border-r border-border/10 flex flex-col overflow-y-auto bg-white/[0.01] p-6 text-left gap-6" aria-labelledby="matrix-heading">
+        <section className="w-full md:w-[40%] border-r border-border flex flex-col overflow-y-auto bg-muted/10 p-6 text-left gap-6" aria-labelledby="matrix-heading">
           <div className="flex flex-col gap-2">
-            <h2 id="matrix-heading" className="text-sm font-bold text-white uppercase tracking-wider">Requirement Matrix Checklist</h2>
-            <p className="text-[10px] text-zinc-400 leading-relaxed">
+            <h2 id="matrix-heading" className="text-sm font-bold text-foreground uppercase tracking-wider">Requirement Matrix Checklist</h2>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">
               Upload compliance documents in the chat window to satisfy individual checklist items. The agent automatically reviews files and registers audit notes.
             </p>
           </div>
 
           {/* Checklist progress bar */}
           <div 
-            className="w-full bg-white/5 h-2 rounded-full overflow-hidden border border-border/10"
+            className="w-full bg-muted h-2 rounded-full overflow-hidden border border-border"
             role="progressbar"
             aria-valuenow={score}
             aria-valuemin={0}
@@ -273,7 +272,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
           {/* Checklist Items list */}
           <div className="flex flex-col gap-4">
             {matrix.map((req, idx) => (
-              <Card key={req.id || idx} className="bg-white/5 border-border/10 p-4 rounded-lg flex flex-col gap-2 relative overflow-hidden">
+              <Card key={req.id || idx} className="bg-card border-border p-4 rounded-lg flex flex-col gap-2 relative overflow-hidden">
                 {/* Visual Status Indicator strip */}
                 <div className={`absolute left-0 top-0 bottom-0 w-1 ${
                   req.status === "verified" 
@@ -285,8 +284,8 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
 
                 <div className="flex items-start justify-between gap-2 pl-2">
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-xs font-bold text-white">{req.title}</span>
-                    <span className="text-[10px] text-white/70 leading-relaxed">
+                    <span className="text-xs font-bold text-foreground">{req.title}</span>
+                    <span className="text-[10px] text-muted-foreground leading-relaxed">
                       {req.description}
                     </span>
                   </div>
@@ -302,14 +301,14 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                     </>
                   ) : (
                     <>
-                      <HelpCircle className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" aria-hidden="true" />
+                      <HelpCircle className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
                       <span className="sr-only">Status: Pending review</span>
                     </>
                   )}
                 </div>
 
                 {req.notes && (
-                  <div className="mt-1.5 pt-2 border-t border-border/5 pl-2 text-[10px] text-white/80 italic bg-black/20 p-2 rounded">
+                  <div className="mt-1.5 pt-2 border-t border-border pl-2 text-[10px] text-muted-foreground italic bg-muted p-2 rounded">
                     <strong>Audit Proof:</strong> {req.notes}
                   </div>
                 )}
@@ -330,9 +329,9 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
         >
           {/* DRAG AND DROP OVERLAY INDICATION */}
           {dragActive && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#030014]/90 z-20 pointer-events-none">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/90 z-20 pointer-events-none">
               <UploadCloud className="w-12 h-12 text-primary animate-bounce" />
-              <span className="text-xs font-bold text-white">Drop Bid compliance files/zip to parse</span>
+              <span className="text-xs font-bold text-foreground">Drop Bid compliance files/zip to parse</span>
               <span className="text-[10px] text-muted-foreground">Supported formats: PDF, DOCX, and ZIP archives</span>
             </div>
           )}
@@ -351,8 +350,8 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                   <Bot className="w-6 h-6 text-primary animate-pulse" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col gap-1.5 max-w-sm">
-                  <span className="text-xs font-bold text-white">Smart Tender Copilot Online</span>
-                  <span className="text-[10px] text-zinc-400 leading-relaxed">
+                  <span className="text-xs font-bold text-foreground">Smart Tender Copilot Online</span>
+                  <span className="text-[10px] text-muted-foreground leading-relaxed">
                     Hello! I am your AI Tender Compliance checker. Please upload your registration certificates, audited financial reports, or security PDFs. I will automatically audit them against our checklist matrix!
                   </span>
                 </div>
@@ -373,13 +372,13 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                     {chat.sender === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[9px] text-zinc-400 uppercase font-bold tracking-wider">
+                    <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider">
                       {chat.sender === "user" ? "You (Bidder)" : "Tender Copilot"}
                     </span>
                     <div className={`p-3.5 rounded-2xl text-xs leading-relaxed whitespace-pre-wrap ${
                       chat.sender === "user" 
-                        ? "bg-accent/10 border border-accent/20 text-white rounded-tr-none" 
-                        : "bg-white/5 border border-border/10 text-white/90 rounded-tl-none"
+                        ? "bg-accent/10 border border-accent/20 text-foreground rounded-tr-none" 
+                        : "bg-muted border border-border text-foreground rounded-tl-none"
                     }`}>
                       {chat.message}
                     </div>
@@ -391,14 +390,14 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
           </div>
 
           {/* Chat Input Controls */}
-          <div className="p-4 border-t border-border/10 bg-[#030014]/40 backdrop-blur-md flex flex-col gap-3">
+          <div className="p-4 border-t border-border bg-background/80 backdrop-blur-md flex flex-col gap-3">
             {/* Attached file tag preview */}
             {attachedFile && (
               <div className="bg-primary/10 border border-primary/20 p-2 rounded-lg flex items-center justify-between text-left max-w-md">
                 <div className="flex items-center gap-2 text-xs">
                   <FileText className="w-4 h-4 text-primary" />
                   <div className="flex flex-col">
-                    <span className="text-white font-bold text-[10px] truncate max-w-[200px]">{attachedFile.name}</span>
+                    <span className="text-foreground font-bold text-[10px] truncate max-w-[200px]">{attachedFile.name}</span>
                     <span className="text-[9px] text-muted-foreground">{(attachedFile.size / 1024).toFixed(1)} KB</span>
                   </div>
                 </div>
@@ -406,7 +405,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                   onClick={() => setAttachedFile(null)} 
                   variant="ghost" 
                   size="icon" 
-                  className="w-6 h-6 rounded-full text-muted-foreground hover:text-white hover:bg-white/5"
+                  className="w-6 h-6 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted"
                 >
                   <X className="w-3.5 h-3.5" />
                 </Button>
@@ -427,9 +426,9 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                 variant="outline"
                 size="icon"
                 aria-label="Attach compliance document (PDF, Word, or ZIP)"
-                className="rounded-lg border-border/40 hover:bg-white/5 shrink-0 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                className="rounded-lg border-border hover:bg-muted shrink-0 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
-                <Paperclip className="w-4 h-4 text-zinc-400" aria-hidden="true" />
+                <Paperclip className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
               </Button>
               <Input
                 type="text"
@@ -437,7 +436,7 @@ export default function ClientSessionWorkspace({ sessionId }: { sessionId: strin
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 aria-label="Chat input message"
-                className="rounded-lg bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs flex-grow focus-visible:ring-2"
+                className="rounded-lg bg-muted border-border focus-visible:ring-primary/60 text-xs text-foreground flex-grow focus-visible:ring-2"
                 disabled={sending}
               />
               <Button

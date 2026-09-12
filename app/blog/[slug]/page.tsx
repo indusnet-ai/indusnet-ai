@@ -67,7 +67,7 @@ const articlesData: Record<string, ArticleData> = {
           <li><strong>Vector Storage</strong>: These vectors are stored in specialized vector databases (such as Qdrant, Pinecone, or pgvector in PostgreSQL) with indexes optimized for cosine or inner-product similarity search.</li>
         </ul>
 
-        <blockquote className="border-l-4 border-primary bg-white/5 p-4 rounded-r-lg my-4 text-xs italic">
+        <blockquote className="border-l-4 border-primary bg-muted/40 p-4 rounded-r-lg my-4 text-xs italic">
           "By utilizing semantic vector indexes rather than keywords, RAG systems retrieve documents based on conceptual meaning. Searching for 'annual budget constraints' will fetch documents containing 'financial limits' or 'fiscal limits' even if the word 'budget' is never written."
         </blockquote>
 
@@ -109,15 +109,15 @@ const articlesData: Record<string, ArticleData> = {
 
         <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">The Spectrum of Autonomy</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-2">
-          <div className="bg-white/5 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
+          <div className="bg-muted/40 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
             <span className="text-xs font-bold text-foreground">Level 1: Chatbots</span>
             <span className="text-[10px] text-muted-foreground text-left">Linear input/output. They reply to user prompts sequentially without tool access or memory loops.</span>
           </div>
-          <div className="bg-white/5 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
+          <div className="bg-muted/40 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
             <span className="text-xs font-bold text-accent">Level 2: Tool-Enabled</span>
             <span className="text-[10px] text-muted-foreground text-left">Can call APIs, search databases, or execute python scripts when prompted by a human.</span>
           </div>
-          <div className="bg-white/5 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
+          <div className="bg-muted/40 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
             <span className="text-xs font-bold text-primary">Level 3: Autonomous Agents</span>
             <span className="text-[10px] text-muted-foreground text-left">Runs in reasoning loops (e.g. ReAct). They self-correct, plan subtasks, and verify outputs.</span>
           </div>
@@ -175,7 +175,7 @@ const articlesData: Record<string, ArticleData> = {
           <li><strong>Local Audio Transcription</strong>: Speech-to-text conversion (using Whisper models) is executed on private GPU instances, keeping raw patient audio securely within system boundaries.</li>
         </ul>
 
-        <blockquote className="border-l-4 border-primary bg-white/5 p-4 rounded-r-lg my-4 text-xs italic">
+        <blockquote className="border-l-4 border-primary bg-muted/40 p-4 rounded-r-lg my-4 text-xs italic">
           "Under HIPAA guidelines, model providers must execute a Business Associate Agreement (BAA). Using consumer APIs or public chatbots has zero compliance protection, exposing patient details to systemic leaks."
         </blockquote>
 
@@ -259,7 +259,7 @@ const articlesData: Record<string, ArticleData> = {
           <li><strong>Autonomous CRM/ERP Sync</strong>: Extracting action items and customer requirements from email chains or meeting transcripts, and updating internal records without manual entry.</li>
         </ul>
 
-        <blockquote className="border-l-4 border-primary bg-white/5 p-4 rounded-r-lg my-4 text-xs italic">
+        <blockquote className="border-l-4 border-primary bg-muted/40 p-4 rounded-r-lg my-4 text-xs italic">
           "Mid-market automation succeeded when we shifted from asking models to 'write text' to asking models to 'parse, classify, and structure data'. Structuring unstructured text is where AI delivers immediate savings."
         </blockquote>
 
@@ -364,7 +364,7 @@ export default async function ArticlePage({ params }: PageProps) {
             Partner with certified solutions architects to construct a highly secure, high-performance roadmap for your enterprise.
           </p>
           <div className="flex gap-2">
-            <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-white/5 text-xs px-5">
+            <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-muted/40 text-xs px-5">
               <Link href="/assessment">Use AI Scoper</Link>
             </Button>
             <Button asChild className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 text-xs px-5">

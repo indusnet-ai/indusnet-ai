@@ -119,7 +119,7 @@ export default function HRCopilotPage() {
       <div className="flex-grow flex items-center justify-center bg-background text-foreground h-screen">
         <div className="flex flex-col items-center gap-3">
           <RefreshCw className="w-8 h-8 text-primary animate-spin" />
-          <span className="text-xs text-zinc-400">Loading AI Recruitment Copilot...</span>
+          <span className="text-xs text-muted-foreground">Loading AI Recruitment Copilot...</span>
         </div>
       </div>
     );
@@ -129,33 +129,33 @@ export default function HRCopilotPage() {
     <main className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto w-full gap-6 text-left h-screen">
       
       {/* Header bar */}
-      <header className="flex items-center justify-between border-b border-border/10 pb-4 shrink-0">
+      <header className="flex items-center justify-between border-b border-border pb-4 shrink-0">
         <div className="flex items-center gap-3">
-          <Link href="/portal/hr" className="text-zinc-400 hover:text-white transition-colors">
+          <Link href="/portal/hr" className="text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div className="flex flex-col">
-            <h1 className="text-lg font-bold text-white flex items-center gap-2">
+            <h1 className="text-lg font-bold text-foreground flex items-center gap-2">
               Recruitment Copilot Chat
               <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2">
                 HR Agent
               </Badge>
             </h1>
-            <span className="text-xs text-zinc-400">Interact with LLM-powered tools to query, filter, rank, and draft offer letters</span>
+            <span className="text-xs text-muted-foreground">Interact with LLM-powered tools to query, filter, rank, and draft offer letters</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <Button 
             onClick={handleClearHistory}
             variant="outline" 
-            className="border-border/40 hover:bg-white/5 text-xs text-zinc-400 h-8 rounded-lg"
+            className="border-border hover:bg-muted text-xs text-muted-foreground h-8 rounded-lg"
           >
             Clear History
           </Button>
           <Button 
             variant="outline" 
             onClick={logout}
-            className="border-border/40 hover:bg-white/5 text-xs text-zinc-400 h-8 rounded-lg"
+            className="border-border hover:bg-muted text-xs text-muted-foreground h-8 rounded-lg"
           >
             Log Out
           </Button>
@@ -167,46 +167,46 @@ export default function HRCopilotPage() {
         
         {/* Left side: presets & actions info */}
         <section className="lg:w-1/3 flex flex-col gap-4 shrink-0" aria-labelledby="preset-heading">
-          <h2 id="preset-heading" className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+          <h2 id="preset-heading" className="text-xs font-bold text-foreground uppercase tracking-wider flex items-center gap-1.5">
             <Sparkles className="w-4 h-4 text-primary" /> Copilot Preset Actions
           </h2>
 
           <Card className="glassmorphism-card border-none p-5 flex flex-col gap-4">
-            <p className="text-zinc-400 text-xs leading-relaxed">
+            <p className="text-muted-foreground text-xs leading-relaxed">
               Click any of the quick-action preset buttons below to automatically query the candidate database and run AI commands.
             </p>
             
             <div className="flex flex-col gap-2.5">
               <Button 
                 onClick={() => handlePresetQuery("List all available job positions in the system.")}
-                className="w-full bg-white/5 hover:bg-white/10 text-white text-xs h-9 justify-start font-medium border border-border/40 rounded-xl"
+                className="w-full bg-muted hover:bg-muted/80 text-foreground text-xs h-9 justify-start font-medium border border-border rounded-xl"
               >
                 <Briefcase className="w-3.5 h-3.5 mr-2 text-primary" /> List All Job Openings
               </Button>
               <Button 
                 onClick={() => handlePresetQuery("Find the top candidate applications for our jobs and display their match scores.")}
-                className="w-full bg-white/5 hover:bg-white/10 text-white text-xs h-9 justify-start font-medium border border-border/40 rounded-xl"
+                className="w-full bg-muted hover:bg-muted/80 text-foreground text-xs h-9 justify-start font-medium border border-border rounded-xl"
               >
                 <Star className="w-3.5 h-3.5 mr-2 text-accent" /> Find Top Match Candidates
               </Button>
               <Button 
                 onClick={() => handlePresetQuery("Search for candidates who have experience or skills in React or Python.")}
-                className="w-full bg-white/5 hover:bg-white/10 text-white text-xs h-9 justify-start font-medium border border-border/40 rounded-xl"
+                className="w-full bg-muted hover:bg-muted/80 text-foreground text-xs h-9 justify-start font-medium border border-border rounded-xl"
               >
                 <Users className="w-3.5 h-3.5 mr-2 text-primary" /> Search Candidates (React/Python)
               </Button>
               <Button 
                 onClick={() => handlePresetQuery("Draft a formal employment offer letter for candidate John Doe as a Senior Frontend Developer, salary SGD 8,500/month, start date July 1, 2026.")}
-                className="w-full bg-white/5 hover:bg-white/10 text-white text-xs h-9 justify-start font-medium border border-border/40 rounded-xl"
+                className="w-full bg-muted hover:bg-muted/80 text-foreground text-xs h-9 justify-start font-medium border border-border rounded-xl"
               >
                 <FileText className="w-3.5 h-3.5 mr-2 text-accent" /> Draft Sample Offer Letter
               </Button>
             </div>
 
-            <div className="border-t border-border/10 my-1" />
+            <div className="border-t border-border my-1" />
 
-            <div className="text-zinc-400 text-[11px] leading-relaxed">
-              <strong className="text-white block mb-1">Corporate Addresses:</strong>
+            <div className="text-muted-foreground text-[11px] leading-relaxed">
+              <strong className="text-foreground block mb-1">Corporate Addresses:</strong>
               • Chennai: Velachery HQ (Srinivasan Subramani, CEO)<br />
               • Singapore: Ubi Ave Office (+65-9448-3805)
             </div>
@@ -214,7 +214,7 @@ export default function HRCopilotPage() {
         </section>
 
         {/* Right side: terminal-like Chat Console */}
-        <section className="flex-grow flex flex-col bg-white/[0.01] border border-border/10 rounded-2xl overflow-hidden shadow-2xl" aria-labelledby="chat-heading">
+        <section className="flex-grow flex flex-col bg-card/40 border border-border rounded-2xl overflow-hidden shadow-2xl" aria-labelledby="chat-heading">
           <h2 id="chat-heading" className="sr-only">Chat Console</h2>
           {/* Messages window */}
           <div className="flex-grow overflow-y-auto p-5 flex flex-col gap-4 max-h-[calc(100vh-320px)] md:max-h-[calc(100vh-300px)]">
@@ -231,8 +231,8 @@ export default function HRCopilotPage() {
                   </div>
                   <div className={`rounded-2xl p-4 text-xs leading-relaxed whitespace-pre-wrap text-left ${
                     isUser 
-                      ? "bg-gradient-to-r from-primary/20 to-accent/20 text-white border border-primary/20" 
-                      : "bg-white/[0.03] text-zinc-300 border border-border/5"
+                      ? "bg-gradient-to-r from-primary/20 to-accent/20 text-foreground border border-primary/20" 
+                      : "bg-muted text-foreground border border-border"
                   }`}>
                     {msg.content}
                   </div>
@@ -245,7 +245,7 @@ export default function HRCopilotPage() {
                 <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                   <Bot className="w-4 h-4 text-primary animate-bounce" />
                 </div>
-                <div className="bg-white/[0.02] border border-border/5 rounded-2xl p-4 text-xs text-zinc-500 italic">
+                <div className="bg-muted border border-border rounded-2xl p-4 text-xs text-muted-foreground italic">
                   Recruitment Copilot is thinking & executing tools...
                 </div>
               </div>
@@ -256,14 +256,14 @@ export default function HRCopilotPage() {
           {/* Form input console */}
           <form 
             onSubmit={(e) => { e.preventDefault(); handleSendMessage(inputMessage); }}
-            className="border-t border-border/10 p-4 bg-[#050314] flex gap-2 shrink-0"
+            className="border-t border-border p-4 bg-background flex gap-2 shrink-0"
           >
             <Input
               type="text"
               placeholder="Ask the recruitment copilot (e.g. Find matching candidates for lead engineer role)..."
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              className="flex-grow bg-neutral-900 border-border/40 text-xs text-white rounded-xl h-10 px-4 focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0"
+              className="flex-grow bg-muted border-border text-xs text-foreground rounded-xl h-10 px-4 focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0"
               required
             />
             <Button

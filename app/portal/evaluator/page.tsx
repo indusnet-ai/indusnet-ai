@@ -203,7 +203,7 @@ export default function EvaluatorDashboard() {
       <div className="flex-grow flex items-center justify-center" role="status" aria-live="polite">
         <div className="flex flex-col items-center gap-3">
           <Activity className="w-8 h-8 text-primary animate-spin" aria-hidden="true" />
-          <span className="text-xs text-zinc-400">Loading evaluator dashboard...</span>
+          <span className="text-xs text-muted-foreground">Loading evaluator dashboard...</span>
         </div>
       </div>
     );
@@ -271,7 +271,7 @@ export default function EvaluatorDashboard() {
                 Internal Evaluator
               </Badge>
             </h1>
-            <span className="text-xs text-zinc-400">Manage tender checklists and monitor bidder submission compliance</span>
+            <span className="text-xs text-muted-foreground">Manage tender checklists and monitor bidder submission compliance</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -280,7 +280,7 @@ export default function EvaluatorDashboard() {
             size="icon" 
             onClick={loadData}
             aria-label="Refresh bidding sessions"
-            className="rounded-full text-zinc-400 hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            className="rounded-full text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <RefreshCw className="w-4 h-4" aria-hidden="true" />
           </Button>
@@ -288,7 +288,7 @@ export default function EvaluatorDashboard() {
             variant="outline" 
             onClick={logout} 
             aria-label="Log Out"
-            className="rounded-full border-border/40 hover:bg-muted text-xs text-zinc-400 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            className="rounded-full border-border/40 hover:bg-muted text-xs text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           >
             <LogOut className="w-3.5 h-3.5 mr-1.5" aria-hidden="true" /> Log Out
           </Button>
@@ -310,7 +310,7 @@ export default function EvaluatorDashboard() {
               className={`py-2 px-4 text-xs font-semibold border-b-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeTab === "board"
                   ? "border-primary text-foreground"
-                  : "border-transparent text-zinc-400 hover:text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
               Active Sessions
@@ -327,7 +327,7 @@ export default function EvaluatorDashboard() {
               className={`py-2 px-4 text-xs font-semibold border-b-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                 activeTab === "comparative"
                   ? "border-primary text-foreground"
-                  : "border-transparent text-zinc-400 hover:text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
               }`}
             >
               Comparative Evaluation Sheet
@@ -342,7 +342,7 @@ export default function EvaluatorDashboard() {
               </h2>
 
               {sessions.length === 0 ? (
-                <div className="bg-muted border border-border/10 p-12 rounded-xl text-center text-zinc-400 text-xs">
+                <div className="bg-muted border border-border/10 p-12 rounded-xl text-center text-muted-foreground text-xs">
                   No bidders have initialized any sessions yet.
                 </div>
               ) : (
@@ -351,7 +351,7 @@ export default function EvaluatorDashboard() {
                     <article key={session.id} className="glassmorphism-card border-none p-5 flex flex-col gap-4">
                       <div className="flex justify-between items-start gap-4">
                         <div className="flex flex-col gap-1">
-                          <span className="text-xs text-zinc-400 uppercase font-bold tracking-wider">
+                          <span className="text-xs text-muted-foreground uppercase font-bold tracking-wider">
                             {session.tender?.title || "Tender Title"}
                           </span>
                           <h3 className="text-sm font-bold text-foreground flex items-center gap-1.5">
@@ -360,7 +360,7 @@ export default function EvaluatorDashboard() {
                           </h3>
                         </div>
                         <div className="flex flex-col items-end gap-1">
-                          <span className="text-[10px] text-zinc-400">Compliance Score</span>
+                          <span className="text-[10px] text-muted-foreground">Compliance Score</span>
                           <Badge className={`font-bold text-xs rounded px-2.5 py-0.5 ${
                             parseFloat(session.compliance_score) === 100 
                               ? "bg-green-500/10 border-green-500/20 text-green-400" 
@@ -373,11 +373,11 @@ export default function EvaluatorDashboard() {
 
                       <div className="grid grid-cols-2 gap-4 border-t border-border/5 pt-4 text-xs">
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-zinc-400 text-[10px]">Session Status</span>
+                          <span className="text-muted-foreground text-[10px]">Session Status</span>
                           <span className="text-foreground capitalize">{session.status.replace("_", " ")}</span>
                         </div>
                         <div className="flex flex-col gap-0.5 text-right">
-                          <span className="text-zinc-400 text-[10px]">Last Active</span>
+                          <span className="text-muted-foreground text-[10px]">Last Active</span>
                           <span className="text-foreground">
                             {new Date(session.last_activity).toLocaleDateString()} {new Date(session.last_activity).toLocaleTimeString()}
                           </span>
@@ -402,7 +402,7 @@ export default function EvaluatorDashboard() {
               
               {/* Tender Selector Header (no-print) */}
               <div className="flex flex-col gap-2 p-5 bg-muted rounded-xl border border-border/10 no-print">
-                <label htmlFor="tender-select" className="text-xs font-semibold text-zinc-300">
+                <label htmlFor="tender-select" className="text-xs font-semibold text-muted-foreground">
                   Select Active Tender Scope:
                 </label>
                 <select
@@ -421,7 +421,7 @@ export default function EvaluatorDashboard() {
               </div>
 
               {selectedTenderId && loadingReport && (
-                <div className="flex flex-col items-center gap-2 p-12 text-zinc-400 text-xs">
+                <div className="flex flex-col items-center gap-2 p-12 text-muted-foreground text-xs">
                   <Activity className="w-6 h-6 text-primary animate-spin" aria-hidden="true" />
                   Generating Technical Bid Evaluation matrix...
                 </div>
@@ -437,26 +437,26 @@ export default function EvaluatorDashboard() {
                     </h3>
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] text-zinc-400 uppercase font-semibold">Organization / Client Name</label>
+                        <label className="text-[10px] text-muted-foreground uppercase font-semibold">Organization / Client Name</label>
                         <Input value={orgHeader} onChange={(e) => setOrgHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] text-zinc-400 uppercase font-semibold">Evaluation Sheet Title</label>
+                        <label className="text-[10px] text-muted-foreground uppercase font-semibold">Evaluation Sheet Title</label>
                         <Input value={docHeader} onChange={(e) => setDocHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] text-zinc-400 uppercase font-semibold">Tender No. / Code</label>
+                        <label className="text-[10px] text-muted-foreground uppercase font-semibold">Tender No. / Code</label>
                         <Input value={tenderNoHeader} onChange={(e) => setTenderNoHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] text-zinc-400 uppercase font-semibold">Name of Work</label>
+                        <label className="text-[10px] text-muted-foreground uppercase font-semibold">Name of Work</label>
                         <Input value={workNameHeader} onChange={(e) => setWorkNameHeader(e.target.value)} className="bg-background/80 border-border/30 py-1.5 h-8 text-xs text-foreground" />
                       </div>
                     </div>
                     
                     {/* Action buttons */}
                     <div className="flex justify-end gap-2 mt-2">
-                      <Button onClick={exportToCSV} variant="outline" size="sm" className="border-border/40 text-xs text-zinc-300 hover:bg-muted">
+                      <Button onClick={exportToCSV} variant="outline" size="sm" className="border-border/40 text-xs text-muted-foreground hover:bg-muted">
                         <Download className="w-3.5 h-3.5 mr-1.5" /> Export Excel CSV
                       </Button>
                       <Button onClick={() => window.print()} className="bg-primary text-white text-xs hover:brightness-110">
@@ -476,17 +476,17 @@ export default function EvaluatorDashboard() {
                       <div className="text-sm font-extrabold uppercase print:text-black">
                         {docHeader}
                       </div>
-                      <div className="text-[11px] text-zinc-400 print:text-black font-semibold">
+                      <div className="text-[11px] text-muted-foreground print:text-black font-semibold">
                         {tenderNoHeader}
                       </div>
-                      <div className="text-xs italic text-zinc-300 print:text-black mt-1.5 font-medium">
+                      <div className="text-xs italic text-muted-foreground print:text-black mt-1.5 font-medium">
                         {workNameHeader}
                       </div>
                     </div>
 
                     {/* Comparative Matrix Table */}
                     {comparativeReport.comparative_matrix.length === 0 ? (
-                      <div className="text-center p-8 text-zinc-400 text-xs">
+                      <div className="text-center p-8 text-muted-foreground text-xs">
                         No active bidder proposals have submitted evaluation data yet.
                       </div>
                     ) : (
@@ -494,16 +494,16 @@ export default function EvaluatorDashboard() {
                         <table className="w-full text-xs text-left border-collapse border border-border excel-table">
                           <thead>
                             <tr className="bg-muted border-b border-border">
-                              <th className="p-3 border border-border w-[70px] text-center font-bold text-zinc-300 uppercase print:text-black">Sl. No.</th>
-                              <th className="p-3 border border-border w-[200px] font-bold text-zinc-300 uppercase print:text-black">Item Description</th>
-                              <th className="p-3 border border-border w-[220px] font-bold text-zinc-300 uppercase print:text-black">Tender Requirement</th>
+                              <th className="p-3 border border-border w-[70px] text-center font-bold text-muted-foreground uppercase print:text-black">Sl. No.</th>
+                              <th className="p-3 border border-border w-[200px] font-bold text-muted-foreground uppercase print:text-black">Item Description</th>
+                              <th className="p-3 border border-border w-[220px] font-bold text-muted-foreground uppercase print:text-black">Tender Requirement</th>
                               
                               {/* Bidder columns */}
                               {comparativeReport.comparative_matrix.map((b: any, idx: number) => (
                                 <th key={b.session_id} className="p-3 border border-border text-center font-bold text-primary print:text-black">
                                   <div className="flex flex-col items-center">
                                     <span className="truncate max-w-[150px]">M/s. {b.company_name}</span>
-                                    <span className="text-[10px] font-semibold text-zinc-400 mt-0.5">({b.compliance_score.toFixed(0)}% Compliant)</span>
+                                    <span className="text-[10px] font-semibold text-muted-foreground mt-0.5">({b.compliance_score.toFixed(0)}% Compliant)</span>
                                   </div>
                                 </th>
                               ))}
@@ -512,13 +512,13 @@ export default function EvaluatorDashboard() {
                           <tbody>
                             {comparativeReport.tender.requirement_matrix && comparativeReport.tender.requirement_matrix.map((req: any, reqIdx: number) => (
                               <tr key={req.id || reqIdx} className="hover:bg-muted/50 border-b border-border/50">
-                                <td className="p-3 border border-border text-center text-zinc-300 font-bold print:text-black">
+                                <td className="p-3 border border-border text-center text-muted-foreground font-bold print:text-black">
                                   {(reqIdx + 1).toFixed(1)}
                                 </td>
                                 <td className="p-3 border border-border font-bold text-foreground print:text-black">
                                   {req.title}
                                 </td>
-                                <td className="p-3 border border-border text-zinc-300 print:text-black leading-relaxed">
+                                <td className="p-3 border border-border text-muted-foreground print:text-black leading-relaxed">
                                   {req.description}
                                 </td>
                                 
@@ -544,20 +544,20 @@ export default function EvaluatorDashboard() {
                                               </>
                                             ) : (
                                               <>
-                                                <Badge className="bg-zinc-500/10 border-zinc-500/20 text-zinc-400 rounded px-1.5 py-0">
+                                                <Badge className="bg-muted border-border text-muted-foreground rounded px-1.5 py-0">
                                                   ⏳ Pending
                                                 </Badge>
                                               </>
                                             )}
                                           </div>
                                           {bidderReq.notes && (
-                                            <p className="text-[10px] text-zinc-400 leading-relaxed italic bg-muted p-2 rounded print:border print:border-black">
+                                            <p className="text-[10px] text-muted-foreground leading-relaxed italic bg-muted p-2 rounded print:border print:border-black">
                                               {bidderReq.notes}
                                             </p>
                                           )}
                                         </div>
                                       ) : (
-                                        <span className="text-zinc-500 italic">Not evaluated</span>
+                                        <span className="text-muted-foreground italic">Not evaluated</span>
                                       )}
                                     </td>
                                   );
@@ -585,7 +585,7 @@ export default function EvaluatorDashboard() {
           <Card className="glassmorphism-card border-none p-6">
             <form onSubmit={handlePublishTender} aria-labelledby="publish-heading" className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="tender-title" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
+                <label htmlFor="tender-title" className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
                   Tender Title
                 </label>
                 <Input
@@ -600,7 +600,7 @@ export default function EvaluatorDashboard() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="tender-desc" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
+                <label htmlFor="tender-desc" className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
                   Description
                 </label>
                 <Textarea
@@ -613,7 +613,7 @@ export default function EvaluatorDashboard() {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="tender-pdf" className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
+                <label htmlFor="tender-pdf" className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
                   Tender Specifications (PDF)
                 </label>
                 <div className="border border-dashed border-border/40 hover:border-primary/50 transition-all rounded-lg p-4 text-center cursor-pointer relative focus-within:ring-2 focus-within:ring-primary">
@@ -625,7 +625,7 @@ export default function EvaluatorDashboard() {
                      className="absolute inset-0 opacity-0 cursor-pointer"
                   />
                   <FileText className="w-6 h-6 text-primary mx-auto mb-1.5" aria-hidden="true" />
-                  <span className="text-[10px] text-zinc-400 block truncate max-w-[200px] mx-auto">
+                  <span className="text-[10px] text-muted-foreground block truncate max-w-[200px] mx-auto">
                     {tenderFile ? tenderFile.name : "Select Tender PDF File"}
                   </span>
                 </div>

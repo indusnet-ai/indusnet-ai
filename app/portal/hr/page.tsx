@@ -602,10 +602,10 @@ export default function HRDashboard() {
 
   if (loading || fetching) {
     return (
-      <div className="flex-grow flex items-center justify-center bg-[#030014] text-white h-screen">
+      <div className="flex-grow flex items-center justify-center bg-background text-foreground h-screen">
         <div className="flex flex-col items-center gap-3">
           <RefreshCw className="w-8 h-8 text-primary animate-spin" />
-          <span className="text-xs text-zinc-400">Loading HR recruitment dashboard...</span>
+          <span className="text-xs text-muted-foreground">Loading HR recruitment dashboard...</span>
         </div>
       </div>
     );
@@ -615,19 +615,19 @@ export default function HRDashboard() {
     <main className="flex-grow flex flex-col pt-24 pb-16 px-4 md:px-8 max-w-7xl mx-auto w-full gap-8 text-left">
       
       {/* Header bar */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/10 pb-6">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-bold text-primary">
             {user?.name ? user.name[0].toUpperCase() : "HR"}
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl font-bold text-white flex items-center gap-2">
+            <h1 className="text-xl font-bold text-foreground flex items-center gap-2">
               HR Recruitment Portal
               <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2">
                 HR Manager
               </Badge>
             </h1>
-            <span className="text-xs text-zinc-400">Monitor applicant pipelines, inspect parsed resumes, and review AI scoring insights</span>
+            <span className="text-xs text-muted-foreground">Monitor applicant pipelines, inspect parsed resumes, and review AI scoring insights</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -639,7 +639,7 @@ export default function HRDashboard() {
           <Button 
             variant="outline" 
             onClick={logout}
-            className="rounded-full border-border/40 hover:bg-white/5 text-xs text-zinc-400"
+            className="rounded-full border-border hover:bg-muted text-xs text-muted-foreground"
           >
             Log Out
           </Button>
@@ -651,52 +651,52 @@ export default function HRDashboard() {
         <Card className="glassmorphism-card border-none p-5 flex flex-col justify-between">
           <div>
             <Briefcase className="w-5 h-5 text-primary mb-2" />
-            <span className="text-zinc-400 text-[10px] uppercase font-bold tracking-wider">Active Job Postings</span>
+            <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">Active Job Postings</span>
           </div>
-          <span className="text-2xl font-extrabold text-white mt-2">{kpis.totalJobs}</span>
+          <span className="text-2xl font-extrabold text-foreground mt-2">{kpis.totalJobs}</span>
         </Card>
         <Card className="glassmorphism-card border-none p-5 flex flex-col justify-between">
           <div>
             <Users className="w-5 h-5 text-accent mb-2" />
-            <span className="text-zinc-400 text-[10px] uppercase font-bold tracking-wider">Total Applications</span>
+            <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">Total Applications</span>
           </div>
-          <span className="text-2xl font-extrabold text-white mt-2">{kpis.totalApps}</span>
+          <span className="text-2xl font-extrabold text-foreground mt-2">{kpis.totalApps}</span>
         </Card>
         <Card className="glassmorphism-card border-none p-5 flex flex-col justify-between">
           <div>
             <Clock className="w-5 h-5 text-yellow-500 mb-2" />
-            <span className="text-zinc-400 text-[10px] uppercase font-bold tracking-wider">Interview Pipeline</span>
+            <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">Interview Pipeline</span>
           </div>
-          <span className="text-2xl font-extrabold text-white mt-2">{kpis.interviewApps}</span>
+          <span className="text-2xl font-extrabold text-foreground mt-2">{kpis.interviewApps}</span>
         </Card>
         <Card className="glassmorphism-card border-none p-5 flex flex-col justify-between">
           <div>
             <Star className="w-5 h-5 text-green-500 mb-2" />
-            <span className="text-zinc-400 text-[10px] uppercase font-bold tracking-wider">Average Match Score</span>
+            <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">Average Match Score</span>
           </div>
-          <span className="text-2xl font-extrabold text-white mt-2">{kpis.avgScore}%</span>
+          <span className="text-2xl font-extrabold text-foreground mt-2">{kpis.avgScore}%</span>
         </Card>
       </section>
 
       {/* Filters Board */}
-      <section className="bg-white/[0.02] border border-border/10 rounded-2xl p-5 flex flex-col md:flex-row gap-4" aria-label="Filters Panel">
-        <div className="flex-grow flex items-center bg-black/20 border border-border/5 rounded-xl px-3 py-2 text-zinc-400 min-w-[200px]">
+      <section className="bg-card border border-border rounded-2xl p-5 flex flex-col md:flex-row gap-4" aria-label="Filters Panel">
+        <div className="flex-grow flex items-center bg-muted border border-border rounded-xl px-3 py-2 text-muted-foreground min-w-[200px]">
           <Search className="w-4 h-4 mr-2" />
           <input
             type="text"
             placeholder="Search candidate name or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent border-none text-white text-xs w-full focus:outline-none"
+            className="bg-transparent border-none text-foreground text-xs w-full focus:outline-none placeholder:text-muted-foreground"
           />
         </div>
         <div className="grid grid-cols-3 gap-3">
           <div className="flex flex-col gap-1 text-left">
-            <label className="text-[9px] uppercase font-bold text-zinc-400">Position</label>
+            <label className="text-[9px] uppercase font-bold text-muted-foreground">Position</label>
             <select
               value={selectedJobId}
               onChange={(e) => setSelectedJobId(e.target.value)}
-              className="py-2 px-3 bg-neutral-900 border border-border/40 text-xs rounded-xl text-white focus:outline-none"
+              className="py-2 px-3 bg-muted border border-border text-xs rounded-xl text-foreground focus:outline-none"
             >
               <option value="All">All Jobs</option>
               {jobs.map(j => (
@@ -706,11 +706,11 @@ export default function HRDashboard() {
           </div>
 
           <div className="flex flex-col gap-1 text-left">
-            <label className="text-[9px] uppercase font-bold text-zinc-400">Status</label>
+            <label className="text-[9px] uppercase font-bold text-muted-foreground">Status</label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="py-2 px-3 bg-neutral-900 border border-border/40 text-xs rounded-xl text-white focus:outline-none"
+              className="py-2 px-3 bg-muted border border-border text-xs rounded-xl text-foreground focus:outline-none"
             >
               <option value="All">All Statuses</option>
               <option value="applied">Applied</option>
@@ -722,11 +722,11 @@ export default function HRDashboard() {
           </div>
 
           <div className="flex flex-col gap-1 text-left">
-            <label className="text-[9px] uppercase font-bold text-zinc-400">Min Match Score</label>
+            <label className="text-[9px] uppercase font-bold text-muted-foreground">Min Match Score</label>
             <select
               value={minScore}
               onChange={(e) => setMinScore(parseInt(e.target.value))}
-              className="py-2 px-3 bg-neutral-900 border border-border/40 text-xs rounded-xl text-white focus:outline-none"
+              className="py-2 px-3 bg-muted border border-border text-xs rounded-xl text-foreground focus:outline-none"
             >
               <option value="0">Show All</option>
               <option value="50">&gt; 50% Match</option>
@@ -741,14 +741,14 @@ export default function HRDashboard() {
       <section className="glassmorphism-card border-none overflow-hidden" aria-labelledby="table-heading">
         <h2 id="table-heading" className="sr-only">Candidate Applications</h2>
         {filteredApplications.length === 0 ? (
-          <div className="p-16 text-center text-zinc-400 text-xs">
+          <div className="p-16 text-center text-muted-foreground text-xs">
             No candidates found matching the selected filters.
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse">
               <thead>
-                <tr className="border-b border-border/10 bg-white/[0.02] text-zinc-400">
+                <tr className="border-b border-border bg-muted/40 text-muted-foreground">
                   <th className="p-4 font-semibold uppercase">Candidate Info</th>
                   <th className="p-4 font-semibold uppercase">Target Position</th>
                   <th className="p-4 font-semibold uppercase text-center">AI Score</th>
@@ -763,26 +763,26 @@ export default function HRDashboard() {
                   const score = parseFloat(app.ai_score);
                   
                   return (
-                    <tr key={app.id} className="border-b border-border/5 hover:bg-white/[0.01]">
+                    <tr key={app.id} className="border-b border-border/40 hover:bg-muted/30">
                       <td className="p-4">
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-bold text-white text-sm">{app.name}</span>
-                          <span className="text-zinc-400">{app.email}</span>
+                          <span className="font-bold text-foreground text-sm">{app.name}</span>
+                          <span className="text-muted-foreground">{app.email}</span>
                         </div>
                       </td>
                       <td className="p-4 align-middle">
                         <div className="flex flex-col">
-                          <span className="text-white font-medium">{matchingJob?.title || "Applied Position"}</span>
-                          <span className="text-zinc-500 text-[10px]">{matchingJob?.department}</span>
+                          <span className="text-foreground font-medium">{matchingJob?.title || "Applied Position"}</span>
+                          <span className="text-muted-foreground text-[10px]">{matchingJob?.department}</span>
                         </div>
                       </td>
                       <td className="p-4 align-middle text-center">
                         <Badge className={`font-bold rounded-lg px-2 py-0.5 ${
                           score >= 85 
-                            ? "bg-green-500/10 border-green-500/20 text-green-400" 
+                            ? "bg-green-500/10 border-green-500/20 text-green-500 dark:text-green-400" 
                             : score >= 70 
-                              ? "bg-blue-500/10 border-blue-500/20 text-blue-400" 
-                              : "bg-yellow-500/10 border-yellow-500/20 text-yellow-400"
+                              ? "bg-blue-500/10 border-blue-500/20 text-blue-500 dark:text-blue-400" 
+                              : "bg-yellow-500/10 border-yellow-500/20 text-yellow-600 dark:text-yellow-400"
                         }`}>
                           {score.toFixed(0)}% Match
                         </Badge>
@@ -790,23 +790,23 @@ export default function HRDashboard() {
                       <td className="p-4 align-middle text-center">
                         <Badge className={`capitalize font-bold rounded-lg px-2.5 py-0.5 ${
                           app.application_status === "offered" 
-                            ? "bg-green-500/10 border-green-500/20 text-green-400"
+                            ? "bg-green-500/10 border-green-500/20 text-green-500 dark:text-green-400"
                             : app.application_status === "rejected"
-                              ? "bg-red-500/10 border-red-500/20 text-red-400"
+                              ? "bg-red-500/10 border-red-500/20 text-red-500 dark:text-red-400"
                               : app.application_status === "interview"
-                                ? "bg-purple-500/10 border-purple-500/20 text-purple-400"
-                                : "bg-neutral-500/10 border-neutral-500/20 text-zinc-400"
+                                ? "bg-purple-500/10 border-purple-500/20 text-purple-500 dark:text-purple-400"
+                                : "bg-muted border-border text-muted-foreground"
                         }`}>
                           {app.application_status}
                         </Badge>
                       </td>
-                      <td className="p-4 align-middle text-right text-zinc-400">
+                      <td className="p-4 align-middle text-right text-muted-foreground">
                         {new Date(app.created_at).toLocaleDateString()}
                       </td>
                       <td className="p-4 align-middle text-right">
                         <Button 
                           onClick={() => handleSelectCandidate(app.id)}
-                          className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-7 px-3 rounded-lg"
+                          className="bg-muted border border-border hover:bg-muted/80 text-foreground text-[11px] h-7 px-3 rounded-lg"
                         >
                           View Profile <ArrowRight className="w-3.5 h-3.5 ml-1" />
                         </Button>
@@ -822,10 +822,10 @@ export default function HRDashboard() {
 
       {/* Candidate Profile Details Drawer / Sheet */}
       <Sheet open={selectedCandidateId !== null} onOpenChange={(open) => { if(!open) setSelectedCandidateId(null); }}>
-        <SheetContent className="w-full sm:max-w-xl md:max-w-2xl bg-[#08051a] border-l border-border/10 overflow-y-auto text-white p-6 text-left">
+        <SheetContent className="w-full sm:max-w-xl md:max-w-2xl bg-card border-l border-border overflow-y-auto text-foreground p-6 text-left">
           
           {loadingProfile || !candidateProfile ? (
-            <div className="h-full flex flex-col items-center justify-center text-zinc-400 text-xs">
+            <div className="h-full flex flex-col items-center justify-center text-muted-foreground text-xs">
               <RefreshCw className="w-6 h-6 animate-spin text-primary mb-2" />
               Loading Candidate Profile & AI Insights...
             </div>
@@ -833,39 +833,39 @@ export default function HRDashboard() {
             <div className="flex flex-col gap-6">
               
               {/* Drawer Header */}
-              <SheetHeader className="p-0 border-b border-border/10 pb-4 text-left">
+              <SheetHeader className="p-0 border-b border-border pb-4 text-left">
                 <div className="flex justify-between items-start gap-4">
                   <div className="flex flex-col">
                     <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2.5 py-0.5 mb-2 w-max">
                       {jobs.find(j => j.id === candidateProfile.application.job_id)?.title || "Target Job"}
                     </Badge>
-                    <SheetTitle className="text-xl font-bold text-white">{candidateProfile.application.name}</SheetTitle>
-                    <SheetDescription className="text-zinc-400 text-xs flex items-center gap-2 mt-1">
+                    <SheetTitle className="text-xl font-bold text-foreground">{candidateProfile.application.name}</SheetTitle>
+                    <SheetDescription className="text-muted-foreground text-xs flex items-center gap-2 mt-1">
                       <Mail className="w-3.5 h-3.5" /> {candidateProfile.application.email}
                       <span>•</span>
                       <Phone className="w-3.5 h-3.5" /> {candidateProfile.application.phone}
                     </SheetDescription>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-zinc-400 block font-semibold uppercase">AI Match Score</span>
+                    <span className="text-[10px] text-muted-foreground block font-semibold uppercase">AI Match Score</span>
                     <span className="text-3xl font-extrabold text-primary">{parseFloat(candidateProfile.application.ai_score).toFixed(0)}%</span>
                   </div>
                 </div>
 
                 {/* Main Action Bar */}
-                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border/5">
-                  <Button onClick={handleReanalyze} disabled={reanalyzing} className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-8 rounded-lg">
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-border">
+                  <Button onClick={handleReanalyze} disabled={reanalyzing} className="bg-muted border border-border hover:bg-muted/80 text-foreground text-[11px] h-8 rounded-lg">
                     {reanalyzing ? <RefreshCw className="w-3.5 h-3.5 animate-spin mr-1.5" /> : <RefreshCw className="w-3.5 h-3.5 mr-1.5" />}
                     Refresh Analysis
                   </Button>
-                  <Button onClick={() => handleDownloadResume(candidateProfile.application.id)} className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-8 rounded-lg">
+                  <Button onClick={() => handleDownloadResume(candidateProfile.application.id)} className="bg-muted border border-border hover:bg-muted/80 text-foreground text-[11px] h-8 rounded-lg">
                     <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Open Resume File
                   </Button>
                   
                   {/* Status transitions */}
                   <div className="flex gap-1 ml-auto">
                     {candidateProfile.application.application_status !== "review" && (
-                      <Button onClick={() => handleUpdateStatus("review")} variant="outline" className="border-border/40 hover:bg-white/5 text-[10px] h-8 px-2.5 rounded-lg text-zinc-300">
+                      <Button onClick={() => handleUpdateStatus("review")} variant="outline" className="border-border hover:bg-muted text-[10px] h-8 px-2.5 rounded-lg text-foreground">
                         Mark Under Review
                       </Button>
                     )}
@@ -897,8 +897,8 @@ export default function HRDashboard() {
                 
                 {/* Summary block */}
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-xs uppercase tracking-wider font-extrabold text-zinc-400">AI Profile Summary</h3>
-                  <p className="text-zinc-300 text-xs leading-relaxed bg-white/[0.01] border border-border/5 p-4 rounded-xl">
+                  <h3 className="text-xs uppercase tracking-wider font-extrabold text-muted-foreground">AI Profile Summary</h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed bg-muted/30 border border-border p-4 rounded-xl">
                     {candidateProfile.analysis?.summary || "No parsed summary available."}
                   </p>
                 </div>
@@ -906,10 +906,10 @@ export default function HRDashboard() {
                 {/* Strengths & Weaknesses */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-green-400 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-4 h-4 text-green-400" /> Key Strengths
+                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-green-500 dark:text-green-400 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 dark:text-green-400" /> Key Strengths
                     </h3>
-                    <ul className="list-disc list-inside text-zinc-300 text-xs flex flex-col gap-1">
+                    <ul className="list-disc list-inside text-muted-foreground text-xs flex flex-col gap-1">
                       {candidateProfile.analysis?.strengths ? (
                         candidateProfile.analysis.strengths.map((str: string, i: number) => <li key={i}>{str}</li>)
                       ) : (
@@ -919,10 +919,10 @@ export default function HRDashboard() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-red-400 flex items-center gap-1.5">
-                      <XCircle className="w-4 h-4 text-red-400" /> Gaps / Development Areas
+                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-red-500 dark:text-red-400 flex items-center gap-1.5">
+                      <XCircle className="w-4 h-4 text-red-500 dark:text-red-400" /> Gaps / Development Areas
                     </h3>
-                    <ul className="list-disc list-inside text-zinc-300 text-xs flex flex-col gap-1">
+                    <ul className="list-disc list-inside text-muted-foreground text-xs flex flex-col gap-1">
                       {candidateProfile.analysis?.weaknesses ? (
                         candidateProfile.analysis.weaknesses.map((w: string, i: number) => <li key={i}>{w}</li>)
                       ) : (
@@ -934,22 +934,22 @@ export default function HRDashboard() {
 
                 {/* Parsed Experience / Education structure */}
                 <div className="flex flex-col gap-3">
-                  <h3 className="text-xs uppercase tracking-wider font-extrabold text-zinc-400">Parsed Experience & Education</h3>
-                  <div className="flex flex-col gap-2.5 bg-black/20 p-4 border border-border/5 rounded-xl">
+                  <h3 className="text-xs uppercase tracking-wider font-extrabold text-muted-foreground">Parsed Experience & Education</h3>
+                  <div className="flex flex-col gap-2.5 bg-muted/40 p-4 border border-border rounded-xl">
                     
                     {/* Education list */}
                     {candidateProfile.analysis?.parsed_resume?.education && candidateProfile.analysis.parsed_resume.education.length > 0 && (
                       <div className="flex flex-col gap-1 text-xs">
-                        <span className="font-bold text-white flex items-center gap-1 text-[11px] uppercase tracking-wider text-accent">
+                        <span className="font-bold text-foreground flex items-center gap-1 text-[11px] uppercase tracking-wider text-accent">
                           <GraduationCap className="w-4 h-4 text-accent" /> Education
                         </span>
                         {candidateProfile.analysis.parsed_resume.education.map((edu: any, idx: number) => (
-                          <div key={idx} className="pl-5 border-l border-border/10 py-1 flex justify-between">
+                          <div key={idx} className="pl-5 border-l border-border py-1 flex justify-between">
                             <div>
-                              <strong className="text-white">{edu.degree} in {edu.field}</strong>
-                              <span className="block text-zinc-400 text-[10px]">{edu.school}</span>
+                              <strong className="text-foreground">{edu.degree} in {edu.field}</strong>
+                              <span className="block text-muted-foreground text-[10px]">{edu.school}</span>
                             </div>
-                            <span className="text-zinc-500 text-[10px]">{edu.year}</span>
+                            <span className="text-muted-foreground text-[10px]">{edu.year}</span>
                           </div>
                         ))}
                       </div>
@@ -958,18 +958,18 @@ export default function HRDashboard() {
                     {/* Experience list */}
                     {candidateProfile.analysis?.parsed_resume?.experience && candidateProfile.analysis.parsed_resume.experience.length > 0 && (
                       <div className="flex flex-col gap-1 text-xs mt-3">
-                        <span className="font-bold text-white flex items-center gap-1 text-[11px] uppercase tracking-wider text-primary">
+                        <span className="font-bold text-foreground flex items-center gap-1 text-[11px] uppercase tracking-wider text-primary">
                           <Briefcase className="w-4 h-4 text-primary" /> Experience
                         </span>
                         {candidateProfile.analysis.parsed_resume.experience.map((exp: any, idx: number) => (
-                          <div key={idx} className="pl-5 border-l border-border/10 py-2 flex flex-col gap-0.5">
+                          <div key={idx} className="pl-5 border-l border-border py-2 flex flex-col gap-0.5">
                             <div className="flex justify-between items-start">
-                              <strong className="text-white">{exp.title}</strong>
-                              <span className="text-zinc-500 text-[10px]">{exp.start_date} - {exp.end_date}</span>
+                              <strong className="text-foreground">{exp.title}</strong>
+                              <span className="text-muted-foreground text-[10px]">{exp.start_date} - {exp.end_date}</span>
                             </div>
-                            <span className="text-zinc-400 text-[10px] font-semibold">{exp.company}</span>
+                            <span className="text-muted-foreground text-[10px] font-semibold">{exp.company}</span>
                             {exp.description && (
-                              <p className="text-[10px] text-zinc-500 leading-normal mt-1">{exp.description}</p>
+                              <p className="text-[10px] text-muted-foreground leading-normal mt-1">{exp.description}</p>
                             )}
                           </div>
                         ))}
@@ -981,13 +981,13 @@ export default function HRDashboard() {
                 {/* AI-Generated Interview Questions */}
                 {candidateProfile.analysis?.recommended_interview_questions && candidateProfile.analysis.recommended_interview_questions.length > 0 && (
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-zinc-400">AI-Generated Interview Questions</h3>
+                    <h3 className="text-xs uppercase tracking-wider font-extrabold text-muted-foreground">AI-Generated Interview Questions</h3>
                     <div className="flex flex-col gap-3">
                       {candidateProfile.analysis.recommended_interview_questions.map((q: any, i: number) => (
-                        <div key={i} className="bg-white/[0.01] border border-border/5 p-3 rounded-xl flex flex-col gap-1.5 text-xs text-left">
+                        <div key={i} className="bg-muted/30 border border-border p-3 rounded-xl flex flex-col gap-1.5 text-xs text-left">
                           <span className="font-bold text-primary">Question {i+1}: {q.question}</span>
-                          <span className="text-zinc-400 text-[10px]"><strong>Intent:</strong> {q.purpose}</span>
-                          <span className="text-zinc-500 text-[10px]"><strong>Expected Response:</strong> {q.expected_answer}</span>
+                          <span className="text-muted-foreground text-[10px]"><strong>Intent:</strong> {q.purpose}</span>
+                          <span className="text-muted-foreground text-[10px]"><strong>Expected Response:</strong> {q.expected_answer}</span>
                         </div>
                       ))}
                     </div>
@@ -1002,12 +1002,12 @@ export default function HRDashboard() {
 
       {/* Raise Offer Letter Modal */}
       <Dialog open={offerModalOpen} onOpenChange={setOfferModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#07051a] border border-border/10 text-white p-6 rounded-xl">
-          <DialogHeader className="border-b border-border/10 pb-4 text-left">
-            <DialogTitle className="text-xl font-bold text-white">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-card border border-border text-foreground p-6 rounded-xl">
+          <DialogHeader className="border-b border-border pb-4 text-left">
+            <DialogTitle className="text-xl font-bold text-foreground">
               {offerStatus === "sent" ? "View Sent Offer Letter" : "Raise Employment Offer Letter (INR)"}
             </DialogTitle>
-            <DialogDescription className="text-xs text-zinc-400">
+            <DialogDescription className="text-xs text-muted-foreground">
               Provide CTC details and candidate coordinates. Our Recruitment Copilot will draft the A4 contract based on standard legal formats.
             </DialogDescription>
           </DialogHeader>
@@ -1017,89 +1017,89 @@ export default function HRDashboard() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 {/* Column 1: Candidate Details */}
-                <div className="flex flex-col gap-4 bg-white/5 p-4 rounded-xl border border-border/5">
+                <div className="flex flex-col gap-4 bg-muted/40 p-4 rounded-xl border border-border">
                   <h3 className="text-xs font-extrabold uppercase tracking-wider text-primary">Candidate Coordinates</h3>
                   
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Full Name</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Full Name</label>
                     <Input 
                       value={offerName} 
                       onChange={(e) => setOfferName(e.target.value)} 
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground" 
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Email Address</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Email Address</label>
                     <Input 
                       type="email"
                       value={offerEmail} 
                       onChange={(e) => setOfferEmail(e.target.value)} 
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground" 
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Contact Number</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Contact Number</label>
                     <Input 
                       value={offerPhone} 
                       onChange={(e) => setOfferPhone(e.target.value)} 
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground" 
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Residential Address</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Residential Address</label>
                     <Textarea 
                       rows={3}
                       value={offerAddress} 
                       onChange={(e) => setOfferAddress(e.target.value)} 
                       placeholder="Enter candidate's complete postal address"
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white min-h-[80px]" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground min-h-[80px]" 
                     />
                   </div>
                 </div>
 
                 {/* Column 2: Offer Info */}
-                <div className="flex flex-col gap-4 bg-white/5 p-4 rounded-xl border border-border/5">
+                <div className="flex flex-col gap-4 bg-muted/40 p-4 rounded-xl border border-border">
                   <h3 className="text-xs font-extrabold uppercase tracking-wider text-accent">Compensation Structure</h3>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Annual CTC (INR)</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Annual CTC (INR)</label>
                     <Input 
                       value={annualCTC} 
                       onChange={(e) => setAnnualCTC(e.target.value)} 
                       placeholder="e.g. 924000 or 9,24,000"
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground" 
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Variable Pay (Annual INR)</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Variable Pay (Annual INR)</label>
                     <Input 
                       value={variablePay} 
                       onChange={(e) => setVariablePay(e.target.value)} 
                       placeholder="e.g. 0 or 100000"
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground" 
                     />
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Custom Notes / Template Reference</label>
+                    <label className="text-[11px] font-bold text-muted-foreground uppercase">Custom Notes / Template Reference</label>
                     <Textarea 
                       rows={5}
                       value={additionalNotes} 
                       onChange={(e) => setAdditionalNotes(e.target.value)} 
                       placeholder="Paste formatting instructions, customized clauses, or another company's sample letter to mimic layout details."
-                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white min-h-[110px]" 
+                      className="bg-muted border-border focus:border-primary text-xs text-foreground min-h-[110px]" 
                     />
                   </div>
                 </div>
 
               </div>
               
-              <DialogFooter className="mt-4 pt-4 border-t border-border/5">
-                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border/40 hover:bg-white/5 text-xs text-zinc-300">
+              <DialogFooter className="mt-4 pt-4 border-t border-border">
+                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border hover:bg-muted text-xs text-foreground">
                   Cancel
                 </Button>
                 <Button onClick={handleGenerateOffer} disabled={raisingOffer || !annualCTC} className="bg-primary hover:bg-primary/90 text-white font-medium text-xs rounded px-4 h-9">
@@ -1111,11 +1111,11 @@ export default function HRDashboard() {
           ) : (
             <div className="flex flex-col gap-4 my-2 text-left">
               {/* Document Action Panel */}
-              <div className="flex items-center gap-2 bg-white/5 p-3 rounded-lg border border-border/5">
+              <div className="flex items-center gap-2 bg-muted/50 p-3 rounded-lg border border-border">
                 <Button 
                   onClick={() => setIsPreviewEditMode(!isPreviewEditMode)} 
                   variant="outline" 
-                  className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                  className="border-border hover:bg-muted text-xs text-foreground h-8"
                 >
                   {isPreviewEditMode ? (
                     <>
@@ -1131,7 +1131,7 @@ export default function HRDashboard() {
                 <Button 
                   onClick={handlePrintPDF} 
                   variant="outline" 
-                  className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                  className="border-border hover:bg-muted text-xs text-foreground h-8"
                 >
                   <Printer className="w-3.5 h-3.5 mr-1.5" /> Print / Download PDF
                 </Button>
@@ -1140,30 +1140,30 @@ export default function HRDashboard() {
                   <Button 
                     onClick={() => setOfferStep("form")} 
                     variant="outline" 
-                    className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                    className="border-border hover:bg-muted text-xs text-foreground h-8"
                   >
                     <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Re-configure
                   </Button>
                 )}
 
                 <div className="ml-auto flex items-center gap-2">
-                  <span className="text-[10px] uppercase font-bold text-zinc-400">Offer Status:</span>
-                  <Badge className={offerStatus === "sent" ? "bg-green-500/10 border-green-500/20 text-green-400 font-bold text-[10px] capitalize" : "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 font-bold text-[10px] capitalize"}>
+                  <span className="text-[10px] uppercase font-bold text-muted-foreground">Offer Status:</span>
+                  <Badge className={offerStatus === "sent" ? "bg-green-500/10 border-green-500/20 text-green-500 dark:text-green-400 font-bold text-[10px] capitalize" : "bg-yellow-500/10 border-yellow-500/20 text-yellow-600 dark:text-yellow-400 font-bold text-[10px] capitalize"}>
                     {offerStatus === "sent" ? "Approved & Sent" : "Draft"}
                   </Badge>
                 </div>
               </div>
 
               {/* Preview Content */}
-              <div className="overflow-x-auto max-h-[55vh] p-2 bg-black/40 rounded-xl border border-border/5">
+              <div className="overflow-x-auto max-h-[55vh] p-2 bg-muted/30 rounded-xl border border-border">
                 {isPreviewEditMode ? (
                   <div className="flex flex-col gap-2">
                     <Textarea
                       value={offerLetterText}
                       onChange={(e) => setOfferLetterText(e.target.value)}
-                      className="w-full min-h-[45vh] bg-black/50 text-white font-mono p-4 border border-border/40 focus:border-primary text-xs leading-normal resize-y"
+                      className="w-full min-h-[45vh] bg-muted text-foreground font-mono p-4 border border-border focus:border-primary text-xs leading-normal resize-y"
                     />
-                    <p className="text-[10px] text-zinc-400">
+                    <p className="text-[10px] text-muted-foreground">
                       * Markdown syntax is supported. Double newline inserts paragraph breaks. Standard markdown tables render as corporate components.
                     </p>
                   </div>
@@ -1196,14 +1196,14 @@ export default function HRDashboard() {
                 )}
               </div>
 
-              <DialogFooter className="mt-4 pt-4 border-t border-border/5">
-                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border/40 hover:bg-white/5 text-xs text-zinc-300">
+              <DialogFooter className="mt-4 pt-4 border-t border-border">
+                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border hover:bg-muted text-xs text-foreground">
                   Close
                 </Button>
                 
                 {offerStatus !== "sent" && (
                   <>
-                    <Button onClick={handleSaveOfferDraft} disabled={raisingOffer} className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-xs px-4 h-9">
+                    <Button onClick={handleSaveOfferDraft} disabled={raisingOffer} className="bg-muted border border-border hover:bg-muted/80 text-foreground text-xs px-4 h-9">
                       <Save className="w-3.5 h-3.5 mr-1.5" /> Save Draft
                     </Button>
                     <Button onClick={handleApproveAndSendOffer} disabled={raisingOffer} className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 h-9">
