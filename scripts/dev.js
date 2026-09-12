@@ -23,9 +23,9 @@ const backend = spawn(
   }
 );
 
-// 2. Start Next.js Frontend
-console.log("[Frontend] Starting next dev...");
-const frontend = spawn("next", ["dev"], {
+// 2. Start Next.js Frontend on Port 3005
+console.log("[Frontend] Starting next dev on port 3005...");
+const frontend = spawn("next", ["dev", "-p", "3005"], {
   stdio: "inherit",
   shell: true,
 });

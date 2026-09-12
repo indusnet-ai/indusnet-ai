@@ -6,10 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Trophy, ShieldAlert, Cpu, Sparkles, Check, CheckCircle2, 
-  ArrowRight, ShieldCheck, Zap, Terminal, Database, Play 
+  ArrowRight, ShieldCheck, Zap, Terminal, Database, Play,
+  ExternalLink, FlaskConical
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Github } from "@/components/ui/brand-icons";
 
 const caseStudies = [
   {
@@ -17,6 +19,9 @@ const caseStudies = [
     client: "Metro Financial Group",
     badge: "Finance & Compliance",
     metric: "91% Faster Document Search",
+    testUrl: "/portal/rag",
+    testLabel: "Test RAG Application",
+    repoUrl: "https://github.com/indusnet-ai/RAG",
     problem: "Metro Financial Group had over 100,000 regulatory guidelines, compliance files, and investment logs spread across disjointed servers. Underwriters spent up to 6 hours daily searching records, introducing massive human error risks and deal delays.",
     solution: "We engineered a VPC-isolated RAG search assistant. The system parses PDF, Docx, and SQL files, structures them using LlamaIndex hierarchical chunking, and indexes them in a secure Qdrant vector store. Sub-second semantic search is paired with strict role-based access controls.",
     architecture: "Ingestion pipeline parses documents with LlamaParse -> Chunks vectors with text-embedding-3-large -> Stores in Qdrant VPC instance -> Llama-3.1-70B running on private Azure GPU node generates responses with verified citations.",
@@ -117,16 +122,27 @@ export default function PortfolioPage() {
           <Card key={idx} className="glassmorphism-card border-none text-left overflow-hidden">
             <CardContent className="p-8 md:p-12 flex flex-col gap-8">
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border/10">
+              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
                 <div>
                   <Badge className="bg-primary/10 border border-primary/20 text-primary rounded px-2.5 py-0.5 text-xs font-semibold">
                     {study.badge}
                   </Badge>
-                  <h2 className="text-2xl font-extrabold text-white tracking-tight mt-2">{study.title}</h2>
-                  <p className="text-xs text-muted-foreground mt-1">Client: <span className="text-white font-medium">{study.client}</span></p>
+                  <h2 className="text-2xl font-extrabold text-foreground tracking-tight mt-2">{study.title}</h2>
+                  <p className="text-xs text-muted-foreground mt-1">Client: <span className="text-foreground font-medium">{study.client}</span></p>
                 </div>
-                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0 animate-pulse">
-                  <span className="text-sm font-bold text-emerald-400">{study.metric}</span>
+                <div className="flex flex-wrap items-center gap-3">
+                  {study.testUrl && (
+                    <Button asChild size="sm" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold hover:brightness-110 shadow-md transition-all">
+                      <Link href={study.testUrl} className="flex items-center gap-1.5 px-3 py-1 text-xs">
+                        <FlaskConical className="w-3.5 h-3.5" />
+                        <span>{study.testLabel || "Test RAG Application"}</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-80" />
+                      </Link>
+                    </Button>
+                  )}
+                  <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0 animate-pulse">
+                    <span className="text-sm font-bold text-emerald-400">{study.metric}</span>
+                  </div>
                 </div>
               </div>
 
@@ -135,7 +151,7 @@ export default function PortfolioPage() {
                 {/* Problem & Solution */}
                 <div className="lg:col-span-7 flex flex-col gap-6">
                   {/* Problem */}
-                  <div className="flex flex-col gap-2.5 bg-white/[0.01] border border-white/5 rounded-2xl p-5">
+                  <div className="flex flex-col gap-2.5 bg-muted/30 border border-border rounded-2xl p-5">
                     <h3 className="font-bold text-xs uppercase text-rose-400 tracking-wider flex items-center gap-1.5">
                       <ShieldAlert className="w-4 h-4 text-rose-400" /> The Friction
                     </h3>
@@ -145,10 +161,22 @@ export default function PortfolioPage() {
                   </div>
 
                   {/* Solution */}
-                  <div className="flex flex-col gap-2.5 bg-white/[0.01] border border-white/5 rounded-2xl p-5">
-                    <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
-                      <Zap className="w-4 h-4 text-primary" /> Engineered Solution
-                    </h3>
+                  <div className="flex flex-col gap-2.5 bg-muted/30 border border-border rounded-2xl p-5">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
+                        <Zap className="w-4 h-4 text-primary" /> Engineered Solution
+                      </h3>
+                      {study.testUrl && (
+                        <Link 
+                          href={study.testUrl} 
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent transition-colors bg-primary/10 hover:bg-primary/20 border border-primary/20 px-2.5 py-1 rounded-lg"
+                        >
+                          <FlaskConical className="w-3.5 h-3.5" />
+                          <span>Launch RAG Portal</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      )}
+                    </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {study.solution}
                     </p>
@@ -158,17 +186,17 @@ export default function PortfolioPage() {
                 {/* Architecture & Metrics */}
                 <div className="lg:col-span-5 flex flex-col gap-6 justify-between h-full">
                   {/* Architecture */}
-                  <div className="flex flex-col gap-3 bg-white/[0.01] border border-white/5 rounded-2xl p-5">
+                  <div className="flex flex-col gap-3 bg-muted/30 border border-border rounded-2xl p-5">
                     <h3 className="font-bold text-xs uppercase text-accent tracking-wider flex items-center gap-1.5">
                       <Terminal className="w-4 h-4 text-accent" /> System Architecture
                     </h3>
-                    <p className="text-[11px] text-muted-foreground font-mono leading-relaxed bg-black/40 border border-white/5 rounded-xl p-3">
+                    <p className="text-[11px] text-muted-foreground font-mono leading-relaxed bg-background border border-border rounded-xl p-3">
                       {study.architecture}
                     </p>
                   </div>
 
                   {/* Metrics/Outcomes list */}
-                  <div className="flex flex-col gap-3 bg-white/[0.01] border border-white/5 rounded-2xl p-5">
+                  <div className="flex flex-col gap-3 bg-muted/30 border border-border rounded-2xl p-5">
                     <h3 className="font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-emerald-400" /> Quantifiable Outcomes
                     </h3>
@@ -176,7 +204,7 @@ export default function PortfolioPage() {
                       {study.results.map((res, index) => (
                         <li key={index} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-white font-medium">{res}</span>
+                          <span className="text-foreground font-medium">{res}</span>
                         </li>
                       ))}
                     </ul>
@@ -185,13 +213,13 @@ export default function PortfolioPage() {
               </div>
 
               {/* Technologies footer */}
-              <div className="border-t border-border/10 pt-6 mt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="border-t border-border pt-6 mt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Database className="w-4 h-4 text-primary" /> Integrated Technologies:
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {study.tech.map((t, index) => (
-                    <Badge key={index} className="bg-white/5 border border-white/10 text-muted-foreground text-xs hover:bg-white/10 px-2.5 py-0.5 rounded">
+                    <Badge key={index} className="bg-muted border border-border text-muted-foreground text-xs hover:bg-muted/80 px-2.5 py-0.5 rounded">
                       {t}
                     </Badge>
                   ))}
@@ -208,7 +236,7 @@ export default function PortfolioPage() {
           <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-2.5 py-0.5 text-xs">
             Secure Prototyping
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white">Let's Design Your Secure Proof-of-Concept</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Let's Design Your Secure Proof-of-Concept</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             Unsure of LLM hallucinations or vector storage setups? We build secure, sandbox environments loaded with your private data to illustrate functionality before committing to heavy scaling costs.
           </p>

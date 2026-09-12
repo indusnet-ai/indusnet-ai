@@ -157,7 +157,7 @@ export default function GenerativeAiServicesPage() {
           <Button onClick={scrollToForm} size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300">
             Schedule Free Workshop <ArrowDown className="ml-2 w-4 h-4" />
           </Button>
-          <Button asChild size="lg" variant="outline" className="rounded-full border-border/60 hover:bg-white/5 text-muted-foreground hover:text-white">
+          <Button asChild size="lg" variant="outline" className="rounded-full border-border/60 hover:bg-muted transition-all text-muted-foreground hover:text-foreground">
             <Link href="/services">View Core Services</Link>
           </Button>
         </motion.div>
@@ -194,11 +194,11 @@ export default function GenerativeAiServicesPage() {
                   <span className="text-xs text-muted-foreground mt-1">Resolution time for common support questions</span>
                 </div>
                 <div className="flex flex-col border-l-2 border-accent pl-4">
-                  <span className="text-3xl font-extrabold text-white">10,000+</span>
+                  <span className="text-3xl font-extrabold text-foreground">10,000+</span>
                   <span className="text-xs text-muted-foreground mt-1">IT documents vector-encoded for RAG search</span>
                 </div>
                 <div className="flex flex-col border-l-2 border-purple-500 pl-4">
-                  <span className="text-3xl font-extrabold text-white">5 LLMs</span>
+                  <span className="text-3xl font-extrabold text-foreground">5 LLMs</span>
                   <span className="text-xs text-muted-foreground mt-1">Deployed in parallel for A/B evaluation</span>
                 </div>
               </div>
@@ -207,14 +207,14 @@ export default function GenerativeAiServicesPage() {
             {/* Case content */}
             <div className="lg:col-span-7 flex flex-col gap-6 text-left">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold text-white">The Challenge</h4>
+                <h4 className="text-lg font-bold text-foreground">The Challenge</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   A large fast-food brand needed a secure, natural-language interface to service their national IT requests. Support operators were overwhelmed by duplicate tickets, and document retrieval across manuals was painfully slow.
                 </p>
               </div>
 
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold text-white">The Solution</h4>
+                <h4 className="text-lg font-bold text-foreground">The Solution</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                   Indusnet AI architected a Retrieval-Augmented Generation (RAG) system using vector databases to query company technical documentation. By keeping model pipelines interchangeable behind a unified API, we benchmarked multiple open-source models to optimize speed, accuracy, and operational cost.
                 </p>
@@ -222,7 +222,7 @@ export default function GenerativeAiServicesPage() {
 
               <div className="flex flex-wrap gap-2 pt-2">
                 {["RAG", "Vector Search", "LLM Evaluation", "AWS Bedrock", "Docker"].map((tag, idx) => (
-                  <Badge key={idx} className="bg-white/5 border border-white/10 text-muted-foreground hover:bg-white/10 px-2 py-0.5 rounded text-[10px]">
+                  <Badge key={idx} className="bg-muted border border-border text-muted-foreground hover:bg-muted/80 px-2 py-0.5 rounded text-[10px]">
                     {tag}
                   </Badge>
                 ))}
@@ -254,7 +254,7 @@ export default function GenerativeAiServicesPage() {
                   <uc.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-bold text-base text-white">{uc.title}</h3>
+                  <h3 className="font-bold text-base text-foreground">{uc.title}</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">{uc.desc}</p>
                 </div>
               </CardContent>
@@ -284,7 +284,7 @@ export default function GenerativeAiServicesPage() {
               >
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full p-6 text-left flex justify-between items-center gap-4 text-white hover:text-primary transition-colors font-bold text-sm sm:text-base"
+                  className="w-full p-6 text-left flex justify-between items-center gap-4 text-foreground hover:text-primary transition-colors font-bold text-sm sm:text-base"
                 >
                   <span>{faq.question}</span>
                   <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : ""}`} />
@@ -299,7 +299,7 @@ export default function GenerativeAiServicesPage() {
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-white/5 pt-4">
+                      <div className="px-6 pb-6 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border pt-4">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -323,7 +323,7 @@ export default function GenerativeAiServicesPage() {
               <Badge className="bg-primary/10 border-primary/20 text-primary w-fit px-3 py-0.5 text-[10px] rounded font-bold uppercase tracking-wider">
                 Strategy Kickoff
               </Badge>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-heading">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground font-heading">
                 Schedule Your Free Workshop
               </h2>
               <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
@@ -334,48 +334,48 @@ export default function GenerativeAiServicesPage() {
             <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 mt-2">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-white/90">Full Name *</label>
+                  <label className="text-xs font-semibold text-foreground/90">Full Name *</label>
                   <Input 
                     type="text" 
                     placeholder="Enter name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="bg-white/5 border-white/10 hover:border-white/20 focus:border-primary text-white rounded-xl placeholder:text-muted-foreground/60"
+                    className="bg-muted border-border hover:border-primary/50 text-foreground rounded-xl placeholder:text-muted-foreground/60"
                     required
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold text-white/90">Work Email *</label>
+                  <label className="text-xs font-semibold text-foreground/90">Work Email *</label>
                   <Input 
                     type="email" 
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/5 border-white/10 hover:border-white/20 focus:border-primary text-white rounded-xl placeholder:text-muted-foreground/60"
+                    className="bg-muted border-border hover:border-primary/50 text-foreground rounded-xl placeholder:text-muted-foreground/60"
                     required
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-white/90">Company Name</label>
+                <label className="text-xs font-semibold text-foreground/90">Company Name</label>
                 <Input 
                   type="text" 
                   placeholder="Enter organization name"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  className="bg-white/5 border-white/10 hover:border-white/20 focus:border-primary text-white rounded-xl placeholder:text-muted-foreground/60"
+                  className="bg-muted border-border hover:border-primary/50 text-foreground rounded-xl placeholder:text-muted-foreground/60"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-white/90">AI Objectives or Desired Use Cases</label>
+                <label className="text-xs font-semibold text-foreground/90">AI Objectives or Desired Use Cases</label>
                 <Textarea 
                   placeholder="What business challenges or model goals would you like to explore during the workshop?"
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="bg-white/5 border-white/10 hover:border-white/20 focus:border-primary text-white rounded-xl resize-none placeholder:text-muted-foreground/60 text-xs sm:text-sm"
+                  className="bg-muted border-border hover:border-primary/50 text-foreground rounded-xl resize-none placeholder:text-muted-foreground/60 text-xs sm:text-sm"
                 />
               </div>
 

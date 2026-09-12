@@ -245,7 +245,7 @@ export default function AssessmentPage() {
 
             {/* Mobile Step Header */}
             <div className="sm:hidden text-center text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-2">
-              Step {step} of 5: <span className="text-white">{stepTitles[step - 1]}</span>
+              Step {step} of 5: <span className="text-foreground">{stepTitles[step - 1]}</span>
             </div>
 
             {/* Form Section with AnimatePresence */}
@@ -261,7 +261,7 @@ export default function AssessmentPage() {
                     className="flex flex-col gap-6"
                   >
                     <div className="text-left">
-                      <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                         <Building2 className="w-5 h-5 text-primary" /> Select Your Vertical Domain
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Specify which industry sector this AI solution is built for.</p>
@@ -275,7 +275,7 @@ export default function AssessmentPage() {
                           <Card 
                             key={dom.id}
                             onClick={() => setDomain(dom.name)}
-                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 group hover:bg-white/5 ${
+                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 group hover:bg-muted ${
                               isSelected 
                                 ? "border-primary bg-primary/5 shadow-[0_0_20px_rgba(124,58,237,0.15)]" 
                                 : "border-border/40 bg-transparent"
@@ -285,12 +285,12 @@ export default function AssessmentPage() {
                               <div className={`w-10 h-10 rounded-lg border flex items-center justify-center flex-shrink-0 transition-colors ${
                                 isSelected 
                                   ? "bg-primary/20 border-primary/40 text-primary" 
-                                  : "bg-white/5 border-border/40 text-muted-foreground group-hover:text-white"
+                                  : "bg-muted border-border/40 text-muted-foreground group-hover:text-foreground"
                               }`}>
                                 <Icon className="w-5 h-5" />
                               </div>
                               <div className="flex flex-col gap-1">
-                                <h3 className="font-bold text-sm text-white">{dom.name}</h3>
+                                <h3 className="font-bold text-sm text-foreground">{dom.name}</h3>
                                 <p className="text-xs text-muted-foreground leading-normal">{dom.desc}</p>
                               </div>
                             </CardContent>
@@ -311,7 +311,7 @@ export default function AssessmentPage() {
                     className="flex flex-col gap-6 text-left"
                   >
                     <div>
-                      <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                         <Cpu className="w-5 h-5 text-accent" /> Business Style & Operations
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Help us understand the scale, style, and runtime environment of your organization.</p>
@@ -324,14 +324,14 @@ export default function AssessmentPage() {
                           <Card 
                             key={sty.id}
                             onClick={() => setBusinessStyle(sty.name)}
-                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 hover:bg-white/5 ${
+                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 hover:bg-muted ${
                               isSelected 
                                 ? "border-accent bg-accent/5 shadow-[0_0_20px_rgba(6,182,212,0.15)]" 
                                 : "border-border/40 bg-transparent"
                             }`}
                           >
                             <CardContent className="p-5 flex flex-col gap-1.5 h-full justify-between">
-                              <h3 className="font-bold text-sm text-white">{sty.name}</h3>
+                              <h3 className="font-bold text-sm text-foreground">{sty.name}</h3>
                               <p className="text-xs text-muted-foreground leading-normal">{sty.desc}</p>
                             </CardContent>
                           </Card>
@@ -345,7 +345,7 @@ export default function AssessmentPage() {
                         placeholder="Detail your operational constraints, user demographics, compliance constraints (e.g. SOC2, GDPR, HIPAA)..."
                         value={businessContext}
                         onChange={(e) => setBusinessContext(e.target.value)}
-                        className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
+                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
                         rows={4}
                       />
                     </div>
@@ -362,7 +362,7 @@ export default function AssessmentPage() {
                     className="flex flex-col gap-6 text-left"
                   >
                     <div>
-                      <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                         <HelpCircle className="w-5 h-5 text-primary" /> Customer Problem & AI Objectives
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Pinpoint your friction points and the concrete capabilities you aim to deploy.</p>
@@ -375,7 +375,7 @@ export default function AssessmentPage() {
                         value={customerProblem}
                         onChange={(e) => setCustomerProblem(e.target.value)}
                         required
-                        className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
+                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
                         rows={4}
                       />
                     </div>
@@ -393,7 +393,7 @@ export default function AssessmentPage() {
                               className={`px-4.5 py-2 text-xs font-semibold rounded-full border transition-all ${
                                 isSelected 
                                   ? "bg-primary border-primary text-white shadow-lg" 
-                                  : "bg-white/5 border-border/40 text-muted-foreground hover:text-white"
+                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
                               }`}
                             >
                               {obj}
@@ -415,7 +415,7 @@ export default function AssessmentPage() {
                     className="flex flex-col gap-6 text-left"
                   >
                     <div>
-                      <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                         <HardDrive className="w-5 h-5 text-accent" /> Data Assets & POC Sizing
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Detail the format, state, and size profile of your evaluation or historical logs.</p>
@@ -434,7 +434,7 @@ export default function AssessmentPage() {
                               className={`px-4.5 py-2 text-xs font-semibold rounded-full border transition-all ${
                                 isSelected 
                                   ? "bg-accent border-accent text-white shadow-lg" 
-                                  : "bg-white/5 border-border/40 text-muted-foreground hover:text-white"
+                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
                               }`}
                             >
                               {dt}
@@ -457,7 +457,7 @@ export default function AssessmentPage() {
                               className={`py-2.5 px-4 text-xs font-semibold border text-left rounded-lg transition-all ${
                                 isSelected 
                                   ? "bg-primary border-primary text-white shadow-lg" 
-                                  : "bg-white/5 border-border/40 text-muted-foreground hover:text-white"
+                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
                               }`}
                             >
                               {sz}
@@ -479,7 +479,7 @@ export default function AssessmentPage() {
                     className="flex flex-col gap-6 text-left"
                   >
                     <div>
-                      <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
                         <ShieldCheck className="w-5 h-5 text-primary animate-pulse" /> Forward to Indus Management
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Specify your professional details to submit the compiled project architecture sheet.</p>
@@ -496,7 +496,7 @@ export default function AssessmentPage() {
                           value={contactName}
                           onChange={(e) => setContactName(e.target.value)}
                           disabled={loading}
-                          className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
                         />
                       </div>
                       
@@ -510,7 +510,7 @@ export default function AssessmentPage() {
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
                           disabled={loading}
-                          className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
                         />
                       </div>
                     </div>
@@ -525,7 +525,7 @@ export default function AssessmentPage() {
                           value={contactCompany}
                           onChange={(e) => setContactCompany(e.target.value)}
                           disabled={loading}
-                          className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
                         />
                       </div>
                       
@@ -538,7 +538,7 @@ export default function AssessmentPage() {
                           value={contactRole}
                           onChange={(e) => setContactRole(e.target.value)}
                           disabled={loading}
-                          className="bg-white/5 border-border/40 focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
                         />
                       </div>
                     </div>
@@ -549,9 +549,9 @@ export default function AssessmentPage() {
                         🚀
                       </div>
                       <div className="flex flex-col gap-1 text-xs">
-                        <p className="font-bold text-white">CPMAI Phase 0 Complete</p>
+                        <p className="font-bold text-foreground">CPMAI Phase 0 Complete</p>
                         <p className="text-muted-foreground leading-relaxed">
-                          Your selected domain (<span className="text-white font-semibold">{domain}</span>) and data profile are queued for validation. Upon clicking submit, this assessment sheet is forwarded directly to the Indusnet solutions management team.
+                          Your selected domain (<span className="text-foreground font-semibold">{domain}</span>) and data profile are queued for validation. Upon clicking submit, this assessment sheet is forwarded directly to the Indusnet solutions management team.
                         </p>
                       </div>
                     </Card>
@@ -578,7 +578,7 @@ export default function AssessmentPage() {
                 variant="ghost"
                 onClick={handlePrevStep}
                 disabled={step === 1 || loading}
-                className="rounded-full text-xs text-muted-foreground hover:text-white"
+                className="rounded-full text-xs text-muted-foreground hover:text-foreground"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" /> Back
               </Button>
@@ -636,7 +636,7 @@ export default function AssessmentPage() {
                 </div>
 
                 <div className="border-t border-border/10 w-full pt-6 mt-2 flex flex-col sm:flex-row gap-3 items-center justify-center">
-                  <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-white/5 text-xs px-6 py-2">
+                  <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-muted text-xs px-6 py-2">
                     <a href="/contact">Book Call Directly</a>
                   </Button>
                   <Button onClick={() => {

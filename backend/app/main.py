@@ -10,13 +10,15 @@ from app.routers import (
     hr_candidates,
     hr_analysis,
     hr_copilot,
-    hr_email
+    hr_email,
+    hr_offers,
+    rag
 )
 
 # Initialize database schemas (handles SQLite/Supabase creation seamlessly)
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Smart Tender & HR Copilot API", version="0.2.0")
+app = FastAPI(title="Indus Net AI Enterprise API", version="0.3.0")
 
 # Enable CORS for Next.js client calls
 app.add_middleware(
@@ -41,6 +43,8 @@ app.include_router(hr_candidates.router)
 app.include_router(hr_analysis.router)
 app.include_router(hr_copilot.router)
 app.include_router(hr_email.router)
+app.include_router(hr_offers.router)
+app.include_router(rag.router)
 
 @app.get("/")
 def read_root():

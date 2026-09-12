@@ -161,18 +161,19 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Badge className="bg-primary/10 border-primary/20 text-primary hover:bg-primary/20 transition px-3 py-1 text-xs font-semibold rounded-full flex items-center gap-1.5 w-fit">
-                <Sparkles className="w-3.5 h-3.5" /> Next-Gen Enterprise AI Systems
-              </Badge>
+              <span className="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                Artificial Intelligence & Data Services
+              </span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] font-heading"
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] font-heading text-foreground"
             >
-              Transforming Businesses with <span className="bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">AI & Automation</span>
+              Accelerate Enterprise Innovation with <span className="text-primary">Private GenAI</span> & Agentic Systems
             </motion.h1>
 
             <motion.p
@@ -181,7 +182,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl leading-relaxed"
             >
-              Bespoke AI solutions, high-performance RAG knowledge systems, autonomous agent workflows, strategic consulting, and certified corporate AI training.
+              Custom AI architectures, high-performance RAG knowledge engines, autonomous agent workflows, strategic consulting, and certified corporate AI training.
             </motion.p>
 
             <motion.div
@@ -190,13 +191,13 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap items-center gap-4 pt-2"
             >
-              <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_25px_rgba(124,58,237,0.4)] transition-all duration-300 group">
+              <Button asChild size="lg" className="rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(255,45,33,0.35)] transition-all duration-300 group px-8">
                 <Link href="/contact" className="flex items-center gap-2">
                   Book Consultation
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full border-border/60 hover:bg-white/5 transition-all text-muted-foreground hover:text-white">
+              <Button asChild size="lg" variant="outline" className="rounded-full border-border/80 hover:border-primary hover:text-primary transition-all px-8">
                 <Link href="/services">Explore Services</Link>
               </Button>
             </motion.div>
@@ -208,33 +209,33 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full flex items-center justify-center border border-primary/20 bg-primary/5 backdrop-blur-2xl shadow-[0_0_50px_rgba(124,58,237,0.15)] group"
+              className="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full flex items-center justify-center border border-primary/30 bg-primary/5 backdrop-blur-2xl shadow-[0_0_50px_rgba(255,45,33,0.15)] group"
             >
               {/* Rotating Outer Rings */}
-              <div className="absolute inset-0 rounded-full border border-dashed border-accent/20 animate-[spin_60s_linear_infinite]" />
-              <div className="absolute inset-4 rounded-full border border-dashed border-primary/20 animate-[spin_40s_linear_infinite_reverse]" />
+              <div className="absolute inset-0 rounded-full border border-dashed border-accent/30 animate-[spin_60s_linear_infinite]" />
+              <div className="absolute inset-4 rounded-full border border-dashed border-primary/30 animate-[spin_40s_linear_infinite_reverse]" />
               <div className="absolute inset-10 rounded-full border border-border/40 animate-[spin_20s_linear_infinite]" />
 
               {/* Central Premium Glass Chip */}
-              <div className="absolute w-40 h-40 rounded-3xl bg-gradient-to-br from-white/10 to-white/0 border border-white/15 backdrop-blur-xl flex flex-col items-center justify-center gap-4 shadow-2xl p-6 group-hover:border-primary/40 transition-all duration-500">
-                <div className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center animate-pulse">
-                  <Cpu className="w-6 h-6 text-primary" />
+              <div className="absolute w-44 h-44 rounded-3xl bg-card border border-border backdrop-blur-xl flex flex-col items-center justify-center gap-3 shadow-2xl p-6 group-hover:border-primary/50 transition-all duration-500">
+                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30">
+                  <Cpu className="w-6 h-6" />
                 </div>
                 <div className="text-center">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground/80 font-bold">Indusnet Engine</p>
-                  <p className="text-xs text-white font-medium mt-1">Active Inference</p>
+                  <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Indusnet AI Engine</p>
+                  <p className="text-xs text-foreground font-bold mt-0.5">Active Enterprise Agent</p>
                 </div>
               </div>
 
               {/* Floating Orbiting Info Cards */}
-              <div className="absolute -top-4 -right-4 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_5s_infinite_ease-in-out] max-w-[140px]">
-                <p className="text-[10px] text-muted-foreground uppercase font-bold">RAG Search</p>
-                <p className="text-xs text-white font-semibold mt-1">98.4% Acc.</p>
+              <div className="absolute -top-4 -right-4 bg-card border border-border/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_5s_infinite_ease-in-out] max-w-[150px]">
+                <p className="text-[10px] text-primary uppercase font-bold tracking-wider">RAG Search</p>
+                <p className="text-xs text-foreground font-bold mt-1">98.4% Accuracy</p>
               </div>
 
-              <div className="absolute -bottom-4 -left-4 bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_6s_infinite_ease-in-out_1s] max-w-[140px]">
-                <p className="text-[10px] text-muted-foreground uppercase font-bold">AI Agents</p>
-                <p className="text-xs text-white font-semibold mt-1">Active Tasks</p>
+              <div className="absolute -bottom-4 -left-4 bg-card border border-border/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_6s_infinite_ease-in-out_1s] max-w-[150px]">
+                <p className="text-[10px] text-primary uppercase font-bold tracking-wider">AI Agents</p>
+                <p className="text-xs text-foreground font-bold mt-1">24/7 Autonomous</p>
               </div>
             </motion.div>
           </div>
@@ -250,10 +251,10 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 items-center justify-center w-full">
             {techLogos.map((tech, idx) => (
               <div key={idx} className="flex flex-col items-center gap-2 group">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-border/40 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-muted border border-border flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300">
                   <tech.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
-                <span className="text-xs font-semibold text-muted-foreground/80 group-hover:text-white transition-colors">
+                <span className="text-xs font-semibold text-muted-foreground/80 group-hover:text-foreground transition-colors">
                   {tech.name}
                 </span>
               </div>
@@ -284,10 +285,10 @@ export default function Home() {
                   <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                     <srv.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <Badge className="bg-white/5 border-white/10 text-muted-foreground text-[10px] w-fit font-semibold px-2 py-0.5 rounded">
+                  <Badge className="bg-muted border-border text-muted-foreground text-[10px] w-fit font-semibold px-2 py-0.5 rounded">
                     {srv.badge}
                   </Badge>
-                  <h3 className="font-bold text-lg text-white leading-snug">{srv.title}</h3>
+                  <h3 className="font-bold text-lg text-foreground leading-snug">{srv.title}</h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">{srv.description}</p>
                 </div>
                 <Link href={srv.href} className="text-xs font-semibold text-primary hover:text-accent transition-colors flex items-center gap-1.5 mt-auto pt-2">
@@ -321,10 +322,10 @@ export default function Home() {
                   <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
                     <ind.icon className="w-5 h-5 text-accent" />
                   </div>
-                  <h3 className="font-bold text-base text-white">{ind.name}</h3>
+                  <h3 className="font-bold text-base text-foreground">{ind.name}</h3>
                 </div>
                 <p className="text-muted-foreground text-xs leading-relaxed">{ind.desc}</p>
-                <Link href={ind.href} className="text-xs font-semibold text-accent hover:text-white transition-colors flex items-center gap-1 mt-2">
+                <Link href={ind.href} className="text-xs font-semibold text-accent hover:text-foreground transition-colors flex items-center gap-1 mt-2">
                   View Solutions <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </CardContent>
@@ -347,7 +348,7 @@ export default function Home() {
               Explore how we help modern enterprises automate operations, reduce costs, and leverage proprietary intellectual property.
             </p>
           </div>
-          <Button asChild className="rounded-full border-border/60 hover:bg-white/5 text-muted-foreground hover:text-white" variant="outline">
+          <Button asChild className="rounded-full border-border/60 hover:bg-muted text-muted-foreground hover:text-foreground" variant="outline">
             <Link href="/portfolio" className="flex items-center gap-1.5">
               View All Case Studies <ChevronRight className="w-4 h-4" />
             </Link>
@@ -365,7 +366,7 @@ export default function Home() {
                     </Badge>
                     <span className="text-xs font-semibold text-emerald-400">{study.metric}</span>
                   </div>
-                  <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors leading-snug">
+                  <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors leading-snug">
                     {study.title}
                   </h3>
                   <p className="text-muted-foreground text-xs leading-relaxed">
@@ -375,7 +376,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4 mt-auto">
                   <div className="flex flex-wrap gap-1.5">
                     {study.tech.map((t, index) => (
-                      <span key={index} className="text-[10px] text-muted-foreground/80 bg-white/5 border border-white/5 rounded px-2 py-0.5">
+                      <span key={index} className="text-[10px] text-muted-foreground/80 bg-muted border border-border rounded px-2 py-0.5">
                         {t}
                       </span>
                     ))}
@@ -415,12 +416,12 @@ export default function Home() {
                   "{test.quote}"
                 </p>
               </div>
-              <div className="flex items-center gap-3 border-t border-white/5 pt-4 mt-2">
+              <div className="flex items-center gap-3 border-t border-border pt-4 mt-2">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary">
                   {test.author[0]}
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">{test.author}</h4>
+                  <h4 className="text-xs font-bold text-foreground">{test.author}</h4>
                   <p className="text-[10px] text-muted-foreground">{test.role}, <span className="text-primary">{test.company}</span></p>
                 </div>
               </div>
@@ -452,7 +453,7 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full border-border/60 hover:bg-white/5 transition-all text-muted-foreground hover:text-white">
+            <Button asChild size="lg" variant="outline" className="rounded-full border-border/60 hover:bg-muted transition-all text-muted-foreground hover:text-foreground">
               <Link href="/training">View Training Bootcamps</Link>
             </Button>
           </div>

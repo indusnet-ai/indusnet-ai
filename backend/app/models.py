@@ -111,6 +111,7 @@ class CandidateApplication(Base):
 
     job = relationship("JobPosition", back_populates="applications")
     analysis = relationship("CandidateAIAnalysis", back_populates="candidate", uselist=False, cascade="all, delete-orphan")
+    offer = relationship("CandidateOffer", back_populates="candidate", uselist=False, cascade="all, delete-orphan")
 
 class CandidateAIAnalysis(Base):
     __tablename__ = "candidate_ai_analysis"
@@ -128,4 +129,21 @@ class CandidateAIAnalysis(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     candidate = relationship("CandidateApplication", back_populates="analysis")
+
+class CandidateOffer(Base):
+    __tablename__ = "candidate_offers"
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    candidate_id = Column(String(36), ForeignKey("candidate_applications.id", ondelete="CASCADE"), nullable=False, unique=True)
+    
+    annual_ctc = Column(String(100), nullable=False)
+    variable_pay = Column(String(100), nullable=False)
+    candidate_address = Column(Text, nullable=True)
+    
+    offer_letter_text = Column(Text, nullable=False)  # OpenAI-generated markdown content
+    status = Column(String(50), default="draft", nullable=False)  # 'draft', 'approved', 'sent'
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+
+    candidate = relationship("CandidateApplication", back_populates="offer")
+
 

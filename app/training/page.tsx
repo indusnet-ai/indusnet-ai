@@ -130,13 +130,13 @@ export default function TrainingPage() {
             <Card key={idx} className={`glassmorphism-card border-none text-left overflow-hidden ${prog.color}`}>
               <CardContent className="p-8 md:p-10 flex flex-col gap-8">
                 {/* Header */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border/10">
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                       <GraduationCap className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
+                      <h2 className="text-xl md:text-2xl font-extrabold text-foreground tracking-tight leading-tight">
                         {prog.title}
                       </h2>
                       <div className="flex flex-wrap gap-4 mt-1.5 text-xs text-muted-foreground">
@@ -165,15 +165,15 @@ export default function TrainingPage() {
                       <p className="text-xs uppercase font-bold text-accent tracking-wider flex items-center gap-1.5">
                         <Trophy className="w-3.5 h-3.5 text-accent animate-bounce" /> Certified Outcome
                       </p>
-                      <p className="text-xs text-white leading-relaxed font-semibold">
+                      <p className="text-xs text-foreground leading-relaxed font-semibold">
                         {prog.outcome}
                       </p>
                     </div>
                   </div>
 
                   {/* Curriculum Details */}
-                  <div className="lg:col-span-7 flex flex-col gap-4 bg-white/[0.01] border border-white/5 rounded-2xl p-6">
-                    <h3 className="font-bold text-xs uppercase text-white tracking-wider flex items-center gap-1.5">
+                  <div className="lg:col-span-7 flex flex-col gap-4 bg-muted/30 border border-border rounded-2xl p-6">
+                    <h3 className="font-bold text-xs uppercase text-foreground tracking-wider flex items-center gap-1.5">
                       <BookOpen className="w-4 h-4 text-primary" /> Curriculum Modules
                     </h3>
                     <ul className="grid grid-cols-1 gap-3">
@@ -197,7 +197,7 @@ export default function TrainingPage() {
         <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
           <Award className="w-8 h-8 text-primary" />
         </div>
-        <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">CPMAI Certification Facilitation</h2>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">CPMAI Certification Facilitation</h2>
         <p className="text-muted-foreground text-xs md:text-sm max-w-xl leading-relaxed">
           As accredited CPMAI training facilitators, we align our curricula strictly with the global Cognitive Project Management for AI methodology. This ensures your workforce learns the deterministic project guidelines proven to avoid common model deployment bottlenecks.
         </p>
@@ -206,7 +206,7 @@ export default function TrainingPage() {
       {/* 4. CTA */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="glassmorphism-card rounded-3xl py-16 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white">Need a Custom Team Curriculum?</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Need a Custom Team Curriculum?</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             We write bespoke training programs tailored exactly to your company's software integrations, model compliance restrictions, and private data subnets.
           </p>

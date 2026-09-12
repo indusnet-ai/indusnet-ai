@@ -19,14 +19,19 @@ def get_candidate_profile(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
         
     analysis = db.query(models.CandidateAIAnalysis).filter(models.CandidateAIAnalysis.candidate_id == candidate_id).first()
+    offer = db.query(models.CandidateOffer).filter(models.CandidateOffer.candidate_id == candidate_id).first()
     
     # Resolve storage link to actual signed URL or public local fallback URL
     application_out = schemas.CandidateApplicationOut.model_validate(application)
     application_out.resume_url = get_resume_url(application.resume_url)
     
+    analysis_out = schemas.CandidateAIAnalysisOut.model_validate(analysis) if analysis else None
+    offer_out = schemas.CandidateOfferOut.model_validate(offer) if offer else None
+    
     return {
         "application": application_out,
-        "analysis": analysis
+        "analysis": analysis_out,
+        "offer": offer_out
     }
 
 @router.get("/{candidate_id}/resume")

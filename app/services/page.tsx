@@ -253,7 +253,7 @@ export default function ServicesPage() {
                   <Badge className="bg-primary/25 text-primary border-primary/30 text-xs">Featured Services</Badge>
                   <span className="text-xs font-semibold text-accent flex items-center gap-1"><Sparkles className="w-3 h-3"/> Free Workshop Scoping</span>
                 </div>
-                <h3 className="text-2xl font-extrabold text-white">Generative AI Services & LLM Deployments</h3>
+                <h3 className="text-2xl font-extrabold text-foreground">Generative AI Services & LLM Deployments</h3>
                 <p className="text-muted-foreground text-xs sm:text-sm max-w-xl leading-relaxed">
                   Design roadmap workshops, private RAG installations, custom agent pipelines, and local model training. Move securely from sandbox validation to high-volume production.
                 </p>
@@ -271,7 +271,7 @@ export default function ServicesPage() {
       {/* 2. TABBED SERVICES EXPLORER */}
       <section className="container mx-auto px-4 md:px-6 max-w-6xl">
         <Tabs defaultValue="core" className="w-full flex flex-col items-center gap-12">
-          <TabsList className="bg-white/5 border border-white/10 rounded-full p-1.5 h-auto flex flex-wrap gap-2 max-w-full justify-center">
+          <TabsList className="bg-muted border border-border rounded-full p-1.5 h-auto flex flex-wrap gap-2 max-w-full justify-center">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat.id}
@@ -295,7 +295,7 @@ export default function ServicesPage() {
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                           <srv.icon className="w-6 h-6 text-primary" />
                         </div>
-                        <h2 className="text-2xl font-extrabold text-white tracking-tight leading-tight">
+                        <h2 className="text-2xl font-extrabold text-foreground tracking-tight leading-tight">
                           {srv.title}
                         </h2>
                         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -303,19 +303,19 @@ export default function ServicesPage() {
                         </p>
                         
                         <div className="flex flex-col gap-2 pt-2">
-                          <p className="text-xs uppercase font-bold text-white tracking-wider flex items-center gap-1.5">
+                          <p className="text-xs uppercase font-bold text-foreground tracking-wider flex items-center gap-1.5">
                             <Server className="w-3.5 h-3.5 text-primary" /> Core Tech Stack
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {srv.tech.map((t, index) => (
-                              <Badge key={index} className="bg-white/5 border border-white/10 text-muted-foreground text-xs hover:bg-white/10 px-2 py-0.5 rounded">
+                              <Badge key={index} className="bg-muted border border-border text-muted-foreground text-xs hover:bg-muted/80 px-2 py-0.5 rounded">
                                 {t}
                               </Badge>
                             ))}
                           </div>
                         </div>
 
-                        <Button asChild className="w-fit rounded-full bg-white/5 border-border/40 hover:bg-white/10 text-muted-foreground hover:text-white mt-2" variant="outline">
+                        <Button asChild className="w-fit rounded-full bg-muted border border-border hover:bg-muted/80 text-muted-foreground hover:text-foreground mt-2" variant="outline">
                           <Link href="/contact" className="flex items-center gap-1.5 text-xs font-semibold">
                             Request Consultation <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
@@ -323,7 +323,7 @@ export default function ServicesPage() {
                       </div>
 
                       {/* Right: Detailed lists */}
-                      <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white/[0.01] border border-white/5 rounded-2xl p-6">
+                      <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/30 border border-border rounded-2xl p-6">
                         {/* Features Column */}
                         <div className="flex flex-col gap-4">
                           <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
@@ -348,7 +348,7 @@ export default function ServicesPage() {
                             {srv.benefits.map((bene, index) => (
                               <li key={index} className="text-xs text-muted-foreground flex items-start gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-accent/60 mt-1.5 flex-shrink-0" />
-                                <span className="leading-relaxed font-medium text-white/90">{bene}</span>
+                                <span className="leading-relaxed font-medium text-foreground/90">{bene}</span>
                               </li>
                             ))}
                           </ul>
@@ -369,7 +369,7 @@ export default function ServicesPage() {
           <Badge className="bg-accent/10 border-accent/20 text-accent rounded-full px-2.5 py-0.5 text-xs">
             Security & Governance Standard
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white">Deterministic & Audit-Ready Models</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Deterministic & Audit-Ready Models</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-xl leading-relaxed">
             Every custom implementation we deploy includes complete observability dashboards, error-logging databases, model alignment metrics, and strict VPC constraints protecting your company's legal integrity.
           </p>

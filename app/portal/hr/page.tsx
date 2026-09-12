@@ -8,10 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { 
   Building, Users, Briefcase, FileText, CheckCircle2, XCircle, Clock, 
   Search, RefreshCw, BarChart2, Star, Mail, Phone, Calendar, 
-  MapPin, GraduationCap, Award, Compass, ExternalLink, ArrowRight, MessageSquare
+  MapPin, GraduationCap, Award, Compass, ExternalLink, ArrowRight, MessageSquare,
+  Printer, Edit, Eye, Save, Send
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -35,6 +37,28 @@ export default function HRDashboard() {
   const [candidateProfile, setCandidateProfile] = React.useState<any>(null);
   const [loadingProfile, setLoadingProfile] = React.useState(false);
   const [reanalyzing, setReanalyzing] = React.useState(false);
+
+  // Offer letter modal states
+  const [offerModalOpen, setOfferModalOpen] = React.useState(false);
+  const [raisingOffer, setRaisingOffer] = React.useState(false);
+  
+  // Inputs
+  const [offerName, setOfferName] = React.useState("");
+  const [offerEmail, setOfferEmail] = React.useState("");
+  const [offerPhone, setOfferPhone] = React.useState("");
+  const [offerAddress, setOfferAddress] = React.useState("");
+  const [annualCTC, setAnnualCTC] = React.useState("");
+  const [variablePay, setVariablePay] = React.useState("");
+  const [additionalNotes, setAdditionalNotes] = React.useState("");
+
+  // Offer Letter content & status
+  const [offerLetterText, setOfferLetterText] = React.useState("");
+  const [offerStatus, setOfferStatus] = React.useState("draft"); // 'draft', 'sent'
+  const [offerId, setOfferId] = React.useState<string | null>(null);
+
+  // Toggle view
+  const [offerStep, setOfferStep] = React.useState<"form" | "preview">("form");
+  const [isPreviewEditMode, setIsPreviewEditMode] = React.useState(false);
 
   React.useEffect(() => {
     if (!loading && !user) {
@@ -138,6 +162,372 @@ export default function HRDashboard() {
     } finally {
       setReanalyzing(false);
     }
+  };
+
+  const handleOpenOfferModal = () => {
+    if (!candidateProfile) return;
+    setOfferName(candidateProfile.application.name || "");
+    setOfferEmail(candidateProfile.application.email || "");
+    setOfferPhone(candidateProfile.application.phone || "");
+    setAdditionalNotes("");
+    
+    // Check if an offer already exists for this candidate
+    if (candidateProfile.offer) {
+      setOfferAddress(candidateProfile.offer.candidate_address || "");
+      setAnnualCTC(candidateProfile.offer.annual_ctc || "");
+      setVariablePay(candidateProfile.offer.variable_pay || "");
+      setOfferLetterText(candidateProfile.offer.offer_letter_text || "");
+      setOfferStatus(candidateProfile.offer.status || "draft");
+      setOfferId(candidateProfile.offer.id);
+      setOfferStep("preview");
+    } else {
+      setOfferAddress("");
+      setAnnualCTC("");
+      setVariablePay("");
+      setOfferLetterText("");
+      setOfferStatus("draft");
+      setOfferId(null);
+      setOfferStep("form");
+    }
+    setOfferModalOpen(true);
+  };
+
+  const handleGenerateOffer = async () => {
+    if (!selectedCandidateId) return;
+    setRaisingOffer(true);
+    try {
+      const savedToken = localStorage.getItem("copilot_token");
+      const res = await fetch(`${API_BASE_URL}/hr/applications/${selectedCandidateId}/offer/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${savedToken}`
+        },
+        body: JSON.stringify({
+          annual_ctc: annualCTC,
+          variable_pay: variablePay,
+          candidate_address: offerAddress,
+          candidate_name: offerName,
+          candidate_email: offerEmail,
+          candidate_phone: offerPhone,
+          additional_instructions: additionalNotes
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "Failed to generate offer letter");
+      }
+
+      const offerData = await res.json();
+      setOfferLetterText(offerData.offer_letter_text);
+      setOfferId(offerData.id);
+      setOfferStatus(offerData.status);
+      setOfferStep("preview");
+      
+      // Update local profiles/lists
+      setCandidateProfile((prev: any) => ({
+        ...prev,
+        application: { 
+          ...prev.application, 
+          name: offerName, 
+          email: offerEmail, 
+          phone: offerPhone 
+        },
+        offer: offerData
+      }));
+      setApplications((prev) => prev.map(app => app.id === selectedCandidateId ? { 
+        ...app, 
+        name: offerName, 
+        email: offerEmail 
+      } : app));
+      
+    } catch (err: any) {
+      alert("Error generating offer: " + err.message);
+    } finally {
+      setRaisingOffer(false);
+    }
+  };
+
+  const handleSaveOfferDraft = async () => {
+    if (!selectedCandidateId) return;
+    setRaisingOffer(true);
+    try {
+      const savedToken = localStorage.getItem("copilot_token");
+      const res = await fetch(`${API_BASE_URL}/hr/applications/${selectedCandidateId}/offer/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${savedToken}`
+        },
+        body: JSON.stringify({
+          offer_letter_text: offerLetterText,
+          annual_ctc: annualCTC,
+          variable_pay: variablePay,
+          candidate_address: offerAddress
+        })
+      });
+
+      if (!res.ok) throw new Error("Failed to save draft");
+      
+      const offerData = await res.json();
+      setOfferLetterText(offerData.offer_letter_text);
+      setCandidateProfile((prev: any) => ({
+        ...prev,
+        offer: offerData
+      }));
+      setIsPreviewEditMode(false);
+      alert("Draft saved successfully.");
+    } catch (err: any) {
+      alert("Error saving draft: " + err.message);
+    } finally {
+      setRaisingOffer(false);
+    }
+  };
+
+  const handleApproveAndSendOffer = async () => {
+    if (!selectedCandidateId) return;
+    setRaisingOffer(true);
+    try {
+      // First save any unsaved edits if in edit mode
+      if (isPreviewEditMode) {
+        const savedToken = localStorage.getItem("copilot_token");
+        const res = await fetch(`${API_BASE_URL}/hr/applications/${selectedCandidateId}/offer/update`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${savedToken}`
+          },
+          body: JSON.stringify({
+            offer_letter_text: offerLetterText,
+            annual_ctc: annualCTC,
+            variable_pay: variablePay,
+            candidate_address: offerAddress
+          })
+        });
+        if (!res.ok) throw new Error("Failed to save draft edits before sending");
+      }
+
+      const savedToken = localStorage.getItem("copilot_token");
+      const sendRes = await fetch(`${API_BASE_URL}/hr/applications/${selectedCandidateId}/offer/approve-and-send`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${savedToken}`
+        }
+      });
+
+      if (!sendRes.ok) {
+        const errData = await sendRes.json();
+        throw new Error(errData.detail || "Failed to send email");
+      }
+
+      const resData = await sendRes.json();
+      alert(resData.message || "Offer approved and sent to candidate!");
+      
+      // Update local profiles/lists status
+      setCandidateProfile((prev: any) => ({
+        ...prev,
+        application: { ...prev.application, application_status: "offered" },
+        offer: { ...prev.offer, status: "sent" }
+      }));
+      setApplications((prev) => prev.map(app => app.id === selectedCandidateId ? { ...app, application_status: "offered" } : app));
+      setOfferStatus("sent");
+      setOfferModalOpen(false);
+    } catch (err: any) {
+      alert("Error sending offer: " + err.message);
+    } finally {
+      setRaisingOffer(false);
+    }
+  };
+
+  const handlePrintPDF = () => {
+    const printContent = document.getElementById("offer-notepad-print-area");
+    if (!printContent) return;
+
+    const printWindow = window.open("", "_blank", "width=850,height=900");
+    if (!printWindow) {
+      alert("Please allow popups to print/download the PDF.");
+      return;
+    }
+
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Offer Letter - ${offerName}</title>
+          <style>
+            @media print {
+              body {
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+                color: #000000;
+                -webkit-print-color-adjust: exact;
+              }
+              .page {
+                width: 210mm;
+                padding: 20mm;
+                margin: 0 auto;
+                box-sizing: border-box;
+                background: #ffffff;
+              }
+              .no-print {
+                display: none;
+              }
+            }
+            body {
+              background: #f1f5f9;
+              font-family: 'Times New Roman', Times, serif;
+              font-size: 14px;
+              color: #1e293b;
+              margin: 20px;
+              padding: 0;
+            }
+            .page {
+              background: #ffffff;
+              width: 210mm;
+              min-height: 297mm;
+              padding: 20mm;
+              margin: 20px auto;
+              box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+              box-sizing: border-box;
+              position: relative;
+            }
+            /* Table formatting */
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 20px 0;
+              font-family: sans-serif;
+              font-size: 13px;
+              color: #1e293b;
+            }
+            tr {
+              border-bottom: 1px solid #e2e8f0;
+            }
+            th, td {
+              padding: 10px;
+              text-align: left;
+            }
+            th {
+              border-bottom: 2px solid #cbd5e1;
+              background-color: #f1f5f9;
+              font-weight: bold;
+              color: #0f172a;
+            }
+            blockquote {
+              border-left: 4px solid #cbd5e1;
+              padding-left: 15px;
+              margin: 15px 0;
+              color: #475569;
+              font-style: italic;
+            }
+            h1, h2, h3 {
+              font-family: sans-serif;
+              color: #0f172a;
+            }
+            h1 {
+              font-size: 22px;
+              margin-top: 30px;
+              margin-bottom: 15px;
+              text-align: center;
+            }
+            h2 {
+              font-size: 18px;
+              margin-top: 25px;
+              margin-bottom: 12px;
+              border-bottom: 1px solid #cbd5e1;
+              padding-bottom: 5px;
+            }
+            h3 {
+              font-size: 15px;
+              margin-top: 20px;
+              margin-bottom: 10px;
+            }
+            p {
+              margin-top: 0;
+              margin-bottom: 15px;
+              line-height: 1.6;
+            }
+            li {
+              margin-bottom: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="page">
+            ${printContent.innerHTML}
+          </div>
+          <script>
+            window.onload = function() {
+              window.print();
+              setTimeout(function() { window.close(); }, 500);
+            }
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
+  const renderMarkdownToHTML = (text: string) => {
+    if (!text) return "";
+    let html = text;
+
+    // Blockquotes
+    html = html.replace(/^>\s+(.*?)$/gm, '<blockquote style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">$1</blockquote>');
+
+    // Tables
+    html = html.replace(/(?:\|.*\|(?:\n|$))+/g, (tableContent) => {
+      const rows = tableContent.trim().split('\n');
+      if (rows.length < 2) return tableContent;
+      
+      let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; font-size: 13px; color: #1e293b;">';
+      rows.forEach((row, i) => {
+        if (row.includes('---')) return; // skip alignment row
+        const cells = row.split('|').slice(1, -1).map(c => c.trim());
+        if (cells.length === 0) return;
+        
+        const rowStyle = i === 0 
+          ? 'border-bottom: 2px solid #cbd5e1; background-color: #f1f5f9; font-weight: bold; color: #0f172a;'
+          : i % 2 === 0 ? 'border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;' : 'border-bottom: 1px solid #e2e8f0;';
+          
+        tableHtml += `<tr style="${rowStyle}">`;
+        cells.forEach(cell => {
+          const cellTag = i === 0 ? 'th' : 'td';
+          let parsedCell = cell;
+          if (parsedCell.startsWith('**') && parsedCell.endsWith('**')) {
+            parsedCell = `<strong>${parsedCell.slice(2, -2)}</strong>`;
+          }
+          tableHtml += `<${cellTag} style="padding: 10px; text-align: left;">${parsedCell}</${cellTag}>`;
+        });
+        tableHtml += '</tr>';
+      });
+      tableHtml += '</table>';
+      return tableHtml;
+    });
+
+    // Headers
+    html = html.replace(/^### (.*?)$/gm, '<h3 style="color: #0f172a; margin-top: 20px; margin-bottom: 10px; font-family: sans-serif; font-size: 15px; font-weight: 700;">$1</h3>');
+    html = html.replace(/^## (.*?)$/gm, '<h2 style="color: #0f172a; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px solid #cbd5e1; padding-bottom: 5px; font-family: sans-serif; font-size: 18px; font-weight: 700;">$1</h2>');
+    html = html.replace(/^# (.*?)$/gm, '<h1 style="color: #0f172a; margin-top: 30px; margin-bottom: 15px; text-align: center; font-family: sans-serif; font-size: 22px; font-weight: 800;">$1</h1>');
+
+    // Bold and Italic
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Bullet points
+    html = html.replace(/^\s*[-*]\s+(.*?)$/gm, '<li style="margin-left: 20px; margin-bottom: 5px; color: #334155;">$1</li>');
+
+    // Paragraphs
+    const paragraphs = html.split('\n\n');
+    return paragraphs.map(p => {
+      const p_strip = p.trim();
+      if (!p_strip) return "";
+      if (p_strip.startsWith('<h') || p_strip.startsWith('<table') || p_strip.startsWith('<tr') || p_strip.startsWith('<blockquote') || p_strip.startsWith('<li')) {
+        return p_strip;
+      }
+      return `<p style="margin-top: 0; margin-bottom: 15px; line-height: 1.6; color: #334155;">${p_strip.replace(/\n/g, '<br/>')}</p>`;
+    }).join('\n');
   };
 
   // KPIs
@@ -444,9 +834,13 @@ export default function HRDashboard() {
                         Invite to Interview
                       </Button>
                     )}
-                    {candidateProfile.application.application_status !== "offered" && (
-                      <Button onClick={() => handleUpdateStatus("offered")} className="bg-green-600 hover:bg-green-700 text-white text-[10px] h-8 px-2.5 rounded-lg">
+                    {candidateProfile.application.application_status !== "offered" ? (
+                      <Button onClick={handleOpenOfferModal} className="bg-green-600 hover:bg-green-700 text-white text-[10px] h-8 px-2.5 rounded-lg">
                         Extend Offer
+                      </Button>
+                    ) : (
+                      <Button onClick={handleOpenOfferModal} className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] h-8 px-2.5 rounded-lg">
+                        View Offer Letter
                       </Button>
                     )}
                     {candidateProfile.application.application_status !== "rejected" && (
@@ -565,6 +959,225 @@ export default function HRDashboard() {
           )}
         </SheetContent>
       </Sheet>
+
+      {/* Raise Offer Letter Modal */}
+      <Dialog open={offerModalOpen} onOpenChange={setOfferModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#07051a] border border-border/10 text-white p-6 rounded-xl">
+          <DialogHeader className="border-b border-border/10 pb-4 text-left">
+            <DialogTitle className="text-xl font-bold text-white">
+              {offerStatus === "sent" ? "View Sent Offer Letter" : "Raise Employment Offer Letter (INR)"}
+            </DialogTitle>
+            <DialogDescription className="text-xs text-zinc-400">
+              Provide CTC details and candidate coordinates. Our Recruitment Copilot will draft the A4 contract based on standard legal formats.
+            </DialogDescription>
+          </DialogHeader>
+
+          {offerStep === "form" ? (
+            <div className="flex flex-col gap-5 my-4 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Column 1: Candidate Details */}
+                <div className="flex flex-col gap-4 bg-white/5 p-4 rounded-xl border border-border/5">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-primary">Candidate Coordinates</h3>
+                  
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Full Name</label>
+                    <Input 
+                      value={offerName} 
+                      onChange={(e) => setOfferName(e.target.value)} 
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Email Address</label>
+                    <Input 
+                      type="email"
+                      value={offerEmail} 
+                      onChange={(e) => setOfferEmail(e.target.value)} 
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Contact Number</label>
+                    <Input 
+                      value={offerPhone} 
+                      onChange={(e) => setOfferPhone(e.target.value)} 
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Residential Address</label>
+                    <Textarea 
+                      rows={3}
+                      value={offerAddress} 
+                      onChange={(e) => setOfferAddress(e.target.value)} 
+                      placeholder="Enter candidate's complete postal address"
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white min-h-[80px]" 
+                    />
+                  </div>
+                </div>
+
+                {/* Column 2: Offer Info */}
+                <div className="flex flex-col gap-4 bg-white/5 p-4 rounded-xl border border-border/5">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-accent">Compensation Structure</h3>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Annual CTC (INR)</label>
+                    <Input 
+                      value={annualCTC} 
+                      onChange={(e) => setAnnualCTC(e.target.value)} 
+                      placeholder="e.g. 924000 or 9,24,000"
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Variable Pay (Annual INR)</label>
+                    <Input 
+                      value={variablePay} 
+                      onChange={(e) => setVariablePay(e.target.value)} 
+                      placeholder="e.g. 0 or 100000"
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white" 
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[11px] font-bold text-zinc-400 uppercase">Custom Notes / Template Reference</label>
+                    <Textarea 
+                      rows={5}
+                      value={additionalNotes} 
+                      onChange={(e) => setAdditionalNotes(e.target.value)} 
+                      placeholder="Paste formatting instructions, customized clauses, or another company's sample letter to mimic layout details."
+                      className="bg-black/20 border-border/40 focus:border-primary text-xs text-white min-h-[110px]" 
+                    />
+                  </div>
+                </div>
+
+              </div>
+              
+              <DialogFooter className="mt-4 pt-4 border-t border-border/5">
+                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border/40 hover:bg-white/5 text-xs text-zinc-300">
+                  Cancel
+                </Button>
+                <Button onClick={handleGenerateOffer} disabled={raisingOffer || !annualCTC} className="bg-primary hover:bg-primary/90 text-white font-medium text-xs rounded px-4 h-9">
+                  {raisingOffer ? <RefreshCw className="w-3.5 h-3.5 mr-2 animate-spin" /> : null}
+                  Draft Offer Letter
+                </Button>
+              </DialogFooter>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 my-2 text-left">
+              {/* Document Action Panel */}
+              <div className="flex items-center gap-2 bg-white/5 p-3 rounded-lg border border-border/5">
+                <Button 
+                  onClick={() => setIsPreviewEditMode(!isPreviewEditMode)} 
+                  variant="outline" 
+                  className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                >
+                  {isPreviewEditMode ? (
+                    <>
+                      <Eye className="w-3.5 h-3.5 mr-1.5" /> View PDF Preview
+                    </>
+                  ) : (
+                    <>
+                      <Edit className="w-3.5 h-3.5 mr-1.5" /> Edit Letter Text
+                    </>
+                  )}
+                </Button>
+
+                <Button 
+                  onClick={handlePrintPDF} 
+                  variant="outline" 
+                  className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                >
+                  <Printer className="w-3.5 h-3.5 mr-1.5" /> Print / Download PDF
+                </Button>
+
+                {offerStatus !== "sent" && (
+                  <Button 
+                    onClick={() => setOfferStep("form")} 
+                    variant="outline" 
+                    className="border-border/40 hover:bg-white/5 text-xs text-zinc-300 h-8"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Re-configure
+                  </Button>
+                )}
+
+                <div className="ml-auto flex items-center gap-2">
+                  <span className="text-[10px] uppercase font-bold text-zinc-400">Offer Status:</span>
+                  <Badge className={offerStatus === "sent" ? "bg-green-500/10 border-green-500/20 text-green-400 font-bold text-[10px] capitalize" : "bg-yellow-500/10 border-yellow-500/20 text-yellow-400 font-bold text-[10px] capitalize"}>
+                    {offerStatus === "sent" ? "Approved & Sent" : "Draft"}
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Preview Content */}
+              <div className="overflow-x-auto max-h-[55vh] p-2 bg-black/40 rounded-xl border border-border/5">
+                {isPreviewEditMode ? (
+                  <div className="flex flex-col gap-2">
+                    <Textarea
+                      value={offerLetterText}
+                      onChange={(e) => setOfferLetterText(e.target.value)}
+                      className="w-full min-h-[45vh] bg-black/50 text-white font-mono p-4 border border-border/40 focus:border-primary text-xs leading-normal resize-y"
+                    />
+                    <p className="text-[10px] text-zinc-400">
+                      * Markdown syntax is supported. Double newline inserts paragraph breaks. Standard markdown tables render as corporate components.
+                    </p>
+                  </div>
+                ) : (
+                  /* A4 Paper Container with Company Notepad */
+                  <div 
+                    id="offer-notepad-print-area" 
+                    className="bg-white text-slate-800 p-12 shadow-2xl rounded-sm border border-slate-200 mx-auto w-[210mm] min-h-[297mm] text-[13px] leading-relaxed select-text font-serif text-left"
+                  >
+                    {/* Company Notepad Header */}
+                    <div style={{ textAlign: "center", borderBottom: "2px double #cbd5e1", paddingBottom: "15px", marginBottom: "25px" }}>
+                      <h1 style={{ color: "#0f172a", margin: 0, fontFamily: "sans-serif", fontSize: "26px", fontWeight: "800", letterSpacing: "-0.03em", textTransform: "uppercase" }}>
+                        INDUSNET <span style={{ color: "#2563eb" }}>AI</span>
+                      </h1>
+                      <p style={{ color: "#64748b", margin: "3px 0", fontFamily: "sans-serif", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: "600" }}>
+                        Next-Gen Enterprise Recruitment
+                      </p>
+                      <div style={{ marginTop: "8px", fontFamily: "sans-serif", fontSize: "9px", color: "#475569", lineHeight: "1.4" }}>
+                        Velachery HQ: Number 46 First Floor, Tansi Nagar, Velachery, Chennai, India 600042 | Phone: +91-9884915977<br />
+                        Singapore Branch: 51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, SG 408933 | Phone: +65-9448-3805
+                      </div>
+                    </div>
+
+                    {/* Letter Body Rendered */}
+                    <div 
+                      className="offer-letter-document-body"
+                      dangerouslySetInnerHTML={{ __html: renderMarkdownToHTML(offerLetterText) }} 
+                    />
+                  </div>
+                )}
+              </div>
+
+              <DialogFooter className="mt-4 pt-4 border-t border-border/5">
+                <Button variant="outline" onClick={() => setOfferModalOpen(false)} className="border-border/40 hover:bg-white/5 text-xs text-zinc-300">
+                  Close
+                </Button>
+                
+                {offerStatus !== "sent" && (
+                  <>
+                    <Button onClick={handleSaveOfferDraft} disabled={raisingOffer} className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-xs px-4 h-9">
+                      <Save className="w-3.5 h-3.5 mr-1.5" /> Save Draft
+                    </Button>
+                    <Button onClick={handleApproveAndSendOffer} disabled={raisingOffer} className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-4 h-9">
+                      {raisingOffer ? <RefreshCw className="w-3.5 h-3.5 mr-2 animate-spin" /> : <Send className="w-3.5 h-3.5 mr-1.5" />}
+                      Approve & Send Offer Email
+                    </Button>
+                  </>
+                )}
+              </DialogFooter>
+            </div>
+          )}
+
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

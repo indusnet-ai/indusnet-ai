@@ -84,7 +84,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <Target className="w-6 h-6 text-primary" />
               </div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">Our Mission</h2>
+              <h2 className="text-2xl font-bold text-foreground tracking-tight">Our Mission</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 To equip mid-market and enterprise organizations with secure, private, and audit-ready artificial intelligence solutions. We replace manual friction with intelligent agents while maintaining absolute compliance and data custody.
               </p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <Compass className="w-6 h-6 text-accent" />
               </div>
-              <h2 className="text-2xl font-bold text-white tracking-tight">Our Vision</h2>
+              <h2 className="text-2xl font-bold text-foreground tracking-tight">Our Vision</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 To become the most trusted global facilitator of certified cognitive project management methodologies and bespoke agentic networks, setting the standard for compliant, deterministic, and self-correcting machine learning architectures.
               </p>
@@ -114,7 +114,7 @@ export default function AboutPage() {
             <Badge className="bg-primary/10 border-primary/20 text-primary w-fit rounded-full px-2.5 py-0.5 text-xs">
               Executive Leadership
             </Badge>
-            <h2 className="text-3xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="text-3xl font-extrabold text-foreground tracking-tight leading-tight">
               Bespoke AI Engineered by <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise Veterans</span>
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -128,7 +128,7 @@ export default function AboutPage() {
                 <UserCheck className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="text-sm font-bold text-white">Senthilkumar Elu</p>
+                <p className="text-sm font-bold text-foreground">Senthilkumar Elu</p>
                 <p className="text-xs text-muted-foreground">Founder & Managing Director | Certified CPMAI Facilitator</p>
               </div>
             </div>
@@ -138,11 +138,11 @@ export default function AboutPage() {
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-64 h-64 rounded-2xl bg-gradient-to-tr from-primary/10 to-accent/10 border border-border/40 p-1 flex items-center justify-center overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-              <div className="w-full h-full rounded-xl bg-background/80 backdrop-blur-md flex flex-col items-center justify-center gap-3 p-6 text-center border border-white/5 group-hover:border-primary/30 transition-all duration-300">
+              <div className="w-full h-full rounded-xl bg-background/80 backdrop-blur-md flex flex-col items-center justify-center gap-3 p-6 text-center border border-border group-hover:border-primary/30 transition-all duration-300">
                 <div className="w-16 h-16 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center animate-pulse">
                   <Award className="w-8 h-8 text-primary" />
                 </div>
-                <h4 className="font-bold text-white text-sm">Certified CPMAI</h4>
+                <h4 className="font-bold text-foreground text-sm">Certified CPMAI</h4>
                 <p className="text-[10px] text-muted-foreground">Highest Standard in AI Implementation Methodology</p>
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function AboutPage() {
           <Badge className="bg-accent/10 border-accent/20 text-accent w-fit mx-auto rounded-full px-3 py-1 text-xs">
             Our Journey
           </Badge>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Timeline of Milestones</h2>
+          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Timeline of Milestones</h2>
           <p className="text-muted-foreground text-sm">
             A chronological mapping of our evolution, from pioneering local experiments to facilitating global enterprise transformations.
           </p>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                 <span className="text-sm font-bold text-primary bg-primary/10 border border-primary/20 w-fit px-2.5 py-0.5 rounded-md">
                   {evt.year}
                 </span>
-                <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors">
+                <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                   {evt.title}
                 </h3>
                 <p className="text-muted-foreground text-xs leading-relaxed max-w-2xl">
@@ -193,7 +193,7 @@ export default function AboutPage() {
           <Badge className="bg-primary/10 border-primary/20 text-primary w-fit mx-auto rounded-full px-3 py-1 text-xs">
             Authorized Partner
           </Badge>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">Our Accreditations</h2>
+          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Our Accreditations</h2>
           <p className="text-muted-foreground text-sm">
             We are deeply aligned with global cloud nodes, certified methodology providers, and active frameworks.
           </p>
@@ -206,7 +206,7 @@ export default function AboutPage() {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <acc.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-bold text-base text-white">{acc.title}</h3>
+                <h3 className="font-bold text-base text-foreground">{acc.title}</h3>
                 <p className="text-muted-foreground text-xs leading-relaxed">{acc.desc}</p>
               </CardContent>
             </Card>
@@ -221,7 +221,7 @@ export default function AboutPage() {
             <Badge className="bg-accent/10 border-accent/20 text-accent w-fit rounded-full px-3 py-1 text-xs">
               Careers & Talent Acquisition
             </Badge>
-            <h2 className="text-3xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="text-3xl font-extrabold text-foreground tracking-tight leading-tight">
               Join the <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Next Generation</span> of AI Engineering
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -235,7 +235,7 @@ export default function AboutPage() {
                 Browse Careers
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-full border-border/40 hover:bg-white/5 text-white hover:text-white w-full">
+            <Button asChild variant="outline" size="lg" className="rounded-full border-border/40 hover:bg-muted text-foreground hover:text-foreground w-full">
               <Link href="/portal/hr" className="flex items-center justify-center gap-2">
                 <Users className="w-4 h-4 text-primary" />
                 HR Portal Access
@@ -248,7 +248,7 @@ export default function AboutPage() {
       {/* 7. CALL TO ACTION */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="glassmorphism-card rounded-3xl py-12 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white">Let's Create Your AI Strategy Together</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Let's Create Your AI Strategy Together</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             Partner with certified CPMAI facilitators and full-stack software architects to construct a compliant, highly secure roadmap for your company.
           </p>

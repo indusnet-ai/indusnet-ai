@@ -1,3 +1,4 @@
+import re
 import smtplib
 import logging
 from email.mime.text import MIMEText
@@ -33,7 +34,80 @@ EMAIL_FOOTER = """
 </div>
 """
 
+def markdown_to_html(md_text: str) -> str:
+    """
+    Converts simple markdown text of the offer letter to clean, email-safe HTML structure.
+    """
+    html = md_text
+    
+    # 1. Blockquote format
+    html = re.sub(r'^>\s+(.*?)$', r'<blockquote style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">\1</blockquote>', html, flags=re.MULTILINE)
+    
+    # 2. Table formatting
+    # Replace markdown table rows
+    def replace_table(match):
+        table_content = match.group(0)
+        rows = table_content.strip().split('\n')
+        if len(rows) < 2:
+            return table_content
+        
+        table_html = ['<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:sans-serif; font-size:13px; color:#1e293b;">']
+        for i, row in enumerate(rows):
+            # Skip alignment row (e.g. | :--- | :--- |)
+            if '---' in row:
+                continue
+            cells = [c.strip() for c in row.split('|')[1:-1]]
+            
+            row_style = 'border-bottom:1px solid #e2e8f0; background-color:#f8fafc;' if i % 2 == 0 else 'border-bottom:1px solid #e2e8f0;'
+            if i == 0:
+                row_style = 'border-bottom:2px solid #cbd5e1; background-color:#f1f5f9; font-weight:bold; color:#0f172a;'
+                
+            table_html.append(f'<tr style="{row_style}">')
+            for cell in cells:
+                cell_type = 'th' if i == 0 else 'td'
+                padding_style = 'padding:10px; text-align:left;'
+                # If bold, make it clean
+                if cell.startswith('**') and cell.endswith('**'):
+                    cell = f'<strong>{cell[2:-2]}</strong>'
+                table_html.append(f'<{cell_type} style="{padding_style}">{cell}</{cell_type}>')
+            table_html.append('</tr>')
+            
+        table_html.append('</table>')
+        return '\n'.join(table_html)
+        
+    # Regex to capture markdown tables
+    html = re.sub(r'(?:\|.*\|(?:\n|$))+', replace_table, html)
+    
+    # 3. Headers
+    html = re.sub(r'^### (.*?)$', r'<h3 style="color:#0f172a; margin-top:20px; margin-bottom:10px; font-family:sans-serif; font-size:15px; font-weight:700;">\1</h3>', html, flags=re.MULTILINE)
+    html = re.sub(r'^## (.*?)$', r'<h2 style="color:#0f172a; margin-top:25px; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:5px; font-family:sans-serif; font-size:18px; font-weight:700;">\1</h2>', html, flags=re.MULTILINE)
+    html = re.sub(r'^# (.*?)$', r'<h1 style="color:#0f172a; margin-top:30px; margin-bottom:15px; text-align:center; font-family:sans-serif; font-size:22px; font-weight:800;">\1</h1>', html, flags=re.MULTILINE)
+    
+    # 4. Bold and Italic formatting
+    html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
+    html = re.sub(r'\*(.*?)\*', r'<em>\1</em>', html)
+    
+    # 5. Lists (Unordered)
+    html = re.sub(r'^\s*[-*]\s+(.*?)$', r'<li style="margin-left:20px; margin-bottom:5px; color:#334155;">\1</li>', html, flags=re.MULTILINE)
+    
+    # 6. Paragraphs and Line Breaks
+    paragraphs = html.split('\n\n')
+    formatted_paras = []
+    for p in paragraphs:
+        p_strip = p.strip()
+        if not p_strip:
+            continue
+        # If it's already an HTML block element, do not wrap it
+        if p_strip.startswith('<h') or p_strip.startswith('<table') or p_strip.startswith('<tr') or p_strip.startswith('<blockquote') or p_strip.startswith('<li') or p_strip.startswith('<ul'):
+            formatted_paras.append(p_strip)
+        else:
+            p_strip = p_strip.replace('\n', '<br/>')
+            formatted_paras.append(f'<p style="margin-top:0; margin-bottom:15px; line-height:1.6; color:#334155;">{p_strip}</p>')
+            
+    return '\n'.join(formatted_paras)
+
 def generate_email_html(email_type: str, candidate_name: str, job_title: str, context: Dict[str, Any]) -> str:
+
     """
     Generates HTML email content styled with glassmorphism dark-theme aesthetics.
     """
@@ -72,20 +146,36 @@ def generate_email_html(email_type: str, candidate_name: str, job_title: str, co
         """
     elif email_type == "offer":
         title = "Job Offer - Indusnet AI"
-        salary = context.get("salary", "As discussed")
-        start_date = context.get("start_date", "TBD")
-        body_content = f"""
-        <p>Dear {candidate_name},</p>
-        <p>We are absolutely thrilled to offer you the position of <strong>{job_title}</strong> at Indusnet AI!</p>
-        <p>We believe your skills and experience will be a fantastic addition to our engineering team, and we look forward to achieving great milestones together.</p>
-        <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #475569; border-radius: 8px; padding: 15px; margin: 20px 0; color: #f1f5f9;">
-          <h3 style="margin-top: 0; color: #10b981;">Offer Summary</h3>
-          <p style="margin: 5px 0;"><strong>Role:</strong> {job_title}</p>
-          <p style="margin: 5px 0;"><strong>Compensation:</strong> {salary}</p>
-          <p style="margin: 5px 0;"><strong>Proposed Start Date:</strong> {start_date}</p>
-        </div>
-        <p>Please review the detailed offer letter attached/provided in the candidate portal, sign it, and return it to us to accept the offer.</p>
-        """
+        custom_letter = context.get("offer_letter_text")
+        if custom_letter:
+            body_content = f"""
+            <div style="text-align: center; border-bottom: 2px double #cbd5e1; padding-bottom: 15px; margin-bottom: 25px;">
+              <h1 style="color: #0f172a; margin: 0; font-family: sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase;">INDUSNET <span style="color: #2563eb;">AI</span></h1>
+              <p style="color: #64748b; margin: 3px 0; font-family: sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600;">Next-Gen Enterprise Recruitment</p>
+              <div style="margin-top: 8px; font-family: sans-serif; font-size: 10px; color: #475569; line-height: 1.4;">
+                Velachery HQ: Number 46 First Floor, Tansi Nagar, Velachery, Chennai, India 600042 | Phone: +91-9884915977<br/>
+                Singapore Branch: 51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, SG 408933 | Phone: +65-9448-3805
+              </div>
+            </div>
+            <div style="text-align: left; font-family: 'Times New Roman', Times, serif; color: #1e293b; font-size: 14px; line-height: 1.6;">
+              {markdown_to_html(custom_letter)}
+            </div>
+            """
+        else:
+            salary = context.get("salary", "As discussed")
+            start_date = context.get("start_date", "TBD")
+            body_content = f"""
+            <p>Dear {candidate_name},</p>
+            <p>We are absolutely thrilled to offer you the position of <strong>{job_title}</strong> at Indusnet AI!</p>
+            <p>We believe your skills and experience will be a fantastic addition to our engineering team, and we look forward to achieving great milestones together.</p>
+            <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid #475569; border-radius: 8px; padding: 15px; margin: 20px 0; color: #f1f5f9;">
+              <h3 style="margin-top: 0; color: #10b981;">Offer Summary</h3>
+              <p style="margin: 5px 0;"><strong>Role:</strong> {job_title}</p>
+              <p style="margin: 5px 0;"><strong>Compensation:</strong> {salary}</p>
+              <p style="margin: 5px 0;"><strong>Proposed Start Date:</strong> {start_date}</p>
+            </div>
+            <p>Please review the detailed offer letter attached/provided in the candidate portal, sign it, and return it to us to accept the offer.</p>
+            """
     elif email_type == "rejection":
         title = "Application Status - Indusnet AI"
         body_content = f"""
@@ -97,6 +187,10 @@ def generate_email_html(email_type: str, candidate_name: str, job_title: str, co
     else:
         title = "Notification - Indusnet AI"
         body_content = f"<p>Dear {candidate_name},</p><p>{context.get('message', '')}</p>"
+
+    card_style = "background: rgba(30, 41, 59, 0.4); border: 1px solid #1e293b; border-radius: 12px; padding: 24px; color: #e2e8f0; font-size: 15px; line-height: 1.6;"
+    if email_type == "offer" and context.get("offer_letter_text"):
+        card_style = "background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 40px; color: #1e293b; font-size: 14px; line-height: 1.6; font-family: 'Times New Roman', Times, serif; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);"
 
     html = f"""
     <!DOCTYPE html>
@@ -113,8 +207,8 @@ def generate_email_html(email_type: str, candidate_name: str, job_title: str, co
           <p style="color: #64748b; margin: 5px 0 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Next-Gen Enterprise Recruitment</p>
         </div>
         
-        <!-- Glassmorphism Card -->
-        <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid #1e293b; border-radius: 12px; padding: 24px; color: #e2e8f0; font-size: 15px; line-height: 1.6;">
+        <!-- Notepad / Card -->
+        <div style="{card_style}">
           {body_content}
         </div>
         

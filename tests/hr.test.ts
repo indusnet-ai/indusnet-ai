@@ -189,6 +189,72 @@ async function runTest() {
     assert.strictEqual(updateData.application_status, "interview");
     console.log("✓ Candidate status updated to 'interview' and invitation email sent!");
 
+    // 7.5. Generate Candidate Offer
+    console.log("\nStep 7.5: Generating Candidate Offer Letter...");
+    const offerPayload = {
+      annual_ctc: "INR 12,00,000",
+      variable_pay: "INR 2,00,000",
+      candidate_address: "123 Velachery Main Road, Chennai",
+      additional_instructions: "Include standard relocation assistance clause."
+    };
+    const offerGenRes = await fetch(`${BACKEND_URL}/hr/applications/${candidateId}/offer/generate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(offerPayload)
+    });
+    assert.strictEqual(offerGenRes.status, 200);
+    const offerGenData = await offerGenRes.json();
+    assert.ok(offerGenData.id, "Offer ID not found.");
+    assert.strictEqual(offerGenData.status, "draft");
+    console.log("✓ Offer letter draft generated successfully!");
+
+    // 7.6. Fetch Candidate Profile including Offer
+    console.log("\nStep 7.6: Fetching Candidate Profile to verify Offer is attached...");
+    const profileWithOfferRes = await fetch(`${BACKEND_URL}/hr/candidates/${candidateId}`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    assert.strictEqual(profileWithOfferRes.status, 200);
+    const profileWithOfferData = await profileWithOfferRes.json();
+    assert.ok(profileWithOfferData.offer, "Offer object not found in candidate profile.");
+    assert.strictEqual(profileWithOfferData.offer.annual_ctc, "INR 12,00,000");
+    console.log("✓ Candidate profile successfully returns offer details without serialization errors!");
+
+    // 7.7. Update Offer Letter Text
+    console.log("\nStep 7.7: Updating Offer Letter...");
+    const offerUpdatePayload = {
+      offer_letter_text: profileWithOfferData.offer.offer_letter_text + "\n\nUpdated Terms: Relocation assistance approved.",
+      annual_ctc: "INR 12,50,000"
+    };
+    const offerUpdateRes = await fetch(`${BACKEND_URL}/hr/applications/${candidateId}/offer/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(offerUpdatePayload)
+    });
+    assert.strictEqual(offerUpdateRes.status, 200);
+    const offerUpdateData = await offerUpdateRes.json();
+    assert.strictEqual(offerUpdateData.annual_ctc, "INR 12,50,000");
+    assert.ok(offerUpdateData.offer_letter_text.includes("Relocation assistance approved."), "Updated terms not found.");
+    console.log("✓ Offer letter updated successfully!");
+
+    // 7.8. Approve and Send Offer
+    console.log("\nStep 7.8: Approving and Sending Offer...");
+    const approveSendRes = await fetch(`${BACKEND_URL}/hr/applications/${candidateId}/offer/approve-and-send`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    assert.strictEqual(approveSendRes.status, 200);
+    const approveSendData = await approveSendRes.json();
+    assert.strictEqual(approveSendData.status, "success");
+    console.log("✓ Offer approved and sent successfully!");
+
     // 8. Cleanup - Delete Job Posting (Cascades to Application & Analysis)
     console.log("\nStep 8: Cleaning up test data...");
     const cleanRes = await fetch(`${BACKEND_URL}/hr/jobs/${jobId}`, {

@@ -168,9 +168,23 @@ class CandidateAIAnalysisOut(BaseModel):
     class Config:
         from_attributes = True
 
+class CandidateOfferOut(BaseModel):
+    id: str
+    candidate_id: str
+    annual_ctc: str
+    variable_pay: str
+    candidate_address: Optional[str]
+    offer_letter_text: str
+    status: str
+    created_at: datetime
+    updated_at: datetime
+    class Config:
+        from_attributes = True
+
 class CandidateProfileOut(BaseModel):
     application: CandidateApplicationOut
     analysis: Optional[CandidateAIAnalysisOut] = None
+    offer: Optional[CandidateOfferOut] = None  # To include offer letter details if any
     class Config:
         from_attributes = True
 
@@ -184,4 +198,21 @@ class CopilotChatRequest(BaseModel):
     history: List[Dict[str, str]]  # list of {"role": "user"/"assistant", "content": "..."}
     job_id: Optional[str] = None
     candidate_id: Optional[str] = None
+
+# --- Candidate Offer Schemas ---
+class CandidateOfferCreate(BaseModel):
+    annual_ctc: str
+    variable_pay: str
+    candidate_address: Optional[str] = None
+    candidate_name: Optional[str] = None
+    candidate_email: Optional[str] = None
+    candidate_phone: Optional[str] = None
+    additional_instructions: Optional[str] = None
+
+class CandidateOfferUpdate(BaseModel):
+    offer_letter_text: str
+    annual_ctc: Optional[str] = None
+    variable_pay: Optional[str] = None
+    candidate_address: Optional[str] = None
+
 
