@@ -1,10 +1,11 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from app import models, schemas
 from app.db import get_db
 from app.routers.auth import get_current_user
-from app.routers.hr_jobs import get_current_hr_manager
-from app.utils.storage import get_resume_url
+from app.utils.storage import get_resume_url, LOCAL_UPLOAD_DIR, WORKSPACE_DIR, get_content_type
 
 router = APIRouter(prefix="/hr/candidates", tags=["hr-candidates"])
 
@@ -12,8 +13,11 @@ router = APIRouter(prefix="/hr/candidates", tags=["hr-candidates"])
 def get_candidate_profile(
     candidate_id: str,
     db: Session = Depends(get_db),
-    current_user: models.PortalUser = Depends(get_current_hr_manager)
+    current_user: models.PortalUser = Depends(get_current_user)
 ):
+    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
+
     application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
@@ -21,9 +25,8 @@ def get_candidate_profile(
     analysis = db.query(models.CandidateAIAnalysis).filter(models.CandidateAIAnalysis.candidate_id == candidate_id).first()
     offer = db.query(models.CandidateOffer).filter(models.CandidateOffer.candidate_id == candidate_id).first()
     
-    # Resolve storage link to actual signed URL or public local fallback URL
     application_out = schemas.CandidateApplicationOut.model_validate(application)
-    application_out.resume_url = get_resume_url(application.resume_url)
+    application_out.resume_url = f"/api/backend/hr/candidates/{candidate_id}/resume/file"
     
     analysis_out = schemas.CandidateAIAnalysisOut.model_validate(analysis) if analysis else None
     offer_out = schemas.CandidateOfferOut.model_validate(offer) if offer else None
@@ -38,11 +41,46 @@ def get_candidate_profile(
 def get_candidate_resume_link(
     candidate_id: str,
     db: Session = Depends(get_db),
-    current_user: models.PortalUser = Depends(get_current_hr_manager)
+    current_user: models.PortalUser = Depends(get_current_user)
 ):
+    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
+
     application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
         
-    resolved_url = get_resume_url(application.resume_url)
-    return {"url": resolved_url}
+    return {"url": f"/api/backend/hr/candidates/{candidate_id}/resume/file"}
+
+@router.get("/{candidate_id}/resume/file")
+def get_candidate_resume_file(
+    candidate_id: str,
+    db: Session = Depends(get_db),
+    current_user: models.PortalUser = Depends(get_current_user)
+):
+    """
+    Protected resume file download endpoint. Only HR Managers and Internal Evaluators can access.
+    """
+    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
+
+    application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
+    if not application:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
+
+    stored_path = application.resume_url
+    if stored_path.startswith("supabase://"):
+        signed_url = get_resume_url(stored_path)
+        return RedirectResponse(url=signed_url)
+
+    filename = os.path.basename(stored_path)
+    file_path = os.path.join(LOCAL_UPLOAD_DIR, filename)
+    if not os.path.exists(file_path):
+        legacy_path = os.path.join(WORKSPACE_DIR, "public", "uploads", filename)
+        if os.path.exists(legacy_path):
+            file_path = legacy_path
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resume file not found")
+
+    content_type = get_content_type(filename)
+    return FileResponse(file_path, media_type=content_type, filename=filename)

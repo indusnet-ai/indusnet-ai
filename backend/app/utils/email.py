@@ -106,11 +106,14 @@ def markdown_to_html(md_text: str) -> str:
             
     return '\n'.join(formatted_paras)
 
-def generate_email_html(email_type: str, candidate_name: str, job_title: str, context: Dict[str, Any]) -> str:
+import html
 
+def generate_email_html(email_type: str, candidate_name: str, job_title: str, context: Dict[str, Any]) -> str:
     """
     Generates HTML email content styled with glassmorphism dark-theme aesthetics.
     """
+    candidate_name = html.escape(candidate_name)
+    job_title = html.escape(job_title)
     title = ""
     body_content = ""
 

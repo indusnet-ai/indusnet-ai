@@ -13,7 +13,7 @@ UTILS_DIR = os.path.dirname(os.path.abspath(__file__))
 APP_DIR = os.path.dirname(UTILS_DIR)
 BACKEND_DIR = os.path.dirname(APP_DIR)
 WORKSPACE_DIR = os.path.dirname(BACKEND_DIR)
-LOCAL_UPLOAD_DIR = os.path.join(WORKSPACE_DIR, "public", "uploads")
+LOCAL_UPLOAD_DIR = os.path.join(BACKEND_DIR, "storage", "resumes")
 
 def get_content_type(file_name: str) -> str:
     ext = os.path.splitext(file_name)[1].lower()
@@ -29,9 +29,8 @@ def get_content_type(file_name: str) -> str:
 
 def save_resume(file_name: str, file_bytes: bytes) -> str:
     """
-    Saves a resume file. First attempts to upload to Supabase private storage bucket 'candidate-resumes'.
-    If Supabase credentials are not available or upload fails, falls back to local file storage under public/uploads/.
-    Returns the file URL or path.
+    Saves a resume file to backend private storage directory backend/storage/resumes/ (or Supabase).
+    Returns internal path identifier.
     """
     ext = os.path.splitext(file_name)[1]
     unique_filename = f"{uuid.uuid4()}{ext}"
@@ -40,7 +39,6 @@ def save_resume(file_name: str, file_bytes: bytes) -> str:
     # 1. Attempt Supabase upload if configured
     if settings.SUPABASE_URL and settings.SUPABASE_SERVICE_ROLE_KEY:
         try:
-            # Clean URL and key
             supabase_url = settings.SUPABASE_URL.rstrip('/')
             bucket_name = "candidate-resumes"
             upload_url = f"{supabase_url}/storage/v1/object/{bucket_name}/{unique_filename}"
@@ -59,19 +57,18 @@ def save_resume(file_name: str, file_bytes: bytes) -> str:
             with urllib.request.urlopen(req) as response:
                 if response.status in [200, 201]:
                     logger.info(f"Successfully uploaded {file_name} to Supabase storage as {unique_filename}")
-                    # Return the path to be used for retrieval/signing
                     return f"supabase://{bucket_name}/{unique_filename}"
         except Exception as e:
             logger.error(f"Supabase upload failed: {e}. Falling back to local storage.")
 
-    # 2. Local Fallback Storage
+    # 2. Local Private Storage (backend/storage/resumes/)
     try:
         os.makedirs(LOCAL_UPLOAD_DIR, exist_ok=True)
         local_path = os.path.join(LOCAL_UPLOAD_DIR, unique_filename)
         with open(local_path, "wb") as f:
             f.write(file_bytes)
-        logger.info(f"Successfully saved {file_name} to local fallback storage at {local_path}")
-        return f"/uploads/{unique_filename}"
+        logger.info(f"Successfully saved {file_name} to private storage at {local_path}")
+        return f"resumes/{unique_filename}"
     except Exception as e:
         logger.error(f"Local storage fallback failed: {e}")
         raise RuntimeError("Failed to store uploaded file.")

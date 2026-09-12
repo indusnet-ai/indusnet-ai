@@ -1,5 +1,5 @@
 import logging
-from fastapi import APIRouter, Depends, HTTPException, status, Form, File, UploadFile, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, Form, File, UploadFile, BackgroundTasks, Request
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from app import models, schemas
@@ -9,6 +9,7 @@ from app.routers.hr_jobs import get_current_hr_manager
 from app.utils.storage import save_resume, get_resume_url
 from app.utils.email import send_recruitment_email
 from app.utils.parser import parse_resume_and_analyze
+from app.utils.rate_limiter import application_rate_limiter, get_client_ip
 
 router = APIRouter(prefix="/hr/applications", tags=["hr-applications"])
 logger = logging.getLogger("hr_applications")
@@ -89,6 +90,7 @@ def run_background_analysis_and_email(
 
 @router.post("", response_model=schemas.CandidateApplicationOut, status_code=status.HTTP_201_CREATED)
 async def submit_application(
+    request: Request,
     job_id: str = Form(...),
     name: str = Form(...),
     email: str = Form(...),
@@ -104,6 +106,7 @@ async def submit_application(
     background_tasks: BackgroundTasks = BackgroundTasks(),
     db: Session = Depends(get_db)
 ):
+    application_rate_limiter.check(get_client_ip(request))
     # Verify job position exists
     job = db.query(models.JobPosition).filter(models.JobPosition.id == job_id).first()
     if not job:

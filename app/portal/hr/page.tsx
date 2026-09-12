@@ -817,7 +817,7 @@ export default function HRDashboard() {
                     Refresh Analysis
                   </Button>
                   <Button asChild className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-8 rounded-lg">
-                    <a href={candidateProfile.application.resume_url} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    <a href={`/api/backend/hr/candidates/${candidateProfile.application.id}/resume/file`} target="_blank" rel="noopener noreferrer" className="flex items-center">
                       <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Open Resume File
                     </a>
                   </Button>

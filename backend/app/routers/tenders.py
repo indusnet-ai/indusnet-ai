@@ -202,7 +202,8 @@ async def chat_session(
                 "requirement_matrix": current_matrix
             }
     
-    final_state = copilot_graph.invoke(initial_state)
+    import asyncio
+    final_state = await asyncio.to_thread(copilot_graph.invoke, initial_state)
     
     session.compliance_score = final_state["compliance_score"]
     session.last_activity = datetime.utcnow()

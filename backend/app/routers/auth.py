@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 import bcrypt
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.config import settings
 from app import models, schemas
+from app.utils.rate_limiter import auth_rate_limiter, get_client_ip
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
@@ -34,7 +34,8 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=schemas.Token)
-def register(user_in: schemas.UserRegister, db: Session = Depends(get_db)):
+def register(user_in: schemas.UserRegister, request: Request, db: Session = Depends(get_db)):
+    auth_rate_limiter.check(get_client_ip(request))
     if user_in.role and user_in.role != models.UserRole.BIDDER:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -80,7 +81,8 @@ def register(user_in: schemas.UserRegister, db: Session = Depends(get_db)):
     }
 
 @router.post("/login", response_model=schemas.Token)
-def login(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
+def login(credentials: schemas.UserLogin, request: Request, db: Session = Depends(get_db)):
+    auth_rate_limiter.check(get_client_ip(request))
     user = db.query(models.PortalUser).filter(models.PortalUser.email == credentials.email).first()
     if not user or not verify_password(credentials.password, user.password_hash):
         raise HTTPException(
