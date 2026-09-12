@@ -1,116 +1,117 @@
--- ------------------------------------------------------------------------------
--- SMART TENDER COPILOT - POSTGRESQL DATABASE DDL SCHEMA
--- Execute these statements in the Supabase SQL Editor to initialize Copilot tables.
--- ------------------------------------------------------------------------------
+-- Copilot & Smart Tender Database DDL Schema (PostgreSQL / Supabase)
 
--- 1. Create Bidding Companies table
+-- 1. Bidding Companies
 CREATE TABLE IF NOT EXISTS public.bidding_companies (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    registration_number VARCHAR(100) UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 2. Create Portal Users table
+-- 2. Portal Users
 CREATE TABLE IF NOT EXISTS public.portal_users (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    role VARCHAR(50) DEFAULT 'bidder' NOT NULL, -- 'bidder', 'internal_evaluator'
+    role VARCHAR(50) NOT NULL, -- 'bidder', 'internal_evaluator', 'hr_manager'
     company_id UUID REFERENCES public.bidding_companies(id) ON DELETE SET NULL,
     name VARCHAR(255),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_portal_users_email ON public.portal_users(email);
-
--- 3. Create Tenders table
+-- 3. Tenders
 CREATE TABLE IF NOT EXISTS public.tenders (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    requirement_matrix JSONB, -- The structured JSON checklist extracted from the tender PDF
-    status VARCHAR(50) DEFAULT 'open' NOT NULL, -- 'open', 'closed'
+    requirement_matrix JSONB,
+    status VARCHAR(50) DEFAULT 'open' NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 4. Create Bidder Sessions table
+-- 4. Bidder Sessions
 CREATE TABLE IF NOT EXISTS public.bidder_sessions (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    tender_id UUID NOT NULL REFERENCES public.tenders(id) ON DELETE CASCADE,
-    company_id UUID NOT NULL REFERENCES public.bidding_companies(id) ON DELETE CASCADE,
-    user_id UUID NOT NULL REFERENCES public.portal_users(id) ON DELETE CASCADE,
+    tender_id UUID REFERENCES public.tenders(id) ON DELETE CASCADE NOT NULL,
+    company_id UUID REFERENCES public.bidding_companies(id) ON DELETE CASCADE NOT NULL,
+    user_id UUID REFERENCES public.portal_users(id) ON DELETE CASCADE NOT NULL,
     status VARCHAR(50) DEFAULT 'in_progress' NOT NULL, -- 'in_progress', 'submitted', 'evaluated'
-    compliance_score NUMERIC(5,2) DEFAULT 0.00 NOT NULL,
+    compliance_score NUMERIC(5, 2) DEFAULT 0.00 NOT NULL,
+    submitted_at TIMESTAMP WITH TIME ZONE NULL,
     last_activity TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_bidder_sessions_tender ON public.bidder_sessions(tender_id);
-CREATE INDEX IF NOT EXISTS idx_bidder_sessions_company ON public.bidder_sessions(company_id);
+-- Migration for existing databases:
+-- ALTER TABLE public.bidder_sessions ADD COLUMN IF NOT EXISTS submitted_at TIMESTAMP WITH TIME ZONE NULL;
 
--- 5. Create Chat History table
+-- 5. Chat History
 CREATE TABLE IF NOT EXISTS public.chat_history (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id UUID NOT NULL REFERENCES public.bidder_sessions(id) ON DELETE CASCADE,
+    session_id UUID REFERENCES public.bidder_sessions(id) ON DELETE CASCADE NOT NULL,
     sender VARCHAR(50) NOT NULL, -- 'user', 'agent'
     message TEXT NOT NULL,
-    extracted_data JSONB, -- The structured requirements checked/extracted at this turn
+    extracted_data JSONB,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_chat_history_session ON public.chat_history(session_id);
+-- 6. Job Positions
+CREATE TABLE IF NOT EXISTS public.job_positions (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    department VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    employment_type VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    requirements TEXT NOT NULL,
+    responsibilities TEXT NOT NULL,
+    benefits TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'active' NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
 
--- Enable RLS (Row Level Security)
-ALTER TABLE public.bidding_companies ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.portal_users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.tenders ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.bidder_sessions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.chat_history ENABLE ROW LEVEL SECURITY;
+-- 7. Candidate Applications
+CREATE TABLE IF NOT EXISTS public.candidate_applications (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    job_id UUID REFERENCES public.job_positions(id) ON DELETE CASCADE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    current_company VARCHAR(255),
+    current_designation VARCHAR(255),
+    experience_years NUMERIC(4, 1) NOT NULL,
+    expected_salary VARCHAR(100),
+    notice_period VARCHAR(100),
+    linkedin_url TEXT,
+    portfolio_url TEXT,
+    resume_url TEXT NOT NULL,
+    application_status VARCHAR(50) DEFAULT 'applied' NOT NULL,
+    ai_score NUMERIC(5, 2) DEFAULT 0.00 NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
 
--- Setup RLS Policies for secure separation
--- Evaluators can read everything; Bidders can only read/write their own company's data.
+-- 8. Candidate AI Analysis
+CREATE TABLE IF NOT EXISTS public.candidate_ai_analysis (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    candidate_id UUID REFERENCES public.candidate_applications(id) ON DELETE CASCADE NOT NULL UNIQUE,
+    parsed_resume JSONB,
+    skills JSONB,
+    strengths JSONB,
+    weaknesses JSONB,
+    job_match_score NUMERIC(5, 2),
+    summary TEXT,
+    recommended_interview_questions JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
 
--- Bidding Companies Policy
-CREATE POLICY "Users can view their own company" ON public.bidding_companies
-    FOR SELECT USING (
-        EXISTS (
-            SELECT 1 FROM public.portal_users 
-            WHERE public.portal_users.id = auth.uid() 
-            AND (public.portal_users.company_id = public.bidding_companies.id OR public.portal_users.role = 'internal_evaluator')
-        )
-    );
-
--- Portal Users Policy
-CREATE POLICY "Users can view their own profile" ON public.portal_users
-    FOR SELECT USING (
-        id = auth.uid() OR role = 'internal_evaluator'
-    );
-
--- Tenders Policy (Public read-only for authenticated users, insert for evaluators)
-CREATE POLICY "Authenticated users can view tenders" ON public.tenders
-    FOR SELECT USING (true);
-
--- Bidder Sessions Policy
-CREATE POLICY "Bidders can view/edit their own sessions" ON public.bidder_sessions
-    FOR ALL USING (
-        user_id = auth.uid() OR 
-        EXISTS (
-            SELECT 1 FROM public.portal_users 
-            WHERE public.portal_users.id = auth.uid() AND public.portal_users.role = 'internal_evaluator'
-        )
-    );
-
--- Chat History Policy
-CREATE POLICY "Bidders can view/edit their own chat history" ON public.chat_history
-    FOR ALL USING (
-        EXISTS (
-            SELECT 1 FROM public.bidder_sessions 
-            WHERE public.bidder_sessions.id = public.chat_history.session_id 
-            AND (public.bidder_sessions.user_id = auth.uid() OR 
-                 EXISTS (
-                     SELECT 1 FROM public.portal_users 
-                     WHERE public.portal_users.id = auth.uid() AND public.portal_users.role = 'internal_evaluator'
-                 ))
-        )
-    );
+-- 9. Candidate Offers
+CREATE TABLE IF NOT EXISTS public.candidate_offers (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    candidate_id UUID REFERENCES public.candidate_applications(id) ON DELETE CASCADE NOT NULL UNIQUE,
+    offer_letter_text TEXT NOT NULL,
+    annual_ctc VARCHAR(100),
+    variable_pay VARCHAR(100),
+    candidate_address TEXT,
+    status VARCHAR(50) DEFAULT 'draft' NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);

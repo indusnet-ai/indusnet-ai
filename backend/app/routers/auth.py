@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt
 import bcrypt
 from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.config import settings

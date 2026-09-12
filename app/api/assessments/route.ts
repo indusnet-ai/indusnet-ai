@@ -41,7 +41,10 @@ export async function POST(request: Request) {
       }]);
 
     if (dbError) {
-      console.warn("Supabase insert warning (falling back to simulation mode):", dbError.message);
+      console.warn("Supabase insert error in assessments API:", dbError.message);
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder")) {
+        return NextResponse.json({ error: dbError.message }, { status: 500 });
+      }
     }
 
     // 2. Dispatch Transactional Email to Management (info@indusnet-ai.com)

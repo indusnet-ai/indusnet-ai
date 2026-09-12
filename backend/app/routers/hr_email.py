@@ -43,7 +43,7 @@ def send_candidate_email(
     if not job_title:
         job_title = "Applied Position"
 
-    success = send_recruitment_email(
+    email_status = send_recruitment_email(
         email_type=payload.email_type,
         recipient_email=str(payload.recipient),
         candidate_name=candidate_name,
@@ -51,10 +51,15 @@ def send_candidate_email(
         context=payload.context
     )
     
-    if not success:
+    if email_status == "not_configured":
+        return {
+            "status": "not_configured",
+            "message": f"Email not sent to {payload.recipient} because SMTP credentials are not configured on the server."
+        }
+    elif email_status == "failed":
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to send email. Check SMTP logs or credentials."
+            detail="Failed to send email. Check SMTP server logs or credentials."
         )
         
-    return {"status": "success", "message": f"Email of type '{payload.email_type}' successfully sent to {payload.recipient}"}
+    return {"status": "sent", "message": f"Email of type '{payload.email_type}' successfully sent to {payload.recipient}"}

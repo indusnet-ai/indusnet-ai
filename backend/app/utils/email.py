@@ -229,10 +229,10 @@ def send_recruitment_email(
     candidate_name: str,
     job_title: str,
     context: Dict[str, Any]
-) -> bool:
+) -> str:
     """
     Sends an automated email utilizing settings.SMTP_* variables.
-    Fails gracefully with logger output to prevent blocking key user flows.
+    Returns: 'sent', 'not_configured', or 'failed'.
     """
     # 1. Generate HTML content
     html_content = generate_email_html(email_type, candidate_name, job_title, context)
@@ -250,10 +250,10 @@ def send_recruitment_email(
     # 2. Check if SMTP configuration exists
     if not settings.SMTP_PASSWORD:
         logger.warning(
-            f"[MOCK EMAIL SENT] To: {recipient_email} | Type: {email_type} | Candidate: {candidate_name} | Job: {job_title}\n"
+            f"[MOCK EMAIL PREVIEW] To: {recipient_email} | Type: {email_type} | Candidate: {candidate_name} | Job: {job_title}\n"
             f"SMTP credentials missing. Configure SMTP_PASSWORD to send actual emails."
         )
-        return True
+        return "not_configured"
 
     # 3. Formulate SMTP email
     try:
@@ -272,8 +272,7 @@ def send_recruitment_email(
             server.sendmail(settings.SMTP_USERNAME, recipient_email, msg.as_string())
             
         logger.info(f"Email successfully sent to {recipient_email} for type {email_type}")
-        return True
+        return "sent"
     except Exception as e:
         logger.error(f"Failed to send email to {recipient_email}: {e}")
-        # Return True to avoid breaking candidate submission flows if SMTP setup fails
-        return False
+        return "failed"

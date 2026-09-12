@@ -25,37 +25,37 @@ const INITIAL_COLLECTIONS = [
 
 // Sample Indexed Documents
 const INITIAL_DOCUMENTS = [
-  { id: "doc-1", filename: "Metro_Underwriting_Guidelines_v4.2.pdf", size: "4.8 MB", chunks: 320, type: "PDF", uploadedAt: "2026-07-20", status: "Indexed in Qdrant" },
-  { id: "doc-2", filename: "Commercial_Loan_Compliance_2026.docx", size: "2.1 MB", chunks: 145, type: "DOCX", uploadedAt: "2026-07-21", status: "Indexed in Qdrant" },
-  { id: "doc-3", filename: "Risk_Mitigation_Matrix_PHI.pdf", size: "7.4 MB", chunks: 512, type: "PDF", uploadedAt: "2026-07-22", status: "Indexed in Qdrant" },
-  { id: "doc-4", filename: "ESG_Debt_Tier_Specifications.sql", size: "1.2 MB", chunks: 98, type: "SQL", uploadedAt: "2026-07-24", status: "Indexed in Qdrant" }
+  { id: "doc-1", filename: "Metro_Underwriting_Guidelines_v4.2.pdf", size: "4.8 MB", chunks: 320, type: "PDF", uploadedAt: "2026-07-20", status: "Sample Document" },
+  { id: "doc-2", filename: "Commercial_Loan_Compliance_2026.docx", size: "2.1 MB", chunks: 145, type: "DOCX", uploadedAt: "2026-07-21", status: "Sample Document" },
+  { id: "doc-3", filename: "Risk_Mitigation_Matrix_PHI.pdf", size: "7.4 MB", chunks: 512, type: "PDF", uploadedAt: "2026-07-22", status: "Sample Document" },
+  { id: "doc-4", filename: "ESG_Debt_Tier_Specifications.sql", size: "1.2 MB", chunks: 98, type: "SQL", uploadedAt: "2026-07-24", status: "Sample Document" }
 ];
 
 // Sample Pre-loaded RAG Chat Sessions & Responses
 const SAMPLE_QUERIES = [
   "What are the Tier-1 underwriting debt-to-income limits for commercial green bonds?",
   "Summarize Section 4.2 risk mitigation protocols for non-recourse infrastructure loans.",
-  "What compliance documents are required for private subnet Qdrant vector storage?"
+  "What compliance documents are required for private subnet vector storage?"
 ];
 
 const PRESET_RESPONSES: Record<string, { answer: string; sources: { doc: string; chunk: string; similarity: string; excerpt: string }[] }> = {
   "What are the Tier-1 underwriting debt-to-income limits for commercial green bonds?": {
     answer: "According to Metro Financial Underwriting Guidelines v4.2 (Section 8.1), Tier-1 commercial green bond issuances enforce a strict Maximum Debt-to-Income (DTI) ratio of 42.5%. For projects exceeding $50M in capital expenditure, an adjusted Debt Service Coverage Ratio (DSCR) of 1.35x is mandatory prior to credit committee sign-off.",
     sources: [
-      { doc: "Metro_Underwriting_Guidelines_v4.2.pdf", chunk: "Chunk #108 (p. 44)", similarity: "99.2%", excerpt: "Tier-1 commercial green bond issuances enforce a strict Maximum DTI ratio of 42.5%. For projects exceeding $50M in CapEx, DSCR threshold must equal or exceed 1.35x..." },
-      { doc: "Commercial_Loan_Compliance_2026.docx", chunk: "Chunk #42 (p. 12)", similarity: "96.4%", excerpt: "Green energy credit facility compliance requires dual verification of CapEx limits and DTI ceilings under Section 8.1 standards." }
+      { doc: "Metro_Underwriting_Guidelines_v4.2.pdf", chunk: "Chunk #108 (p. 44)", similarity: "High Relevance", excerpt: "Tier-1 commercial green bond issuances enforce a strict Maximum DTI ratio of 42.5%. For projects exceeding $50M in CapEx, DSCR threshold must equal or exceed 1.35x..." },
+      { doc: "Commercial_Loan_Compliance_2026.docx", chunk: "Chunk #42 (p. 12)", similarity: "High Relevance", excerpt: "Green energy credit facility compliance requires dual verification of CapEx limits and DTI ceilings under Section 8.1 standards." }
     ]
   },
   "Summarize Section 4.2 risk mitigation protocols for non-recourse infrastructure loans.": {
     answer: "Section 4.2 mandates a three-tier risk mitigation framework for non-recourse infrastructure financing:\n1. 100% Escrow Account Reserve covering 6 months of debt principal & interest.\n2. Independent Engineering Performance Guarantee from an accredited audit firm.\n3. Mandatory Business Interruption Insurance with a minimum indemnity period of 180 days.",
     sources: [
-      { doc: "Risk_Mitigation_Matrix_PHI.pdf", chunk: "Chunk #215 (p. 89)", similarity: "98.7%", excerpt: "Section 4.2: Non-recourse infrastructure loans require 6-month escrow reserve funding, independent performance guarantees, and 180-day indemnity coverage..." }
+      { doc: "Risk_Mitigation_Matrix_PHI.pdf", chunk: "Chunk #215 (p. 89)", similarity: "High Relevance", excerpt: "Section 4.2: Non-recourse infrastructure loans require 6-month escrow reserve funding, independent performance guarantees, and 180-day indemnity coverage..." }
     ]
   },
-  "What compliance documents are required for private subnet Qdrant vector storage?": {
-    answer: "Private subnet deployment of Qdrant vector store requires:\n- SOC-2 Type II Compliance Certificate\n- VPC Isolation Architecture Diagram (no public ingress/egress)\n- TLS 1.3 Encryption-in-transit and AES-256 Encryption-at-rest keys\n- Zero Data Retention Attestation from model inference providers.",
+  "What compliance documents are required for private subnet vector storage?": {
+    answer: "Private subnet deployment of vector store requires:\n- SOC-2 Type II Compliance Certificate\n- VPC Isolation Architecture Diagram (no public ingress/egress)\n- TLS 1.3 Encryption-in-transit and AES-256 Encryption-at-rest keys\n- Zero Data Retention Attestation from model inference providers.",
     sources: [
-      { doc: "Commercial_Loan_Compliance_2026.docx", chunk: "Chunk #88 (p. 27)", similarity: "97.8%", excerpt: "VPC vector database cluster provisioning requires verified AES-256 encryption at rest and zero egress logging..." }
+      { doc: "Commercial_Loan_Compliance_2026.docx", chunk: "Chunk #88 (p. 27)", similarity: "High Relevance", excerpt: "VPC vector database cluster provisioning requires verified AES-256 encryption at rest and zero egress logging..." }
     ]
   }
 };

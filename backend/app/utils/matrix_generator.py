@@ -7,40 +7,17 @@ import logging
 logger = logging.getLogger("matrix_generator")
 
 def generate_requirement_matrix(tender_text: str) -> List[Dict[str, Any]]:
-    default_matrix = [
-        {
-            "id": "req-1",
-            "title": "Company Registration Certificate",
-            "description": "Provide a copy of the active company registration certificate or business license.",
-            "status": "pending",
-            "notes": ""
-        },
-        {
-            "id": "req-2",
-            "title": "ISO 9001 / ISO 27001 Certification",
-            "description": "Submit a valid ISO 9001 (Quality Management) or ISO 27001 (Information Security) certificate.",
-            "status": "pending",
-            "notes": ""
-        },
-        {
-            "id": "req-3",
-            "title": "Audited Financial Statements",
-            "description": "Submit audited financial statements for the last fiscal year showing annual turnover > $2M.",
-            "status": "pending",
-            "notes": ""
-        },
-        {
-            "id": "req-4",
-            "title": "Project Experience & Case Studies",
-            "description": "Submit at least 2 case studies detailing similar project executions in the enterprise AI domain.",
-            "status": "pending",
-            "notes": ""
-        }
-    ]
-
     if not settings.OPENAI_API_KEY:
-        logger.warning("OPENAI_API_KEY not set. Using default simulation requirement matrix.")
-        return default_matrix
+        logger.warning("OPENAI_API_KEY not configured for AI requirement extraction.")
+        return [
+            {
+                "id": "req-1",
+                "title": "AI Matrix Extraction Unavailable",
+                "description": "OPENAI_API_KEY is not configured on the server. Please manually add requirement items or configure OpenAI API key.",
+                "status": "pending",
+                "notes": "AI requirement extraction unavailable (OPENAI_API_KEY missing)"
+            }
+        ]
 
     try:
         client = OpenAI(api_key=settings.OPENAI_API_KEY)
@@ -76,13 +53,30 @@ def generate_requirement_matrix(tender_text: str) -> List[Dict[str, Any]]:
         )
         
         content = response.choices[0].message.content
-        data = json.loads(content)
+        data = json.loads(content) if content else {}
         if "requirements" in data:
             return data["requirements"]
         elif isinstance(data, list):
             return data
             
     except Exception as e:
-        logger.error(f"Failed to generate matrix using OpenAI: {e}. Falling back to default.")
+        logger.error(f"Failed to generate matrix using OpenAI: {e}")
+        return [
+            {
+                "id": "req-1",
+                "title": "AI Matrix Extraction Failed",
+                "description": f"AI requirement extraction encountered an error: {str(e)}. Please manually add requirement items.",
+                "status": "pending",
+                "notes": "AI extraction failed"
+            }
+        ]
         
-    return default_matrix
+    return [
+        {
+            "id": "req-1",
+            "title": "AI Matrix Extraction Unavailable",
+            "description": "No valid requirement matrix could be generated from the document text.",
+            "status": "pending",
+            "notes": ""
+        }
+    ]

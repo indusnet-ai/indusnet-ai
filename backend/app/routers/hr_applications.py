@@ -112,10 +112,25 @@ async def submit_application(
     if not job:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job position not found")
 
-    # Read and store resume file
+    # Validate resume file extension (.pdf, .docx) and size (10MB max)
+    filename_lower = (resume.filename or "").lower()
+    if not (filename_lower.endswith(".pdf") or filename_lower.endswith(".docx")):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid file format. Only PDF (.pdf) and Word (.docx) documents are allowed."
+        )
+
+    MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
     try:
         resume_bytes = await resume.read()
+        if len(resume_bytes) > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="File size exceeds maximum limit of 10 MB."
+            )
         stored_path = save_resume(resume.filename, resume_bytes)
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Resume upload failed: {e}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to upload resume file")

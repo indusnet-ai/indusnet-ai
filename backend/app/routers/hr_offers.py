@@ -361,7 +361,7 @@ def approve_and_send_offer(
     db.commit()
 
     # Send Email
-    success = send_recruitment_email(
+    email_status = send_recruitment_email(
         email_type="offer",
         recipient_email=application.email,
         candidate_name=application.name,
@@ -373,10 +373,12 @@ def approve_and_send_offer(
         }
     )
     
-    if not success:
+    if email_status == "failed":
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to send offer letter email. SMTP settings could be invalid."
         )
 
-    return {"status": "success", "message": f"Offer approved and shared to candidate's email: {application.email}"}
+    msg = f"Offer approved and email sent to {application.email}." if email_status == "sent" else f"Offer approved in system for {application.email}. Logged (Email Not Configured - SMTP credentials missing)."
+
+    return {"status": email_status, "message": msg}

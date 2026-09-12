@@ -21,7 +21,10 @@ export async function POST(request: Request) {
           { status: 200 }
         );
       }
-      console.warn("Supabase newsletter insert error (falling back to simulation):", dbError.message);
+      console.warn("Supabase newsletter insert error:", dbError.message);
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder")) {
+        return NextResponse.json({ error: dbError.message }, { status: 500 });
+      }
     }
 
     // 2. Format HTML Email Notification

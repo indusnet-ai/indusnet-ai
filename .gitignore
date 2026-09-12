@@ -38,8 +38,9 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# uploads
+# uploads & storage
 public/uploads/
+backend/storage/
 
 # database & python venv
 backend/copilot.db

@@ -5,10 +5,10 @@ echo ==========================================
 echo Starting Smart Tender Copilot Services...
 echo ==========================================
 
-:: Check if port 3000 is already in use
-netstat -aon | findstr :3000 | findstr LISTENING >nul
+:: Check if port 3005 is already in use
+netstat -aon | findstr :3005 | findstr LISTENING >nul
 if %ERRORLEVEL% EQU 0 (
-    echo [Warning] Next.js frontend is already running on port 3000.
+    echo [Warning] Next.js frontend is already running on port 3005.
     set FRONTEND_RUNNING=1
 ) else (
     set FRONTEND_RUNNING=0
@@ -33,4 +33,4 @@ if "%FRONTEND_RUNNING%"=="1" (
 )
 
 :: Run the dev server and log output to app_startup.log
-npm run dev > app_startup.log 2>&1
+npm run dev -- -p 3005 > app_startup.log 2>&1

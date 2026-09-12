@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from app import models, schemas
 from app.db import get_db
-from app.routers.auth import get_current_user
+from app.routers.hr_jobs import get_current_hr_manager
 from app.utils.storage import get_resume_url, LOCAL_UPLOAD_DIR, WORKSPACE_DIR, get_content_type
 
 router = APIRouter(prefix="/hr/candidates", tags=["hr-candidates"])
@@ -13,11 +13,8 @@ router = APIRouter(prefix="/hr/candidates", tags=["hr-candidates"])
 def get_candidate_profile(
     candidate_id: str,
     db: Session = Depends(get_db),
-    current_user: models.PortalUser = Depends(get_current_user)
+    current_user: models.PortalUser = Depends(get_current_hr_manager)
 ):
-    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
-
     application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
@@ -41,11 +38,8 @@ def get_candidate_profile(
 def get_candidate_resume_link(
     candidate_id: str,
     db: Session = Depends(get_db),
-    current_user: models.PortalUser = Depends(get_current_user)
+    current_user: models.PortalUser = Depends(get_current_hr_manager)
 ):
-    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
-
     application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")
@@ -56,14 +50,11 @@ def get_candidate_resume_link(
 def get_candidate_resume_file(
     candidate_id: str,
     db: Session = Depends(get_db),
-    current_user: models.PortalUser = Depends(get_current_user)
+    current_user: models.PortalUser = Depends(get_current_hr_manager)
 ):
     """
-    Protected resume file download endpoint. Only HR Managers and Internal Evaluators can access.
+    Protected resume file download endpoint. Only HR Managers can access.
     """
-    if current_user.role not in [models.UserRole.HR_MANAGER.value, models.UserRole.INTERNAL_EVALUATOR.value, "hr_manager", "internal_evaluator"]:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access denied. Staff role required.")
-
     application = db.query(models.CandidateApplication).filter(models.CandidateApplication.id == candidate_id).first()
     if not application:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate application not found")

@@ -38,7 +38,7 @@ const articlesData: Record<string, ArticleData> = {
           <strong>Retrieval-Augmented Generation (RAG)</strong> has emerged as the industry standard. RAG operates by retrieving relevant documents from a private database *first*, and then feeding those documents as a reference to the LLM to generate the final response. It turns the LLM from an "open-book test taker" instead of a student relying on memory.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">The Ingestion Pipeline: Transforming Data</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">The Ingestion Pipeline: Transforming Data</h3>
         <p>
           Before retrieval can occur, unstructured documents (such as PDFs, DOCX, or text files) must be converted into a searchable format:
         </p>
@@ -52,7 +52,7 @@ const articlesData: Record<string, ArticleData> = {
           "By utilizing semantic vector indexes rather than keywords, RAG systems retrieve documents based on conceptual meaning. Searching for 'annual budget constraints' will fetch documents containing 'financial limits' or 'fiscal limits' even if the word 'budget' is never written."
         </blockquote>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">The Query Loop: Retrieval & Generation</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">The Query Loop: Retrieval & Generation</h3>
         <p>
           When a user inputs a query:
         </p>
@@ -64,7 +64,7 @@ const articlesData: Record<string, ArticleData> = {
           <li>The LLM generates a response constrained *only* to the retrieved chunks, adding clear citation markers back to source documents.</li>
         </ol>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">Securing RAG for Enterprise Workloads</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">Securing RAG for Enterprise Workloads</h3>
         <p>
           For corporate deployment, security is paramount. Standard RAG architectures must be wrapped with **Document-Level Access Controls (ACLs)**. When a query is executed, the system filters vector searches to include only document chunks that the user is authorized to read (e.g., matching their active Active Directory or Okta policies). This prevents junior staff from retrieving executive budgets or payroll logs through prompt queries.
         </p>
@@ -88,10 +88,10 @@ const articlesData: Record<string, ArticleData> = {
           Understanding this transition is essential for enterprise leaders looking to automate operations rather than simply provide automated text answering services.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">The Spectrum of Autonomy</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">The Spectrum of Autonomy</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-2">
           <div className="bg-white/5 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
-            <span className="text-xs font-bold text-white">Level 1: Chatbots</span>
+            <span className="text-xs font-bold text-foreground">Level 1: Chatbots</span>
             <span className="text-[10px] text-muted-foreground text-left">Linear input/output. They reply to user prompts sequentially without tool access or memory loops.</span>
           </div>
           <div className="bg-white/5 border border-border/40 p-4 rounded-lg flex flex-col gap-1.5">
@@ -104,7 +104,7 @@ const articlesData: Record<string, ArticleData> = {
           </div>
         </div>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">How Agentic Reasoning Loops Work</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">How Agentic Reasoning Loops Work</h3>
         <p>
           Autonomous agents utilize architectures such as **ReAct (Reason + Action)**. Instead of immediately writing a response, the agent goes through sequential cycles:
         </p>
@@ -115,7 +115,7 @@ const articlesData: Record<string, ArticleData> = {
           <li><strong>Observation</strong>: It reads the tool output and analyzes if the step succeeded or failed, adjusting the plan dynamically if an error occurs.</li>
         </ul>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">Multi-Agent Orchestrations</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">Multi-Agent Orchestrations</h3>
         <p>
           For complex corporate operations, a single agent is rarely enough. Instead, companies deploy **multi-agent supervisor frameworks**. In this design, a specialized "Supervisor Agent" receives the user's project request and coordinates work across specialized worker agents:
         </p>
@@ -147,7 +147,7 @@ const articlesData: Record<string, ArticleData> = {
           Achieving HIPAA-compliant AI requires building secure architectures where data is protected at rest, in transit, and during model processing.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">The Private VPC Architecture</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">The Private VPC Architecture</h3>
         <p>
           To maintain strict data custody, hospital systems are deploying LLMs completely inside their private virtual private cloud (VPC) on platforms like AWS or Azure:
         </p>
@@ -160,7 +160,7 @@ const articlesData: Record<string, ArticleData> = {
           "Under HIPAA guidelines, model providers must execute a Business Associate Agreement (BAA). Using consumer APIs or public chatbots has zero compliance protection, exposing patient details to systemic leaks."
         </blockquote>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">Technical Implementation Checklist</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">Technical Implementation Checklist</h3>
         <p>
           A compliant clinical notes builder must implement:
         </p>
@@ -189,7 +189,7 @@ const articlesData: Record<string, ArticleData> = {
           This shift is driven by three key factors: **regulatory requirements, network latency control, and long-term cost efficiency**.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">The Financial Math: Cloud vs. Local Hardware</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">The Financial Math: Cloud vs. Local Hardware</h3>
         <p>
           While cloud APIs have low startup costs, high-volume production systems incur significant monthly costs. Consider a system processing **10 million tokens per day** (indexing customer emails, document OCR, and running analysis loops):
         </p>
@@ -198,7 +198,7 @@ const articlesData: Record<string, ArticleData> = {
           <li><strong>Local GPU cost</strong>: A dedicated server equipped with dual NVIDIA RTX 6000 Ada GPUs or a private rack server costs roughly **$20,000 to $25,000 upfront**. This hardware amortizes over 3–5 years, dropping operational costs to power and cooling alone.</li>
         </ul>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">Edge Model Optimization</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">Edge Model Optimization</h3>
         <p>
           Running models locally used to require multi-million dollar data centers. Thanks to **quantization methodologies** (GGUF, GPTQ, AWQ), model weights are compressed from 16-bit to 4-bit or 8-bit precision with minimal loss in accuracy. 
         </p>
@@ -206,7 +206,7 @@ const articlesData: Record<string, ArticleData> = {
           A quantized 70B parameter model (like Llama-3-70B-Instruct) can run on a single dual-GPU server, delivering rapid token throughput (40+ tokens per second) securely. Local hosting middleware like vLLM and Ollama compile execution paths natively to the local hardware, making deployment straightforward.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-accent pl-2">Zero Latency and Offline Reliability</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-accent pl-2">Zero Latency and Offline Reliability</h3>
         <p>
           In manufacturing, robotics, and logistics, cloud delays are a bottleneck. If an automated visual inspection camera on an assembly line must wait 1.5 seconds for a cloud API response to flag a defective item, the line stops. Hosting smaller, optimized models (e.g. 8B parameter vision models) on edge hardware (like NVIDIA Jetson or local workstations) reduces latency to milliseconds, ensuring reliable offline operations.
         </p>
@@ -230,7 +230,7 @@ const articlesData: Record<string, ArticleData> = {
           In 2026, the highest return on investment (ROI) for Generative AI in the mid-market is not found in general query interfaces or text writing assistants. It lies in **deterministic workflow automation** that removes back-office bottlenecks.
         </p>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">Identifying High-ROI Bottlenecks</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">Identifying High-ROI Bottlenecks</h3>
         <p>
           The most successful AI implementations target structured document workflows. We advise clients to focus on three key areas:
         </p>
@@ -244,7 +244,7 @@ const articlesData: Record<string, ArticleData> = {
           "Mid-market automation succeeded when we shifted from asking models to 'write text' to asking models to 'parse, classify, and structure data'. Structuring unstructured text is where AI delivers immediate savings."
         </blockquote>
 
-        <h3 className="text-lg font-bold text-white mt-4 border-l-2 border-primary pl-2">CPMAI: Structured Project Management</h3>
+        <h3 className="text-lg font-bold text-foreground mt-4 border-l-2 border-primary pl-2">CPMAI: Structured Project Management</h3>
         <p>
           Over 70% of enterprise AI projects fail due to poor scoping or undefined goals. To mitigate this risk, Indusnet AI utilizes the **CPMAI (Cognitive Project Management for AI)** methodology. 
         </p>
@@ -277,7 +277,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
       {/* Header breadcrumb & Title */}
       <section className="container mx-auto px-4 md:px-6 max-w-3xl flex flex-col gap-6 text-left">
-        <Button asChild variant="ghost" className="w-fit -ml-2 text-xs text-muted-foreground hover:text-white rounded-full">
+        <Button asChild variant="ghost" className="w-fit -ml-2 text-xs text-muted-foreground hover:text-foreground rounded-full">
           <Link href="/blog" className="flex items-center gap-1.5">
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Blog
           </Link>
@@ -295,7 +295,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </Badge>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading leading-tight text-foreground">
           {article.title}
         </h1>
 
@@ -321,12 +321,12 @@ export default async function ArticlePage({ params }: PageProps) {
                   {article.author[0]}
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-xs font-bold text-white">{article.author}</span>
+                  <span className="text-xs font-bold text-foreground">{article.author}</span>
                   <span className="text-[10px] text-muted-foreground">Founder & Managing Director</span>
                 </div>
                 <div className="border-t border-border/10 pt-2.5 mt-1 flex flex-col gap-1 text-[10px] text-muted-foreground">
                   <span>Certified Facilitator</span>
-                  <span className="text-white font-semibold">Indusnet AI Labs</span>
+                  <span className="text-foreground font-semibold">Indusnet AI Labs</span>
                 </div>
               </CardContent>
             </Card>
@@ -340,7 +340,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-2.5 py-0.5 text-xs">
             Start Your Custom POC
           </Badge>
-          <h2 className="text-lg md:text-xl font-bold text-white">Need structured, secure AI deployment?</h2>
+          <h2 className="text-lg md:text-xl font-bold text-foreground">Need structured, secure AI deployment?</h2>
           <p className="text-muted-foreground text-xs max-w-md leading-relaxed">
             Partner with certified solutions architects to construct a highly secure, high-performance roadmap for your enterprise.
           </p>

@@ -116,7 +116,7 @@ export default function HRCopilotPage() {
 
   if (loading) {
     return (
-      <div className="flex-grow flex items-center justify-center bg-[#030014] text-white h-screen">
+      <div className="flex-grow flex items-center justify-center bg-background text-foreground h-screen">
         <div className="flex flex-col items-center gap-3">
           <RefreshCw className="w-8 h-8 text-primary animate-spin" />
           <span className="text-xs text-zinc-400">Loading AI Recruitment Copilot...</span>

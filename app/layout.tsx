@@ -31,9 +31,6 @@ export const metadata: Metadata = {
     "AI Agent Automation",
   ],
   metadataBase: new URL("https://indusnet-ai.com"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Indusnet AI | Enterprise AI Solutions & Consulting",
     description:

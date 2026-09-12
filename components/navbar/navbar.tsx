@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, Cpu } from "lucide-react";
+import { useTheme } from "next-themes";
+import { Menu, ArrowUpRight, Cpu, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,36 @@ const navLinks = [
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon" className="rounded-full w-9 h-9 text-muted-foreground">
+        <Sun className="w-4 h-4" />
+      </Button>
+    );
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="rounded-full w-9 h-9 text-muted-foreground hover:text-foreground hover:bg-muted"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      title="Toggle Light / Dark Mode"
+    >
+      {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  );
+}
 
 export function Navbar() {
   const pathname = usePathname();
@@ -82,8 +113,9 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* Desktop CTA & Theme Toggle */}
+        <div className="hidden lg:flex items-center gap-3">
+          <ThemeToggle />
           <Button asChild className="rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-[0_4px_20px_rgba(255,45,33,0.35)] transition-all duration-300 group px-6">
             <Link href="/contact" className="flex items-center gap-1.5">
               Book Consultation
@@ -94,6 +126,7 @@ export function Navbar() {
 
         {/* Mobile Navigation Drawer */}
         <div className="lg:hidden flex items-center gap-2">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger
               render={
@@ -116,42 +149,39 @@ export function Navbar() {
                     </span>
                   </div>
                 </Link>
-                <nav className="flex flex-col gap-4">
+
+                <nav className="flex flex-col gap-2">
                   {navLinks.map((link) => {
                     const isActive = pathname === link.href;
                     return (
-                      <SheetClose
-                        key={link.href}
-                        render={
-                          <Link
-                            href={link.href}
-                            className={cn(
-                              "py-2 text-base font-medium transition-all duration-200 border-b border-border/10",
-                              isActive ? "text-primary pl-2 border-l-2 border-l-primary" : "text-muted-foreground hover:text-foreground"
-                            )}
-                          />
-                        }
-                      >
-                        {link.name}
-                      </SheetClose>
+                      <SheetClose key={link.href} render={
+                        <Link
+                          href={link.href}
+                          className={cn(
+                            "px-4 py-3 text-base font-medium rounded-xl transition-all duration-200 text-left flex items-center justify-between",
+                            isActive
+                              ? "text-primary bg-primary/10 font-bold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                          )}
+                        >
+                          {link.name}
+                          {isActive && <span className="w-2 h-2 rounded-full bg-primary" />}
+                        </Link>
+                      } />
                     );
                   })}
                 </nav>
               </div>
-              <div className="flex flex-col gap-4 mt-auto">
-                <SheetClose
-                  render={
-                    <Button asChild className="w-full rounded-full bg-gradient-to-r from-primary to-accent text-white group">
-                      <Link href="/contact" className="flex items-center justify-center gap-1.5">
-                        Book Consultation
-                        <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </Link>
-                    </Button>
-                  }
-                />
-                <p className="text-center text-xs text-muted-foreground/60">
-                  © {new Date().getFullYear()} Indusnet AI. All rights reserved.
-                </p>
+
+              <div className="flex flex-col gap-4 pt-6 border-t border-border/40">
+                <SheetClose render={
+                  <Button asChild className="w-full rounded-full bg-primary text-white font-semibold py-6 shadow-lg shadow-primary/25">
+                    <Link href="/contact" className="flex items-center justify-center gap-2">
+                      Book Consultation
+                      <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                  </Button>
+                } />
               </div>
             </SheetContent>
           </Sheet>

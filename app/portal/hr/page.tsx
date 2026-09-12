@@ -285,6 +285,37 @@ export default function HRDashboard() {
     }
   };
 
+  const handleDownloadResume = async (candidateId: string) => {
+    try {
+      const token = localStorage.getItem("copilot_token");
+      const res = await fetch(`/api/backend/hr/candidates/${candidateId}/resume/file`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: "Failed to fetch resume file" }));
+        alert(err.detail || "Failed to download resume file");
+        return;
+      }
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const windowRef = window.open(blobUrl, "_blank");
+      if (!windowRef) {
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = `resume_${candidateId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+    } catch (err: any) {
+      console.error("Resume download error:", err);
+      alert("Failed to download resume file");
+    }
+  };
+
   const handleApproveAndSendOffer = async () => {
     if (!selectedCandidateId) return;
     setRaisingOffer(true);
@@ -471,7 +502,12 @@ export default function HRDashboard() {
 
   const renderMarkdownToHTML = (text: string) => {
     if (!text) return "";
-    let html = text;
+    let html = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
 
     // Blockquotes
     html = html.replace(/^>\s+(.*?)$/gm, '<blockquote style="border-left: 4px solid #cbd5e1; padding-left: 15px; margin: 15px 0; color: #475569; font-style: italic;">$1</blockquote>');
@@ -816,10 +852,8 @@ export default function HRDashboard() {
                     {reanalyzing ? <RefreshCw className="w-3.5 h-3.5 animate-spin mr-1.5" /> : <RefreshCw className="w-3.5 h-3.5 mr-1.5" />}
                     Refresh Analysis
                   </Button>
-                  <Button asChild className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-8 rounded-lg">
-                    <a href={`/api/backend/hr/candidates/${candidateProfile.application.id}/resume/file`} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                      <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Open Resume File
-                    </a>
+                  <Button onClick={() => handleDownloadResume(candidateProfile.application.id)} className="bg-white/5 border border-border/40 hover:bg-white/10 text-white text-[11px] h-8 rounded-lg">
+                    <ExternalLink className="w-3.5 h-3.5 mr-1.5" /> Open Resume File
                   </Button>
                   
                   {/* Status transitions */}

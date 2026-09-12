@@ -33,7 +33,10 @@ export async function POST(request: Request) {
 
     const { error: dbError } = insertResult;
     if (dbError) {
-      console.warn("Supabase insert warning in consultations API:", dbError.message);
+      console.warn("Supabase insert error in consultations API:", dbError.message);
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder")) {
+        return NextResponse.json({ error: dbError.message }, { status: 500 });
+      }
     }
 
     // Prepare Email details

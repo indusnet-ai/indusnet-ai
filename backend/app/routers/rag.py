@@ -41,9 +41,9 @@ COLLECTIONS_DB = [
 ]
 
 DOCUMENTS_DB = [
-    {"id": "doc-1", "filename": "Metro_Underwriting_Guidelines_v4.2.pdf", "size": "4.8 MB", "chunks": 320, "type": "PDF", "uploaded_at": "2026-07-20", "status": "Indexed in Qdrant"},
-    {"id": "doc-2", "filename": "Commercial_Loan_Compliance_2026.docx", "size": "2.1 MB", "chunks": 145, "type": "DOCX", "uploaded_at": "2026-07-21", "status": "Indexed in Qdrant"},
-    {"id": "doc-3", "filename": "Risk_Mitigation_Matrix_PHI.pdf", "size": "7.4 MB", "chunks": 512, "type": "PDF", "uploaded_at": "2026-07-22", "status": "Indexed in Qdrant"}
+    {"id": "doc-1", "filename": "Metro_Underwriting_Guidelines_v4.2.pdf", "size": "4.8 MB", "chunks": 320, "type": "PDF", "uploaded_at": "2026-07-20", "status": "Sample Indexed Document"},
+    {"id": "doc-2", "filename": "Commercial_Loan_Compliance_2026.docx", "size": "2.1 MB", "chunks": 145, "type": "DOCX", "uploaded_at": "2026-07-21", "status": "Sample Indexed Document"},
+    {"id": "doc-3", "filename": "Risk_Mitigation_Matrix_PHI.pdf", "size": "7.4 MB", "chunks": 512, "type": "PDF", "uploaded_at": "2026-07-22", "status": "Sample Indexed Document"}
 ]
 
 @router.post("/login", response_model=TokenResponse)
@@ -76,19 +76,19 @@ def rag_query(req: QueryRequest):
     if "dti" in query_lower or "debt" in query_lower or "limit" in query_lower:
         answer = "According to Metro Financial Underwriting Guidelines v4.2 (Section 8.1), Tier-1 commercial green bond issuances enforce a strict Maximum Debt-to-Income (DTI) ratio of 42.5%. For projects exceeding $50M in capital expenditure, an adjusted Debt Service Coverage Ratio (DSCR) of 1.35x is mandatory prior to credit committee sign-off."
         sources = [
-            SourceCitation(doc="Metro_Underwriting_Guidelines_v4.2.pdf", chunk="Chunk #108 (p. 44)", similarity="99.2%", excerpt="Tier-1 commercial green bond issuances enforce a strict Maximum DTI ratio of 42.5%. For projects exceeding $50M in CapEx, DSCR threshold must equal or exceed 1.35x..."),
-            SourceCitation(doc="Commercial_Loan_Compliance_2026.docx", chunk="Chunk #42 (p. 12)", similarity="96.4%", excerpt="Green energy credit facility compliance requires dual verification of CapEx limits and DTI ceilings under Section 8.1 standards.")
+            SourceCitation(doc="Metro_Underwriting_Guidelines_v4.2.pdf", chunk="Chunk #108 (p. 44)", similarity="High Relevance", excerpt="Tier-1 commercial green bond issuances enforce a strict Maximum DTI ratio of 42.5%. For projects exceeding $50M in CapEx, DSCR threshold must equal or exceed 1.35x..."),
+            SourceCitation(doc="Commercial_Loan_Compliance_2026.docx", chunk="Chunk #42 (p. 12)", similarity="High Relevance", excerpt="Green energy credit facility compliance requires dual verification of CapEx limits and DTI ceilings under Section 8.1 standards.")
         ]
     elif "4.2" in query_lower or "risk" in query_lower or "mitigation" in query_lower:
         answer = "Section 4.2 mandates a three-tier risk mitigation framework for non-recourse infrastructure financing:\n1. 100% Escrow Account Reserve covering 6 months of debt principal & interest.\n2. Independent Engineering Performance Guarantee from an accredited audit firm.\n3. Mandatory Business Interruption Insurance with a minimum indemnity period of 180 days."
         sources = [
-            SourceCitation(doc="Risk_Mitigation_Matrix_PHI.pdf", chunk="Chunk #215 (p. 89)", similarity="98.7%", excerpt="Section 4.2: Non-recourse infrastructure loans require 6-month escrow reserve funding, independent performance guarantees, and 180-day indemnity coverage...")
+            SourceCitation(doc="Risk_Mitigation_Matrix_PHI.pdf", chunk="Chunk #215 (p. 89)", similarity="High Relevance", excerpt="Section 4.2: Non-recourse infrastructure loans require 6-month escrow reserve funding, independent performance guarantees, and 180-day indemnity coverage...")
         ]
     else:
-        answer = f"Synthesized response for: '{req.query}' across collection {req.collection_name}.\n\nVector Similarity Analysis: Retrieved 4 matching embedding chunks from Qdrant vector database with average similarity score of 97.4%. All compliance requirements are verified."
+        answer = f"Sample synthesized response for: '{req.query}' across collection {req.collection_name}.\n\nSample Vector Analysis: Retrieved 4 matching embedding chunks from sample dataset. All compliance requirements are verified."
         sources = [
-            SourceCitation(doc="Metro_Underwriting_Guidelines_v4.2.pdf", chunk="Chunk #14 (p. 6)", similarity="97.8%", excerpt="Retrieved matching embedding vector from Qdrant private instance..."),
-            SourceCitation(doc="Commercial_Loan_Compliance_2026.docx", chunk="Chunk #91 (p. 22)", similarity="95.4%", excerpt="Verified against role-based security subnet policies...")
+            SourceCitation(doc="Metro_Underwriting_Guidelines_v4.2.pdf", chunk="Chunk #14 (p. 6)", similarity="High Relevance", excerpt="Retrieved matching embedding vector from sample document collection..."),
+            SourceCitation(doc="Commercial_Loan_Compliance_2026.docx", chunk="Chunk #91 (p. 22)", similarity="High Relevance", excerpt="Verified against role-based security subnet policies...")
         ]
         
     latency = round((time.time() - start_time) * 1000, 2)
@@ -103,7 +103,7 @@ def upload_document(file_name: str = Form(...)):
         "chunks": 180,
         "type": file_name.split(".")[-1].upper() if "." in file_name else "PDF",
         "uploaded_at": time.strftime("%Y-%m-%d"),
-        "status": "Indexed in Qdrant"
+        "status": "Sample Indexed Document"
     }
     DOCUMENTS_DB.insert(0, new_doc)
-    return {"message": "Document uploaded and indexed successfully", "document": new_doc}
+    return {"message": "Document uploaded successfully", "document": new_doc}
