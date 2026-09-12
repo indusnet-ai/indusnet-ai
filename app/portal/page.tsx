@@ -85,36 +85,6 @@ export default function PortalLoginPage() {
               {/* REGISTER SPECIFIC FIELDS */}
               {!isLogin && (
                 <>
-                  {/* Role Selection */}
-                  <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-lg border border-border/40 mb-2" role="radiogroup" aria-label="Portal Role Selection">
-                    <button
-                      type="button"
-                      onClick={() => setRole("bidder")}
-                      role="radio"
-                      aria-checked={role === "bidder"}
-                      className={`py-1.5 text-xs font-semibold rounded-md transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
-                        role === "bidder"
-                          ? "bg-primary text-white"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      Bidding Org
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole("internal_evaluator")}
-                      role="radio"
-                      aria-checked={role === "internal_evaluator"}
-                      className={`py-1.5 text-xs font-semibold rounded-md transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
-                        role === "internal_evaluator"
-                          ? "bg-primary text-white"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      Evaluator
-                    </button>
-                  </div>
-
                   <div className="relative">
                     <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
                     <Input
@@ -128,20 +98,18 @@ export default function PortalLoginPage() {
                     />
                   </div>
 
-                  {role === "bidder" && (
-                    <div className="relative">
-                      <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
-                      <Input
-                        type="text"
-                        placeholder="Company Name"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
-                        className="rounded-lg bg-muted border-border/40 pl-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
-                        required
-                        aria-label="Company Name"
-                      />
-                    </div>
-                  )}
+                  <div className="relative">
+                    <Building className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" aria-hidden="true" />
+                    <Input
+                      type="text"
+                      placeholder="Company Name"
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
+                      className="rounded-lg bg-muted border-border/40 pl-10 text-xs text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-0"
+                      required
+                      aria-label="Company Name"
+                    />
+                  </div>
                 </>
               )}
 

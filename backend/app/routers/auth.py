@@ -35,6 +35,12 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=schemas.Token)
 def register(user_in: schemas.UserRegister, db: Session = Depends(get_db)):
+    if user_in.role and user_in.role != models.UserRole.BIDDER:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Public registration only creates bidder accounts"
+        )
+
     existing_user = db.query(models.PortalUser).filter(models.PortalUser.email == user_in.email).first()
     if existing_user:
         raise HTTPException(
@@ -42,26 +48,23 @@ def register(user_in: schemas.UserRegister, db: Session = Depends(get_db)):
             detail="Email already registered"
         )
     
-    company_id = None
-    if user_in.role == "bidder":
-        if not user_in.company_name:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Company name required for bidders"
-            )
-        # Check if company already exists
-        company = db.query(models.BiddingCompany).filter(models.BiddingCompany.name == user_in.company_name).first()
-        if not company:
-            company = models.BiddingCompany(name=user_in.company_name)
-            db.add(company)
-            db.commit()
-            db.refresh(company)
-        company_id = company.id
+    if not user_in.company_name:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Company name required for bidders"
+        )
+    
+    # Always create a new company record to prevent unauthorized joining by company name
+    company = models.BiddingCompany(name=user_in.company_name)
+    db.add(company)
+    db.commit()
+    db.refresh(company)
+    company_id = company.id
         
     db_user = models.PortalUser(
         email=user_in.email,
         password_hash=get_password_hash(user_in.password),
-        role=user_in.role,
+        role=models.UserRole.BIDDER,
         company_id=company_id,
         name=user_in.name
     )

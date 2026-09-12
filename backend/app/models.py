@@ -4,6 +4,13 @@ from sqlalchemy import Column, String, Text, DateTime, ForeignKey, Numeric, JSON
 from sqlalchemy.orm import relationship
 from app.db import Base
 
+from enum import Enum
+
+class UserRole(str, Enum):
+    BIDDER = "bidder"
+    INTERNAL_EVALUATOR = "internal_evaluator"
+    HR_MANAGER = "hr_manager"
+
 def generate_uuid():
     return str(uuid.uuid4())
 

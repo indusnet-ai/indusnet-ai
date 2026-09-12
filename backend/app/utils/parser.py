@@ -68,18 +68,12 @@ def parse_resume_and_analyze(
             "certifications": [],
             "projects": []
         },
-        "skills": ["Communication", "Problem Solving"],
-        "strengths": ["Demonstrates technical capacity in resume upload"],
-        "weaknesses": ["Unable to complete deep AI analysis due to API fallback"],
-        "job_match_score": 50.0,
-        "summary": "This candidate's resume was parsed using the fallback text parser because OpenAI API was not configured or succeeded.",
-        "recommended_interview_questions": [
-            {
-                "question": "Can you walk us through your relevant experience in this domain?",
-                "purpose": "To understand candidate's experience and fill in missing detail",
-                "expected_answer": "Candidate should detail project-specific contributions and skill applications."
-            }
-        ]
+        "skills": [],
+        "strengths": [],
+        "weaknesses": ["AI evaluation is currently unavailable"],
+        "job_match_score": None,
+        "summary": "Resume text extracted successfully. AI evaluation is currently unavailable (OPENAI_API_KEY not configured or failed).",
+        "recommended_interview_questions": []
     }
 
     # 2. OpenAI Structured Parsing

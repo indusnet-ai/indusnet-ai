@@ -12,35 +12,22 @@ async function runTest() {
   let candidateId = "";
 
   try {
-    // 1. Register / Login as HR Manager
+    // 1. Login as HR Manager using environment variables
     console.log("Step 1: Authenticating as HR Manager...");
-    const credentials = {
-      email: "hr_test_manager@indusnet-ai.com",
-      password: "secure_password_123",
-      name: "Senthilkumar Elu Test",
-      role: "hr_manager"
-    };
+    const email = process.env.HR_TEST_EMAIL || "hr_admin@indusnet-ai.com";
+    const password = process.env.HR_TEST_PASSWORD || "";
 
-    // Try to register first
-    let authRes = await fetch(`${BACKEND_URL}/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(credentials)
-    });
-
-    if (authRes.status === 400) {
-      console.log("  Email already exists, attempting login instead...");
-      authRes = await fetch(`${BACKEND_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: credentials.email,
-          password: credentials.password
-        })
-      });
+    if (!password) {
+      throw new Error("HR_TEST_PASSWORD environment variable is required to run tests/hr.test.ts");
     }
 
-    assert.ok(authRes.status === 200 || authRes.status === 201, `Failed to authenticate. Status: ${authRes.status}`);
+    const authRes = await fetch(`${BACKEND_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    assert.ok(authRes.status === 200, `Failed to authenticate. Status: ${authRes.status}`);
     const authData = await authRes.json();
     token = authData.access_token;
     assert.ok(token, "Access token not received.");
@@ -78,7 +65,7 @@ async function runTest() {
     const listRes = await fetch(`${BACKEND_URL}/hr/jobs?status=active`);
     assert.strictEqual(listRes.status, 200);
     const listData = await listRes.json();
-    const foundJob = listData.find((j: any) => j.id === jobId);
+    const foundJob = listData.find((j: { id: string }) => j.id === jobId);
     assert.ok(foundJob, "Created job was not found in active public listings.");
     console.log("✓ Job exists in public active job listings.");
 
@@ -125,7 +112,7 @@ async function runTest() {
     // 5. Retrieve Candidate Profile & Verify AI Analysis
     console.log("\nStep 5: Fetching Candidate Profile and AI Analysis...");
     
-    let profileData: any = null;
+    let profileData: { analysis?: unknown; [key: string]: unknown } | null = null;
     const maxAttempts = 15;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const profileRes = await fetch(`${BACKEND_URL}/hr/candidates/${candidateId}`, {

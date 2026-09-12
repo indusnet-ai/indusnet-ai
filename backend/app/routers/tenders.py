@@ -157,50 +157,50 @@ async def chat_session(
         
     uploaded_text = ""
     if file:
+        filename_lower = file.filename.lower()
+        allowed_exts = (".pdf", ".docx", ".zip", ".txt")
+        if not filename_lower.endswith(allowed_exts):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Unsupported file type for '{file.filename}'. Allowed: PDF, DOCX, ZIP, TXT."
+            )
+
         file_bytes = await file.read()
+        # Enforce 10 MB file size limit
+        if len(file_bytes) > 10 * 1024 * 1024:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"File size of '{file.filename}' exceeds 10 MB limit."
+            )
+
         uploaded_text = extract_text_from_file(file.filename, file_bytes)
-        
-    last_chat = db.query(models.ChatHistory).filter(
-        models.ChatHistory.session_id == session_id
-    ).order_by(models.ChatHistory.created_at.desc()).first()
-    
-    current_matrix = []
-    if last_chat and last_chat.extracted_data:
-        current_matrix = last_chat.extracted_data
-    else:
-        current_matrix = session.tender.requirement_matrix or []
-        
-    db_chats = db.query(models.ChatHistory).filter(
-        models.ChatHistory.session_id == session_id
-    ).order_by(models.ChatHistory.created_at.asc()).all()
-    
-    messages_history = []
-    for c in db_chats:
-        messages_history.append({"role": c.sender, "content": c.message})
-        
-    user_msg_content = message
-    if file:
-        prefix = "\n" if user_msg_content else ""
-        user_msg_content += f"{prefix}[Uploaded Document: {file.filename}]"
-        
-    messages_history.append({"role": "user", "content": user_msg_content})
-    
-    db_user_msg = models.ChatHistory(
-        session_id=session_id,
-        sender="user",
-        message=user_msg_content,
-        extracted_data=current_matrix
-    )
-    db.add(db_user_msg)
-    db.commit()
-    
-    initial_state = {
-        "messages": messages_history,
-        "requirement_matrix": current_matrix,
-        "uploaded_context": uploaded_text,
-        "response": "",
-        "compliance_score": float(session.compliance_score)
-    }
+
+        if not uploaded_text.strip():
+            user_msg_content = message or f"[Uploaded Document: {file.filename}]"
+            reply_text = f"We couldn't read text from {file.filename}. Please upload a text-based PDF or DOCX."
+
+            db_user_msg = models.ChatHistory(
+                session_id=session_id,
+                sender="user",
+                message=user_msg_content,
+                extracted_data=current_matrix
+            )
+            db.add(db_user_msg)
+
+            db_agent_msg = models.ChatHistory(
+                session_id=session_id,
+                sender="agent",
+                message=reply_text,
+                extracted_data=current_matrix
+            )
+            db.add(db_agent_msg)
+            db.commit()
+
+            return {
+                "response": reply_text,
+                "compliance_score": float(session.compliance_score),
+                "requirement_matrix": current_matrix
+            }
     
     final_state = copilot_graph.invoke(initial_state)
     

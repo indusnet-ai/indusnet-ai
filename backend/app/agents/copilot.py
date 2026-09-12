@@ -72,29 +72,9 @@ def evaluate_compliance(state: AgentState) -> AgentState:
         return state
         
     if not settings.OPENAI_API_KEY:
-        # Mock compliance verification for local/offline testing
-        updated_matrix = []
-        for req in matrix:
-            req_copy = req.copy()
-            # Simple keyword matching to simulate document verification
-            if "Company Registration" in req["title"] and "registration" in uploaded.lower():
-                req_copy["status"] = "verified"
-                req_copy["notes"] = "Verified: Valid business license for Indusnet AI Partner Org found."
-            elif "ISO" in req["title"] and "iso" in uploaded.lower():
-                req_copy["status"] = "verified"
-                req_copy["notes"] = "Verified: ISO certifications verified from uploaded compliance files."
-            elif "Financial" in req["title"] and "turnover" in uploaded.lower():
-                req_copy["status"] = "verified"
-                req_copy["notes"] = "Verified: Audited statements show annual turnover of $12.5M, meeting threshold."
-            elif "Experience" in req["title"] and "experience" in uploaded.lower():
-                req_copy["status"] = "verified"
-                req_copy["notes"] = "Verified: Past projects demonstrate similar technical scope."
-            updated_matrix.append(req_copy)
-            
-        verified_count = sum(1 for r in updated_matrix if r["status"] == "verified")
-        score = (verified_count / len(updated_matrix)) * 100 if updated_matrix else 0.0
-        
-        state["requirement_matrix"] = updated_matrix
+        # If OPENAI_API_KEY is missing/empty, do not update checklist items or add fake notes
+        verified_count = sum(1 for r in matrix if r.get("status") == "verified")
+        score = (verified_count / len(matrix)) * 100 if matrix else 0.0
         state["compliance_score"] = round(score, 2)
         return state
 
@@ -173,11 +153,7 @@ def generate_response(state: AgentState) -> AgentState:
         return state
 
     if not settings.OPENAI_API_KEY:
-        state["response"] = (
-            f"Thank you for the upload. I have scanned the documents and updated your checklist. "
-            f"We still require files for: {', '.join(pending)}. "
-            f"Please upload them so we can proceed with your compliance check."
-        )
+        state["response"] = "AI evaluation is currently unavailable."
         return state
 
     try:
