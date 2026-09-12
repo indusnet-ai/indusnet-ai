@@ -471,6 +471,20 @@ export default function ContactClient() {
               <CardContent className="p-6 flex flex-col gap-5 justify-center h-full">
                 <h3 className="font-bold text-foreground text-base border-b border-border pb-2">Office Contact Details</h3>
                 <div className="flex flex-col gap-5">
+                  {/* Executive Leadership */}
+                  <div className="flex flex-col gap-1.5 pb-2 border-b border-border">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-accent/20 text-accent border-accent/30 text-[9px] rounded font-bold uppercase tracking-wider">CEO Office</Badge>
+                      <span className="text-xs font-bold text-foreground">Srinivasan Subramani, CEO</span>
+                    </div>
+                    <div className="flex items-center gap-2 pl-0.5">
+                      <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+                      <a href="tel:+919786887769" className="text-xs text-foreground/90 hover:text-accent font-semibold transition-colors">
+                        +91-97868-87769
+                      </a>
+                    </div>
+                  </div>
+
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Mail className="w-4 h-4 text-primary" />

@@ -204,6 +204,12 @@ export function Footer() {
                   info@indusnet-ai.com
                 </a>
               </div>
+              <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
+                <Phone className="w-3.5 h-3.5 text-accent" />
+                <a href="tel:+919786887769" className="hover:text-white transition-colors font-medium">
+                  +91-97868-87769 (CEO Office)
+                </a>
+              </div>
               <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
                 <MapPin className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="flex flex-col gap-2">

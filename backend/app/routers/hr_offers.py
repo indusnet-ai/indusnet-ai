@@ -38,7 +38,7 @@ Dear {name},
 
 This has reference to your application and the subsequent discussions we have had with you. We are pleased to offer you an appointment in Indusnet AI Corporation on the following terms and conditions:
 
-1. **Designation & Reporting:** You will be designated as **{job_title}** in the **{department}** department. You will report to **Senthilkumar Elu, Managing Director**, or any other authority designated by him.
+1. **Designation & Reporting:** You will be designated as **{job_title}** in the **{department}** department. You will report to **Srinivasan Subramani, Managing Director**, or any other authority designated by him.
 2. **Compensation:** You will be eligible for benefits and allowances as shown in the compensation package in the Annexure.
 3. **Statutory Benefits:** You will be eligible for statutory benefits, as may be applicable in accordance with local labor laws.
 4. **Altering Benefits:** The Company reserves the right to alter or modify the governing rules of the Compensation Package depending upon organizational exigencies.
@@ -64,7 +64,7 @@ Please sign and return the duplicate copy of this letter in token of your accept
 Yours faithfully,
 **For INDUSNET AI CORPORATION**
 
-**Senthilkumar Elu**
+**Srinivasan Subramani**
 Managing Director
 
 ---
@@ -197,7 +197,7 @@ def generate_offer_letter_text(
 
         Company Context:
         - Company Name: Indusnet AI Corporation
-        - Managing Director: Senthilkumar Elu
+        - Managing Director: Srinivasan Subramani
         - Chennai HQ Address: Number 46 First Floor, Tansi Nagar, Velachery, Chennai, Tamil Nadu 600042. Phone: +91-9884915977
         - Singapore Office: 51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, Singapore 408933. Phone: +65-9448-3805, +65-6747-4753
 
@@ -207,7 +207,7 @@ def generate_offer_letter_text(
         Instructions:
         1. Format the body of the offer letter in a detailed, professional, and clean Markdown format. 
         2. Do NOT include the company notepad header or company logo/addresses at the very top of the letter, as those are already printed on the physical notepad letterhead template. Start directly with the Reference Number, Date, Candidate Address block, Salutation, Subject Line ("Subject: Offer of Employment - [Job Title]"), and then the terms.
-        3. Write 17 formal legal clauses modeled after the standard appointment letters (e.g. designation and reporting to MD Senthilkumar Elu, compensation rules, posting/transfer, exclusivity/exclusively serving the company, code of conduct, strict confidentiality of salary details, non-disclosure of trade secrets, 3-year non-compete after exit, accuracy of information, medical fitness, training/abroad bond, termination & 1-month notice period, retirement at 58, courts jurisdiction in Chennai only, and list of joining documents).
+        3. Write 17 formal legal clauses modeled after the standard appointment letters (e.g. designation and reporting to MD Srinivasan Subramani, compensation rules, posting/transfer, exclusivity/exclusively serving the company, code of conduct, strict confidentiality of salary details, non-disclosure of trade secrets, 3-year non-compete after exit, accuracy of information, medical fitness, training/abroad bond, termination & 1-month notice period, retirement at 58, courts jurisdiction in Chennai only, and list of joining documents).
         4. Add an Acceptance Sign-off block at the end of the letter clauses: "I accept the terms and conditions outlined in this appointment letter and will join on..." with spaces for Name, Signature, and Date.
         5. Insert a PAGE BREAK (using markdown syntax `---` or a clear header like `\n\n---\n\n## ANNEXURE\n\n`) and write the compensation annexure.
         6. In the Annexure, present a clear, structured Markdown table listing the Monthly and Annual figures for the salary components. Ensure the table uses the exact calculated figures provided above:

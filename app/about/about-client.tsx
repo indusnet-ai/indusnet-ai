@@ -128,8 +128,11 @@ export default function AboutClient() {
                 <UserCheck className="w-6 h-6 text-accent" />
               </div>
               <div>
-                <p className="text-sm font-bold text-foreground">Senthilkumar Elu</p>
-                <p className="text-xs text-muted-foreground">Founder & Managing Director | Certified CPMAI Facilitator</p>
+                <p className="text-sm font-bold text-foreground">Srinivasan Subramani</p>
+                <p className="text-xs text-muted-foreground">Chief Executive Officer (CEO) | Certified CPMAI Facilitator</p>
+                <a href="tel:+919786887769" className="text-xs text-accent hover:underline font-semibold flex items-center gap-1.5 mt-1">
+                  +91-97868-87769
+                </a>
               </div>
             </div>
           </div>

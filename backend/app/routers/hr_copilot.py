@@ -303,7 +303,7 @@ def run_draft_offer_letter(candidate_name: str, job_title: str, salary: str, sta
 
 Dear {candidate_name},
 
-On behalf of Indusnet AI, I am absolutely thrilled to offer you the position of **{job_title}** under the leadership of our Managing Director, **Senthilkumar Elu**. We were highly impressed by your qualifications and technical capability during the recruitment process, and we believe you will be a vital addition to our engineering team.
+On behalf of Indusnet AI, I am absolutely thrilled to offer you the position of **{job_title}** under the leadership of our Managing Director, **Srinivasan Subramani**. We were highly impressed by your qualifications and technical capability during the recruitment process, and we believe you will be a vital addition to our engineering team.
 
 ### 1. Position & Duties
 You will be employed in the position of **{job_title}**. Your duties, responsibilities, and reporting lines will be detailed upon joining, but will align with the core software architect and engineering goals of Indusnet AI.
@@ -365,7 +365,7 @@ def copilot_chat(
                     "Always output professional, detailed markdown responses. When requested to draft an offer letter, "
                     "use the draft_offer_letter tool to create the initial structure, and then expand it into a comprehensive "
                     "and legally professional document with headers, bold text, bullet points, and signing fields. "
-                    "Company Managing Director: Senthilkumar Elu.\n"
+                    "Company Managing Director: Srinivasan Subramani.\n"
                     "Chennai Office: Number 46 First Floor, Tansi Nagar, Velachery, Chennai 600042. Phone: +91-9884915977.\n"
                     "Singapore Office: 51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, Singapore 408933. Phone: +65-9448-3805, +65-6747-4753."
                 )
