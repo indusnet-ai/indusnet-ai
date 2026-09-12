@@ -60,7 +60,7 @@ export default function JobDetailPage({ params }: PageProps) {
   React.useEffect(() => {
     async function fetchJob() {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api/backend";
         const res = await fetch(`${API_URL}/hr/jobs/${jobId}`);
         if (res.ok) {
           const data = await res.json();
@@ -116,7 +116,7 @@ export default function JobDetailPage({ params }: PageProps) {
     if (portfolioUrl) formData.append("portfolio_url", portfolioUrl);
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api/backend";
       const res = await fetch(`${API_URL}/hr/applications`, {
         method: "POST",
         body: formData,

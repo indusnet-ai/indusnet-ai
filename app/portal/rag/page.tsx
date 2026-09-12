@@ -106,7 +106,7 @@ export default function RAGPortalPage() {
     setLoginError("");
 
     try {
-      const res = await fetch("http://localhost:8000/api/rag/login", {
+      const res = await fetch("/api/backend/rag/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -149,7 +149,7 @@ export default function RAGPortalPage() {
     setIsSearching(true);
 
     try {
-      const res = await fetch("http://localhost:8000/api/rag/query", {
+      const res = await fetch("/api/backend/rag/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query, collection_name: selectedCollection.id })
@@ -241,7 +241,7 @@ export default function RAGPortalPage() {
         formData.append("file", selectedFile);
         formData.append("file_name", name);
 
-        const res = await fetch("http://localhost:8000/api/rag/upload", {
+        const res = await fetch("/api/backend/rag/upload", {
           method: "POST",
           body: formData
         });

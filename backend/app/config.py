@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
 
+    # CORS Settings
+    BACKEND_CORS_ORIGINS: str = "http://localhost:3000,http://localhost:3005,http://127.0.0.1:3000,http://127.0.0.1:3005,https://indusnetai.com,https://www.indusnetai.com,https://indusnet-ai.com,https://www.indusnet-ai.com"
+
     # Supabase Settings
     SUPABASE_URL: Optional[str] = None
     SUPABASE_SERVICE_ROLE_KEY: Optional[str] = None

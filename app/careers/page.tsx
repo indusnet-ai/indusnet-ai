@@ -32,7 +32,7 @@ export default function CareersPage() {
   React.useEffect(() => {
     async function fetchJobs() {
       try {
-        const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api/backend";
         const res = await fetch(`${API_URL}/hr/jobs?status=active`);
         if (res.ok) {
           const data = await res.json();

@@ -15,8 +15,8 @@ async function handleProxy(req: NextRequest, { params }: RouteParams) {
   const url = new URL(req.url);
   const searchParams = url.search;
   
-  // Forward to FastAPI backend (mapping /api/hr/* to backend /hr/*)
-  const backendUrl = `${BACKEND_URL}/hr/${path}${searchParams}`;
+  // Forward to FastAPI backend (mapping /api/backend/* to backend /*)
+  const backendUrl = `${BACKEND_URL}/${path}${searchParams}`;
   
   // Forward request headers
   const headers = new Headers();
@@ -27,12 +27,12 @@ async function handleProxy(req: NextRequest, { params }: RouteParams) {
   });
 
   const method = req.method;
-  let body: any = undefined;
+  let body: ArrayBuffer | undefined = undefined;
   
   if (method !== "GET" && method !== "HEAD") {
     try {
       body = await req.arrayBuffer();
-    } catch (e) {
+    } catch {
       body = undefined;
     }
   }
@@ -48,7 +48,10 @@ async function handleProxy(req: NextRequest, { params }: RouteParams) {
 
     const resHeaders = new Headers();
     response.headers.forEach((value, key) => {
-      resHeaders.set(key, value);
+      // Omit transfer-encoding to avoid HTTP chunking conflicts
+      if (key.toLowerCase() !== "transfer-encoding") {
+        resHeaders.set(key, value);
+      }
     });
 
     const resBody = await response.arrayBuffer();
@@ -56,9 +59,10 @@ async function handleProxy(req: NextRequest, { params }: RouteParams) {
       status: response.status,
       headers: resHeaders
     });
-  } catch (error: any) {
-    console.error("Proxy error:", error);
-    return NextResponse.json({ detail: error.message || "Proxy connection failed" }, { status: 502 });
+  } catch (error: unknown) {
+    const errMessage = error instanceof Error ? error.message : "Proxy connection failed";
+    console.error("Backend Gateway Proxy error:", errMessage);
+    return NextResponse.json({ detail: errMessage }, { status: 502 });
   }
 }
 

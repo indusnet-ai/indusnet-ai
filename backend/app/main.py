@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.config import settings
 from app.db import engine, Base
 from app import models  # Force import of models so metadata registers all tables
 from app.routers import (
@@ -21,14 +22,11 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Indus Net AI Enterprise API", version="0.3.0")
 
 # Enable CORS for Next.js client calls
+cors_origins = [o.strip() for o in settings.BACKEND_CORS_ORIGINS.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://indusnet-ai.com",
-        "https://www.indusnet-ai.com",
-    ],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
