@@ -205,25 +205,35 @@ export function Footer() {
             <div className="flex flex-col gap-3 border-t border-border/10 pt-4 mt-1">
               <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                 <Mail className="w-3.5 h-3.5 text-primary" />
-                <a href="mailto:info@indusnet-ai.com" className="hover:text-white transition-colors">
+                <a href="mailto:info@indusnet-ai.com" className="hover:text-foreground transition-colors">
                   info@indusnet-ai.com
                 </a>
               </div>
-              <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
-                <Phone className="w-3.5 h-3.5 text-accent" />
-                <a href="tel:+919786887769" className="hover:text-white transition-colors font-medium">
-                  +91-97868-87769 (CEO Office)
-                </a>
+              <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
+                <Phone className="w-3.5 h-3.5 text-accent mt-0.5 flex-shrink-0" />
+                <div className="flex flex-col gap-1">
+                  <div className="flex flex-wrap gap-x-3">
+                    <a href="tel:+919884915977" className="hover:text-foreground transition-colors">
+                      +91-988-491-5977 (HQ)
+                    </a>
+                    <a href="tel:+6594483805" className="hover:text-foreground transition-colors">
+                      +65-9448-3805 (SG)
+                    </a>
+                  </div>
+                  <a href="tel:+919786887769" className="hover:text-foreground transition-colors text-[11px]">
+                    +91-97868-87769 (CEO Office)
+                  </a>
+                </div>
               </div>
               <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
                 <MapPin className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="flex flex-col gap-2">
                   <div>
-                    <span className="font-semibold text-white/90">Chennai (HQ): </span>
+                    <span className="font-semibold text-foreground">Chennai (HQ): </span>
                     <span>Number 46 First Floor, Tansi Nagar, Velachery, Chennai 600042</span>
                   </div>
                   <div>
-                    <span className="font-semibold text-white/90">Singapore: </span>
+                    <span className="font-semibold text-foreground">Singapore: </span>
                     <span>51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, SG 408933</span>
                   </div>
                 </div>
@@ -236,13 +246,13 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-10 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Indusnet AI. All rights reserved. Registered under Indusnet Technologies Ltd.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
+            <Link href="/sitemap.xml" className="hover:text-foreground transition-colors">
               Sitemap
             </Link>
           </div>
