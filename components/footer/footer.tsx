@@ -6,6 +6,7 @@ import { Cpu, Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2 } from "luc
 import { Linkedin, Twitter, Github } from "@/components/ui/brand-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 export function Footer() {
   const [email, setEmail] = React.useState("");
@@ -26,6 +27,7 @@ export function Footer() {
 
       const data = await response.json().catch(() => ({}));
       if (response.ok) {
+        trackEvent(ConversionEvents.NEWSLETTER_SIGNUP, { location: "footer" });
         setStatus("success");
         setMessage(data.message || "Thank you for subscribing to our AI Insights newsletter!");
         setEmail("");

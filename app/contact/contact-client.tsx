@@ -12,6 +12,7 @@ import {
   Calendar as CalendarIcon, Clock, Sparkles, Map, Globe, Cpu 
 } from "lucide-react";
 import { Linkedin } from "@/components/ui/brand-icons";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const servicesList = [
   "RAG Search Systems",
@@ -67,6 +68,7 @@ export default function ContactClient() {
 
       const data = await response.json().catch(() => ({}));
       if (response.ok) {
+        trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "inquiry", service: formData.service });
         setInquiryStatus("success");
         setInquiryMessage(data.message || "Consultation inquiry received! We will reply within one business day.");
         setFormData({ name: "", email: "", company: "", service: "RAG Search Systems", message: "" });
@@ -112,6 +114,7 @@ export default function ContactClient() {
 
       const errorData = await response.json().catch(() => ({}));
       if (response.ok) {
+        trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "booking", slot: `${selectedDay} at ${selectedSlot}` });
         setBookingStatus("success");
       } else {
         setBookingStatus("error");

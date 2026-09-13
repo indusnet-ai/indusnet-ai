@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar/navbar";
@@ -9,11 +10,13 @@ import { ScrollProgress } from "@/components/scroll-progress";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const outfit = Outfit({
   variable: "--font-heading",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,6 +40,14 @@ export const metadata: Metadata = {
       "Transforming enterprises with bespoke Generative AI, custom RAG knowledge engines, autonomous AI agents, and certified CPMAI training.",
     url: "https://indusnet-ai.com",
     siteName: "Indusnet AI",
+    images: [
+      {
+        url: "https://indusnet-ai.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Indusnet AI — Enterprise Cognitive AI Solutions",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -45,6 +56,7 @@ export const metadata: Metadata = {
     title: "Indusnet AI | Enterprise AI Solutions & Consulting",
     description:
       "Transforming enterprises with bespoke Generative AI, custom RAG knowledge engines, autonomous AI agents, and certified CPMAI training.",
+    images: ["https://indusnet-ai.com/og-image.png"],
   },
   robots: {
     index: true,
@@ -57,13 +69,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
       <body className="bg-background text-foreground antialiased min-h-screen flex flex-col scroll-smooth">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <div className="relative flex flex-col min-h-screen bg-grid-pattern">
@@ -75,6 +89,26 @@ export default function RootLayout({
             <Footer />
           </div>
         </ThemeProvider>
+
+        {/* Google Analytics 4 Script (only active when NEXT_PUBLIC_GA_ID is defined) */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

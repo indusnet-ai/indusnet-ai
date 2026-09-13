@@ -12,6 +12,7 @@ import {
   Building2, HelpCircle, HardDrive, DollarSign, Activity, ShoppingBag, 
   Truck, BookOpen, Scale, ArrowRight, ShieldCheck 
 } from "lucide-react";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 // 1. Industry Domain Card Configurations
 interface DomainOption {
@@ -156,6 +157,7 @@ export default function AssessmentClient() {
       });
 
       if (response.ok) {
+        trackEvent(ConversionEvents.AI_SCOPER_COMPLETE, { domain, scale: dataSize });
         setSuccess(true);
       } else {
         const data = await response.json().catch(() => ({}));
