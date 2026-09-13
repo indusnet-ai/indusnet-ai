@@ -235,13 +235,7 @@ export default function AboutClient() {
             <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300 w-full">
               <Link href="/careers" className="flex items-center justify-center gap-2">
                 <Briefcase className="w-4 h-4" />
-                Browse Careers
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-full border-border/40 hover:bg-muted text-foreground hover:text-foreground w-full">
-              <Link href="/portal/hr" className="flex items-center justify-center gap-2">
-                <Users className="w-4 h-4 text-primary" />
-                HR Portal Access
+                Explore Careers
               </Link>
             </Button>
           </div>

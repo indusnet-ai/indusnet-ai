@@ -113,11 +113,6 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/portal" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Tender Portal
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
                   Book Consultation
                 </Link>

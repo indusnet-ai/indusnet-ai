@@ -3,11 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Briefcase, MapPin, DollarSign, Clock, Search, 
-  ChevronRight, Building, HelpCircle, Phone, Globe, Star, Cpu
+  ChevronRight, Building, Phone, Mail, ArrowRight, Sparkles, Cpu, Send
 } from "lucide-react";
 
 interface Job {
@@ -22,14 +22,45 @@ interface Job {
   status: string;
 }
 
+const staticPositions = [
+  {
+    title: "Senior Generative AI & RAG Engineer",
+    department: "Applied AI Research",
+    location: "Chennai / Hybrid",
+    employment_type: "Full-Time",
+    desc: "Architect VPC-isolated retrieval engines, hybrid vector/lexical pipelines, and custom agentic workflows using Llama-3, LangChain, and Qdrant/Milvus.",
+    skills: ["Python", "PyTorch", "LlamaIndex", "Vector DBs", "Azure GPU / AWS"],
+  },
+  {
+    title: "Applied Computer Vision Engineer",
+    department: "Edge & Robotics",
+    location: "Chennai / On-Site",
+    employment_type: "Full-Time",
+    desc: "Develop high-FPS defect detection pipelines, TensorRT optimizations, and real-time YOLOv8 object segmentation models deployed on NVIDIA Jetson edge systems.",
+    skills: ["YOLOv8", "TensorRT", "NVIDIA Jetson", "OpenCV", "C++ / Python"],
+  },
+  {
+    title: "Full-Stack AI Platform Architect",
+    department: "Platform Engineering",
+    location: "Chennai / Singapore / Hybrid",
+    employment_type: "Full-Time",
+    desc: "Design and implement production-grade full-stack cognitive applications, asynchronous LLM streaming interfaces, and secure enterprise SSO auth gateways.",
+    skills: ["Next.js 15/16", "TypeScript", "FastAPI", "PostgreSQL", "Docker"],
+  },
+];
+
 export default function CareersClient() {
+  const isStaticMode = process.env.NEXT_PUBLIC_CAREERS_MODE !== "live";
+
   const [jobs, setJobs] = React.useState<Job[]>([]);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(!isStaticMode);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedDept, setSelectedDept] = React.useState("All");
   const [selectedLoc, setSelectedLoc] = React.useState("All");
 
   React.useEffect(() => {
+    if (isStaticMode) return;
+
     async function fetchJobs() {
       try {
         const API_URL = "/api/backend";
@@ -45,7 +76,7 @@ export default function CareersClient() {
       }
     }
     fetchJobs();
-  }, []);
+  }, [isStaticMode]);
 
   const departments = React.useMemo(() => {
     const depts = new Set<string>();
@@ -91,8 +122,8 @@ export default function CareersClient() {
             </div>
           </Link>
           <div className="flex items-center gap-4">
-            <Button asChild variant="outline" className="border-border/40 hover:bg-muted rounded-full text-xs text-muted-foreground hover:text-foreground">
-              <Link href="/portal">Portal Login</Link>
+            <Button asChild className="rounded-full bg-primary text-white text-xs font-semibold hover:bg-primary/90 shadow-md shadow-primary/20 px-5">
+              <Link href="/contact">Book Consultation</Link>
             </Button>
           </div>
         </div>
@@ -103,103 +134,190 @@ export default function CareersClient() {
         <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] uppercase tracking-wider rounded-full px-3 py-1 mb-6">
           Careers & Opportunities
         </Badge>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-foreground">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-foreground font-heading">
           Join the Future of <br />
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Cognitive Enterprise AI</span>
+          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise AI Solutions</span>
         </h1>
-        <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
-          At Indusnet AI, we design, deploy, and scale cognitive automation systems for high-compliance enterprise sectors. Build mission-critical technology with us.
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
+          At Indusnet AI, we design, deploy, and scale verified cognitive automation systems for high-compliance enterprise sectors. Build mission-critical technology with us.
         </p>
 
-        {/* Search & Filter Bar */}
-        <div className="bg-muted border border-border rounded-2xl p-4 flex flex-col md:flex-row gap-3 shadow-2xl backdrop-blur-xl max-w-3xl mx-auto">
-          <div className="flex-grow flex items-center bg-background/50 border border-border rounded-xl px-3 py-2 text-muted-foreground">
-            <Search className="w-4 h-4 mr-2" />
-            <input
-              type="text"
-              placeholder="Search by job title or keyword..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-transparent border-none text-foreground text-xs w-full focus:outline-none placeholder:text-muted-foreground/60"
-            />
+        {isStaticMode && (
+          <div className="glassmorphism-card border-none rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+            <div className="flex flex-col gap-2 text-center sm:text-left">
+              <span className="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1.5 justify-center sm:justify-start">
+                <Sparkles className="w-4 h-4" /> We're Actively Hiring
+              </span>
+              <p className="text-sm font-semibold text-foreground">
+                Looking for exceptional machine learning engineers, AI researchers, and platform architects.
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Email your CV, portfolio, or GitHub profile to{" "}
+                <a href="mailto:careers@indusnet-ai.com" className="text-primary font-semibold hover:underline">
+                  careers@indusnet-ai.com
+                </a>
+              </p>
+            </div>
+            <Button asChild size="lg" className="rounded-full bg-primary text-white font-semibold text-xs flex-shrink-0 hover:bg-primary/90 shadow-md shadow-primary/25">
+              <a href="mailto:careers@indusnet-ai.com?subject=Engineering%20Application%20-%20Indusnet%20AI" className="flex items-center gap-2">
+                <Send className="w-3.5 h-3.5" /> Email Your CV
+              </a>
+            </Button>
           </div>
-          <div className="flex gap-2">
-            <select
-              value={selectedDept}
-              onChange={(e) => setSelectedDept(e.target.value)}
-              className="py-2.5 px-3 bg-background border border-border text-xs rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-[150px]"
-            >
-              <option value="All">All Departments</option>
-              {departments.filter(d => d !== "All").map(d => (
-                <option key={d} value={d}>{d}</option>
-              ))}
-            </select>
-            <select
-              value={selectedLoc}
-              onChange={(e) => setSelectedLoc(e.target.value)}
-              className="py-2.5 px-3 bg-background border border-border text-xs rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-[150px]"
-            >
-              <option value="All">All Locations</option>
-              {locations.filter(l => l !== "All").map(l => (
-                <option key={l} value={l}>{l}</option>
-              ))}
-            </select>
+        )}
+
+        {!isStaticMode && (
+          /* Search & Filter Bar for Live Mode */
+          <div className="bg-muted border border-border rounded-2xl p-4 flex flex-col md:flex-row gap-3 shadow-2xl backdrop-blur-xl max-w-3xl mx-auto">
+            <div className="flex-grow flex items-center bg-background/50 border border-border rounded-xl px-3 py-2 text-muted-foreground">
+              <Search className="w-4 h-4 mr-2" />
+              <input
+                type="text"
+                placeholder="Search by job title or keyword..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="bg-transparent border-none text-foreground text-xs w-full focus:outline-none placeholder:text-muted-foreground/60"
+              />
+            </div>
+            <div className="flex gap-2">
+              <select
+                value={selectedDept}
+                onChange={(e) => setSelectedDept(e.target.value)}
+                className="py-2.5 px-3 bg-background border border-border text-xs rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-[150px]"
+              >
+                <option value="All">All Departments</option>
+                {departments.filter(d => d !== "All").map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+              <select
+                value={selectedLoc}
+                onChange={(e) => setSelectedLoc(e.target.value)}
+                className="py-2.5 px-3 bg-background border border-border text-xs rounded-xl text-foreground focus:outline-none focus:ring-1 focus:ring-primary w-full md:w-[150px]"
+              >
+                <option value="All">All Locations</option>
+                {locations.filter(l => l !== "All").map(l => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Job Listings Grid */}
+      {/* Main Content Area */}
       <main className="flex-grow max-w-7xl mx-auto w-full px-6 md:px-12 pb-24 z-10">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 text-muted-foreground text-xs">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-primary mb-3"></div>
-            Loading active job positions...
-          </div>
-        ) : filteredJobs.length === 0 ? (
-          <div className="bg-muted/50 border border-border rounded-2xl p-16 text-center text-muted-foreground text-xs">
-            No active positions match your criteria. Check back soon or search another term!
+        {isStaticMode ? (
+          /* Static Positions Grid */
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-2 text-left">
+              <h2 className="text-2xl font-bold text-foreground font-heading">Core Open Disciplines</h2>
+              <p className="text-xs text-muted-foreground">
+                We review applications continuously for the following roles across our Chennai and Singapore hubs:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {staticPositions.map((pos, idx) => (
+                <Card key={idx} className="glassmorphism-card border-none hover:border-primary/30 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg group text-left">
+                  <CardHeader className="p-6 pb-4">
+                    <div className="flex justify-between items-start gap-4 mb-3">
+                      <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2.5 py-0.5">
+                        {pos.department}
+                      </Badge>
+                      <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" /> {pos.employment_type}
+                      </span>
+                    </div>
+                    <CardTitle className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                      {pos.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="p-6 pt-0 flex-grow flex flex-col justify-between gap-6">
+                    <p className="text-muted-foreground text-[12px] leading-relaxed">
+                      {pos.desc}
+                    </p>
+
+                    <div className="flex flex-col gap-3 border-t border-border pt-4">
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                        <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                        <span>{pos.location}</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {pos.skills.map((skill, sIdx) => (
+                          <span key={sIdx} className="text-[10px] text-muted-foreground bg-muted border border-border/60 rounded px-2 py-0.5">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <Button asChild className="w-full bg-muted group-hover:bg-primary group-hover:text-white border border-border group-hover:border-transparent text-foreground font-semibold text-xs transition-all duration-300">
+                      <a href={`mailto:careers@indusnet-ai.com?subject=${encodeURIComponent(`Application for ${pos.title} - Indusnet AI`)}`} className="flex items-center justify-center gap-1">
+                        Apply via Email <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                      </a>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredJobs.map((job) => (
-              <Card key={job.id} className="bg-muted/30 hover:bg-muted/60 transition-all duration-300 border border-border hover:border-primary/30 flex flex-col justify-between overflow-hidden shadow-lg group">
-                <CardHeader className="p-6 pb-4">
-                  <div className="flex justify-between items-start gap-4 mb-3">
-                    <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2.5 py-0.5">
-                      {job.department}
-                    </Badge>
-                    <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5" /> {job.employment_type}
-                    </span>
-                  </div>
-                  <CardTitle className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-                    {job.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6 pt-0 flex-grow flex flex-col justify-between">
-                  <p className="text-muted-foreground text-[11px] leading-relaxed line-clamp-3 mb-6">
-                    {job.description}
-                  </p>
-                  
-                  <div className="flex flex-col gap-2.5 border-t border-border pt-4 text-[11px] text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-accent" />
-                      <span>{job.location}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-accent" />
-                      <span>{job.salary_range}</span>
-                    </div>
-                  </div>
+          /* Dynamic Live Mode Listings */
+          <div>
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-20 text-muted-foreground text-xs">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-primary mb-3"></div>
+                Loading active job positions...
+              </div>
+            ) : filteredJobs.length === 0 ? (
+              <div className="bg-muted/50 border border-border rounded-2xl p-16 text-center text-muted-foreground text-xs">
+                No active positions match your criteria. Check back soon or search another term!
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredJobs.map((job) => (
+                  <Card key={job.id} className="bg-muted/30 hover:bg-muted/60 transition-all duration-300 border border-border hover:border-primary/30 flex flex-col justify-between overflow-hidden shadow-lg group text-left">
+                    <CardHeader className="p-6 pb-4">
+                      <div className="flex justify-between items-start gap-4 mb-3">
+                        <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] rounded px-2.5 py-0.5">
+                          {job.department}
+                        </Badge>
+                        <span className="text-[11px] text-muted-foreground font-medium flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" /> {job.employment_type}
+                        </span>
+                      </div>
+                      <CardTitle className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                        {job.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0 flex-grow flex flex-col justify-between">
+                      <p className="text-muted-foreground text-[11px] leading-relaxed line-clamp-3 mb-6">
+                        {job.description}
+                      </p>
+                      
+                      <div className="flex flex-col gap-2.5 border-t border-border pt-4 text-[11px] text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-primary" />
+                          <span>{job.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="w-4 h-4 text-accent" />
+                          <span>{job.salary_range}</span>
+                        </div>
+                      </div>
 
-                  <Button asChild className="w-full bg-muted group-hover:bg-primary group-hover:text-white border border-border group-hover:border-transparent text-foreground font-semibold text-xs mt-6 transition-all duration-300">
-                    <Link href={`/careers/${job.id}`} className="flex items-center justify-center gap-1">
-                      View Position <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                      <Button asChild className="w-full bg-muted group-hover:bg-primary group-hover:text-white border border-border group-hover:border-transparent text-foreground font-semibold text-xs mt-6 transition-all duration-300">
+                        <Link href={`/careers/${job.id}`} className="flex items-center justify-center gap-1">
+                          View Position <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
@@ -225,8 +343,8 @@ export default function CareersClient() {
                 Singapore, SG 408933
               </p>
               <div className="flex flex-col gap-1 text-muted-foreground text-xs mt-1">
-                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> +65-9448-3805</div>
-                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> +65-6747-4753</div>
+                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> <a href="tel:+6594483805" className="hover:text-primary transition-colors">+65-9448-3805</a></div>
+                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> <a href="tel:+6567474753" className="hover:text-primary transition-colors">+65-6747-4753</a></div>
               </div>
             </div>
 
@@ -237,7 +355,7 @@ export default function CareersClient() {
                 Velachery, Chennai, India 600042
               </p>
               <div className="flex flex-col gap-1 text-muted-foreground text-xs mt-1">
-                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> +91-9884915977</div>
+                <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-primary" /> <a href="tel:+919884915977" className="hover:text-primary transition-colors">+91-9884915977</a></div>
               </div>
             </div>
           </div>

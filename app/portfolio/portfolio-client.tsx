@@ -19,8 +19,6 @@ const caseStudies = [
     client: "Metro Financial Group",
     badge: "Finance & Compliance",
     metric: "91% Faster Document Search",
-    testUrl: "/portal/rag",
-    testLabel: "Test RAG Application",
     repoUrl: "https://github.com/indusnet-ai/RAG",
     problem: "Metro Financial Group had over 100,000 regulatory guidelines, compliance files, and investment logs spread across disjointed servers. Underwriters spent up to 6 hours daily searching records, introducing massive human error risks and deal delays.",
     solution: "We engineered a VPC-isolated RAG search assistant. The system parses PDF, Docx, and SQL files, structures them using LlamaIndex hierarchical chunking, and indexes them in a secure Qdrant vector store. Sub-second semantic search is paired with strict role-based access controls.",
