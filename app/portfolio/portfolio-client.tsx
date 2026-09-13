@@ -129,15 +129,7 @@ export default function PortfolioClient() {
                   <p className="text-xs text-muted-foreground mt-1">Client: <span className="text-foreground font-medium">{study.client}</span></p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-                  {study.testUrl && (
-                    <Button asChild size="sm" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold hover:brightness-110 shadow-md transition-all">
-                      <Link href={study.testUrl} className="flex items-center gap-1.5 px-3 py-1 text-xs">
-                        <FlaskConical className="w-3.5 h-3.5" />
-                        <span>{study.testLabel || "Test RAG Application"}</span>
-                        <ArrowRight className="w-3.5 h-3.5 opacity-80" />
-                      </Link>
-                    </Button>
-                  )}
+
                   <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0 animate-pulse">
                     <span className="text-sm font-bold text-emerald-400">{study.metric}</span>
                   </div>
@@ -164,16 +156,6 @@ export default function PortfolioClient() {
                       <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
                         <Zap className="w-4 h-4 text-primary" /> Engineered Solution
                       </h3>
-                      {study.testUrl && (
-                        <Link 
-                          href={study.testUrl} 
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent transition-colors bg-primary/10 hover:bg-primary/20 border border-primary/20 px-2.5 py-1 rounded-lg"
-                        >
-                          <FlaskConical className="w-3.5 h-3.5" />
-                          <span>Launch RAG Portal</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </Link>
-                      )}
                     </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {study.solution}
