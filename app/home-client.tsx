@@ -98,22 +98,22 @@ const industries = [
 const caseStudies = [
   {
     title: "Enterprise RAG Engine for Global Finance",
-    desc: "Connected 100k+ private regulatory documents to a secure Llama-3 system, slicing document search times by 91%.",
-    metric: "91% Faster Research",
+    desc: "Connected 100k+ private regulatory documents to a secure VPC-isolated LLM system, enabling sub-second verified search.",
+    metric: "Sub-Second Retrieval",
     tag: "Finance",
-    tech: ["Llama-3", "Qdrant", "Azure", "LangChain"]
+    tech: ["Llama-3", "Vector DB", "Azure", "Docker"]
   },
   {
     title: "Autonomous Agent Workflow for Retail Logistics",
-    desc: "Replaced manual invoice clearing with autonomous AI agents that reconcile shipment logs and flag anomalies.",
-    metric: "84% Lower Processing Cost",
+    desc: "Replaced manual invoice clearing with autonomous AI agents that reconcile shipment logs and flag discrepancies.",
+    metric: "Automated Reconciliation",
     tag: "Logistics",
-    tech: ["GPT-4o", "Supabase", "FastAPI", "Python"]
+    tech: ["GPT-4o", "PostgreSQL", "FastAPI", "Python"]
   },
   {
     title: "Clinical Triage AI Assistant",
-    desc: "Created a HIPAA-compliant medical intake assistant guiding patient routing and providing physician summaries.",
-    metric: "98% Triage Accuracy",
+    desc: "Created a HIPAA-compliant medical intake assistant guiding patient routing and generating structured physician summaries.",
+    metric: "Structured Clinical Intake",
     tag: "Healthcare",
     tech: ["Med-PaLM", "Next.js", "Tailwind", "Python"]
   }
@@ -229,8 +229,8 @@ export default function HomeClient() {
 
               {/* Floating Orbiting Info Cards */}
               <div className="absolute -top-4 -right-4 bg-card border border-border/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_5s_infinite_ease-in-out] max-w-[150px]">
-                <p className="text-[10px] text-primary uppercase font-bold tracking-wider">RAG Search</p>
-                <p className="text-xs text-foreground font-bold mt-1">98.4% Accuracy</p>
+                <p className="text-[10px] text-primary uppercase font-bold tracking-wider">RAG Architecture</p>
+                <p className="text-xs text-foreground font-bold mt-1">Enterprise Hybrid</p>
               </div>
 
               <div className="absolute -bottom-4 -left-4 bg-card border border-border/80 backdrop-blur-md rounded-2xl p-4 shadow-2xl animate-[bounce_6s_infinite_ease-in-out_1s] max-w-[150px]">
@@ -412,47 +412,49 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* 6. TESTIMONIALS SECTION */}
-      <section className="container mx-auto px-4 md:px-6 flex flex-col gap-12">
-        <div className="text-center max-w-3xl mx-auto flex flex-col gap-4">
-          <Badge className="bg-primary/10 border-primary/20 text-primary w-fit mx-auto px-3 py-1 text-xs rounded-full">
-            Client Success
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-            What <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise Leaders</span> Say
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base">
-            Trusted by chief innovation officers, technology leads, and directors across sectors worldwide.
-          </p>
-        </div>
+      {/* 6. TESTIMONIALS SECTION (Guarded until verified quotes are provided) */}
+      {process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS === "true" && (
+        <section className="container mx-auto px-4 md:px-6 flex flex-col gap-12">
+          <div className="text-center max-w-3xl mx-auto flex flex-col gap-4">
+            <Badge className="bg-primary/10 border-primary/20 text-primary w-fit mx-auto px-3 py-1 text-xs rounded-full">
+              Client Success
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
+              What <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise Leaders</span> Say
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Trusted by chief innovation officers, technology leads, and directors across sectors worldwide.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((test, idx) => (
-            <Card key={idx} className="glassmorphism-card border-none text-left flex flex-col justify-between p-6 gap-6">
-              <div className="flex flex-col gap-4">
-                {/* Stars */}
-                <div className="flex items-center gap-1">
-                  {[...Array(test.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((test, idx) => (
+              <Card key={idx} className="glassmorphism-card border-none text-left flex flex-col justify-between p-6 gap-6">
+                <div className="flex flex-col gap-4">
+                  {/* Stars */}
+                  <div className="flex items-center gap-1">
+                    {[...Array(test.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground text-xs italic leading-relaxed">
+                    "{test.quote}"
+                  </p>
                 </div>
-                <p className="text-muted-foreground text-xs italic leading-relaxed">
-                  "{test.quote}"
-                </p>
-              </div>
-              <div className="flex items-center gap-3 border-t border-border pt-4 mt-2">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary">
-                  {test.author[0]}
+                <div className="flex items-center gap-3 border-t border-border pt-4 mt-2">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-bold text-xs text-primary">
+                    {test.author[0]}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">{test.author}</h4>
+                    <p className="text-[10px] text-muted-foreground">{test.role}, <span className="text-primary">{test.company}</span></p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-foreground">{test.author}</h4>
-                  <p className="text-[10px] text-muted-foreground">{test.role}, <span className="text-primary">{test.company}</span></p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* 7. CTA SECTION */}
       <section className="container mx-auto px-4 md:px-6">

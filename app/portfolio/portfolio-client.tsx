@@ -16,64 +16,64 @@ import { Github } from "@/components/ui/brand-icons";
 const caseStudies = [
   {
     title: "Secure Enterprise RAG Engine",
-    client: "Metro Financial Group",
+    client: "Example Engagement: Financial Services",
     badge: "Finance & Compliance",
-    metric: "91% Faster Document Search",
+    metric: "Sub-Second Retrieval",
     repoUrl: "https://github.com/indusnet-ai/RAG",
-    problem: "Metro Financial Group had over 100,000 regulatory guidelines, compliance files, and investment logs spread across disjointed servers. Underwriters spent up to 6 hours daily searching records, introducing massive human error risks and deal delays.",
-    solution: "We engineered a VPC-isolated RAG search assistant. The system parses PDF, Docx, and SQL files, structures them using LlamaIndex hierarchical chunking, and indexes them in a secure Qdrant vector store. Sub-second semantic search is paired with strict role-based access controls.",
-    architecture: "Ingestion pipeline parses documents with LlamaParse -> Chunks vectors with text-embedding-3-large -> Stores in Qdrant VPC instance -> Llama-3.1-70B running on private Azure GPU node generates responses with verified citations.",
+    problem: "In large-scale financial compliance operations, over 100,000 regulatory guidelines, investment logs, and compliance records are frequently spread across disconnected repositories. Compliance underwriters spend hours searching records, introducing operational latency and verification risk.",
+    solution: "We engineered a VPC-isolated RAG architecture. The system parses PDF, DOCX, and tabular files, structures them using hierarchical chunking, and indexes them in a secure vector store with sub-second hybrid retrieval and role-based access control.",
+    architecture: "Document ingestion pipeline -> Hierarchical chunking -> VPC-isolated vector store -> Private GPU LLM node with citation verification.",
     results: [
-      "Document search time sliced from 6 hours to less than 30 seconds.",
-      "100% private deployment: no regulatory PHI/PII data escaped their secure subnet.",
-      "Zero compliance underwriting omissions reported since active deployment."
+      "Document discovery time reduced from hours to under 30 seconds.",
+      "VPC-isolated deployment: zero proprietary or regulatory data traverses public subnets.",
+      "Comprehensive verification citations provided for every compliance query."
     ],
-    tech: ["Llama-3.1", "Qdrant", "LlamaIndex", "Azure GPU", "Docker"]
+    tech: ["Llama-3", "Vector DB", "Hierarchical Chunking", "Private GPU", "Docker"]
   },
   {
     title: "Edge Computer Vision QC Scanner",
-    client: "Sato Heavy Industries",
+    client: "Example Engagement: Advanced Manufacturing",
     badge: "Manufacturing & Robotics",
-    metric: "Defect Escape Rate < 0.05%",
-    problem: "Sato Heavy Industries manufactured high-speed turbine shafts. Manual inspections on conveyor belts failed to detect microscopic hairline fractures, resulting in occasional catastrophic rotor turbine failures post-assembly.",
-    solution: "We deployed custom high-speed computer vision systems scanning conveyor shafts in real time. Deployed on NVIDIA Jetson Edge devices, the YOLOv8 model classifies microscopic surface defects at 60 frames per second, instantly triggering pneumatic defect ejectors.",
-    architecture: "High-FPS camera capture -> TensorRT optimized YOLOv8 segmentation on NVIDIA Jetson edge nodes -> Local MQTT broker alerts factory PLC -> Pneumatic ejector clears defective SKUs.",
+    metric: "Real-Time Edge Inference (60 FPS)",
+    problem: "In high-precision manufacturing, conveyor-speed production requires inspecting high-tolerance industrial components. Manual visual sampling cannot reliably detect microscopic hairline fissures across high-speed continuous assembly.",
+    solution: "We deployed an edge computer vision pipeline scanning components in real time. Deployed on NVIDIA Jetson edge systems, an optimized YOLO model detects surface anomalies at 60 frames per second, communicating directly with factory PLCs for automated defect sorting.",
+    architecture: "High-FPS camera stream -> TensorRT optimized YOLO inference on NVIDIA Jetson -> Local MQTT broker alerts factory PLC -> Automated defect rejection.",
     results: [
-      "Microscopic defect escapes plummeted from 2.4% to less than 0.05%.",
-      "Conveyor-belt visual inspections operate 24/7/365 with zero inspection fatigue.",
-      "Prevented millions of dollars in potential product warranty liability."
+      "Continuous 24/7 visual inspection running at 60 FPS directly on the production line.",
+      "Defect detection speed operates within the hardware cycle time of the conveyor.",
+      "Substantially mitigates downstream product warranty and assembly failure risks."
     ],
     tech: ["YOLOv8", "TensorRT", "NVIDIA Jetson", "PyTorch", "MQTT"]
   },
   {
     title: "Predictive Analytics & Fraud Shield",
-    client: "GlobalPay Commerce",
+    client: "Example Engagement: FinTech & Digital Payments",
     badge: "FinTech & Payment Gateway",
-    metric: "Reclaimed $4.2M in Fraud",
-    problem: "GlobalPay Commerce processed millions of payment transactions daily. Dynamic fraud vectors bypassed traditional rule-based filters, costing the platform massive payment chargeback penalties and lost merchant credibility.",
-    solution: "We engineered a machine learning payment profiling pipeline. An XGBoost model trained on historical fraud logs evaluates incoming payment metadata (device, geolocation, velocity, volume) in less than 5 milliseconds, flagging suspicious profiles for instant verification.",
-    architecture: "Incoming payment request API -> Feature extraction -> XGBoost inference on AWS SageMaker -> Sub-5ms scoring -> Redis state management -> Fraud alert trigger.",
+    metric: "Sub-5ms Inference Latency",
+    problem: "High-volume digital payment gateways process millions of transactions daily. Dynamic fraud patterns evade static rule-based filters, resulting in costly payment reversals and merchant friction.",
+    solution: "We developed a machine learning payment profiling pipeline. An optimized gradient-boosted decision model evaluates incoming transaction telemetry (device fingerprints, velocity, and geolocation patterns) in under 5 milliseconds.",
+    architecture: "Transaction ingestion API -> Telemetry feature engineering -> Sub-5ms inference on dedicated endpoints -> In-memory state cache -> Real-time risk scoring.",
     results: [
-      "Successfully blocked $4.2 million in fraudulent payment attempts within 6 months.",
-      "Inference completes in 4.8ms, introducing zero perceived transaction latency.",
-      "Slashed merchant dispute chargeback penalties by 68%."
+      "Sub-5ms scoring introduces zero human-perceivable payment latency.",
+      "Continuous anomaly detection adapts to emerging fraud attack vectors.",
+      "Automated risk scoring reduces false positive review queues."
     ],
-    tech: ["XGBoost", "AWS SageMaker", "FastAPI", "Redis", "Scikit-Learn"]
+    tech: ["XGBoost", "Feature Store", "FastAPI", "Redis", "Scikit-Learn"]
   },
   {
     title: "Ambient Clinical Intake Assistant",
-    client: "CareAll Healthcare System",
-    badge: "Healthcare & Patient Care",
-    metric: "2.1 Hours Saved Daily per Dev/Doc",
-    problem: "Physicians at CareAll spent up to 3 hours daily typing up clinical intake files. This severe documentation burnout drastically lowered daily patient consultation times and degraded clinical diagnostic quality.",
-    solution: "We created a HIPAA-compliant voice ingestion system. The tablet recorder captures the patient-physician discussion ambiently, Whisper translates the conversation, and a fine-tuned Med-PaLM model structures the medical transcript directly into standard EHR note layouts.",
-    architecture: "Ambient tablet microphone -> High-speed Whisper audio-to-text -> Med-PaLM custom instruction fine-tuned pipeline -> Strict PII redact validator -> Direct FHIR EHR API update.",
+    client: "Example Engagement: Healthcare Provider",
+    badge: "Healthcare & Clinical Care",
+    metric: "Automated Clinical Documentation",
+    problem: "Physicians and clinical staff often spend hours daily manually typing patient intake files and consultation notes. This extensive administrative documentation burden reduces patient contact time and contributes to clinical burnout.",
+    solution: "We developed an ambient clinical intake pipeline. Consultations are transcribed via speech-to-text models, validated for clinical context, and structured into standardized EHR templates using strict local data governance controls.",
+    architecture: "Ambient microphone stream -> High-accuracy speech-to-text -> Medical domain language structuring -> PII de-identification filter -> Standard EHR integration.",
     results: [
-      "Doctors save an average of 2.1 hours daily on manual clinical documentation.",
-      "Increased daily patient consultation capacity by 34% per clinic.",
-      "100% HIPAA and GDPR audit compliance using private local cloud servers."
+      "Significantly reduces manual documentation burden after each consultation.",
+      "Accelerates patient intake processing while preserving EHR formatting consistency.",
+      "Strict role-based isolation ensures patient health data remains fully protected."
     ],
-    tech: ["Whisper-Large", "Med-PaLM", "Next.js", "Python", "FHIR APIs"]
+    tech: ["Whisper-Large", "Clinical LLMs", "Next.js", "Python", "FHIR APIs"]
   }
 ];
 
