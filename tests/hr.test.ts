@@ -112,7 +112,7 @@ async function runTest() {
     // 5. Retrieve Candidate Profile & Verify AI Analysis
     console.log("\nStep 5: Fetching Candidate Profile and AI Analysis...");
     
-    let profileData: { analysis?: unknown; [key: string]: unknown } | null = null;
+    let profileData: any = null;
     const maxAttempts = 15;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const profileRes = await fetch(`${BACKEND_URL}/hr/candidates/${candidateId}`, {

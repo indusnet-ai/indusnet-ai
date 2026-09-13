@@ -65,19 +65,18 @@ export default function ContactClient() {
         body: JSON.stringify(formData)
       });
 
+      const data = await response.json().catch(() => ({}));
       if (response.ok) {
         setInquiryStatus("success");
-        setInquiryMessage("Consultation inquiry logged! Our Solutions Architect will reach out in under 4 hours.");
+        setInquiryMessage(data.message || "Consultation inquiry received! We will reply within one business day.");
         setFormData({ name: "", email: "", company: "", service: "RAG Search Systems", message: "" });
       } else {
-        throw new Error("Log failed");
+        setInquiryStatus("error");
+        setInquiryMessage(data.error || "Failed to submit enquiry. Please email info@indusnet-ai.com.");
       }
-    } catch (err) {
-      setTimeout(() => {
-        setInquiryStatus("success");
-        setInquiryMessage("Consultation inquiry logged! Our Solutions Architect will reach out in under 4 hours.");
-        setFormData({ name: "", email: "", company: "", service: "RAG Search Systems", message: "" });
-      }, 1000);
+    } catch (err: any) {
+      setInquiryStatus("error");
+      setInquiryMessage(err.message || "Network error. Please try again or email info@indusnet-ai.com.");
     }
   };
 
@@ -111,18 +110,17 @@ export default function ContactClient() {
         })
       });
 
+      const errorData = await response.json().catch(() => ({}));
       if (response.ok) {
         setBookingStatus("success");
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || "Booking failed");
+        setBookingStatus("error");
+        setBookingError(errorData.error || "Failed to schedule consultation. Please email info@indusnet-ai.com.");
       }
     } catch (err: any) {
-      console.error(err);
-      // Simulation mode fallback for robustness during offline testing
-      setTimeout(() => {
-        setBookingStatus("success");
-      }, 1000);
+      console.error("Booking error:", err);
+      setBookingStatus("error");
+      setBookingError(err.message || "Network error. Please try again or email info@indusnet-ai.com.");
     }
   };
 

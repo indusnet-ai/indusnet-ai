@@ -18,29 +18,24 @@ export function Footer() {
 
     setStatus("loading");
     try {
-      // We will perform the actual database insert later in phase 5.
-      // For now, simulate a fast, responsive API call.
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
+      const data = await response.json().catch(() => ({}));
       if (response.ok) {
         setStatus("success");
-        setMessage("Thank you for subscribing to our AI Insights newsletter!");
+        setMessage(data.message || "Thank you for subscribing to our AI Insights newsletter!");
         setEmail("");
       } else {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || "Subscription failed. Please try again.");
+        setStatus("error");
+        setMessage(data.error || "Subscription failed. Please try again.");
       }
     } catch (err: any) {
-      // Fallback for simulation if API endpoint is not loaded yet
-      setTimeout(() => {
-        setStatus("success");
-        setMessage("Thank you for subscribing to our AI Insights newsletter!");
-        setEmail("");
-      }, 1000);
+      setStatus("error");
+      setMessage(err.message || "Connection error. Please try again.");
     }
   };
 
@@ -189,8 +184,13 @@ export function Footer() {
                   </Button>
                 </div>
                 {status === "success" && (
-                  <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-2">
+                  <div className="flex items-center gap-1.5 text-xs text-emerald-500 mt-2">
                     <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span>{message}</span>
+                  </div>
+                )}
+                {status === "error" && (
+                  <div className="flex items-center gap-1.5 text-xs text-destructive mt-2">
                     <span>{message}</span>
                   </div>
                 )}
