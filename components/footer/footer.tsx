@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Cpu, Mail, Phone, MapPin, ArrowRight, Loader2, CheckCircle2 } from "lucide-react";
 import { Linkedin, Twitter, Github } from "@/components/ui/brand-icons";
 import { Button } from "@/components/ui/button";
@@ -52,7 +53,14 @@ export function Footer() {
           {/* Brand Card */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link href="/" className="flex items-center group w-fit">
-              <img src="/logo.png" alt="Indusnet AI" className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-102" />
+              <Image 
+                src="/logo.webp" 
+                alt="Indusnet AI" 
+                width={109} 
+                height={48} 
+                className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-102"
+                priority={false}
+              />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">
               Transforming mid-market and enterprise organizations with bespoke artificial intelligence, RAG search systems, custom LLM solutions, and certified corporate AI training.
