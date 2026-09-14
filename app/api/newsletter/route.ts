@@ -103,10 +103,11 @@ export async function POST(request: Request) {
     if (notificationResult.success) {
       return NextResponse.json(
         {
-          error: "Database write failed, but your subscription was received by email.",
+          success: true,
+          message: "Thank you for subscribing to our AI Insights newsletter!",
           receivedByEmail: true,
         },
-        { status: 500 }
+        { status: 200 }
       );
     }
     return NextResponse.json(

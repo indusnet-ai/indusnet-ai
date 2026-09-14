@@ -182,11 +182,11 @@ export async function POST(request: Request) {
     if (notificationResult.success) {
       return NextResponse.json(
         {
-          error:
-            "Database write failed, but your scoping assessment was received by email. We will reply within one business day.",
+          success: true,
+          message: "AI Scoping Sheet received successfully! A solutions architect will reply within one business day.",
           receivedByEmail: true,
         },
-        { status: 500 }
+        { status: 200 }
       );
     }
     return NextResponse.json(
