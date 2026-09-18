@@ -471,8 +471,7 @@ export default function ContactClient() {
             <Card className="glassmorphism-card border-none text-left flex-grow">
               <CardContent className="p-6 flex flex-col gap-5 justify-center h-full">
                 <h3 className="font-bold text-foreground text-base border-b border-border pb-2">Office Contact Details</h3>
-
-
+                <div className="flex flex-col gap-5">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Mail className="w-4 h-4 text-primary" />
