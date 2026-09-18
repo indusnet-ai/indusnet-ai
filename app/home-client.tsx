@@ -6,11 +6,12 @@ import { motion } from "framer-motion";
 import { 
   ArrowRight, Cpu, Bot, Search, Zap, Eye, BarChart3, Users, 
   ShieldCheck, Check, Sparkles, Star, ChevronRight, Activity, ShoppingCart, 
-  Building2, Landmark, GraduationCap, Truck 
+  Building2, Landmark, GraduationCap, Truck, Calculator 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { RoiCalculator } from "@/components/roi-calculator/roi-calculator";
 
 // Trusted Technologies Array
 const techLogos = [
@@ -200,6 +201,12 @@ export default function HomeClient() {
               <Button asChild size="lg" variant="outline" className="rounded-full border-border/80 hover:border-primary hover:text-primary transition-all px-8">
                 <Link href="/services">Explore Services</Link>
               </Button>
+              <Button asChild size="lg" variant="ghost" className="rounded-full border border-primary/30 hover:bg-primary/10 text-primary transition-all px-6">
+                <a href="#roi-calculator" className="flex items-center gap-1.5">
+                  <Calculator className="w-4 h-4 text-primary" />
+                  Calculate AI ROI
+                </a>
+              </Button>
             </motion.div>
           </div>
 
@@ -300,6 +307,9 @@ export default function HomeClient() {
           ))}
         </div>
       </section>
+
+      {/* ROI & GPU SIZING CALCULATOR */}
+      <RoiCalculator />
 
       {/* 4. INDUSTRIES SECTION */}
       <section className="container mx-auto px-4 md:px-6 flex flex-col gap-12">
