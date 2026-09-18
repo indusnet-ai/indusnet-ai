@@ -220,9 +220,6 @@ export function Footer() {
                       +65-9448-3805 (SG)
                     </a>
                   </div>
-                  <a href="tel:+919786887769" className="hover:text-foreground transition-colors text-[11px]">
-                    +91-97868-87769 (CEO Office)
-                  </a>
                 </div>
               </div>
               <div className="flex items-start gap-2.5 text-xs text-muted-foreground">
