@@ -100,19 +100,20 @@ export async function POST(request: Request) {
 
   // 5. Response
   if (!dbSuccess) {
-    if (notificationResult.success) {
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Thank you for subscribing to our AI Insights newsletter!",
-          receivedByEmail: true,
-        },
-        { status: 200 }
-      );
-    }
+    console.error("[CRITICAL_SUBSCRIBER_BACKUP] Newsletter subscription:", JSON.stringify({
+      timestamp: new Date().toISOString(),
+      email,
+      dbError: dbError?.message,
+      emailError: notificationResult.error,
+    }));
+
     return NextResponse.json(
-      { error: "Failed to subscribe at this time. Please try again later." },
-      { status: 500 }
+      {
+        success: true,
+        message: "Thank you for subscribing to our AI Insights newsletter!",
+        receivedByEmail: notificationResult.success,
+      },
+      { status: 200 }
     );
   }
 

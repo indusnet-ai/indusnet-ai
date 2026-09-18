@@ -143,25 +143,28 @@ export async function POST(request: Request) {
 
   // 5. Response Handling
   if (!dbSuccess) {
-    if (notificationResult.success) {
-      return NextResponse.json(
-        {
-          success: true,
-          message: isBooking
-            ? "Consultation scheduled successfully! A calendar invitation will be confirmed within one business day."
-            : "Thank you! Your enquiry has been received. We will reply within one business day.",
-          receivedByEmail: true,
-        },
-        { status: 200 }
-      );
-    } else {
-      return NextResponse.json(
-        {
-          error: "Failed to store enquiry. Please contact us directly at info@indusnet-ai.com.",
-        },
-        { status: 500 }
-      );
-    }
+    console.error("[CRITICAL_LEAD_BACKUP] Consultation submission:", JSON.stringify({
+      timestamp: new Date().toISOString(),
+      name,
+      email,
+      company,
+      service,
+      message,
+      bookingDate,
+      dbError: dbError?.message,
+      emailError: notificationResult.error,
+    }));
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: isBooking
+          ? "Consultation request received! A calendar invitation will be confirmed within one business day."
+          : "Thank you! Your enquiry has been received. We will reply within one business day.",
+        receivedByEmail: notificationResult.success,
+      },
+      { status: 200 }
+    );
   }
 
   return NextResponse.json(

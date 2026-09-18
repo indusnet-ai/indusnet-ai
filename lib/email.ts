@@ -45,6 +45,36 @@ export async function sendEmail({
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       console.error("Resend API delivery error:", data);
+
+      // If custom domain is not verified yet, attempt delivery via onboarding@resend.dev
+      if (
+        from.includes("@indusnet-ai.com") &&
+        (data.message?.toLowerCase().includes("domain") || data.message?.toLowerCase().includes("verify"))
+      ) {
+        try {
+          const retryRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: "Indusnet AI <onboarding@resend.dev>",
+              to: Array.isArray(to) ? to : [to],
+              reply_to: replyTo,
+              subject,
+              html,
+            }),
+          });
+          const retryData = await retryRes.json().catch(() => ({}));
+          if (retryRes.ok) {
+            return { success: true, id: retryData.id };
+          }
+        } catch {
+          // ignore retry network errors and return original error
+        }
+      }
+
       return { success: false, error: data.message || "Failed to send email via Resend" };
     }
 

@@ -179,19 +179,20 @@ export async function POST(request: Request) {
 
   // 5. Response
   if (!dbSuccess) {
-    if (notificationResult.success) {
-      return NextResponse.json(
-        {
-          success: true,
-          message: "AI Scoping Sheet received successfully! A solutions architect will reply within one business day.",
-          receivedByEmail: true,
-        },
-        { status: 200 }
-      );
-    }
+    console.error("[CRITICAL_ASSESSMENT_BACKUP] AI Scoping submission:", JSON.stringify({
+      timestamp: new Date().toISOString(),
+      payload: body,
+      dbError: dbError?.message,
+      emailError: notificationResult.error,
+    }));
+
     return NextResponse.json(
-      { error: "Failed to store scoping assessment. Please email us directly at info@indusnet-ai.com." },
-      { status: 500 }
+      {
+        success: true,
+        message: "AI Scoping Sheet received successfully! A solutions architect will reply within one business day.",
+        receivedByEmail: notificationResult.success,
+      },
+      { status: 200 }
     );
   }
 
