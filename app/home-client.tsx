@@ -21,11 +21,11 @@ import { AgentWorkflowSimulator } from "@/components/home/agent-workflow-simulat
 import { RoiCalculator } from "@/components/roi-calculator/roi-calculator";
 import { AiConciergeModal } from "@/components/ai-concierge/ai-concierge-modal";
 
-// 1. Enterprise AI Use Cases Data (Problem → Approach → Outcome)
+// 1. Enterprise AI Use Cases Data (Problem → Approach → Outcome) across 6 Domains
 const ENTERPRISE_USE_CASES = [
   {
     id: "cx",
-    domain: "Customer Operations",
+    domain: "Customer Experience",
     title: "Autonomous Tier-1 & Tier-2 Customer Resolution Agents",
     challenge: "Enterprise support teams are overwhelmed by high ticket volumes, resulting in 4-hour average response delays and high operational burn.",
     approach: "Deploy multi-channel autonomous AI agents integrated with CRM and ticketing APIs, with sentiment-aware escalation and automated action execution.",
@@ -46,17 +46,6 @@ const ENTERPRISE_USE_CASES = [
     icon: Search
   },
   {
-    id: "engineering",
-    domain: "Software Engineering",
-    title: "AI-Accelerated Legacy Code Modernization & Migration",
-    challenge: "Monolithic legacy codebases lack documentation, causing architectural stagnation, costly technical debt, and multi-year migration estimates.",
-    approach: "Deploy specialized code-analysis agent swarms that parse legacy repositories, generate unit test coverage, and synthesize clean modern microservices.",
-    outcome: "40% to 60% acceleration in migration velocity with automated regression validation and clean architecture enforcement.",
-    capability: "AI Modernization & Consulting",
-    href: "/services",
-    icon: Cpu
-  },
-  {
     id: "operations",
     domain: "Intelligent Operations",
     title: "Automated Document Processing & 3-Way Reconciliation",
@@ -68,6 +57,17 @@ const ENTERPRISE_USE_CASES = [
     icon: Zap
   },
   {
+    id: "engineering",
+    domain: "Software Engineering",
+    title: "AI-Accelerated Legacy Code Modernization & Migration",
+    challenge: "Monolithic legacy codebases lack documentation, causing architectural stagnation, costly technical debt, and multi-year migration estimates.",
+    approach: "Deploy specialized code-analysis agent swarms that parse legacy repositories, generate unit test coverage, and synthesize clean modern microservices.",
+    outcome: "40% to 60% acceleration in migration velocity with automated regression validation and clean architecture enforcement.",
+    capability: "AI Modernization & Consulting",
+    href: "/services",
+    icon: Cpu
+  },
+  {
     id: "decision",
     domain: "Decision Intelligence",
     title: "Boardroom-Ready Predictive Risk & Telemetry Synthesis",
@@ -77,6 +77,17 @@ const ENTERPRISE_USE_CASES = [
     capability: "Predictive Analytics & Consulting",
     href: "/services",
     icon: BarChart3
+  },
+  {
+    id: "automation",
+    domain: "Enterprise Automation",
+    title: "Multi-Agent System Integration Across ERP, CRM & Logistics",
+    challenge: "Business operations require repetitive cross-system data synchronization between legacy ERP, Salesforce, customs portals, and banking APIs.",
+    approach: "Deploy autonomous agent swarms with sandboxed API tooling, deterministic state-machine orchestration, and immutable transaction audit logging.",
+    outcome: "Eliminates 95% of manual cross-system data entry errors while automating complex multi-step cross-functional approval loops.",
+    capability: "Autonomous Agent Swarms",
+    href: "/services/generative-ai",
+    icon: Network
   }
 ];
 
@@ -270,16 +281,16 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
-                className="p-3 rounded-2xl bg-muted/30 border border-border/60 max-w-xl flex items-center justify-between overflow-x-auto text-[11px] font-mono font-semibold text-muted-foreground no-scrollbar"
+                className="px-2.5 sm:px-3 py-2 sm:py-3 rounded-2xl bg-muted/30 border border-border/60 max-w-xl flex items-center justify-between text-[9.5px] sm:text-[11px] font-mono font-semibold text-muted-foreground"
               >
                 <span className="text-primary font-bold">Strategy</span>
-                <span>→</span>
+                <span className="opacity-40">→</span>
                 <span>Architecture</span>
-                <span>→</span>
+                <span className="opacity-40">→</span>
                 <span>Applications</span>
-                <span>→</span>
+                <span className="opacity-40">→</span>
                 <span>Agents</span>
-                <span>→</span>
+                <span className="opacity-40">→</span>
                 <span className="text-emerald-500 font-bold">Production</span>
               </motion.div>
 
@@ -662,7 +673,61 @@ export default function HomeClient() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 11. DRAMATIC CLOSING CTA: READY TO BUILD WHAT AI MAKES POSSIBLE?         */}
+      {/* 11. DEDICATED "TALK TO OUR AI" INTERACTIVE BANNER SECTION                 */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 bg-gradient-to-r from-primary/10 via-card to-violet-600/10 border-t border-b border-border/80 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: "6s" }} />
+              Interactive Diagnostic Engine
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+              Experience how Indusnet AI thinks about your <span className="text-primary">enterprise challenges</span>.
+            </h2>
+
+            <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              Select your domain, ask about your technical use case, or explore how an AI system would be architected for your organization.
+            </p>
+
+            {/* Quick Prompt Pill Triggers */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              {[
+                { label: "Build an AI Application", id: "build-app" },
+                { label: "Deploy AI Agents", id: "deploy-agents" },
+                { label: "Implement Enterprise RAG", id: "implement-rag" },
+                { label: "Automate a Workflow", id: "automate-workflow" },
+                { label: "Modernize Legacy Code", id: "modernize-app" }
+              ].map((pill) => (
+                <button
+                  key={pill.id}
+                  onClick={() => triggerConcierge(pill.id)}
+                  className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-card/80 hover:bg-primary hover:text-white border border-border/80 hover:border-primary transition-all text-muted-foreground shadow-xs"
+                >
+                  {pill.label} →
+                </button>
+              ))}
+            </div>
+
+            <div className="pt-4 flex items-center justify-center">
+              <Button
+                onClick={() => triggerConcierge()}
+                size="lg"
+                className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(255,45,33,0.4)] transition-all px-8 py-6 text-base shadow-xl shadow-primary/25 flex items-center gap-2.5 group"
+              >
+                <Bot className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                Talk to Our AI Advisor
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 12. DRAMATIC CLOSING CTA: READY TO BUILD WHAT AI MAKES POSSIBLE?         */}
       {/* ========================================================================= */}
       <section className="relative py-24 bg-gradient-to-b from-card to-background border-t border-border/60 overflow-hidden">
         {/* Glow */}

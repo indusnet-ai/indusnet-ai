@@ -3,216 +3,354 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { 
-  Database, Brain, Network, Bot, LayoutDashboard, 
-  Sparkles, CheckCircle2, ArrowRight, Zap, Shield, Cpu
+  Database, Network, Server, Cpu, Brain, Bot, 
+  Workflow, LayoutDashboard, CheckCircle2, Sparkles, 
+  ShieldCheck, ArrowDown, ChevronRight, Activity
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-interface SystemNode {
+interface ArchNode {
   id: string;
   name: string;
-  category: string;
-  icon: any;
-  status: string;
-  metric: string;
+  category: "Enterprise" | "Intelligence" | "Execution" | "Applications" | "Outcomes";
+  description: string;
   techs: string[];
+  metric: string;
+  icon: any;
   color: string;
 }
 
-const NODES: SystemNode[] = [
-  {
+const NODES_DATA: Record<string, ArchNode> = {
+  data: {
     id: "data",
     name: "Enterprise Data",
-    category: "Ingestion Layer",
-    icon: Database,
-    status: "Zero-Data Retention",
+    category: "Enterprise",
+    description: "Multi-tenant structured & unstructured data ingestion with zero-data retention agreements.",
+    techs: ["PostgreSQL", "Snowflake", "SharePoint", "AWS S3"],
     metric: "450k+ Docs Parsed",
-    techs: ["SharePoint", "PostgreSQL", "Snowflake", "SAP ERP"],
+    icon: Database,
     color: "#06B6D4" // Cyan
   },
-  {
-    id: "models",
-    name: "Foundation Models",
-    category: "Inference Mesh",
-    icon: Brain,
-    status: "VPC Model Routing",
-    metric: "< 190ms TTFT",
-    techs: ["Claude 3.5 Sonnet", "GPT-4o", "Llama-3 70B", "Mistral"],
-    color: "#8B5CF6" // Violet
-  },
-  {
+  knowledge: {
     id: "knowledge",
-    name: "Knowledge & RAG",
-    category: "Retrieval Layer",
-    icon: Network,
-    status: "Hybrid Sparse+Dense",
+    name: "Enterprise Knowledge",
+    category: "Enterprise",
+    description: "Hybrid vector stores & knowledge graphs mapping organizational entities and relationships.",
+    techs: ["pgvector", "Neo4j Graph", "Milvus", "Semantic Cache"],
     metric: "99.4% Attribution",
-    techs: ["pgvector", "Neo4j Graph", "Cohere Rerank", "Semantic Cache"],
+    icon: Network,
     color: "#3B82F6" // Blue
   },
-  {
-    id: "agents",
-    name: "Autonomous Agents",
-    category: "Agentic Swarms",
-    icon: Bot,
-    status: "ReAct & Reflexion",
-    metric: "18 Tools Integrated",
-    techs: ["Planner Agent", "OpenAPI Caller", "Policy Auditor", "Self-Corrector"],
+  systems: {
+    id: "systems",
+    name: "Enterprise Systems",
+    category: "Enterprise",
+    description: "Secure zero-trust API connectors bridging live transactional business systems.",
+    techs: ["SAP ERP", "Salesforce CRM", "Workday", "Jira"],
+    metric: "18 API Connectors",
+    icon: Server,
     color: "#10B981" // Emerald
   },
-  {
-    id: "apps",
-    name: "Production Software",
-    category: "Enterprise Delivery",
+  intelligence: {
+    id: "intelligence",
+    name: "AI Intelligence Layer",
+    category: "Intelligence",
+    description: "Deterministic guardrails, semantic middleware firewalls, and dynamic cost/latency routing.",
+    techs: ["NeMo Guardrails", "Semantic Routing", "Token Limiting", "RBAC Scoping"],
+    metric: "38ms Latency SLA",
+    icon: Cpu,
+    color: "#FF2D21" // Red
+  },
+  models: {
+    id: "models",
+    name: "Foundation Models",
+    category: "Execution",
+    description: "Dynamic routing between frontier LLMs and private open-weights SLMs running inside private VPCs.",
+    techs: ["Claude 3.5 Sonnet", "GPT-4o", "Llama-3 70B", "Mistral"],
+    metric: "< 190ms TTFT",
+    icon: Brain,
+    color: "#8B5CF6" // Violet
+  },
+  agents: {
+    id: "agents",
+    name: "Autonomous Agents",
+    category: "Execution",
+    description: "Goal-oriented multi-agent swarms using ReAct/Reflexion loops with sandboxed tool execution.",
+    techs: ["Planner Swarms", "Tool Callers", "Policy Critics", "Self-Correction"],
+    metric: "88% Cycle Drop",
+    icon: Bot,
+    color: "#10B981" // Emerald
+  },
+  workflows: {
+    id: "workflows",
+    name: "Intelligent Workflows",
+    category: "Execution",
+    description: "Event-driven asynchronous document pipelines with human-in-the-loop approval thresholds.",
+    techs: ["vLLM Orchestration", "Async Queues", "Temporal", "Docker VPC"],
+    metric: "99.99% Uptime",
+    icon: Workflow,
+    color: "#F59E0B" // Amber
+  },
+  applications: {
+    id: "applications",
+    name: "Enterprise Applications",
+    category: "Applications",
+    description: "Next.js 16 streaming copilots, executive decision cockpits, and automated backend daemons.",
+    techs: ["Custom Copilots", "Decision Cockpits", "REST/gRPC APIs", "Microservices"],
+    metric: "Sub-Second UX",
     icon: LayoutDashboard,
-    status: "SOC2 & HIPAA Ready",
-    metric: "99.99% Availability",
-    techs: ["Custom Copilots", "REST/gRPC APIs", "Executive Cockpits", "Automated Ops"],
-    color: "#FF2D21" // Primary Red
+    color: "#FF2D21" // Red
+  },
+  outcomes: {
+    id: "outcomes",
+    name: "Measurable Business Outcomes",
+    category: "Outcomes",
+    description: "Quantified enterprise value: manual toil elimination, sub-second latency, and verified ROI.",
+    techs: ["Sub-Second Triage", "Zero Hallucinations", "Hard Cost Savings", "Audit Compliance"],
+    metric: "3x–5x Efficiency",
+    icon: CheckCircle2,
+    color: "#10B981" // Emerald
   }
-];
+};
 
 export function HeroAiSystem() {
-  const [selectedNode, setSelectedNode] = React.useState<SystemNode>(NODES[3]); // default to Agents
-  const [telemetryCount, setTelemetryCount] = React.useState(12480);
-
-  // Subtle telemetry pulse
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setTelemetryCount((prev) => prev + Math.floor(Math.random() * 7) + 1);
-    }, 2400);
-    return () => clearInterval(timer);
-  }, []);
+  const [activeNodeKey, setActiveNodeKey] = React.useState<string>("intelligence");
+  const activeNode = NODES_DATA[activeNodeKey] || NODES_DATA.intelligence;
+  const ActiveIcon = activeNode.icon;
 
   return (
     <div className="relative w-full max-w-xl mx-auto flex flex-col items-center">
       {/* Background Neural Glows */}
-      <div className="absolute inset-0 -z-10 flex items-center justify-center">
-        <div className="w-[320px] h-[320px] rounded-full bg-primary/10 blur-[90px] animate-pulse" />
-        <div className="w-[280px] h-[280px] rounded-full bg-violet-600/10 blur-[80px]" />
+      <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+        <div className="w-[360px] h-[360px] rounded-full bg-primary/10 blur-[100px] animate-pulse" />
+        <div className="w-[280px] h-[280px] rounded-full bg-violet-600/10 blur-[90px]" />
       </div>
 
-      {/* Interactive System Canvas Card */}
-      <div className="relative w-full bg-card/70 border border-border/80 rounded-3xl p-6 sm:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl overflow-hidden">
-        {/* Top Telemetry Header */}
-        <div className="flex items-center justify-between pb-5 border-b border-border/60">
+      {/* Main Operating Architecture Container Card */}
+      <div className="w-full bg-card/75 border border-border/80 rounded-3xl p-5 sm:p-6 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-xl relative overflow-hidden space-y-4">
+        {/* Telemetry Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-border/60">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="text-[11px] font-mono tracking-wider uppercase text-muted-foreground font-semibold">
-              Indusnet Neural Orchestrator
+            <span className="text-[11px] font-mono tracking-wider uppercase text-foreground font-bold">
+              Enterprise Operating Architecture
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-[10px] font-mono text-muted-foreground">
-            <Badge variant="outline" className="text-[10px] py-0 border-emerald-500/30 text-emerald-500 bg-emerald-500/5">
-              Online
-            </Badge>
-            <span className="hidden sm:inline">Active Operations: {telemetryCount.toLocaleString()}</span>
+          <Badge variant="outline" className="text-[10px] font-mono py-0 text-primary border-primary/30">
+            Interactive System Map
+          </Badge>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* TIER 1: ENTERPRISE (DATA · KNOWLEDGE · SYSTEMS)                          */}
+        {/* ========================================================================= */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-muted-foreground">
+              01 · Enterprise Inputs
+            </span>
+            <span className="text-[9px] font-mono text-cyan-500">Ingestion Tier</span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { id: "data", label: "Data", icon: Database, color: "#06B6D4" },
+              { id: "knowledge", label: "Knowledge", icon: Network, color: "#3B82F6" },
+              { id: "systems", label: "Systems", icon: Server, color: "#10B981" }
+            ].map((node) => {
+              const Icon = node.icon;
+              const isSelected = activeNodeKey === node.id;
+              return (
+                <button
+                  key={node.id}
+                  onClick={() => setActiveNodeKey(node.id)}
+                  className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1 group ${
+                    isSelected
+                      ? "bg-primary/10 border-primary shadow-sm"
+                      : "bg-muted/30 hover:bg-muted/60 border-border/70 text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" style={{ color: node.color }} />
+                  <span className="text-[10px] font-bold tracking-tight block">
+                    {node.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Central Orchestrator & Node Grid */}
-        <div className="py-6 space-y-4">
-          {/* Central AI Engine Hub */}
-          <div className="relative p-4 rounded-2xl bg-gradient-to-r from-primary/10 via-violet-500/10 to-cyan-500/10 border border-primary/30 flex items-center justify-between shadow-inner">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30">
-                <Cpu className="w-5 h-5 animate-[spin_10s_linear_infinite]" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-foreground">AI Intelligence & Middleware</p>
-                <p className="text-[11px] text-muted-foreground">Deterministic Guardrails · Semantic Routing</p>
-              </div>
-            </div>
+        {/* Connecting Data Pulse Flow Arrow */}
+        <div className="flex justify-center -my-1 text-primary">
+          <motion.div
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ArrowDown className="w-3.5 h-3.5 opacity-80" />
+          </motion.div>
+        </div>
 
-            <div className="text-right">
-              <span className="text-[10px] uppercase font-bold text-primary tracking-wider">Latency</span>
-              <p className="text-xs font-mono font-bold text-foreground">38ms avg</p>
+        {/* ========================================================================= */}
+        {/* TIER 2: AI INTELLIGENCE LAYER (CENTRAL CORE)                             */}
+        {/* ========================================================================= */}
+        <button
+          onClick={() => setActiveNodeKey("intelligence")}
+          className={`w-full p-3.5 rounded-2xl border text-left transition-all relative overflow-hidden flex items-center justify-between ${
+            activeNodeKey === "intelligence"
+              ? "bg-gradient-to-r from-primary/15 via-violet-500/15 to-cyan-500/15 border-primary shadow-md shadow-primary/15"
+              : "bg-muted/40 hover:bg-muted/70 border-border/80"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center shadow-md shadow-primary/30 shrink-0">
+              <Cpu className="w-5 h-5 animate-[spin_8s_linear_infinite]" />
+            </div>
+            <div>
+              <span className="text-[9px] font-mono uppercase font-bold text-primary tracking-wider block">
+                02 · Central Neural Core
+              </span>
+              <span className="text-xs font-bold text-foreground block">
+                AI Intelligence Layer
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                Deterministic Guardrails · Semantic Router
+              </span>
             </div>
           </div>
 
-          {/* Interactive Connected Nodes */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground">
-                Connected Enterprise Infrastructure (Click to Inspect)
-              </span>
-              <span className="text-[10px] text-primary font-medium">
-                {selectedNode.name} Selected
-              </span>
-            </div>
+          <div className="text-right">
+            <span className="text-[9px] font-mono text-emerald-500 font-bold block">38ms SLA</span>
+            <span className="text-[9px] text-muted-foreground">Active Mesh</span>
+          </div>
+        </button>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {NODES.map((node) => {
-                const isSelected = selectedNode.id === node.id;
-                const Icon = node.icon;
-                return (
-                  <button
-                    key={node.id}
-                    onClick={() => setSelectedNode(node)}
-                    className={`group text-left p-3 rounded-xl border transition-all duration-200 flex items-center gap-3 ${
-                      isSelected
-                        ? "bg-primary/10 border-primary shadow-md shadow-primary/10"
-                        : "bg-background/40 hover:bg-muted/50 border-border/70 hover:border-border"
-                    }`}
-                  >
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
-                      style={{
-                        backgroundColor: `${node.color}15`,
-                        color: node.color,
-                        border: `1px solid ${node.color}35`
-                      }}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </div>
+        {/* Connecting Data Pulse Flow Arrow */}
+        <div className="flex justify-center -my-1 text-primary">
+          <motion.div
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+          >
+            <ArrowDown className="w-3.5 h-3.5 opacity-80" />
+          </motion.div>
+        </div>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-foreground truncate">
-                          {node.name}
-                        </span>
-                        {isSelected && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        )}
-                      </div>
-                      <span className="text-[10px] text-muted-foreground truncate block">
-                        {node.metric}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+        {/* ========================================================================= */}
+        {/* TIER 3: MODELS · AGENTS · WORKFLOWS                                      */}
+        {/* ========================================================================= */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-muted-foreground">
+              03 · Cognitive Engines
+            </span>
+            <span className="text-[9px] font-mono text-violet-500">Execution Tier</span>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { id: "models", label: "Models", icon: Brain, color: "#8B5CF6" },
+              { id: "agents", label: "Agents", icon: Bot, color: "#10B981" },
+              { id: "workflows", label: "Workflows", icon: Workflow, color: "#F59E0B" }
+            ].map((node) => {
+              const Icon = node.icon;
+              const isSelected = activeNodeKey === node.id;
+              return (
+                <button
+                  key={node.id}
+                  onClick={() => setActiveNodeKey(node.id)}
+                  className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1 group ${
+                    isSelected
+                      ? "bg-primary/10 border-primary shadow-sm"
+                      : "bg-muted/30 hover:bg-muted/60 border-border/70 text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" style={{ color: node.color }} />
+                  <span className="text-[10px] font-bold tracking-tight block">
+                    {node.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Selected Node Architecture Inspector Drawer */}
-        <div className="pt-4 border-t border-border/60 bg-muted/20 -mx-6 -mb-7 p-5 rounded-b-3xl space-y-3">
+        {/* Connecting Data Pulse Flow Arrow */}
+        <div className="flex justify-center -my-1 text-primary">
+          <motion.div
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+          >
+            <ArrowDown className="w-3.5 h-3.5 opacity-80" />
+          </motion.div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* TIER 4 & 5: APPLICATIONS & BUSINESS OUTCOMES                              */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            onClick={() => setActiveNodeKey("applications")}
+            className={`p-3 rounded-xl border text-left transition-all flex items-center gap-2.5 ${
+              activeNodeKey === "applications"
+                ? "bg-primary/10 border-primary shadow-sm"
+                : "bg-muted/30 hover:bg-muted/60 border-border/70 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <LayoutDashboard className="w-4 h-4 text-primary shrink-0" />
+            <div className="min-w-0">
+              <span className="text-[9px] font-mono uppercase text-primary font-bold block">04 · Delivery</span>
+              <span className="text-xs font-bold text-foreground block truncate">Applications</span>
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveNodeKey("outcomes")}
+            className={`p-3 rounded-xl border text-left transition-all flex items-center gap-2.5 ${
+              activeNodeKey === "outcomes"
+                ? "bg-emerald-500/10 border-emerald-500 shadow-sm"
+                : "bg-muted/30 hover:bg-muted/60 border-border/70 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+            <div className="min-w-0">
+              <span className="text-[9px] font-mono uppercase text-emerald-500 font-bold block">05 · Impact</span>
+              <span className="text-xs font-bold text-foreground block truncate">Outcomes</span>
+            </div>
+          </button>
+        </div>
+
+        {/* Active Node Specification Inspector Drawer */}
+        <div className="pt-3 border-t border-border/60 bg-muted/20 -mx-5 -mb-6 p-4 rounded-b-3xl space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
-                {selectedNode.category}
+              <div
+                className="w-5 h-5 rounded-md flex items-center justify-center text-xs"
+                style={{ backgroundColor: `${activeNode.color}20`, color: activeNode.color }}
+              >
+                <ActiveIcon className="w-3 h-3" />
+              </div>
+              <span className="text-xs font-bold text-foreground">
+                {activeNode.name}
               </span>
-              <Badge variant="outline" className="text-[9px] py-0 border-primary/20 text-foreground">
-                {selectedNode.status}
-              </Badge>
             </div>
-            <span className="text-[10px] font-mono text-muted-foreground">
-              {selectedNode.metric}
+            <span className="text-[10px] font-mono text-primary font-bold">
+              {activeNode.metric}
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
-            {selectedNode.techs.map((tech, idx) => (
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            {activeNode.description}
+          </p>
+
+          <div className="flex flex-wrap gap-1 pt-1">
+            {activeNode.techs.map((tech, idx) => (
               <span
                 key={idx}
-                className="text-[10px] font-medium bg-background border border-border px-2.5 py-1 rounded-md text-foreground flex items-center gap-1 shadow-2xs"
+                className="text-[9px] font-mono font-medium bg-background border border-border px-2 py-0.5 rounded text-foreground"
               >
-                <CheckCircle2 className="w-2.5 h-2.5 text-primary" />
                 {tech}
               </span>
             ))}

@@ -1,159 +1,203 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Search, Compass, Cpu, Network, Rocket, TrendingUp, 
-  CheckCircle2, ArrowRight, ShieldCheck, FileCode, Check 
+  Search, Compass, Palette, Cpu, Rocket, TrendingUp, 
+  Check, ArrowRight, CheckCircle2, Sparkles, Layers
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface LifecycleStage {
   step: string;
   title: string;
-  subtitle: string;
+  summary: string;
   icon: any;
   duration: string;
   deliverables: string[];
-  outcome: string;
+  businessValue: string;
+  techStack: string[];
 }
 
 const STAGES: LifecycleStage[] = [
   {
     step: "01",
     title: "Discover",
-    subtitle: "Identify High-Value AI Opportunities",
+    summary: "Identify valuable AI opportunities.",
     icon: Search,
     duration: "Week 1–2",
     deliverables: [
-      "Cognitive workload & bottleneck audit",
-      "Proprietary data readiness & quality scoring",
-      "Compliance, security, and privacy boundary analysis"
+      "Cognitive task friction & bottleneck scoring",
+      "Proprietary enterprise data readiness audit",
+      "Regulatory, privacy, and compliance boundary mapping",
+      "Feasibility matrix ranked by measurable business return"
     ],
-    outcome: "Prioritized matrix of high-impact AI opportunities ranked by feasibility and financial return."
+    businessValue: "Pinpoints high-ROI enterprise use cases with rapid feasibility validation.",
+    techStack: ["CPMAI Matrix", "Data Audit Scorer", "Security Boundary Review"]
   },
   {
     step: "02",
     title: "Strategize",
-    subtitle: "Define Architecture & Business Case",
+    summary: "Define roadmap and architecture.",
     icon: Compass,
     duration: "Week 2–3",
     deliverables: [
-      "Target model selection (Frontier vs Private SLMs)",
-      "Hardware sizing (VRAM, QPS, Cloud vs On-Prem)",
-      "Financial ROI and payback period modeling"
+      "Frontier vs Private open-weights SLM selection",
+      "Hardware compute & VRAM sizing (Cloud VPC vs On-Prem)",
+      "Financial ROI and payback timeline modeling",
+      "Boardroom-ready 90-day execution milestone plan"
     ],
-    outcome: "Executive architectural blueprint and board-ready business case with fixed milestones."
+    businessValue: "Eliminates prototype paralysis with a hardened, cost-bounded architecture roadmap.",
+    techStack: ["NVIDIA Sizing Models", "VPC Architecture Blueprint", "ROI Projections"]
   },
   {
     step: "03",
-    title: "Build",
-    subtitle: "Engineer Applications & Agents",
-    icon: Cpu,
-    duration: "Week 3–6",
+    title: "Design",
+    summary: "Design the AI experience and system.",
+    icon: Palette,
+    duration: "Week 3–4",
     deliverables: [
-      "Custom RAG vector indexing & semantic chunking",
-      "Multi-agent workflow orchestration & tool-calling",
-      "Deterministic safety guardrails & hallucination filters"
+      "Human-in-the-loop interaction & escalation design",
+      "Streaming copilot interface & feedback wireframes",
+      "Deterministic safety guardrails & semantic prompt filters",
+      "Zero-data-retention data flow specifications"
     ],
-    outcome: "Hardened, test-covered AI software components running in isolated development sandboxes."
+    businessValue: "Guarantees intuitive enterprise adoption and zero hallucination risk.",
+    techStack: ["Next.js 16 Streaming Wireframes", "NeMo Guardrail Specs", "RBAC Flow"]
   },
   {
     step: "04",
-    title: "Integrate",
-    subtitle: "Connect Enterprise Systems & Data",
-    icon: Network,
-    duration: "Week 5–7",
+    title: "Build",
+    summary: "Engineer applications, agents and workflows.",
+    icon: Cpu,
+    duration: "Week 4–7",
     deliverables: [
-      "Zero-trust API bridges to ERP, CRM, and databases",
-      "Enterprise SSO / RBAC access governance",
-      "Event-driven messaging and semantic caching"
+      "Hybrid RAG vector indexing with dense-sparse re-ranking",
+      "Multi-agent swarm coordination with sandboxed OpenAPI tools",
+      "Semantic caching layers for sub-second latency and 60% cost reduction",
+      "Unit testing, regression benchmarking, and ground-truth evaluation"
     ],
-    outcome: "Unified ecosystem connecting AI intelligence to real-time corporate data flows securely."
+    businessValue: "Production-grade, test-covered AI software components ready for integration.",
+    techStack: ["PostgreSQL pgvector", "LangChain / LlamaIndex", "Redis Cache", "vLLM"]
   },
   {
     step: "05",
     title: "Deploy",
-    subtitle: "Move from Prototype to Production",
+    summary: "Move AI into production.",
     icon: Rocket,
     duration: "Week 7–9",
     deliverables: [
-      "Private VPC deployment (AWS / Azure / On-Prem)",
-      "Containerized vLLM / Triton inference clustering",
-      "Automated evaluation suites & stress-load validation"
+      "Private VPC deployment (AWS Bedrock / Azure OpenAI / GCP / On-Prem)",
+      "Containerized inference clustering with autoscaling policies",
+      "Enterprise SSO (SAML 2.0 / Okta) and RBAC synchronization",
+      "Stress-load testing and latency SLA validation"
     ],
-    outcome: "Live, resilient production AI application serving internal users or external customers."
+    businessValue: "Hardened software serving live operational workloads with guaranteed uptime.",
+    techStack: ["Kubernetes", "AWS/Azure VPC Enclaves", "Triton / vLLM", "Docker"]
   },
   {
     step: "06",
     title: "Scale",
-    subtitle: "Govern, Monitor & Optimize Continuously",
+    summary: "Govern, optimize and expand.",
     icon: TrendingUp,
     duration: "Ongoing",
     deliverables: [
-      "Real-time drift detection & token latency monitoring",
-      "Continuous prompt regression testing & fine-tuning",
-      "Token cost optimization & model routing"
+      "Real-time drift detection and hallucination scoring",
+      "Continuous prompt regression testing and model fine-tuning",
+      "Dynamic model routing for continuous token cost reduction",
+      "Expansion into cross-departmental agentic swarms"
     ],
-    outcome: "Measurable, compounding business value with guaranteed SLA uptime and governance compliance."
+    businessValue: "Compounding operational returns with enterprise-wide cognitive leverage.",
+    techStack: ["Langfuse Observability", "OpenTelemetry", "Continuous Eval CI/CD"]
   }
 ];
 
 export function AiDeliveryLifecycle() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const current = STAGES[activeStep];
-  const Icon = current.icon;
+  const [activeStepIndex, setActiveStepIndex] = React.useState(0);
+  const current = STAGES[activeStepIndex];
+  const StepIcon = current.icon;
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-24 overflow-hidden border-t border-border/60">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
-            The Indusnet Delivery Methodology
+            Engineering Methodology
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
-            From AI Idea to <span className="text-primary">Production Software</span>
+            From Strategy <span className="text-primary">to Software</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Eliminate prototype paralysis. Our disciplined six-stage engineering lifecycle moves your organization from strategy and sandbox validation to hardened, scalable enterprise software.
+            Move seamlessly from boardroom strategy to hardened production code. A disciplined, 6-stage engineering journey built for enterprise speed, security, and measurable ROI.
           </p>
         </div>
 
-        {/* Step Navigation Pill Bar */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
-          {STAGES.map((s, idx) => {
-            const isActive = activeStep === idx;
-            return (
-              <button
-                key={s.step}
-                onClick={() => setActiveStep(idx)}
-                className={`group px-4 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-2 border ${
-                  isActive
-                    ? "bg-primary text-white border-primary shadow-lg shadow-primary/25"
-                    : "bg-card hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <span className={`font-mono ${isActive ? "text-white" : "text-primary"}`}>
-                  {s.step}
-                </span>
-                <span>{s.title}</span>
-              </button>
-            );
-          })}
+        {/* Animated Journey Road Map Line */}
+        <div className="relative max-w-5xl mx-auto mb-10">
+          {/* Connecting Background Line */}
+          <div className="hidden lg:block absolute top-1/2 left-6 right-6 h-0.5 bg-border/80 -translate-y-1/2 -z-10" />
+
+          {/* Stepper Nodes */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {STAGES.map((s, idx) => {
+              const isSelected = activeStepIndex === idx;
+              const isPast = activeStepIndex > idx;
+              const Icon = s.icon;
+              return (
+                <button
+                  key={s.step}
+                  onClick={() => setActiveStepIndex(idx)}
+                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative ${
+                    isSelected
+                      ? "bg-card border-primary shadow-xl shadow-primary/15 scale-102"
+                      : isPast
+                      ? "bg-muted/40 border-emerald-500/40 text-foreground"
+                      : "bg-background/50 border-border/70 text-muted-foreground hover:border-border"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className={`font-mono text-xs font-bold ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+                      {s.step}
+                    </span>
+                    <div
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                        isSelected
+                          ? "bg-primary text-white shadow-sm"
+                          : "bg-muted text-muted-foreground group-hover:text-primary"
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                      {s.title}
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground line-clamp-1 mt-0.5">
+                      {s.summary}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Active Stage Detailed Card */}
-        <div className="max-w-4xl mx-auto bg-card border border-border/80 rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden backdrop-blur-md">
-          {/* Subtle Stage Ambient Glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+        {/* Active Stage Deep-Dive Showcase Card */}
+        <div className="max-w-4xl mx-auto bg-card border border-border rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+          {/* Subtle Ambient Radial Highlight */}
+          <div className="absolute top-0 right-0 w-72 h-72 bg-primary/6 rounded-full blur-3xl pointer-events-none" />
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            {/* Left Stage Overview */}
-            <div className="md:col-span-6 space-y-4">
-              <div className="flex items-center gap-3">
+            {/* Left: Stage Overview & Value */}
+            <div className="md:col-span-6 space-y-5">
+              <div className="flex items-center gap-3.5">
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-sm">
-                  <Icon className="w-6 h-6" />
+                  <StepIcon className="w-6 h-6" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
@@ -162,35 +206,52 @@ export function AiDeliveryLifecycle() {
                       {current.duration}
                     </Badge>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-foreground mt-0.5">
+                  <h3 className="text-2xl font-bold font-heading text-foreground mt-0.5">
                     {current.title}
                   </h3>
                 </div>
               </div>
 
-              <p className="text-sm font-semibold text-foreground/90">
-                {current.subtitle}
+              <p className="text-base font-semibold text-foreground/90 leading-snug">
+                {current.summary}
               </p>
 
-              <div className="p-4 rounded-2xl bg-muted/40 border border-border/60">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground block mb-1">
-                  Guaranteed Outcome
+              <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 space-y-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
+                  Business Value Multiplier
                 </span>
-                <p className="text-xs text-foreground leading-relaxed">
-                  {current.outcome}
+                <p className="text-xs text-foreground/90 leading-relaxed">
+                  {current.businessValue}
                 </p>
+              </div>
+
+              {/* Tech Stack Pills */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block font-bold">
+                  Key Tooling & Frameworks
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {current.techStack.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="text-[10px] font-mono bg-background border border-border px-2.5 py-1 rounded-md text-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right Deliverables List */}
-            <div className="md:col-span-6 bg-background/60 border border-border/60 rounded-2xl p-6 space-y-3.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary block">
-                Stage Deliverables & Verification
+            {/* Right: Technical Deliverables */}
+            <div className="md:col-span-6 bg-background/60 border border-border/70 rounded-2xl p-6 space-y-4">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary block">
+                Deliverables & Verification
               </span>
 
               <div className="space-y-3">
-                {current.deliverables.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
+                {current.deliverables.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
                     <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5">
                       <Check className="w-3 h-3" />
                     </div>
@@ -201,18 +262,18 @@ export function AiDeliveryLifecycle() {
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-border/60 flex items-center justify-between">
+              <div className="pt-4 border-t border-border/60 flex items-center justify-between text-xs">
                 <button
-                  onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : STAGES.length - 1))}
-                  className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={() => setActiveStepIndex((prev) => (prev > 0 ? prev - 1 : STAGES.length - 1))}
+                  className="font-semibold text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  ← Previous Stage
+                  ← Stage {STAGES[(activeStepIndex > 0 ? activeStepIndex - 1 : STAGES.length - 1)].step}
                 </button>
                 <button
-                  onClick={() => setActiveStep((prev) => (prev < STAGES.length - 1 ? prev + 1 : 0))}
-                  className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+                  onClick={() => setActiveStepIndex((prev) => (prev < STAGES.length - 1 ? prev + 1 : 0))}
+                  className="font-bold text-primary hover:underline flex items-center gap-1"
                 >
-                  Next Stage →
+                  Stage {STAGES[(activeStepIndex < STAGES.length - 1 ? activeStepIndex + 1 : 0)].step} →
                 </button>
               </div>
             </div>

@@ -4,278 +4,425 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Cpu, Network, Bot, Layout, ShieldCheck, 
-  Sparkles, CheckCircle2, ArrowRight, Layers, Lock, Database 
+  Sparkles, CheckCircle2, ArrowRight, Layers, Lock, Database,
+  Info, ExternalLink, HelpCircle
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-interface StackLayer {
+interface CapabilityItem {
   id: string;
   name: string;
-  level: string;
-  badge: string;
-  tagline: string;
-  description: string;
-  icon: any;
-  accentColor: string;
-  components: {
-    name: string;
-    description: string;
-  }[];
-  securityAndGov: string;
+  whatItIs: string;
+  whyItMatters: string;
+  whereItIsUsed: string;
+  relevantUseCase: string;
 }
 
-const STACK_LAYERS: StackLayer[] = [
+interface CapabilityLayer {
+  layerNumber: number;
+  layerTitle: string;
+  tagline: string;
+  icon: any;
+  accentColor: string;
+  capabilities: CapabilityItem[];
+}
+
+const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
   {
-    id: "applications",
-    name: "Application & Experience Layer",
-    level: "Layer 05",
-    badge: "User Facing",
-    tagline: "Custom Copilots, Decision Cockpits & Intelligent Software",
-    description: "Production-ready enterprise interfaces designed for sub-second latency, streaming responses, and intuitive human-in-the-loop oversight.",
-    icon: Layout,
-    accentColor: "#FF2D21",
-    components: [
-      { name: "Enterprise Copilots", description: "Bespoke task assistants embedded within internal CRM, ERP, and customer portals." },
-      { name: "Executive Decision Cockpits", description: "Multi-modal dashboards synthesizing cross-departmental telemetry into actionable risk briefs." },
-      { name: "Intelligent Workflows", description: "Automated document ingestion, claims routing, and zero-touch compliance checks." },
-      { name: "Developer AI Tools", description: "Internal code generation, automated test synthesis, and legacy modernization pipelines." }
-    ],
-    securityAndGov: "SOC-2 Type II aligned, WCAG 2.1 AA accessible, end-to-end audit logging."
-  },
-  {
-    id: "agents",
-    name: "Agentic & Autonomous Layer",
-    level: "Layer 04",
-    badge: "Autonomous Execution",
-    tagline: "Self-Correcting Multi-Agent Swarms & Tool Integration",
-    description: "Moving beyond passive chats into active, goal-oriented systems that plan tasks, invoke external enterprise tools, and verify outputs.",
-    icon: Bot,
-    accentColor: "#10B981",
-    components: [
-      { name: "Planner & Orchestrator Agents", description: "Deconstruct complex business mandates into validated multi-step execution plans." },
-      { name: "OpenAPI Tool Callers", description: "Secure, sandboxed integrations invoking Salesforce, SAP, Jira, and internal microservices." },
-      { name: "Self-Correction & Evaluation", description: "Secondary critic agents evaluating intermediate responses against contractual constraints." },
-      { name: "Human-in-the-Loop Escalation", description: "Automated policy thresholds that trigger executive approval before monetary or critical commits." }
-    ],
-    securityAndGov: "OAuth2 scoping per agent, token execution budgeting, cryptographic action ledger."
-  },
-  {
-    id: "knowledge",
-    name: "Knowledge & Retrieval Layer",
-    level: "Layer 03",
-    badge: "Grounded Truth",
-    tagline: "Hybrid Enterprise RAG, Vector Stores & Knowledge Graphs",
-    description: "Eliminating model hallucinations by grounding every response in verifiable, permission-controlled enterprise data archives.",
-    icon: Network,
-    accentColor: "#3B82F6",
-    components: [
-      { name: "Hybrid Sparse + Dense Search", description: "Combines BM25 lexical precision with modern dense vector semantic comprehension." },
-      { name: "Enterprise Vector Stores", description: "Scalable pgvector, Milvus, and Pinecone clusters tuned for sub-50ms retrieval." },
-      { name: "Knowledge Graphs", description: "Neo4j graph RAG mapping intricate multi-entity organizational relationships and taxonomies." },
-      { name: "Semantic Middleware Caching", description: "Redis semantic caches intercepting repeated questions for 80% cost and latency reduction." }
-    ],
-    securityAndGov: "Document-level ACL filtering, zero data leakage between user tenant roles."
-  },
-  {
-    id: "intelligence",
-    name: "Intelligence & Foundation Models",
-    level: "Layer 02",
-    badge: "Core Cognition",
-    tagline: "Frontier LLMs, Fine-Tuned SLMs & Multimodal Reasoning",
-    description: "Model-agnostic architecture routing requests dynamically between top frontier APIs and private, open-weights models running inside your VPC.",
+    layerNumber: 1,
+    layerTitle: "LAYER 1 — INTELLIGENCE",
+    tagline: "Foundation Models, Multimodal Reasoning & ML",
     icon: Cpu,
     accentColor: "#8B5CF6",
-    components: [
-      { name: "Frontier Model Routing", description: "Dynamic cost-aware gateway switching between Claude 3.5 Sonnet, GPT-4o, and Gemini 1.5." },
-      { name: "Private Open-Weights SLMs", description: "Llama-3, Mistral, and Qwen hosted in private VPCs for absolute data sovereignty." },
-      { name: "Domain-Specific Fine-Tuning", description: "LoRA / QLoRA parameter-efficient adaptation on proprietary corporate dialect and protocols." },
-      { name: "Vision & Audio Processing", description: "Document OCR, diagram understanding, and audio transcription multi-modal models." }
-    ],
-    securityAndGov: "Zero-Data-Retention (ZDR) agreements, confidential compute enclaves."
+    capabilities: [
+      {
+        id: "foundation-models",
+        name: "Foundation Models",
+        whatItIs: "Pre-trained deep neural architectures capable of broad linguistic, logical, and code comprehension across zero-shot prompts.",
+        whyItMatters: "Provides high-level semantic reasoning without requiring billions in training compute from the enterprise.",
+        whereItIsUsed: "Core cognitive engine powering copilots, conversational routing, and code analysis.",
+        relevantUseCase: "Routing complex inquiries between Anthropic Claude 3.5 Sonnet and OpenAI GPT-4o based on latency/cost budgets."
+      },
+      {
+        id: "llms",
+        name: "LLMs (Large Language Models)",
+        whatItIs: "Advanced text transformers specialized in summarization, reasoning, translation, and structured data transformation.",
+        whyItMatters: "Turns unstructured paragraphs into clean JSON schemas, SQL queries, or boardroom briefs instantly.",
+        whereItIsUsed: "Contract analysis, customer response generation, automated documentation, and email triage.",
+        relevantUseCase: "Parsing 200-page vendor Master Service Agreements (MSAs) into structured risk matrices."
+      },
+      {
+        id: "multimodal-ai",
+        name: "Multimodal AI",
+        whatItIs: "Models trained jointly on text, images, diagrams, PDFs, tables, and audio streams.",
+        whyItMatters: "Real enterprise documents are not plain text; they contain scans, signatures, charts, and blueprints.",
+        whereItIsUsed: "Invoice OCR, medical image triage, blueprint extraction, and multi-speaker transcription.",
+        relevantUseCase: "Extracting complex nested financial tables and handwritten notes from scanned freight manifests."
+      },
+      {
+        id: "machine-learning",
+        name: "Machine Learning",
+        whatItIs: "Supervised and unsupervised statistical models tailored for tabular regression, classification, and anomaly detection.",
+        whyItMatters: "Faster and more deterministic than LLMs for numerical forecasting, fraud detection, and pricing optimization.",
+        whereItIsUsed: "Demand forecasting, credit risk scoring, equipment failure prediction, and churn modeling.",
+        relevantUseCase: "Predicting equipment breakdown 14 days in advance using plant sensor telemetry."
+      }
+    ]
   },
   {
-    id: "foundation",
-    name: "Enterprise Security & Infrastructure",
-    level: "Layer 01",
-    badge: "Hardened Core",
-    tagline: "VPC Isolation, Guardrails, SSO & Governance",
-    description: "The resilient enterprise bedrock ensuring high-availability inference, regulatory compliance, and total isolation from public model training.",
+    layerNumber: 2,
+    layerTitle: "LAYER 2 — KNOWLEDGE",
+    tagline: "RAG, Enterprise Search & Knowledge Graphs",
+    icon: Network,
+    accentColor: "#3B82F6",
+    capabilities: [
+      {
+        id: "rag",
+        name: "RAG (Retrieval-Augmented Generation)",
+        whatItIs: "A design pattern that fetches proprietary company documents and injects them as verifiable context into LLM prompts.",
+        whyItMatters: "Eliminates model hallucinations by forcing answers to be grounded in private, permissioned corporate archives.",
+        whereItIsUsed: "Internal corporate Q&A, HR benefit portals, compliance audit bots, and legal discovery.",
+        relevantUseCase: "Instant cross-checking of regulatory filings with verified source citations."
+      },
+      {
+        id: "enterprise-search",
+        name: "Enterprise Search",
+        whatItIs: "Unified lexical (BM25) and semantic search indexing across SharePoint, Google Drive, Notion, Confluence, and databases.",
+        whyItMatters: "Breaks down internal data silos, allowing employees to locate needles in multi-terabyte document haystacks.",
+        whereItIsUsed: "Enterprise knowledge hubs, cross-departmental intranet portals, and customer support centers.",
+        relevantUseCase: "Allowing financial analysts to locate specific credit clauses across 15 years of archived PDF memos."
+      },
+      {
+        id: "knowledge-graphs",
+        name: "Knowledge Graphs",
+        whatItIs: "Graph-structured databases (e.g. Neo4j) representing multi-hop relationships between entities, people, policies, and products.",
+        whyItMatters: "Pure vector search lacks relationship understanding. Graphs preserve the explicit organizational hierarchy.",
+        whereItIsUsed: "Graph RAG, supply chain risk mapping, pharmaceutical drug discovery, and AML fraud networks.",
+        relevantUseCase: "Tracing vendor ownership trees across 4 shell corporations to verify conflict-of-interest compliance."
+      },
+      {
+        id: "vector-databases",
+        name: "Vector Databases",
+        whatItIs: "Specialized high-dimensional vector stores (PostgreSQL pgvector, Milvus, Pinecone) indexing mathematical document embeddings.",
+        whyItMatters: "Enables sub-50ms approximate nearest neighbor (ANN) retrieval over millions of chunks.",
+        whereItIsUsed: "Semantic caching, real-time recommendation engines, and high-throughput RAG pipelines.",
+        relevantUseCase: "Sub-second similarity search over 500,000 product manuals for customer service agents."
+      }
+    ]
+  },
+  {
+    layerNumber: 3,
+    layerTitle: "LAYER 3 — AGENTS",
+    tagline: "Autonomous Swarms, Workflows & Tool Execution",
+    icon: Bot,
+    accentColor: "#10B981",
+    capabilities: [
+      {
+        id: "ai-agents",
+        name: "AI Agents",
+        whatItIs: "Autonomous cognitive entities governed by goal directives, system prompts, memory registers, and reasoning loops.",
+        whyItMatters: "Moves past passive text generation into active task completion with iterative self-direction.",
+        whereItIsUsed: "Tier-1/2 customer deflection, automated code testing, and IT incident triage.",
+        relevantUseCase: "An agent autonomously investigating an IT ticket, inspecting cloud logs, and proposing a patch."
+      },
+      {
+        id: "agentic-workflows",
+        name: "Agentic Workflows",
+        whatItIs: "Choreographed execution pipelines (ReAct, Reflexion, Tree of Thoughts) governing how agents plan, act, and verify intermediate steps.",
+        whyItMatters: "Replaces brittle linear scripts with adaptable, self-correcting business logic.",
+        whereItIsUsed: "Complex multi-step approvals, invoice reconciliation, and automated regulatory reporting.",
+        relevantUseCase: "Automatically parsing a shipment variance, notifying the vendor, and holding the invoice for CFO sign-off."
+      },
+      {
+        id: "multi-agent-systems",
+        name: "Multi-Agent Systems",
+        whatItIs: "Cooperating swarms of specialized agents (e.g. Planner Agent, Worker Agent, Auditor Agent) coordinating via state machines.",
+        whyItMatters: "Specialized agents outperform monolithic prompts by checking each other's work and eliminating blindspots.",
+        whereItIsUsed: "Enterprise software development, financial auditing, and pharmaceutical clinical trials.",
+        relevantUseCase: "A planner agent delegating document parsing to Worker A and policy verification to Auditor B."
+      },
+      {
+        id: "tool-use",
+        name: "Tool Use (Function Calling)",
+        whatItIs: "The capability of an LLM to recognize when it needs external computation and emit structured OpenAPI / SQL tool calls.",
+        whyItMatters: "Connects abstract language models to real-world corporate databases, payment rails, and transactional APIs.",
+        whereItIsUsed: "ERP database updates, Salesforce record commits, calendar scheduling, and calculator execution.",
+        relevantUseCase: "An agent issuing a real SQL UPDATE query to an ERP inventory table with OAuth2 token scoping."
+      }
+    ]
+  },
+  {
+    layerNumber: 4,
+    layerTitle: "LAYER 4 — APPLICATIONS",
+    tagline: "Copilots, Decision Cockpits & Software",
+    icon: Layout,
+    accentColor: "#FF2D21",
+    capabilities: [
+      {
+        id: "ai-applications",
+        name: "AI Applications",
+        whatItIs: "Production-grade enterprise software featuring streaming token responses, deterministic middleware, and audit logs.",
+        whyItMatters: "Turns raw AI capability into reliable, intuitive daily tools used by hundreds of employees.",
+        whereItIsUsed: "Customer web portals, vendor self-service hubs, and claims management suites.",
+        relevantUseCase: "A dedicated insurance claims portal reviewing submitted photos and policy bounds in 30 seconds."
+      },
+      {
+        id: "copilots",
+        name: "Enterprise Copilots",
+        whatItIs: "Context-aware AI assistants embedded directly into employee IDEs, CRMs, or browser workflows.",
+        whyItMatters: "Accelerates daily worker throughput by 20% to 50% without requiring context switching.",
+        whereItIsUsed: "Developer code synthesis, legal contract drafting, medical record transcription, and sales outreach.",
+        relevantUseCase: "A sales copilot drafting personalized enterprise proposals with real-time pricing and margin checks."
+      },
+      {
+        id: "intelligent-interfaces",
+        name: "Intelligent Interfaces",
+        whatItIs: "Dynamic UI components (generative cards, streaming tables, voice cockpits) that adapt based on the user's intent.",
+        whyItMatters: "Replaces clunky static menus with fast, conversational, intent-driven interactions.",
+        whereItIsUsed: "Executive search bars, customer support widgets, and complex data visualization tools.",
+        relevantUseCase: "An interface dynamically rendering an interactive revenue scenario chart when asked 'What if churn drops 2%?'"
+      },
+      {
+        id: "decision-systems",
+        name: "Decision Systems",
+        whatItIs: "Cognitive decision support engines synthesizing real-time operational telemetry, news, and risk thresholds.",
+        whyItMatters: "Provides executive decision-makers with probabilistic forecasting rather than lagging historical reports.",
+        whereItIsUsed: "Boardroom risk briefings, credit line approvals, and automated algorithmic trading.",
+        relevantUseCase: "Evaluating $5M commercial loan applications against 40 compliance variables in 10 minutes."
+      }
+    ]
+  },
+  {
+    layerNumber: 5,
+    layerTitle: "LAYER 5 — ENTERPRISE",
+    tagline: "Data, APIs, Cloud VPC, Security & Governance",
     icon: ShieldCheck,
     accentColor: "#06B6D4",
-    components: [
-      { name: "Private VPC & Cloud Isolation", description: "Isolated subnets on AWS Bedrock, Azure OpenAI, GCP Vertex, or on-prem Kubernetes." },
-      { name: "Deterministic Safety Guardrails", description: "NeMo Guardrails preventing prompt injections, jailbreaks, and PII leakage." },
-      { name: "Enterprise SSO & RBAC", description: "SAML 2.0 / Okta integration enforcing corporate identity policies across all AI access." },
-      { name: "End-to-End Tracing & Telemetry", description: "Langfuse / OpenTelemetry tracking latency, cost per token, and hallucination scores." }
-    ],
-    securityAndGov: "HIPAA, GDPR, SOC-2, and ISO 27001 deployment compliance."
+    capabilities: [
+      {
+        id: "data",
+        name: "Enterprise Data",
+        whatItIs: "Secure ETL and vector ingestion pipelines connecting relational databases, object stores, and streaming Kafka topics.",
+        whyItMatters: "AI models are only as good as the cleanliness and freshness of the corporate data feeding them.",
+        whereItIsUsed: "Warehouse pipelines, real-time event buses, and unstructured document ingestion buckets.",
+        relevantUseCase: "Real-time streaming ingestion of 50,000 daily transaction events into pgvector."
+      },
+      {
+        id: "apis",
+        name: "Secure APIs",
+        whatItIs: "Zero-trust REST and gRPC API gateways with token scoping, rate limiting, and strict payload validation.",
+        whyItMatters: "Prevents unauthorized data exfiltration and protects legacy backends from AI-induced traffic spikes.",
+        whereItIsUsed: "Microservice meshes, partner webhooks, and third-party SaaS integrations.",
+        relevantUseCase: "Enforcing OAuth2 token expiration and role-based permissions across every agent tool call."
+      },
+      {
+        id: "cloud",
+        name: "Cloud & Private VPC",
+        whatItIs: "Containerized deployments hosted in isolated Virtual Private Clouds on AWS, Azure, GCP, or bare-metal Kubernetes.",
+        whyItMatters: "Ensures complete data sovereignty and zero model training on your proprietary corporate data.",
+        whereItIsUsed: "Dedicated enterprise tenant enclaves, private inference endpoints, and on-prem clusters.",
+        relevantUseCase: "Running private vLLM clusters with NVIDIA L4 GPUs inside an air-gapped AWS VPC."
+      },
+      {
+        id: "security-gov",
+        name: "Security & Governance",
+        whatItIs: "Deterministic prompt firewalls (NeMo Guardrails), PII masking filters, and immutable audit logs.",
+        whyItMatters: "Guarantees SOC-2, HIPAA, and GDPR compliance, protecting against prompt injection and data leaks.",
+        whereItIsUsed: "Every inbound and outbound model token transmission across the enterprise.",
+        relevantUseCase: "Automatically redacting Social Security and credit card numbers before inference happens."
+      },
+      {
+        id: "existing-systems",
+        name: "Existing Enterprise Systems",
+        whatItIs: "Bidirectional adapters connecting AI intelligence to installed ERP, CRM, HRIS, and legacy mainframe systems.",
+        whyItMatters: "Maximizes ROI on millions already invested in SAP, Salesforce, Oracle, and ServiceNow.",
+        whereItIsUsed: "Core operational workflows, inventory reconciliations, and payroll processing.",
+        relevantUseCase: "Allowing an AI agent to read SAP inventory levels and create purchase orders without legacy refactoring."
+      }
+    ]
   }
 ];
 
 export function AiCapabilityStack() {
-  const [selectedLayerId, setSelectedLayerId] = React.useState("agents");
-  const activeLayer = STACK_LAYERS.find((l) => l.id === selectedLayerId) || STACK_LAYERS[0];
-  const Icon = activeLayer.icon;
+  const [selectedLayerIndex, setSelectedLayerIndex] = React.useState(2); // Default to LAYER 3: AGENTS
+  const [selectedCapability, setSelectedCapability] = React.useState<CapabilityItem>(
+    ARCHITECTURE_LAYERS[2].capabilities[0]
+  );
+
+  const activeLayer = ARCHITECTURE_LAYERS[selectedLayerIndex];
+  const LayerIcon = activeLayer.icon;
+
+  const handleSelectLayer = (idx: number) => {
+    setSelectedLayerIndex(idx);
+    setSelectedCapability(ARCHITECTURE_LAYERS[idx].capabilities[0]);
+  };
 
   return (
-    <section className="relative py-24 bg-muted/20 border-y border-border/60">
+    <section className="relative py-24 bg-muted/15 border-t border-border/60">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
-            Full-Stack Architecture
+            Enterprise Architecture Map
           </Badge>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
-            The Enterprise <span className="text-primary">AI Capability Stack</span>
+            The AI <span className="text-primary">Capability Architecture</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Enterprise AI cannot rely on a single API call. We build modular, multi-tier architectures designed for enterprise security, deterministic reliability, and rapid scaling.
+            Enterprise AI requires a modular, defense-in-depth architecture. Explore the 5 interactive layers powering our enterprise deployments. Click any capability to inspect its technical details.
           </p>
         </div>
 
-        {/* Stack Explorer Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Interactive Layer Selector Stack */}
-          <div className="lg:col-span-5 space-y-2.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground block px-2 mb-3">
-              Explore Architectural Layers (Top to Bottom)
-            </span>
-
-            {STACK_LAYERS.map((layer) => {
-              const isSelected = layer.id === selectedLayerId;
-              const LayerIcon = layer.icon;
-              return (
-                <button
-                  key={layer.id}
-                  onClick={() => setSelectedLayerId(layer.id)}
-                  className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex items-center justify-between group ${
-                    isSelected
-                      ? "bg-card border-primary shadow-lg shadow-primary/10 translate-x-1"
-                      : "bg-card/60 hover:bg-card border-border/70 hover:border-border"
-                  }`}
+        {/* Layer Selector Pill Bar */}
+        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+          {ARCHITECTURE_LAYERS.map((layer, idx) => {
+            const isSelected = selectedLayerIndex === idx;
+            const Icon = layer.icon;
+            return (
+              <button
+                key={layer.layerNumber}
+                onClick={() => handleSelectLayer(idx)}
+                className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-2 border ${
+                  isSelected
+                    ? "bg-card border-primary text-foreground shadow-lg shadow-primary/10"
+                    : "bg-background/60 hover:bg-muted border-border/70 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <div
+                  className="w-5 h-5 rounded-md flex items-center justify-center text-xs"
+                  style={{ backgroundColor: `${layer.accentColor}20`, color: layer.accentColor }}
                 >
-                  <div className="flex items-center gap-3.5">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
-                      style={{
-                        backgroundColor: `${layer.accentColor}18`,
-                        color: layer.accentColor,
-                        border: `1px solid ${layer.accentColor}35`
-                      }}
-                    >
-                      <LayerIcon className="w-5 h-5" />
-                    </div>
+                  <Icon className="w-3.5 h-3.5" />
+                </div>
+                <span>{layer.layerTitle.split(" — ")[1]}</span>
+              </button>
+            );
+          })}
+        </div>
 
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground font-semibold">
-                          {layer.level}
-                        </span>
-                        <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
-                          {layer.name}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground truncate max-w-[240px]">
-                        {layer.tagline}
-                      </p>
-                    </div>
-                  </div>
+        {/* Interactive Architecture Split View */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
+          {/* Left: Capability Cards in Active Layer */}
+          <div className="lg:col-span-6 space-y-3">
+            <div className="flex items-center justify-between px-1 pb-1">
+              <div>
+                <span className="text-[11px] font-mono uppercase text-primary font-bold block">
+                  {activeLayer.layerTitle}
+                </span>
+                <h3 className="text-lg font-bold font-heading text-foreground">
+                  {activeLayer.tagline}
+                </h3>
+              </div>
+              <Badge variant="outline" className="text-[10px] font-mono">
+                {activeLayer.capabilities.length} Capabilities
+              </Badge>
+            </div>
 
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              {activeLayer.capabilities.map((cap) => {
+                const isSelected = selectedCapability.id === cap.id;
+                return (
+                  <button
+                    key={cap.id}
+                    onClick={() => setSelectedCapability(cap)}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative ${
                       isSelected
-                        ? "bg-primary text-white border-primary"
-                        : "bg-muted text-muted-foreground border-border/60"
+                        ? "bg-card border-primary shadow-lg shadow-primary/15 scale-102"
+                        : "bg-card/60 hover:bg-card border-border/70 hover:border-border"
                     }`}
                   >
-                    {layer.badge}
-                  </span>
-                </button>
-              );
-            })}
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                        {cap.name}
+                      </span>
+                      {isSelected ? (
+                        <span className="w-2 h-2 rounded-full bg-primary" />
+                      ) : (
+                        <Info className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                      )}
+                    </div>
+                    <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
+                      {cap.whatItIs}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Right: Detailed Layer Inspector Card */}
-          <div className="lg:col-span-7 bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-xl backdrop-blur-md relative overflow-hidden">
-            {/* Ambient Background Gradient Accent */}
+          {/* Right: Detailed Capability Inspector Card */}
+          <div className="lg:col-span-6 bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+            {/* Ambient Background Glow */}
             <div
-              className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
+              className="absolute -top-24 -right-24 w-60 h-60 rounded-full blur-3xl opacity-20 pointer-events-none"
               style={{ backgroundColor: activeLayer.accentColor }}
             />
 
-            <div className="space-y-6">
-              {/* Layer Title & Overview */}
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-5">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
-                    style={{
-                      backgroundColor: `${activeLayer.accentColor}20`,
-                      color: activeLayer.accentColor,
-                      border: `1px solid ${activeLayer.accentColor}40`
-                    }}
-                  >
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono font-bold text-primary">
-                      {activeLayer.level} Overview
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold font-heading text-foreground">
-                      {activeLayer.name}
-                    </h3>
-                  </div>
+            <div className="space-y-5">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-border/60 pb-4">
+                <div>
+                  <span className="text-[10px] font-mono uppercase font-bold text-primary block">
+                    Capability Deep-Dive
+                  </span>
+                  <h4 className="text-xl font-bold font-heading text-foreground mt-0.5">
+                    {selectedCapability.name}
+                  </h4>
                 </div>
-
-                <Badge variant="outline" className="text-xs font-semibold py-1 px-3 border-primary/30 text-primary">
-                  {activeLayer.badge}
+                <Badge className="bg-primary/10 text-primary border border-primary/20 text-xs">
+                  Enterprise Ready
                 </Badge>
               </div>
 
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {activeLayer.description}
-              </p>
-
-              {/* Core Components Grid */}
-              <div className="space-y-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-foreground block">
-                  Key Technical Capabilities
+              {/* 1. What It Is */}
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-muted-foreground tracking-wider block">
+                  What It Is
                 </span>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {activeLayer.components.map((comp, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3.5 rounded-xl bg-muted/40 border border-border/60 space-y-1"
-                    >
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-                        <span>{comp.name}</span>
-                      </div>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed pl-5">
-                        {comp.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-xs text-foreground/90 leading-relaxed font-medium">
+                  {selectedCapability.whatItIs}
+                </p>
               </div>
 
-              {/* Security & Governance Box */}
-              <div className="p-4 rounded-xl bg-background/80 border border-border/80 flex items-center justify-between gap-4 text-xs">
-                <div className="flex items-center gap-2 text-foreground font-semibold">
-                  <Lock className="w-4 h-4 text-primary shrink-0" />
-                  <span>Compliance & Governance:</span>
-                </div>
-                <span className="text-muted-foreground text-[11px] text-right">
-                  {activeLayer.securityAndGov}
+              {/* 2. Why It Matters */}
+              <div className="space-y-1 p-3.5 rounded-xl bg-primary/5 border border-primary/20">
+                <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
+                  Why It Matters to Leadership
                 </span>
+                <p className="text-xs text-foreground leading-relaxed">
+                  {selectedCapability.whyItMatters}
+                </p>
               </div>
 
-              {/* Layer Action Button */}
-              <div className="pt-2 flex items-center justify-end">
-                <Button asChild size="sm" className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-5">
+              {/* 3. Where It Is Used */}
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-muted-foreground tracking-wider block">
+                  Where It Is Used in Architecture
+                </span>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {selectedCapability.whereItIsUsed}
+                </p>
+              </div>
+
+              {/* 4. Relevant Enterprise Use Case */}
+              <div className="space-y-1 p-3.5 rounded-xl bg-muted/40 border border-border/70">
+                <span className="text-[10px] font-mono uppercase font-bold text-foreground tracking-wider block">
+                  Production Use Case Example
+                </span>
+                <p className="text-xs text-foreground/90 leading-relaxed italic">
+                  "{selectedCapability.relevantUseCase}"
+                </p>
+              </div>
+
+              {/* Action Button */}
+              <div className="pt-2 flex justify-end">
+                <Button
+                  asChild
+                  size="sm"
+                  className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-5 shadow-md shadow-primary/20"
+                >
                   <Link href="/services/generative-ai" className="flex items-center gap-1.5">
                     Explore Implementation Details
                     <ArrowRight className="w-3.5 h-3.5" />
