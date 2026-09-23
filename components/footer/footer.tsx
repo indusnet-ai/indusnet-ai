@@ -63,7 +63,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">
-              Transforming mid-market and enterprise organizations with bespoke artificial intelligence, RAG search systems, custom LLM solutions, and certified corporate AI training.
+              AI-First. From Strategy to Software. Designing and deploying production-grade AI applications, autonomous agentic workflows, and private knowledge systems for enterprise leaders.
             </p>
             <div className="flex items-center gap-3">
               <Link
@@ -103,28 +103,28 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/portfolio" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Case Studies & Proof
+                </Link>
+              </li>
+              <li>
+                <Link href="/industries" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Industry Verticals
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Research & Insights
+                </Link>
+              </li>
+              <li>
                 <Link href="/careers" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Insights Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/assessment" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  AI Scoper Tool
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Book Consultation
+                  Book Technical Consultation
                 </Link>
               </li>
             </ul>
@@ -132,21 +132,31 @@ export function Footer() {
 
           {/* Solutions Column */}
           <div className="flex flex-col gap-5">
-            <h3 className="font-bold text-xs text-primary uppercase tracking-widest">Core Offerings</h3>
+            <h3 className="font-bold text-xs text-primary uppercase tracking-widest">Core Capabilities</h3>
             <ul className="flex flex-col gap-3">
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  AI Consulting
+                <Link href="/services/generative-ai" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Generative AI Applications
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Custom AI Agents
+                <Link href="/services/generative-ai" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Autonomous AI Agents
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Enterprise RAG Systems
+                <Link href="/services/generative-ai" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Enterprise RAG & Search
+                </Link>
+              </li>
+              <li>
+                <Link href="/roi-calculator" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  AI ROI & Hardware Sizer
+                </Link>
+              </li>
+              <li>
+                <Link href="/assessment" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  AI Scoper Assessment
                 </Link>
               </li>
               <li>
