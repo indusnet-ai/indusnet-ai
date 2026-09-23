@@ -107,13 +107,24 @@ export async function POST(request: Request) {
       emailError: notificationResult.error,
     }));
 
+    if (notificationResult.success) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Thank you for subscribing to our AI Insights newsletter!",
+          receivedByEmail: true,
+        },
+        { status: 200 }
+      );
+    }
+
     return NextResponse.json(
       {
-        success: true,
-        message: "Thank you for subscribing to our AI Insights newsletter!",
-        receivedByEmail: notificationResult.success,
+        success: false,
+        error:
+          "Our automated systems are temporarily unable to process this subscription. Please email us directly at info@indusnet-ai.com to be added to our newsletter.",
       },
-      { status: 200 }
+      { status: 503 }
     );
   }
 

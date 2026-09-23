@@ -33,16 +33,19 @@ export const metadata: Metadata = {
     "CPMAI Training India",
     "AI Agent Automation",
   ],
-  metadataBase: new URL("https://indusnet-ai.com"),
+  metadataBase: new URL("https://www.indusnet-ai.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Indusnet AI | Enterprise AI Solutions & Consulting",
     description:
       "Transforming enterprises with bespoke Generative AI, custom RAG knowledge engines, autonomous AI agents, and certified CPMAI training.",
-    url: "https://indusnet-ai.com",
+    url: "https://www.indusnet-ai.com",
     siteName: "Indusnet AI",
     images: [
       {
-        url: "https://indusnet-ai.com/og-image.png",
+        url: "https://www.indusnet-ai.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Indusnet AI — Enterprise Cognitive AI Solutions",
@@ -56,7 +59,7 @@ export const metadata: Metadata = {
     title: "Indusnet AI | Enterprise AI Solutions & Consulting",
     description:
       "Transforming enterprises with bespoke Generative AI, custom RAG knowledge engines, autonomous AI agents, and certified CPMAI training.",
-    images: ["https://indusnet-ai.com/og-image.png"],
+    images: ["https://www.indusnet-ai.com/og-image.png"],
   },
   robots: {
     index: true,

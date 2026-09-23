@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://indusnet-ai.com";
+  const baseUrl = "https://www.indusnet-ai.com";
 
   const staticRoutes = [
     "",
@@ -12,6 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/training",
     "/assessment",
     "/portfolio",
+    "/roi-calculator",
     "/blog",
     "/contact",
     "/careers",

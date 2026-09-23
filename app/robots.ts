@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/portal/", "/api/"],
     },
-    sitemap: "https://indusnet-ai.com/sitemap.xml",
+    sitemap: "https://www.indusnet-ai.com/sitemap.xml",
   };
 }

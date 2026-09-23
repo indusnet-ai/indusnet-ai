@@ -25,17 +25,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${article.title} | Indusnet AI Insights`,
     description: article.desc,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: `${article.title} | Indusnet AI Insights`,
       description: article.desc,
-      url: `https://indusnet-ai.com/blog/${slug}`,
+      url: `https://www.indusnet-ai.com/blog/${slug}`,
       siteName: "Indusnet AI",
       type: "article",
       publishedTime: article.date,
       authors: [article.author],
       images: [
         {
-          url: "https://indusnet-ai.com/og-image.png",
+          url: "https://www.indusnet-ai.com/og-image.png",
           width: 1200,
           height: 630,
           alt: article.title,
@@ -46,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${article.title} | Indusnet AI Insights`,
       description: article.desc,
-      images: ["https://indusnet-ai.com/og-image.png"],
+      images: ["https://www.indusnet-ai.com/og-image.png"],
     },
   };
 }
