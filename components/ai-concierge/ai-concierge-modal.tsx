@@ -128,7 +128,7 @@ export function AiConciergeModal() {
       {/* Floating Concierge Launcher Pill */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-background/95 dark:bg-card/95 border border-primary/40 shadow-2xl backdrop-blur-xl hover:border-primary hover:shadow-[0_0_30px_rgba(255,45,33,0.35)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-background/95 dark:bg-card/95 border border-primary/40 shadow-2xl backdrop-blur-xl hover:border-primary hover:shadow-[0_0_30px_rgba(22,119,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         aria-label="Talk to Our AI Advisor"
       >
         <span className="relative flex h-2.5 w-2.5">
@@ -304,16 +304,16 @@ export function AiConciergeModal() {
                       {/* 1. Challenge Box */}
                       <div className="space-y-1.5">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                           YOUR CHALLENGE
                         </span>
-                        <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/20 text-xs text-foreground leading-relaxed">
+                        <div className="p-3 rounded-lg bg-muted/40 border border-border/80 text-xs text-foreground leading-relaxed">
                           {generatedResult.challenge}
                         </div>
                       </div>
 
                       <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-primary" />
+                        <ArrowDown className="w-4 h-4 text-cyan-400" />
                       </div>
 
                       {/* 2. Recommended Approach */}
@@ -322,13 +322,13 @@ export function AiConciergeModal() {
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                           RECOMMENDED APPROACH
                         </span>
-                        <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 text-xs font-bold text-foreground">
+                        <div className="p-3 rounded-lg bg-primary/10 border border-primary/30 text-xs font-bold text-foreground">
                           {generatedResult.recommendedApproach}
                         </div>
                       </div>
 
                       <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-primary" />
+                        <ArrowDown className="w-4 h-4 text-cyan-400" />
                       </div>
 
                       {/* 3. AI Capabilities Grid */}
@@ -348,7 +348,7 @@ export function AiConciergeModal() {
                       </div>
 
                       <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-primary" />
+                        <ArrowDown className="w-4 h-4 text-cyan-400" />
                       </div>
 
                       {/* 4. Target Architecture & Infrastructure */}
@@ -377,9 +377,9 @@ export function AiConciergeModal() {
                           <span className="text-muted-foreground">Estimated Timeline:</span>
                           <span className="font-bold text-foreground font-mono">{generatedResult.timeline}</span>
                         </div>
-                        <div className="p-2.5 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-between">
+                        <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between">
                           <span className="text-muted-foreground">Projected Impact:</span>
-                          <span className="font-bold text-primary">{generatedResult.roiProjection}</span>
+                          <span className="font-bold text-emerald-400">{generatedResult.roiProjection}</span>
                         </div>
                       </div>
                     </div>

@@ -57,8 +57,8 @@ export async function POST(request: Request) {
   const emailSubject = `${!dbSuccess ? "[DB Fallback] " : ""}✉️ New Newsletter Subscriber: ${email}`;
   const emailHtml = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 12px; color: #222; line-height: 1.6;">
-      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #ff2d21; padding-bottom: 15px;">
-        <h2 style="color: #ff2d21; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #1677FF; padding-bottom: 15px;">
+        <h2 style="color: #1677FF; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
         <p style="margin: 5px 0 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700;">Newsletter Insight Network</p>
       </div>
 
@@ -70,9 +70,9 @@ export async function POST(request: Request) {
           : ""
       }
 
-      <div style="margin-bottom: 20px; background-color: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 8px; text-align: center;">
-        <h3 style="color: #b91c1c; margin: 0 0 5px 0; font-size: 14px; font-weight: 700;">🎉 New Subscriber Registered</h3>
-        <p style="margin: 0; font-size: 16px; color: #7f1d1d; font-weight: bold;">
+      <div style="margin-bottom: 20px; background-color: #f0f7ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 8px; text-align: center;">
+        <h3 style="color: #1e40af; margin: 0 0 5px 0; font-size: 14px; font-weight: 700;">🎉 New Subscriber Registered</h3>
+        <p style="margin: 0; font-size: 16px; color: #1677FF; font-weight: bold;">
           <a href="mailto:${email}" style="color: #7f1d1d; text-decoration: none;">${email}</a>
         </p>
       </div>

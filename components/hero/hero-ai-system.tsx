@@ -29,7 +29,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["PostgreSQL", "Snowflake", "SharePoint", "AWS S3"],
     metric: "450k+ Docs Parsed",
     icon: Database,
-    color: "#06B6D4" // Cyan
+    color: "#1677FF" // Blue
   },
   knowledge: {
     id: "knowledge",
@@ -39,7 +39,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["pgvector", "Neo4j Graph", "Milvus", "Semantic Cache"],
     metric: "99.4% Attribution",
     icon: Network,
-    color: "#3B82F6" // Blue
+    color: "#00D4FF" // Cyan
   },
   systems: {
     id: "systems",
@@ -49,7 +49,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["SAP ERP", "Salesforce CRM", "Workday", "Jira"],
     metric: "18 API Connectors",
     icon: Server,
-    color: "#10B981" // Emerald
+    color: "#1677FF" // Blue
   },
   intelligence: {
     id: "intelligence",
@@ -59,7 +59,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["NeMo Guardrails", "Semantic Routing", "Token Limiting", "RBAC Scoping"],
     metric: "38ms Latency SLA",
     icon: Cpu,
-    color: "#FF2D21" // Red
+    color: "#1677FF" // Electric Blue
   },
   models: {
     id: "models",
@@ -69,7 +69,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["Claude 3.5 Sonnet", "GPT-4o", "Llama-3 70B", "Mistral"],
     metric: "< 190ms TTFT",
     icon: Brain,
-    color: "#8B5CF6" // Violet
+    color: "#00D4FF" // Cyan
   },
   agents: {
     id: "agents",
@@ -79,7 +79,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["Planner Swarms", "Tool Callers", "Policy Critics", "Self-Correction"],
     metric: "88% Cycle Drop",
     icon: Bot,
-    color: "#10B981" // Emerald
+    color: "#7C5CFF" // Violet
   },
   workflows: {
     id: "workflows",
@@ -89,7 +89,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["vLLM Orchestration", "Async Queues", "Temporal", "Docker VPC"],
     metric: "99.99% Uptime",
     icon: Workflow,
-    color: "#F59E0B" // Amber
+    color: "#1677FF" // Blue
   },
   applications: {
     id: "applications",
@@ -99,7 +99,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["Custom Copilots", "Decision Cockpits", "REST/gRPC APIs", "Microservices"],
     metric: "Sub-Second UX",
     icon: LayoutDashboard,
-    color: "#FF2D21" // Red
+    color: "#1677FF" // Electric Blue
   },
   outcomes: {
     id: "outcomes",
@@ -109,7 +109,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     techs: ["Sub-Second Triage", "Zero Hallucinations", "Hard Cost Savings", "Audit Compliance"],
     metric: "3x–5x Efficiency",
     icon: CheckCircle2,
-    color: "#10B981" // Emerald
+    color: "#10B981" // Green
   }
 };
 
@@ -158,9 +158,9 @@ export function HeroAiSystem() {
 
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: "data", label: "Data", icon: Database, color: "#06B6D4" },
-              { id: "knowledge", label: "Knowledge", icon: Network, color: "#3B82F6" },
-              { id: "systems", label: "Systems", icon: Server, color: "#10B981" }
+              { id: "data", label: "Data", icon: Database, color: "#1677FF" },
+              { id: "knowledge", label: "Knowledge", icon: Network, color: "#00D4FF" },
+              { id: "systems", label: "Systems", icon: Server, color: "#1677FF" }
             ].map((node) => {
               const Icon = node.icon;
               const isSelected = activeNodeKey === node.id;
@@ -185,7 +185,7 @@ export function HeroAiSystem() {
         </div>
 
         {/* Connecting Data Pulse Flow Arrow */}
-        <div className="flex justify-center -my-1 text-primary">
+        <div className="flex justify-center -my-1 text-cyan-400">
           <motion.div
             animate={{ y: [0, 3, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -201,16 +201,16 @@ export function HeroAiSystem() {
           onClick={() => setActiveNodeKey("intelligence")}
           className={`w-full p-3.5 rounded-2xl border text-left transition-all relative overflow-hidden flex items-center justify-between ${
             activeNodeKey === "intelligence"
-              ? "bg-gradient-to-r from-primary/15 via-violet-500/15 to-cyan-500/15 border-primary shadow-md shadow-primary/15"
+              ? "bg-gradient-to-r from-primary/20 via-cyan-500/15 to-violet-500/15 border-primary shadow-md shadow-primary/20"
               : "bg-muted/40 hover:bg-muted/70 border-border/80"
           }`}
         >
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center shadow-md shadow-primary/30 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center shadow-md shadow-primary/30 shrink-0 border border-cyan-400/30">
               <Cpu className="w-5 h-5 animate-[spin_8s_linear_infinite]" />
             </div>
             <div>
-              <span className="text-[9px] font-mono uppercase font-bold text-primary tracking-wider block">
+              <span className="text-[9px] font-mono uppercase font-bold text-cyan-400 tracking-wider block">
                 02 · Central Neural Core
               </span>
               <span className="text-xs font-bold text-foreground block">
@@ -223,13 +223,13 @@ export function HeroAiSystem() {
           </div>
 
           <div className="text-right">
-            <span className="text-[9px] font-mono text-emerald-500 font-bold block">38ms SLA</span>
-            <span className="text-[9px] text-muted-foreground">Active Mesh</span>
+            <span className="text-[9px] font-mono text-emerald-400 font-bold block">38ms SLA</span>
+            <span className="text-[9px] text-cyan-400/80 font-mono">Active Mesh</span>
           </div>
         </button>
 
         {/* Connecting Data Pulse Flow Arrow */}
-        <div className="flex justify-center -my-1 text-primary">
+        <div className="flex justify-center -my-1 text-cyan-400">
           <motion.div
             animate={{ y: [0, 3, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
@@ -246,14 +246,14 @@ export function HeroAiSystem() {
             <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-muted-foreground">
               03 · Cognitive Engines
             </span>
-            <span className="text-[9px] font-mono text-violet-500">Execution Tier</span>
+            <span className="text-[9px] font-mono text-cyan-400">Execution Tier</span>
           </div>
 
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: "models", label: "Models", icon: Brain, color: "#8B5CF6" },
-              { id: "agents", label: "Agents", icon: Bot, color: "#10B981" },
-              { id: "workflows", label: "Workflows", icon: Workflow, color: "#F59E0B" }
+              { id: "models", label: "Models", icon: Brain, color: "#00D4FF" },
+              { id: "agents", label: "Agents", icon: Bot, color: "#7C5CFF" },
+              { id: "workflows", label: "Workflows", icon: Workflow, color: "#1677FF" }
             ].map((node) => {
               const Icon = node.icon;
               const isSelected = activeNodeKey === node.id;
@@ -278,7 +278,7 @@ export function HeroAiSystem() {
         </div>
 
         {/* Connecting Data Pulse Flow Arrow */}
-        <div className="flex justify-center -my-1 text-primary">
+        <div className="flex justify-center -my-1 text-cyan-400">
           <motion.div
             animate={{ y: [0, 3, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}

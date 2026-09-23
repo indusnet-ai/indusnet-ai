@@ -69,7 +69,7 @@ export function Footer() {
               <Link
                 href="https://linkedin.com/company/indusnet-ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(255,45,33,0.25)] transition-all duration-300"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
               >
                 <Linkedin className="w-4 h-4" />
                 <span className="sr-only">LinkedIn</span>
@@ -77,7 +77,7 @@ export function Footer() {
               <Link
                 href="https://twitter.com/indusnet_ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(255,45,33,0.25)] transition-all duration-300"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
               >
                 <Twitter className="w-4 h-4" />
                 <span className="sr-only">Twitter</span>
@@ -85,7 +85,7 @@ export function Footer() {
               <Link
                 href="https://github.com/indusnet-ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(255,45,33,0.25)] transition-all duration-300"
+                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
               >
                 <Github className="w-4 h-4" />
                 <span className="sr-only">GitHub</span>

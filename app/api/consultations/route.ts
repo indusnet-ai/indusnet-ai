@@ -63,8 +63,8 @@ export async function POST(request: Request) {
 
   const emailHtml = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 12px; color: #222; line-height: 1.6;">
-      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #ff2d21; padding-bottom: 15px;">
-        <h2 style="color: #ff2d21; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #1677FF; padding-bottom: 15px;">
+        <h2 style="color: #1677FF; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
         <p style="margin: 5px 0 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700;">
           ${isBooking ? "New Scheduled Meeting Request" : "New Contact Inquiry Message"}
         </p>
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
       }
 
       <div style="margin-bottom: 20px;">
-        <h3 style="color: #111; border-left: 3px solid #ff2d21; padding-left: 10px; font-size: 15px; margin-bottom: 12px;">Client Details</h3>
+        <h3 style="color: #111; border-left: 3px solid #1677FF; padding-left: 10px; font-size: 15px; margin-bottom: 12px;">Client Details</h3>
         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
           <tr>
             <td style="width: 35%; font-weight: 600; padding: 6px 0; color: #555;">Name:</td>
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
           </tr>
           <tr>
             <td style="font-weight: 600; padding: 6px 0; color: #555;">Email:</td>
-            <td style="padding: 6px 0; color: #ff2d21; font-weight: 700;"><a href="mailto:${email}">${email}</a></td>
+            <td style="padding: 6px 0; color: #1677FF; font-weight: 700;"><a href="mailto:${email}">${email}</a></td>
           </tr>
           <tr>
             <td style="font-weight: 600; padding: 6px 0; color: #555;">Company:</td>

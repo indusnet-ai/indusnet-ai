@@ -49,108 +49,108 @@
 }
 
 :root {
-  /* Light theme values ("Bright morning" - Kyndryl Light Stone Aesthetic) */
-  --background: oklch(0.99 0.002 0); /* Crisp clean white */
-  --foreground: oklch(0.12 0.015 0);  /* Deep charcoal text */
-  --card: oklch(0.97 0.005 0);       /* Clean off-white card background */
-  --card-foreground: oklch(0.12 0.015 0);
-  --popover: oklch(0.97 0.005 0);
-  --popover-foreground: oklch(0.12 0.015 0);
-  --primary: oklch(0.60 0.24 25);     /* Kyndryl Signature Terracotta Red #FF2D21 */
-  --primary-foreground: oklch(0.99 0.002 0);
-  --secondary: oklch(0.94 0.008 0);
-  --secondary-foreground: oklch(0.12 0.015 0);
-  --muted: oklch(0.94 0.008 0);
-  --muted-foreground: oklch(0.42 0.015 0);
-  --accent: oklch(0.65 0.20 40);      /* Warm Terracotta Amber #FF6B00 */
-  --accent-foreground: oklch(0.99 0.002 0);
-  --destructive: oklch(0.58 0.245 27.3);
-  --border: oklch(0.88 0.008 0 / 70%);
-  --input: oklch(0.88 0.008 0 / 80%);
-  --ring: oklch(0.60 0.24 25);
+  /* Light theme values (Cool Enterprise Slate & Electric Blue) */
+  --background: #F8FAFC;              /* Clean cool white */
+  --foreground: #08111F;              /* Deep midnight text */
+  --card: #FFFFFF;                    /* Pure white card surface */
+  --card-foreground: #08111F;
+  --popover: #FFFFFF;
+  --popover-foreground: #08111F;
+  --primary: #1677FF;                 /* Electric Blue #1677FF */
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #08111F;
+  --muted: #EDF2F7;
+  --muted-foreground: #6F7E91;         /* Muted Slate #6F7E91 */
+  --accent: #00D4FF;                  /* Cyan #00D4FF */
+  --accent-foreground: #050B14;
+  --destructive: #EF4444;             /* Semantic red for errors only */
+  --border: rgba(22, 34, 56, 0.15);
+  --input: rgba(22, 34, 56, 0.20);
+  --ring: #1677FF;
   --radius: 0.75rem;
   
-  --sidebar: oklch(0.97 0.005 0);
-  --sidebar-foreground: oklch(0.12 0.015 0);
-  --sidebar-primary: oklch(0.60 0.24 25);
-  --sidebar-primary-foreground: oklch(0.99 0.002 0);
-  --sidebar-accent: oklch(0.94 0.008 0);
-  --sidebar-accent-foreground: oklch(0.12 0.015 0);
-  --sidebar-border: oklch(0.88 0.008 0 / 70%);
-  --sidebar-ring: oklch(0.60 0.24 25);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #08111F;
+  --sidebar-primary: #1677FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1F5F9;
+  --sidebar-accent-foreground: #08111F;
+  --sidebar-border: rgba(22, 34, 56, 0.15);
+  --sidebar-ring: #1677FF;
 
   /* AI-First Accent Palette */
-  --ai-violet: oklch(0.58 0.22 290);
-  --ai-cyan: oklch(0.68 0.16 210);
-  --ai-emerald: oklch(0.65 0.18 150);
-  --ai-blue: oklch(0.60 0.20 250);
+  --ai-violet: #7C5CFF;               /* Subtle Violet #7C5CFF */
+  --ai-cyan: #00D4FF;                 /* Cyan #00D4FF */
+  --ai-emerald: #10B981;              /* Green #10B981 */
+  --ai-blue: #1677FF;                 /* Electric Blue #1677FF */
 
-  /* Kyndryl responsive background glows */
-  --glow-1: oklch(0.60 0.24 25 / 15%);
-  --glow-2: oklch(0.58 0.22 290 / 8%);
-  --glow-3: oklch(0.68 0.16 210 / 8%);
+  /* Atmospheric background glows (Electric Blue & Cyan) */
+  --glow-1: rgba(22, 119, 255, 0.10);
+  --glow-2: rgba(0, 212, 255, 0.06);
+  --glow-3: rgba(124, 92, 255, 0.05);
 
   /* Glassmorphism variables */
-  --glass-bg-start: rgba(0, 0, 0, 0.02);
-  --glass-bg-end: rgba(0, 0, 0, 0.005);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-hover-bg-start: rgba(255, 45, 33, 0.03);
-  --glass-hover-bg-end: rgba(255, 45, 33, 0.01);
-  --glass-hover-border: rgba(255, 45, 33, 0.35);
-  --glass-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
-  --glass-hover-shadow: 0 8px 35px rgba(255, 45, 33, 0.12);
+  --glass-bg-start: rgba(255, 255, 255, 0.85);
+  --glass-bg-end: rgba(255, 255, 255, 0.50);
+  --glass-border: rgba(22, 119, 255, 0.12);
+  --glass-hover-bg-start: rgba(22, 119, 255, 0.04);
+  --glass-hover-bg-end: rgba(0, 212, 255, 0.02);
+  --glass-hover-border: rgba(22, 119, 255, 0.35);
+  --glass-shadow: 0 8px 30px rgba(8, 17, 31, 0.04);
+  --glass-hover-shadow: 0 8px 35px rgba(22, 119, 255, 0.15);
 }
 
 .dark {
-  /* Dark theme values (Kyndryl Dark Stone Aesthetic) */
-  --background: oklch(0.06 0.01 0);   /* Deep Obsidian #0A0A0A */
-  --foreground: oklch(0.98 0.005 0);  /* Clean white */
-  --card: oklch(0.10 0.012 0);        /* #141414 Dark Stone */
-  --card-foreground: oklch(0.98 0.005 0);
-  --popover: oklch(0.10 0.012 0);
-  --popover-foreground: oklch(0.98 0.005 0);
-  --primary: oklch(0.62 0.24 25);     /* Kyndryl Red #FF3B30 */
-  --primary-foreground: oklch(0.99 0.002 0);
-  --secondary: oklch(0.16 0.015 0);
-  --secondary-foreground: oklch(0.98 0.005 0);
-  --muted: oklch(0.16 0.015 0);
-  --muted-foreground: oklch(0.72 0.01 0);
-  --accent: oklch(0.65 0.20 40);      /* Warm Terracotta Amber */
-  --accent-foreground: oklch(0.06 0.01 0);
-  --destructive: oklch(0.58 0.245 27.3);
-  --border: oklch(0.22 0.015 0 / 60%);
-  --input: oklch(0.22 0.015 0 / 70%);
-  --ring: oklch(0.62 0.24 25);
+  /* Dark theme values (Midnight Navy + Electric Blue + Cyan) */
+  --background: #050B14;              /* Primary background: Midnight Navy #050B14 */
+  --foreground: #F5F7FA;              /* Primary typography: #F5F7FA */
+  --card: #08111F;                    /* Secondary background: #08111F */
+  --card-foreground: #F5F7FA;
+  --popover: #0D1828;                 /* Elevated surface: #0D1828 */
+  --popover-foreground: #F5F7FA;
+  --primary: #1677FF;                 /* Primary AI Color: Electric Blue #1677FF */
+  --primary-foreground: #FFFFFF;
+  --secondary: #0D1828;               /* Elevated surface: #0D1828 */
+  --secondary-foreground: #F5F7FA;
+  --muted: #101D30;                   /* Alternative surface: #101D30 */
+  --muted-foreground: #A7B4C5;         /* Secondary typography: #A7B4C5 */
+  --accent: #00D4FF;                  /* AI Energy Color: Cyan #00D4FF */
+  --accent-foreground: #050B14;
+  --destructive: #EF4444;             /* Semantic red for errors only */
+  --border: #162238;                  /* Cool deep navy border */
+  --input: #162238;
+  --ring: #1677FF;
   
-  --sidebar: oklch(0.08 0.012 0);
-  --sidebar-foreground: oklch(0.98 0.005 0);
-  --sidebar-primary: oklch(0.62 0.24 25);
-  --sidebar-primary-foreground: oklch(0.99 0.002 0);
-  --sidebar-accent: oklch(0.16 0.015 0);
-  --sidebar-accent-foreground: oklch(0.98 0.005 0);
-  --sidebar-border: oklch(0.22 0.015 0 / 60%);
-  --sidebar-ring: oklch(0.62 0.24 25);
+  --sidebar: #050B14;
+  --sidebar-foreground: #F5F7FA;
+  --sidebar-primary: #1677FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #0D1828;
+  --sidebar-accent-foreground: #F5F7FA;
+  --sidebar-border: #162238;
+  --sidebar-ring: #1677FF;
 
   /* AI-First Accent Palette (Dark) */
-  --ai-violet: oklch(0.65 0.25 290);
-  --ai-cyan: oklch(0.75 0.18 210);
-  --ai-emerald: oklch(0.70 0.20 150);
-  --ai-blue: oklch(0.65 0.22 250);
+  --ai-violet: #7C5CFF;               /* Intelligence / Agents: Violet #7C5CFF */
+  --ai-cyan: #00D4FF;                 /* AI Energy: Cyan #00D4FF */
+  --ai-emerald: #10B981;              /* Business Outcomes: Green #10B981 */
+  --ai-blue: #1677FF;                 /* Primary AI: Electric Blue #1677FF */
 
-  /* Kyndryl & AI responsive background glows */
-  --glow-1: oklch(0.62 0.24 25 / 16%);
-  --glow-2: oklch(0.65 0.25 290 / 10%);
-  --glow-3: oklch(0.75 0.18 210 / 10%);
+  /* Atmospheric background glows (Electric Blue, Cyan & Violet) */
+  --glow-1: rgba(22, 119, 255, 0.14);
+  --glow-2: rgba(0, 212, 255, 0.08);
+  --glow-3: rgba(124, 92, 255, 0.06);
 
   /* Glassmorphism variables */
-  --glass-bg-start: rgba(255, 255, 255, 0.03);
-  --glass-bg-end: rgba(255, 255, 255, 0.01);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover-bg-start: rgba(255, 45, 33, 0.06);
-  --glass-hover-bg-end: rgba(255, 45, 33, 0.02);
-  --glass-hover-border: rgba(255, 45, 33, 0.45);
+  --glass-bg-start: rgba(13, 24, 40, 0.65);
+  --glass-bg-end: rgba(8, 17, 31, 0.40);
+  --glass-border: rgba(22, 119, 255, 0.15);
+  --glass-hover-bg-start: rgba(22, 119, 255, 0.08);
+  --glass-hover-bg-end: rgba(0, 212, 255, 0.03);
+  --glass-hover-border: rgba(22, 119, 255, 0.45);
   --glass-shadow: none;
-  --glass-hover-shadow: 0 8px 30px rgba(255, 45, 33, 0.15);
+  --glass-hover-shadow: 0 8px 30px rgba(22, 119, 255, 0.20);
 }
 
 @layer base {

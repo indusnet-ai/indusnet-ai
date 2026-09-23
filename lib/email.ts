@@ -93,8 +93,8 @@ export async function sendAutoresponder(
   const subject = "We received your enquiry — Indusnet AI";
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #eaeaea; border-radius: 12px; color: #1f2937; line-height: 1.6;">
-      <div style="margin-bottom: 24px; border-bottom: 2px solid #ff2d21; padding-bottom: 16px;">
-        <h2 style="color: #ff2d21; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
+      <div style="margin-bottom: 24px; border-bottom: 2px solid #1677FF; padding-bottom: 16px;">
+        <h2 style="color: #1677FF; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
         <p style="margin: 4px 0 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; font-weight: 600;">Enterprise Cognitive Orchestration</p>
       </div>
       
@@ -104,14 +104,14 @@ export async function sendAutoresponder(
         Thank you for contacting Indusnet AI regarding <strong>${topic}</strong>. We have successfully received your submission.
       </p>
       
-      <div style="background-color: #f9fafb; border-left: 4px solid #ff2d21; padding: 12px 16px; margin: 20px 0; border-radius: 4px;">
+      <div style="background-color: #f9fafb; border-left: 4px solid #1677FF; padding: 12px 16px; margin: 20px 0; border-radius: 4px;">
         <p style="margin: 0; font-size: 13px; color: #374151;">
           <strong>Our Commitment:</strong> A senior member of our solutions engineering team will review your requirements and respond within <strong>one business day</strong>.
         </p>
       </div>
       
       <p style="font-size: 13px; color: #4b5563; margin-bottom: 24px;">
-        If you have urgent queries or architectural specifications to share ahead of time, feel free to reply directly to this email or reach us at <a href="mailto:info@indusnet-ai.com" style="color: #ff2d21; text-decoration: none;">info@indusnet-ai.com</a>.
+        If you have urgent queries or architectural specifications to share ahead of time, feel free to reply directly to this email or reach us at <a href="mailto:info@indusnet-ai.com" style="color: #1677FF; text-decoration: none;">info@indusnet-ai.com</a>.
       </p>
       
       <div style="border-top: 1px solid #eaeaea; padding-top: 16px; margin-top: 24px; font-size: 12px; color: #9ca3af;">

@@ -127,7 +127,7 @@ export function Navbar() {
             <span>Talk to Our AI</span>
           </Button>
 
-          <Button asChild className="rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-[0_4px_20px_rgba(255,45,33,0.35)] transition-all duration-300 group px-5 text-xs">
+          <Button asChild className="rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-[0_4px_20px_rgba(22,119,255,0.4)] transition-all duration-300 group px-5 text-xs">
             <Link href="/contact" className="flex items-center gap-1.5">
               Book Consultation
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

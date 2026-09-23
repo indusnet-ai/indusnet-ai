@@ -72,8 +72,8 @@ export async function POST(request: Request) {
   }`;
   const emailHtml = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 12px; color: #222; line-height: 1.6;">
-      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #ff2d21; padding-bottom: 15px;">
-        <h2 style="color: #ff2d21; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
+      <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #1677FF; padding-bottom: 15px;">
+        <h2 style="color: #1677FF; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">INDUSNET AI</h2>
         <p style="margin: 5px 0 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; font-weight: 700;">Cognitive AI Project Scoping Assessment</p>
       </div>
 
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
       }
 
       <div style="margin-bottom: 20px;">
-        <h3 style="color: #111; border-left: 3px solid #ff2d21; padding-left: 10px; font-size: 15px; margin-bottom: 12px;">1. Client Credentials</h3>
+        <h3 style="color: #111; border-left: 3px solid #1677FF; padding-left: 10px; font-size: 15px; margin-bottom: 12px;">1. Client Credentials</h3>
         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
           <tr>
             <td style="width: 35%; font-weight: 600; padding: 6px 0; color: #555;">Name:</td>
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
           </tr>
           <tr>
             <td style="font-weight: 600; padding: 6px 0; color: #555;">Email:</td>
-            <td style="padding: 6px 0; color: #ff2d21; font-weight: 700;"><a href="mailto:${contactEmail}">${contactEmail}</a></td>
+            <td style="padding: 6px 0; color: #1677FF; font-weight: 700;"><a href="mailto:${contactEmail}">${contactEmail}</a></td>
           </tr>
           <tr>
             <td style="font-weight: 600; padding: 6px 0; color: #555;">Company:</td>
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
       </div>
 
       <div style="margin-bottom: 20px; background-color: #f9f9f9; padding: 15px; border-radius: 8px;">
-        <h3 style="color: #111; border-left: 3px solid #ff2d21; padding-left: 10px; font-size: 15px; margin: 0 0 12px 0;">2. Business & Scoping Profile</h3>
+        <h3 style="color: #111; border-left: 3px solid #1677FF; padding-left: 10px; font-size: 15px; margin: 0 0 12px 0;">2. Business & Scoping Profile</h3>
         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
           <tr>
             <td style="width: 35%; font-weight: 600; padding: 6px 0; color: #555;">Vertical Domain:</td>
@@ -129,13 +129,13 @@ export async function POST(request: Request) {
         }
       </div>
 
-      <div style="margin-bottom: 20px; background-color: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 8px;">
-        <h3 style="color: #991b1b; margin: 0 0 8px 0; font-size: 14px; font-weight: 700;">3. Problem Statement & Bottleneck</h3>
-        <p style="margin: 0; font-size: 13px; color: #7f1d1d; white-space: pre-wrap;">"${customerProblem}"</p>
+      <div style="margin-bottom: 20px; background-color: #f0f7ff; border: 1px solid #bfdbfe; padding: 15px; border-radius: 8px;">
+        <h3 style="color: #1e40af; margin: 0 0 8px 0; font-size: 14px; font-weight: 700;">3. Problem Statement & Bottleneck</h3>
+        <p style="margin: 0; font-size: 13px; color: #1e3a8a; white-space: pre-wrap;">"${customerProblem}"</p>
       </div>
 
       <div style="margin-bottom: 20px; background-color: #f9f9f9; padding: 15px; border-radius: 8px;">
-        <h3 style="color: #111; border-left: 3px solid #ff2d21; padding-left: 10px; font-size: 15px; margin: 0 0 12px 0;">4. AI Objectives & Data Profile</h3>
+        <h3 style="color: #111; border-left: 3px solid #1677FF; padding-left: 10px; font-size: 15px; margin: 0 0 12px 0;">4. AI Objectives & Data Profile</h3>
         <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
           <tr>
             <td style="width: 35%; font-weight: 600; padding: 6px 0; color: #555;">Objectives:</td>
@@ -151,7 +151,7 @@ export async function POST(request: Request) {
           </tr>
           <tr>
             <td style="font-weight: 600; padding: 6px 0; color: #555;">POC Scale:</td>
-            <td style="padding: 6px 0; color: #ff2d21; font-weight: 700;">${dataSize}</td>
+            <td style="padding: 6px 0; color: #1677FF; font-weight: 700;">${dataSize}</td>
           </tr>
         </table>
       </div>

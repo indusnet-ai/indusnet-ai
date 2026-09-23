@@ -261,7 +261,7 @@ export default function HomeClient() {
                 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.08] font-heading text-foreground"
               >
                 AI-First. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-red-500 to-amber-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1677FF] via-[#00D4FF] to-[#7C5CFF]">
                   From Strategy to Software.
                 </span>
               </motion.h1>
@@ -305,7 +305,7 @@ export default function HomeClient() {
                 <Button
                   onClick={() => triggerConcierge()}
                   size="lg"
-                  className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(255,45,33,0.35)] transition-all duration-300 group px-7 flex items-center gap-2 shadow-lg shadow-primary/25"
+                  className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(22,119,255,0.4)] transition-all duration-300 group px-7 flex items-center gap-2 shadow-lg shadow-primary/25"
                 >
                   <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
                   Talk to Our AI
@@ -715,7 +715,7 @@ export default function HomeClient() {
               <Button
                 onClick={() => triggerConcierge()}
                 size="lg"
-                className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(255,45,33,0.4)] transition-all px-8 py-6 text-base shadow-xl shadow-primary/25 flex items-center gap-2.5 group"
+                className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(22,119,255,0.4)] transition-all px-8 py-6 text-base shadow-xl shadow-primary/25 flex items-center gap-2.5 group"
               >
                 <Bot className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 Talk to Our AI Advisor
@@ -751,7 +751,7 @@ export default function HomeClient() {
             <Button
               onClick={() => triggerConcierge()}
               size="lg"
-              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(255,45,33,0.35)] transition-all px-8 shadow-lg shadow-primary/25 flex items-center gap-2"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(22,119,255,0.4)] transition-all px-8 shadow-lg shadow-primary/25 flex items-center gap-2"
             >
               <Sparkles className="w-4 h-4" />
               Talk to Our AI

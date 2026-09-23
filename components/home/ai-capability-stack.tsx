@@ -35,7 +35,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerTitle: "LAYER 1 — INTELLIGENCE",
     tagline: "Foundation Models, Multimodal Reasoning & ML",
     icon: Cpu,
-    accentColor: "#8B5CF6",
+    accentColor: "#7C5CFF", // Violet
     capabilities: [
       {
         id: "foundation-models",
@@ -76,7 +76,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerTitle: "LAYER 2 — KNOWLEDGE",
     tagline: "RAG, Enterprise Search & Knowledge Graphs",
     icon: Network,
-    accentColor: "#3B82F6",
+    accentColor: "#00D4FF", // Cyan
     capabilities: [
       {
         id: "rag",
@@ -117,7 +117,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerTitle: "LAYER 3 — AGENTS",
     tagline: "Autonomous Swarms, Workflows & Tool Execution",
     icon: Bot,
-    accentColor: "#10B981",
+    accentColor: "#7C5CFF", // Violet
     capabilities: [
       {
         id: "ai-agents",
@@ -158,7 +158,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerTitle: "LAYER 4 — APPLICATIONS",
     tagline: "Copilots, Decision Cockpits & Software",
     icon: Layout,
-    accentColor: "#FF2D21",
+    accentColor: "#1677FF", // Electric Blue
     capabilities: [
       {
         id: "ai-applications",
@@ -199,7 +199,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerTitle: "LAYER 5 — ENTERPRISE",
     tagline: "Data, APIs, Cloud VPC, Security & Governance",
     icon: ShieldCheck,
-    accentColor: "#06B6D4",
+    accentColor: "#1677FF", // Electric Blue
     capabilities: [
       {
         id: "data",

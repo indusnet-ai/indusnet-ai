@@ -526,6 +526,34 @@ const ENTERPRISE_AGENTS: AgentProfile[] = [
   }
 ];
 
+// Semantic color mapping for the 9-stage pipeline per visual identity specification:
+// User: white, Planner: blue, Knowledge: cyan, Agent: violet, Tools: blue, Systems: blue, Action: cyan, Verification: violet, Outcome: green
+function getStageActiveClasses(stageName: string): string {
+  if (stageName.includes("USER")) return "bg-slate-100 text-slate-950 border-white shadow-lg shadow-white/10";
+  if (stageName.includes("INTENT")) return "bg-[#1677FF] text-white border-[#1677FF] shadow-lg shadow-[#1677FF]/30";
+  if (stageName.includes("AGENT")) return "bg-[#7C5CFF] text-white border-[#7C5CFF] shadow-lg shadow-[#7C5CFF]/30";
+  if (stageName.includes("KNOWLEDGE")) return "bg-[#00D4FF] text-slate-950 border-[#00D4FF] shadow-lg shadow-[#00D4FF]/30 font-bold";
+  if (stageName.includes("TOOL")) return "bg-[#1677FF] text-white border-[#1677FF] shadow-lg shadow-[#1677FF]/30";
+  if (stageName.includes("SYSTEM")) return "bg-[#1677FF] text-white border-[#1677FF] shadow-lg shadow-[#1677FF]/30";
+  if (stageName.includes("ACTION")) return "bg-[#00D4FF] text-slate-950 border-[#00D4FF] shadow-lg shadow-[#00D4FF]/30 font-bold";
+  if (stageName.includes("VERIFICATION")) return "bg-[#7C5CFF] text-white border-[#7C5CFF] shadow-lg shadow-[#7C5CFF]/30";
+  if (stageName.includes("OUTCOME")) return "bg-[#10B981] text-white border-[#10B981] shadow-lg shadow-[#10B981]/30";
+  return "bg-primary text-white border-primary shadow-lg";
+}
+
+function getStageBadgeClasses(stageName: string): string {
+  if (stageName.includes("USER")) return "text-slate-200 border-slate-400/40 bg-slate-500/10";
+  if (stageName.includes("INTENT")) return "text-[#1677FF] border-[#1677FF]/40 bg-[#1677FF]/10";
+  if (stageName.includes("AGENT")) return "text-[#7C5CFF] border-[#7C5CFF]/40 bg-[#7C5CFF]/10";
+  if (stageName.includes("KNOWLEDGE")) return "text-[#00D4FF] border-[#00D4FF]/40 bg-[#00D4FF]/10";
+  if (stageName.includes("TOOL")) return "text-[#1677FF] border-[#1677FF]/40 bg-[#1677FF]/10";
+  if (stageName.includes("SYSTEM")) return "text-[#1677FF] border-[#1677FF]/40 bg-[#1677FF]/10";
+  if (stageName.includes("ACTION")) return "text-[#00D4FF] border-[#00D4FF]/40 bg-[#00D4FF]/10";
+  if (stageName.includes("VERIFICATION")) return "text-[#7C5CFF] border-[#7C5CFF]/40 bg-[#7C5CFF]/10";
+  if (stageName.includes("OUTCOME")) return "text-[#10B981] border-[#10B981]/40 bg-[#10B981]/10";
+  return "text-primary border-primary/30 bg-primary/10";
+}
+
 export function AgentWorkflowSimulator() {
   const [selectedAgentId, setSelectedAgentId] = React.useState<string>("procurement");
   const [currentStepIndex, setCurrentStepIndex] = React.useState<number>(0);
@@ -760,7 +788,7 @@ export function AgentWorkflowSimulator() {
             </div>
 
             <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-red-500 font-bold block">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
                 Human Oversight Mechanism:
               </span>
               <p className="text-muted-foreground leading-relaxed text-[11px]">
@@ -768,8 +796,8 @@ export function AgentWorkflowSimulator() {
               </p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-primary/5 border border-primary/20 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-primary font-bold block">
+            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-1.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
                 Measured Business Outcome:
               </span>
               <p className="font-semibold text-foreground leading-relaxed text-[11px]">
@@ -809,14 +837,14 @@ export function AgentWorkflowSimulator() {
                   }}
                   className={`p-2 rounded-xl border text-left transition-all duration-200 flex flex-col justify-between gap-1 ${
                     isCurrent
-                      ? "bg-primary text-white border-primary shadow-md shadow-primary/25 scale-[1.03]"
+                      ? getStageActiveClasses(s.stageName) + " scale-[1.03]"
                       : isPast
                       ? "bg-muted/70 border-emerald-500/40 text-foreground"
                       : "bg-background/40 border-border/70 text-muted-foreground hover:border-border"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`text-[9px] font-mono font-bold ${isCurrent ? "text-white" : isPast ? "text-emerald-500" : "text-muted-foreground"}`}>
+                    <span className={`text-[9px] font-mono font-bold ${isCurrent ? "" : isPast ? "text-emerald-500" : "text-muted-foreground"}`}>
                       0{s.stepNumber}
                     </span>
                     {isPast && <CheckCircle2 className="w-2.5 h-2.5 text-emerald-500" />}
@@ -835,7 +863,7 @@ export function AgentWorkflowSimulator() {
             <div className="lg:col-span-5 bg-muted/30 border border-border/70 rounded-2xl p-6 flex flex-col justify-between space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-[10px] font-mono uppercase tracking-wider text-primary border-primary/30">
+                  <Badge variant="outline" className={`text-[10px] font-mono uppercase tracking-wider ${getStageBadgeClasses(activeStep.stageName)}`}>
                     {activeStep.stageName}
                   </Badge>
                   <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px]">
