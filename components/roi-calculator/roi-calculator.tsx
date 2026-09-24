@@ -422,7 +422,17 @@ Payback Period: ${results.paybackMonths} months
                     if (typeof window !== "undefined") {
                       window.dispatchEvent(
                         new CustomEvent("open-ai-concierge", {
-                          detail: { starterId: "explore-opportunities" }
+                          detail: { 
+                            starterId: "build-application",
+                            industryId: selectedIndustry.id.toLowerCase().includes("health") ? "healthcare" : selectedIndustry.id.toLowerCase().includes("financ") ? "finance" : undefined,
+                            contextSource: "roi",
+                            roiContext: {
+                              teamSize: Math.max(10, Math.round(volume / 50)),
+                              targetDepartment: selectedIndustry.name,
+                              estimatedSavings: `$${results.netAnnualSavings.toLocaleString()}/yr`,
+                              laborHoursRecovered: `${results.automatedHoursSaved.toLocaleString()} hrs/yr`
+                            }
+                          }
                         })
                       );
                     }

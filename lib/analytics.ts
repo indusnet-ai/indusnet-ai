@@ -18,6 +18,12 @@ export const ConversionEvents = {
   // Interactive Tools Funnel
   AI_CONCIERGE_STARTED: "ai_concierge_started",
   AI_CONCIERGE_COMPLETED: "ai_concierge_completed",
+  AI_CONCIERGE_MESSAGE_SENT: "ai_concierge_message_sent",
+  AI_CONCIERGE_LLM_REQUEST: "ai_concierge_llm_request",
+  AI_CONCIERGE_LLM_SUCCESS: "ai_concierge_llm_success",
+  AI_CONCIERGE_LLM_FALLBACK: "ai_concierge_llm_fallback",
+  AI_CONCIERGE_LLM_ERROR: "ai_concierge_llm_error",
+  AI_CONCIERGE_HANDOFF_REQUESTED: "ai_concierge_handoff_requested",
   AI_SCOPER_STARTED: "ai_scoper_started",
   AI_SCOPER_COMPLETED: "ai_scoper_completed",
   AI_SCOPER_COMPLETE: "ai_scoper_complete", // backwards-compatible alias

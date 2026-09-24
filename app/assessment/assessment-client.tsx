@@ -822,7 +822,19 @@ export default function AssessmentClient() {
                       variant="outline" 
                       onClick={() => {
                         if (typeof window !== "undefined") {
-                          window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                          window.dispatchEvent(new CustomEvent("open-ai-concierge", { 
+                            detail: { 
+                              starterId: "explore-use-cases",
+                              contextSource: "assessment",
+                              industryId: domain.toLowerCase().includes("health") ? "healthcare" : domain.toLowerCase().includes("financ") ? "finance" : undefined,
+                              challenge: customerProblem || undefined,
+                              assessmentContext: {
+                                domain,
+                                maturityScore: Math.min(95, 60 + aiObjectives.length * 7),
+                                priorityObjectives: aiObjectives.slice(0, 3)
+                              }
+                            } 
+                          }));
                         }
                       }}
                       className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-xs px-4 py-2 w-full sm:w-auto cursor-pointer"

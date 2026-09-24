@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Sparkles, X, Send, Bot, ArrowRight, Cpu, Search, 
   Layers, UserCheck, RefreshCw, Compass, ShieldCheck, 
-  Clock, Zap, CheckCircle2, Terminal, Building2, Check,
-  Copy, FileText, ArrowDown, ChevronRight, Lock, Calendar, Loader2
+  Zap, CheckCircle2, Terminal, Building2, Check,
+  Copy, FileText, ArrowDown, ChevronRight, Lock, Calendar, Loader2,
+  HelpCircle, MessageSquare
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -21,8 +22,46 @@ import {
   ENGAGEMENT_OPTIONS,
   generateCustomPath,
   CustomPathResult,
+  QualificationTier,
   AiConciergeStarter
 } from "@/lib/ai-concierge-data";
+
+export interface OpenConciergeDetail {
+  starterId?: string;
+  industryId?: string;
+  scaleId?: string;
+  engagementId?: string;
+  challenge?: string;
+  contextSource?: "assessment" | "roi" | "direct" | "showcase";
+  assessmentContext?: {
+    domain?: string;
+    maturityScore?: number;
+    priorityObjectives?: string[];
+  };
+  roiContext?: {
+    teamSize?: number;
+    targetDepartment?: string;
+    estimatedSavings?: string;
+    laborHoursRecovered?: string;
+  };
+}
+
+interface ConciergeApiResponse {
+  isRealLlm: boolean;
+  provider: string;
+  model: string;
+  notice?: string;
+  conversationReply: string;
+  opportunity: {
+    challenge: string;
+    recommendedApproach: string;
+    likelyComponents: string[];
+    enterpriseConsiderations: string[];
+    suggestedNextStep: string;
+    qualificationTier: QualificationTier;
+    confidenceOrAssumptions: string[];
+  };
+}
 
 export function AiConciergeModal() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -32,8 +71,14 @@ export function AiConciergeModal() {
   const [selectedEngagementId, setSelectedEngagementId] = React.useState<string | null>(null);
   const [customText, setCustomText] = React.useState("");
   const [isThinking, setIsThinking] = React.useState(false);
-  const [generatedResult, setGeneratedResult] = React.useState<CustomPathResult | null>(null);
   const [copied, setCopied] = React.useState(false);
+
+  // Attached Context (from Scoper or ROI Estimator)
+  const [attachedContext, setAttachedContext] = React.useState<OpenConciergeDetail | null>(null);
+
+  // Conversation & AI Response State
+  const [conversationHistory, setConversationHistory] = React.useState<{ role: "user" | "assistant"; content: string }[]>([]);
+  const [conciergeResult, setConciergeResult] = React.useState<ConciergeApiResponse | null>(null);
 
   // In-modal Lead Capture State
   const [showLeadForm, setShowLeadForm] = React.useState(false);
@@ -45,16 +90,26 @@ export function AiConciergeModal() {
   const [leadSubmitted, setLeadSubmitted] = React.useState(false);
   const [leadError, setLeadError] = React.useState("");
 
-  // Global event listener to open concierge from anywhere
+  // Global event listener to open concierge from anywhere with optional context
   React.useEffect(() => {
-    const handleOpen = (e: CustomEvent<{ starterId?: string }>) => {
+    const handleOpen = (e: CustomEvent<OpenConciergeDetail>) => {
       setIsOpen(true);
       trackEvent(ConversionEvents.CTA_TALK_TO_AI, { trigger: "event_listener" });
       trackEvent(ConversionEvents.AI_CONCIERGE_STARTED);
-      if (e.detail?.starterId) {
-        handleStarterSelect(e.detail.starterId);
+
+      if (e.detail) {
+        setAttachedContext(e.detail);
+        if (e.detail.industryId) {
+          setSelectedIndustryId(e.detail.industryId);
+        }
+        if (e.detail.starterId) {
+          triggerQuery(e.detail.starterId, undefined, e.detail);
+        } else if (e.detail.challenge) {
+          triggerQuery("explore-opportunities", e.detail.challenge, e.detail);
+        }
       }
     };
+
     window.addEventListener("open-ai-concierge" as any, handleOpen);
     return () => window.removeEventListener("open-ai-concierge" as any, handleOpen);
   }, []);
@@ -76,64 +131,124 @@ export function AiConciergeModal() {
     trackEvent(ConversionEvents.AI_CONCIERGE_STARTED);
   };
 
-  const handleStarterSelect = (id: string) => {
-    setSelectedStarterId(id);
+  // Core API query execution
+  const triggerQuery = async (
+    starterId: string, 
+    customQuery?: string, 
+    overrideContext?: OpenConciergeDetail
+  ) => {
+    setSelectedStarterId(starterId);
     setIsThinking(true);
-    setGeneratedResult(null);
     setShowLeadForm(false);
     setLeadSubmitted(false);
 
-    setTimeout(() => {
-      const res = generateCustomPath(
-        id, 
-        selectedIndustryId || undefined, 
-        selectedScaleId || undefined,
-        undefined,
-        selectedEngagementId || undefined
-      );
-      setGeneratedResult(res);
-      setIsThinking(false);
-      trackEvent(ConversionEvents.AI_CONCIERGE_COMPLETED, {
-        starterId: id,
-        tier: res.qualificationTier,
-        industry: selectedIndustryId || "general"
+    const activeContext = overrideContext || attachedContext;
+    const starter = CONCIERGE_STARTERS.find((s) => s.id === starterId) || CONCIERGE_STARTERS[0];
+    const userPrompt = customQuery?.trim() || starter.defaultChallenge;
+
+    const newHistory = [...conversationHistory, { role: "user" as const, content: userPrompt }];
+    setConversationHistory(newHistory);
+
+    trackEvent(ConversionEvents.AI_CONCIERGE_MESSAGE_SENT, { starterId, queryLength: userPrompt.length });
+    trackEvent(ConversionEvents.AI_CONCIERGE_LLM_REQUEST);
+
+    try {
+      const response = await fetch("/api/ai-concierge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: newHistory,
+          industry: selectedIndustryId || activeContext?.industryId || undefined,
+          stage: selectedScaleId || activeContext?.scaleId || undefined,
+          challenge: userPrompt,
+          engagementType: selectedEngagementId || activeContext?.engagementId || undefined,
+          contextSource: activeContext?.contextSource || "direct",
+          assessmentContext: activeContext?.assessmentContext,
+          roiContext: activeContext?.roiContext
+        })
       });
-    }, 400);
+
+      if (!response.ok) {
+        throw new Error(`API returned HTTP ${response.status}`);
+      }
+
+      const data: ConciergeApiResponse = await response.json();
+      setConciergeResult(data);
+
+      setConversationHistory((prev) => [
+        ...prev,
+        { role: "assistant", content: data.conversationReply }
+      ]);
+
+      if (data.isRealLlm) {
+        trackEvent(ConversionEvents.AI_CONCIERGE_LLM_SUCCESS, { model: data.model });
+      } else {
+        trackEvent(ConversionEvents.AI_CONCIERGE_LLM_FALLBACK, { provider: data.provider });
+      }
+
+      trackEvent(ConversionEvents.AI_CONCIERGE_COMPLETED, {
+        tier: data.opportunity.qualificationTier,
+        isRealLlm: data.isRealLlm
+      });
+
+    } catch (err) {
+      console.warn("[AI Concierge] API call failed, falling back to local deterministic model:", err);
+      trackEvent(ConversionEvents.AI_CONCIERGE_LLM_ERROR);
+
+      // Safe Local Fallback
+      const fallbackResult = generateCustomPath(
+        starterId,
+        selectedIndustryId || activeContext?.industryId || undefined,
+        selectedScaleId || activeContext?.scaleId || undefined,
+        userPrompt,
+        selectedEngagementId || activeContext?.engagementId || undefined
+      );
+
+      const localResponse: ConciergeApiResponse = {
+        isRealLlm: false,
+        provider: "deterministic-local-engine",
+        model: "rule-based-domain-v1",
+        notice: "Notice: Live AI service endpoint was unreachable. Displaying local deterministic architecture blueprint.",
+        conversationReply: `Here is a preliminary architectural framework aligned with your objectives. Our lead architects can refine these components during an architecture consultation.`,
+        opportunity: {
+          challenge: fallbackResult.challenge,
+          recommendedApproach: fallbackResult.recommendedApproach,
+          likelyComponents: fallbackResult.likelyComponents,
+          enterpriseConsiderations: fallbackResult.enterpriseConsiderations,
+          suggestedNextStep: fallbackResult.suggestedNextStep,
+          qualificationTier: fallbackResult.qualificationTier,
+          confidenceOrAssumptions: [
+            "Generated from Indusnet AI enterprise pattern blueprints.",
+            "Directional estimate based on input parameters."
+          ]
+        }
+      };
+
+      setConciergeResult(localResponse);
+      setConversationHistory((prev) => [
+        ...prev,
+        { role: "assistant", content: localResponse.conversationReply }
+      ]);
+    } finally {
+      setIsThinking(false);
+    }
+  };
+
+  const handleStarterSelect = (id: string) => {
+    triggerQuery(id);
   };
 
   const handleRefineIndustry = (industryId: string) => {
     setSelectedIndustryId(industryId);
-    if (selectedStarterId) {
-      setIsThinking(true);
-      setTimeout(() => {
-        const res = generateCustomPath(
-          selectedStarterId, 
-          industryId || undefined, 
-          selectedScaleId || undefined,
-          customText || undefined,
-          selectedEngagementId || undefined
-        );
-        setGeneratedResult(res);
-        setIsThinking(false);
-      }, 300);
+    if (selectedStarterId || customText) {
+      triggerQuery(selectedStarterId || "explore-opportunities", customText || undefined);
     }
   };
 
   const handleRefineEngagement = (engagementId: string) => {
     setSelectedEngagementId(engagementId);
     if (selectedStarterId || customText) {
-      setIsThinking(true);
-      setTimeout(() => {
-        const res = generateCustomPath(
-          selectedStarterId || "explore-opportunities", 
-          selectedIndustryId || undefined, 
-          selectedScaleId || undefined,
-          customText || undefined,
-          engagementId || undefined
-        );
-        setGeneratedResult(res);
-        setIsThinking(false);
-      }, 300);
+      triggerQuery(selectedStarterId || "explore-opportunities", customText || undefined);
     }
   };
 
@@ -142,26 +257,8 @@ export function AiConciergeModal() {
     if (!customText.trim()) return;
 
     const query = customText.trim();
-    setIsThinking(true);
-    setSelectedStarterId("build-application");
-    setShowLeadForm(false);
-    setLeadSubmitted(false);
-
-    setTimeout(() => {
-      const res = generateCustomPath(
-        "build-application", 
-        selectedIndustryId || undefined, 
-        selectedScaleId || undefined, 
-        query,
-        selectedEngagementId || undefined
-      );
-      setGeneratedResult(res);
-      setIsThinking(false);
-      trackEvent(ConversionEvents.AI_CONCIERGE_COMPLETED, {
-        query_type: "custom",
-        tier: res.qualificationTier
-      });
-    }, 450);
+    setCustomText("");
+    triggerQuery(selectedStarterId || "build-application", query);
   };
 
   const handleReset = () => {
@@ -169,40 +266,38 @@ export function AiConciergeModal() {
     setSelectedIndustryId(null);
     setSelectedScaleId(null);
     setSelectedEngagementId(null);
-    setGeneratedResult(null);
+    setAttachedContext(null);
     setCustomText("");
-    setIsThinking(false);
+    setConciergeResult(null);
+    setConversationHistory([]);
     setShowLeadForm(false);
     setLeadSubmitted(false);
     setLeadError("");
   };
 
   const handleCopyBlueprint = () => {
-    if (!generatedResult) return;
-    const text = `INDUSNET AI — ARCHITECTURE OPPORTUNITY SUMMARY
+    if (!conciergeResult) return;
 
-YOUR AI OPPORTUNITY:
+    const text = `INDUSNET AI ARCHITECTURE BLUEPRINT
+Engine: ${conciergeResult.isRealLlm ? `Live LLM (${conciergeResult.model})` : `Deterministic Domain Engine`}
+Qualification Tier: ${conciergeResult.opportunity.qualificationTier}
+
 Business Challenge:
-${generatedResult.challenge}
+${conciergeResult.opportunity.challenge}
 
-Potential AI Approach:
-${generatedResult.recommendedApproach}
+Recommended AI Approach:
+${conciergeResult.opportunity.recommendedApproach}
 
 Likely System Components:
-${generatedResult.likelyComponents.map((c) => `- ${c}`).join("\n")}
+${conciergeResult.opportunity.likelyComponents.map((c) => `- ${c}`).join("\n")}
 
 Enterprise Considerations:
-${generatedResult.enterpriseConsiderations.map((ec) => `- ${ec}`).join("\n")}
+${conciergeResult.opportunity.enterpriseConsiderations.map((ec) => `- ${ec}`).join("\n")}
 
 Suggested Next Step:
-${generatedResult.suggestedNextStep}
+${conciergeResult.opportunity.suggestedNextStep}
 
-Target Architecture:
-${generatedResult.targetArchitecture.map((a) => `${a.layer}: ${a.technology}`).join("\n")}
-
-Estimated Timeline: ${generatedResult.timeline}
-Impact Potential: ${generatedResult.roiProjection}
-Notice: Directional assessment based on user inputs. Not a contractual guarantee.`;
+Directional notice: Preliminary architecture framework. Formal scoping conducted under NDA with an AI architect.`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -220,25 +315,33 @@ Notice: Directional assessment based on user inputs. Not a contractual guarantee
     setLeadError("");
 
     trackEvent(ConversionEvents.LEAD_FORM_STARTED, { form: "concierge_modal" });
+    trackEvent(ConversionEvents.AI_CONCIERGE_HANDOFF_REQUESTED);
 
     try {
       const notes = `
 AI CONCIERGE QUALIFIED OPPORTUNITY
+Engine: ${conciergeResult?.isRealLlm ? `Live LLM (${conciergeResult.model})` : `Deterministic Domain Engine`}
 Role / Title: ${leadRole || "Not specified"}
-Qualification Tier: ${generatedResult?.qualificationTier || "Active Opportunity"}
-Desired Engagement: ${generatedResult?.engagementType || "AI Architecture Review"}
+Qualification Tier: ${conciergeResult?.opportunity.qualificationTier || "Active Opportunity"}
+Desired Engagement: ${selectedEngagementId || "AI Architecture Review"}
+
+Attached Source: ${attachedContext?.contextSource || "Direct Concierge Session"}
+${attachedContext?.assessmentContext ? `Scoper Domain: ${attachedContext.assessmentContext.domain} (Score: ${attachedContext.assessmentContext.maturityScore})` : ""}
+${attachedContext?.roiContext ? `ROI Modeled: ${attachedContext.roiContext.targetDepartment} (${attachedContext.roiContext.estimatedSavings})` : ""}
 
 Business Challenge:
-${generatedResult?.challenge}
+${conciergeResult?.opportunity.challenge}
 
 Recommended Approach:
-${generatedResult?.recommendedApproach}
+${conciergeResult?.opportunity.recommendedApproach}
 
 Key Components:
-${generatedResult?.likelyComponents.join(", ")}
+${conciergeResult?.opportunity.likelyComponents.join(", ")}
 
 Enterprise Considerations:
-${generatedResult?.enterpriseConsiderations.join("; ")}
+${conciergeResult?.opportunity.enterpriseConsiderations.join("; ")}
+
+Notice: AI-generated preliminary analysis - directional estimate.
       `.trim();
 
       const res = await fetch("/api/consultations", {
@@ -248,7 +351,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
           name: leadName,
           email: leadEmail,
           company: leadCompany || "Enterprise Lead",
-          service: `AI Architecture Review (${generatedResult?.engagementType || "Enterprise AI"})`,
+          service: `AI Architecture Consultation (${conciergeResult?.opportunity.qualificationTier || "Enterprise AI"})`,
           message: notes,
         }),
       });
@@ -257,8 +360,8 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
       if (res.ok && data.success) {
         trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, {
           form: "concierge_modal",
-          tier: generatedResult?.qualificationTier,
-          service: generatedResult?.engagementType
+          tier: conciergeResult?.opportunity.qualificationTier,
+          isRealLlm: conciergeResult?.isRealLlm
         });
         setLeadSubmitted(true);
       } else {
@@ -343,24 +446,36 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                     </div>
                     <p className="text-[11px] text-muted-foreground flex items-center gap-1.5 mt-0.5 font-mono">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Session Active · Strategy to Production Synthesizer
+                      Session Active · Production Architecture & Feasibility
                     </p>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
-                  aria-label="Close dialog"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  {attachedContext && (
+                    <Badge className="bg-primary/15 border-primary/30 text-primary text-[10px] font-mono hidden sm:flex items-center gap-1">
+                      <Layers className="w-3 h-3" />
+                      {attachedContext.contextSource === "assessment"
+                        ? `Scoper Context: ${attachedContext.assessmentContext?.domain || "Domain"}`
+                        : attachedContext.contextSource === "roi"
+                        ? `ROI Context: ${attachedContext.roiContext?.targetDepartment || "Operations"}`
+                        : "Context Attached"}
+                    </Badge>
+                  )}
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
+                    aria-label="Close dialog"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Main Content Area */}
               <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
-                {/* Initial Screen: Opening Greeting & 8 Starters */}
-                {!generatedResult && !isThinking && (
+                {/* Initial Screen: Opening Greeting & Starters */}
+                {!conciergeResult && !isThinking && (
                   <div className="space-y-6">
                     <div className="bg-[#0D1828] border border-[#162238] rounded-xl p-4 sm:p-5 flex items-start gap-3.5">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0 mt-0.5">
@@ -441,17 +556,17 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                     </div>
                     <div className="space-y-1">
                       <p className="text-sm font-bold text-foreground">
-                        Formulating Enterprise AI Blueprint...
+                        Synthesizing Architecture Blueprint...
                       </p>
                       <p className="text-xs text-muted-foreground font-mono">
-                        Evaluating Guardrails · Sizing Compute · Mapping Delivery
+                        Evaluating Guardrails · Sizing Compute Boundaries · Verifying Compliance
                       </p>
                     </div>
                   </div>
                 )}
 
                 {/* Generated Recommended AI Path & Opportunity Assessment */}
-                {generatedResult && !isThinking && (
+                {conciergeResult && !isThinking && (
                   <div className="space-y-5">
                     {/* Control Bar: Reset & Filters */}
                     <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0D1828] border border-[#162238] rounded-xl px-4 py-2.5 text-xs">
@@ -474,7 +589,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           onChange={(e) => handleRefineEngagement(e.target.value)}
                           className="bg-[#08111F] border border-[#162238] rounded-md px-2 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
                         >
-                          <option value="">{generatedResult.engagementType}</option>
+                          <option value="">{conciergeResult.opportunity.qualificationTier}</option>
                           {ENGAGEMENT_OPTIONS.map((eng) => (
                             <option key={eng.id} value={eng.id}>{eng.label}</option>
                           ))}
@@ -499,6 +614,40 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                       </div>
                     </div>
 
+                    {/* Notice Disclosure if fallback or special mode */}
+                    {conciergeResult.notice && (
+                      <div className="bg-[#0D1828]/80 border border-amber-500/25 rounded-xl p-3 flex items-start gap-2.5">
+                        <Lock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <p className="text-[11px] text-muted-foreground leading-relaxed font-mono">
+                          {conciergeResult.notice}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Conversational Advisor Reply */}
+                    <div className="bg-[#0D1828] border border-[#162238] rounded-xl p-4 flex items-start gap-3.5">
+                      <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/30 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                        <Bot className="w-4 h-4" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-foreground">Indusnet Architecture Advisor</span>
+                          {conciergeResult.isRealLlm ? (
+                            <Badge className="bg-emerald-500/10 border-emerald-500/25 text-emerald-400 font-mono text-[9px] px-1.5 py-0">
+                              Live Model · {conciergeResult.model}
+                            </Badge>
+                          ) : (
+                            <Badge className="bg-amber-500/10 border-amber-500/25 text-amber-400 font-mono text-[9px] px-1.5 py-0">
+                              Deterministic Engine
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          {conciergeResult.conversationReply}
+                        </p>
+                      </div>
+                    </div>
+
                     {/* Structured Blueprint Container: "Your AI Opportunity" */}
                     <div className="bg-[#0D1828]/60 border border-[#162238] rounded-xl p-5 shadow-sm space-y-5">
                       <div className="flex items-center justify-between border-b border-[#162238] pb-3">
@@ -509,7 +658,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           <h3 className="text-sm font-bold text-foreground">Your AI Opportunity</h3>
                         </div>
                         <Badge className="bg-muted text-muted-foreground border-border text-[10px] font-mono">
-                          {generatedResult.engagementType}
+                          {conciergeResult.opportunity.qualificationTier}
                         </Badge>
                       </div>
 
@@ -520,7 +669,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           BUSINESS CHALLENGE
                         </span>
                         <div className="p-3 rounded-lg bg-[#08111F] border border-[#162238] text-xs text-foreground leading-relaxed">
-                          {generatedResult.challenge}
+                          {conciergeResult.opportunity.challenge}
                         </div>
                       </div>
 
@@ -531,7 +680,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           POTENTIAL AI APPROACH
                         </span>
                         <div className="p-3 rounded-lg bg-primary/10 border border-primary/30 text-xs font-bold text-foreground">
-                          {generatedResult.recommendedApproach}
+                          {conciergeResult.opportunity.recommendedApproach}
                         </div>
                       </div>
 
@@ -542,7 +691,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           LIKELY SYSTEM COMPONENTS
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                          {generatedResult.likelyComponents.map((comp, i) => (
+                          {conciergeResult.opportunity.likelyComponents.map((comp, i) => (
                             <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
                               <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
                               <span className="text-foreground text-[11px] font-medium">{comp}</span>
@@ -558,7 +707,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           ENTERPRISE CONSIDERATIONS
                         </span>
                         <div className="space-y-1.5">
-                          {generatedResult.enterpriseConsiderations.map((ec, i) => (
+                          {conciergeResult.opportunity.enterpriseConsiderations.map((ec, i) => (
                             <div key={i} className="flex items-start gap-2 p-2 rounded-lg bg-[#08111F] border border-[#162238] text-xs">
                               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                               <span className="text-muted-foreground text-[11px] leading-relaxed">{ec}</span>
@@ -573,22 +722,18 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                           SUGGESTED NEXT STEP
                         </span>
                         <p className="text-xs text-foreground font-medium leading-relaxed">
-                          {generatedResult.suggestedNextStep}
+                          {conciergeResult.opportunity.suggestedNextStep}
                         </p>
                       </div>
 
-                      {/* Timeline & Impact Potential */}
+                      {/* Assumptions and Directional Notice */}
                       <div className="pt-2 border-t border-[#162238] text-xs space-y-2">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238] flex items-center justify-between">
-                            <span className="text-muted-foreground font-mono text-[11px]">Estimated Timeline:</span>
-                            <span className="font-bold text-foreground font-mono">{generatedResult.timeline}</span>
+                        {conciergeResult.opportunity.confidenceOrAssumptions && conciergeResult.opportunity.confidenceOrAssumptions.length > 0 && (
+                          <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238] text-[11px] text-muted-foreground">
+                            <span className="font-semibold text-foreground font-mono">Assumptions & Baseline:</span>{" "}
+                            {conciergeResult.opportunity.confidenceOrAssumptions.join(" ")}
                           </div>
-                          <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/25 flex items-center justify-between gap-2">
-                            <span className="text-muted-foreground font-mono text-[11px] shrink-0">Impact Potential:</span>
-                            <span className="font-semibold text-amber-400 text-right">{generatedResult.roiProjection}</span>
-                          </div>
-                        </div>
+                        )}
                         <p className="text-[10px] text-muted-foreground/60 italic text-center font-mono">
                           Directional opportunity summary based on provided inputs. Not a validated commercial business case or contractual guarantee.
                         </p>
@@ -716,7 +861,7 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
                               className="rounded-full text-xs bg-[#0D1828] border-[#162238]"
                             >
                               <Link 
-                                href={`/contact?service=${encodeURIComponent(generatedResult?.engagementType || "AI Architecture")}`}
+                                href={`/contact?service=${encodeURIComponent("AI Architecture Consultation")}`}
                                 onClick={() => setIsOpen(false)}
                                 className="flex items-center gap-1.5"
                               >
@@ -741,46 +886,42 @@ ${generatedResult?.enterpriseConsiderations.join("; ")}
 
               {/* Footer CTA & Input */}
               <div className="px-6 py-4 border-t border-[#162238] bg-[#050B14]/90 space-y-3">
-                {generatedResult ? (
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-xs text-muted-foreground text-center sm:text-left font-mono">
-                      Prefer full contact form?
-                    </p>
-                    <Button
-                      size="sm"
-                      asChild
-                      variant="outline"
-                      className="rounded-full bg-[#0D1828] border-[#162238] hover:border-primary/50 text-foreground text-xs px-5 shadow-xs w-full sm:w-auto font-bold"
+                <form onSubmit={handleCustomSubmit} className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={customText}
+                    onChange={(e) => setCustomText(e.target.value)}
+                    placeholder={
+                      conciergeResult
+                        ? "Ask a follow-up question (e.g. 'How do we isolate data inside our private AWS VPC?')"
+                        : "Type your enterprise challenge (e.g. 'How do we connect clinical EHR notes to an open-source LLM?')"
+                    }
+                    className="flex-1 bg-[#0D1828] border border-[#162238] rounded-full px-4 py-2 text-xs text-foreground focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
+                  />
+                  <Button
+                    type="submit"
+                    size="sm"
+                    disabled={!customText.trim() || isThinking}
+                    className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-9 font-bold shrink-0 cursor-pointer"
+                  >
+                    <Send className="w-3.5 h-3.5 mr-1" />
+                    {conciergeResult ? "Ask" : "Formulate Path"}
+                  </Button>
+                </form>
+
+                {conciergeResult && (
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-1">
+                    <span className="text-[11px] text-muted-foreground font-mono">
+                      Prefer direct human architecture review?
+                    </span>
+                    <Link
+                      href={`/contact?service=${encodeURIComponent("AI Architecture Consultation")}&challenge=${encodeURIComponent(conciergeResult.opportunity.challenge)}`}
+                      onClick={() => setIsOpen(false)}
+                      className="text-xs text-primary hover:underline font-bold flex items-center gap-1"
                     >
-                      <Link
-                        href={generatedResult.nextStepUrl}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center justify-center gap-1.5 font-bold"
-                      >
-                        Discuss Architecture on Contact Page
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </Button>
+                      Discuss Architecture on Contact Page <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
-                ) : (
-                  <form onSubmit={handleCustomSubmit} className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      value={customText}
-                      onChange={(e) => setCustomText(e.target.value)}
-                      placeholder="Type your challenge (e.g. 'How do we connect HIPAA clinical notes to an open-source LLM?')"
-                      className="flex-1 bg-[#0D1828] border border-[#162238] rounded-full px-4 py-2 text-xs text-foreground focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
-                    />
-                    <Button
-                      type="submit"
-                      size="sm"
-                      disabled={!customText.trim()}
-                      className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-9 font-bold shrink-0 cursor-pointer"
-                    >
-                      <Send className="w-3.5 h-3.5 mr-1" />
-                      Formulate Path
-                    </Button>
-                  </form>
                 )}
               </div>
             </motion.div>
