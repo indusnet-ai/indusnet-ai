@@ -163,17 +163,22 @@ export default function GenerativeAiServicesPage() {
         </motion.div>
       </section>
 
-      {/* 2. CASE STUDY: PUTTING AI INTO PRODUCTION */}
+      {/* 2. SOLUTION SHOWCASE: PUTTING AI INTO PRODUCTION */}
       <section className="container mx-auto px-4 md:px-6 max-w-5xl">
         <div className="text-center max-w-3xl mx-auto flex flex-col gap-4 mb-12">
-          <Badge className="bg-emerald-500/10 border-emerald-500/20 text-emerald-400 w-fit mx-auto px-3 py-1 text-xs rounded-full font-semibold">
-            Putting AI into Production
-          </Badge>
+          <div className="flex items-center justify-center gap-2">
+            <Badge className="bg-primary/10 border-primary/20 text-primary w-fit px-3 py-1 text-xs rounded-full font-semibold">
+              Solution Showcase
+            </Badge>
+            <Badge className="bg-amber-500/10 border-amber-500/20 text-amber-400 w-fit px-3 py-1 text-xs rounded-full font-semibold">
+              Illustrative Scenario
+            </Badge>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading">
-            Enterprise Success Story: IT Chat Assistant
+            Architecture Blueprint: Multi-Location IT Support Assistant
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base">
-            See how we helped a national fast-food network deploy custom models to automate IT support for 2,600+ locations.
+            An architectural blueprint demonstrating how enterprise RAG and conversational agents automate technical support across distributed multi-location operations.
           </p>
         </div>
 
@@ -184,22 +189,22 @@ export default function GenerativeAiServicesPage() {
             {/* Case metrics */}
             <div className="lg:col-span-5 flex flex-col gap-6">
               <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] text-primary uppercase font-bold tracking-widest">The Results</span>
-                <h3 className="text-3xl font-extrabold text-white">Impact at Scale</h3>
+                <span className="text-[10px] text-primary uppercase font-bold tracking-widest">Target Architecture Metrics</span>
+                <h3 className="text-3xl font-extrabold text-white">System Targets</h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6">
                 <div className="flex flex-col border-l-2 border-primary pl-4">
-                  <span className="text-3xl font-extrabold text-emerald-400">30x Faster</span>
-                  <span className="text-xs text-muted-foreground mt-1">Resolution time for common support questions</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400">Accelerated Triage</span>
+                  <span className="text-xs text-muted-foreground mt-1">Target resolution velocity for routine technical inquiries (Illustrative)</span>
                 </div>
                 <div className="flex flex-col border-l-2 border-accent pl-4">
-                  <span className="text-3xl font-extrabold text-foreground">10,000+</span>
-                  <span className="text-xs text-muted-foreground mt-1">IT documents vector-encoded for RAG search</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold text-foreground">10,000+ Docs</span>
+                  <span className="text-xs text-muted-foreground mt-1">Representative technical documentation corpus</span>
                 </div>
                 <div className="flex flex-col border-l-2 border-purple-500 pl-4">
-                  <span className="text-3xl font-extrabold text-foreground">5 LLMs</span>
-                  <span className="text-xs text-muted-foreground mt-1">Deployed in parallel for A/B evaluation</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold text-foreground">Multi-Model</span>
+                  <span className="text-xs text-muted-foreground mt-1">Parallel evaluation across open-source and proprietary models</span>
                 </div>
               </div>
             </div>
@@ -207,16 +212,16 @@ export default function GenerativeAiServicesPage() {
             {/* Case content */}
             <div className="lg:col-span-7 flex flex-col gap-6 text-left">
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold text-foreground">The Challenge</h4>
+                <h4 className="text-lg font-bold text-foreground">Operational Challenge</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  A large fast-food brand needed a secure, natural-language interface to service their national IT requests. Support operators were overwhelmed by duplicate tickets, and document retrieval across manuals was painfully slow.
+                  Distributed enterprise operations require a secure, natural-language interface to service internal technical requests. Support operators are frequently overwhelmed by duplicate tickets, and document retrieval across manuals introduces substantial operational friction.
                 </p>
               </div>
 
               <div className="flex flex-col gap-2">
-                <h4 className="text-lg font-bold text-foreground">The Solution</h4>
+                <h4 className="text-lg font-bold text-foreground">Engineered Solution</h4>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Indusnet AI architected a Retrieval-Augmented Generation (RAG) system using vector databases to query company technical documentation. By keeping model pipelines interchangeable behind a unified API, we benchmarked multiple open-source models to optimize speed, accuracy, and operational cost.
+                  Indusnet AI architects a Retrieval-Augmented Generation (RAG) system using vector databases to query company technical documentation. By keeping model pipelines interchangeable behind a unified API, we benchmark multiple open-source models to optimize speed, accuracy, and operational cost.
                 </p>
               </div>
 
@@ -227,6 +232,10 @@ export default function GenerativeAiServicesPage() {
                   </Badge>
                 ))}
               </div>
+            </div>
+
+            <div className="lg:col-span-12 pt-4 border-t border-border/40 text-[11px] text-muted-foreground/60 italic text-center">
+              Illustrative scenario demonstrating enterprise RAG architecture and operational patterns. Metrics reflect modeled system targets.
             </div>
           </CardContent>
         </Card>

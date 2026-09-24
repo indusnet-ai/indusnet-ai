@@ -139,7 +139,7 @@ export default function CareersClient() {
           <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise AI Solutions</span>
         </h1>
         <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
-          At Indusnet AI, we design, deploy, and scale verified cognitive automation systems for high-compliance enterprise sectors. Build mission-critical technology with us.
+          At Indusnet AI, we design, deploy, and scale production-grade cognitive automation systems for high-compliance enterprise sectors. Build mission-critical technology with us.
         </p>
 
         {isStaticMode && (
@@ -332,7 +332,7 @@ export default function CareersClient() {
                 INDUSNET <span className="text-primary">AI</span>
               </h2>
               <p className="text-muted-foreground text-xs leading-relaxed max-w-sm">
-                A pioneer in building and deploying verified cognitive orchestration tools for enterprise scale compliance audits and recruitment models.
+                A pioneer in building and deploying production-grade cognitive orchestration tools for enterprise scale compliance audits and recruitment models.
               </p>
             </div>
             

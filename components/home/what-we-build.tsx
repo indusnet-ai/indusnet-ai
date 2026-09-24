@@ -43,7 +43,7 @@ const CAPABILITIES = [
     id: "knowledge",
     title: "Enterprise Knowledge",
     description:
-      "RAG-powered knowledge systems that give employees and AI agents instant, accurate access to your private organizational data — with verified citations and zero hallucinations.",
+      "RAG-powered knowledge systems that give employees and AI agents instant, accurate access to your private organizational data — with verified source citations and grounded attribution.",
     icon: Search,
     color: "text-[#00D4FF]",
     bg: "bg-[#00D4FF]/10",

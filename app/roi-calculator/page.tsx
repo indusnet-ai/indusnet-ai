@@ -4,13 +4,13 @@ import { ChevronRight, Home, Calculator, Sparkles } from "lucide-react";
 import { RoiCalculator } from "@/components/roi-calculator/roi-calculator";
 
 export const metadata: Metadata = {
-  title: "Enterprise AI ROI & GPU Sizing Calculator | Indusnet AI",
+  title: "Enterprise AI ROI Estimator & GPU Sizing | Indusnet AI",
   description:
-    "Calculate projected cost reductions, labor reallocation, and private GPU cluster hardware sizing for enterprise AI workloads.",
+    "Model your enterprise AI business case. Calculate illustrative net savings and private GPU compute sizing based on your operational inputs.",
   openGraph: {
-    title: "Enterprise AI ROI & GPU Sizing Calculator | Indusnet AI",
+    title: "Enterprise AI ROI Estimator & GPU Sizing | Indusnet AI",
     description:
-      "Model your unstructured document or agentic workloads. Calculate projected annual cost reductions and private GPU compute sizing.",
+      "Model your enterprise AI business case. Calculate illustrative net savings and private GPU compute sizing based on your operational inputs.",
     url: "https://www.indusnet-ai.com/roi-calculator",
     siteName: "Indusnet AI",
     images: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Enterprise AI ROI & GPU Sizing Calculator",
+        alt: "Enterprise AI ROI Estimator & GPU Sizing",
       },
     ],
     locale: "en_US",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Enterprise AI ROI & GPU Sizing Calculator | Indusnet AI",
+    title: "Enterprise AI ROI Estimator & GPU Sizing | Indusnet AI",
     description:
-      "Model your unstructured document or agentic workloads. Calculate projected annual cost reductions and private GPU compute sizing.",
+      "Model your enterprise AI business case. Calculate illustrative net savings and private GPU compute sizing based on your operational inputs.",
     images: ["/og-image.png"],
   },
 };
@@ -44,7 +44,7 @@ export default function RoiCalculatorPage() {
           </Link>
           <ChevronRight className="w-3 h-3" />
           <span className="text-foreground font-semibold flex items-center gap-1">
-            <Calculator className="w-3 h-3 text-primary" /> AI ROI & Sizing Calculator
+            <Calculator className="w-3 h-3 text-primary" /> AI ROI Estimator
           </span>
         </nav>
       </div>

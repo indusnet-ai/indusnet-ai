@@ -165,7 +165,7 @@ Payback Period: ${results.paybackMonths} months
                     {ind.name}
                   </span>
                   <span className="text-[10px] text-primary font-semibold">
-                    ~{ind.automationRate}% Automatable
+                    ~{ind.automationRate}% Assumed Potential
                   </span>
                 </button>
               );

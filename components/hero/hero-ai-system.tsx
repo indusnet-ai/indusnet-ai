@@ -87,7 +87,7 @@ const NODES_DATA: Record<string, ArchNode> = {
     category: "Execution",
     description: "Event-driven asynchronous document pipelines with human-in-the-loop approval thresholds.",
     techs: ["vLLM Orchestration", "Async Queues", "Temporal", "Docker VPC"],
-    metric: "99.99% Uptime",
+    metric: "High Availability",
     icon: Workflow,
     color: "#1677FF" // Blue
   },
@@ -105,9 +105,9 @@ const NODES_DATA: Record<string, ArchNode> = {
     id: "outcomes",
     name: "Measurable Business Outcomes",
     category: "Outcomes",
-    description: "Quantified enterprise value: manual toil elimination, sub-second latency, and verified ROI.",
-    techs: ["Sub-Second Triage", "Zero Hallucinations", "Hard Cost Savings", "Audit Compliance"],
-    metric: "3x–5x Efficiency",
+    description: "Quantified enterprise value: manual toil elimination, latency optimization, and modelled ROI.",
+    techs: ["Sub-Second Triage", "Grounded Citations", "Cost Optimization", "Audit Compliance"],
+    metric: "Efficiency Lift",
     icon: CheckCircle2,
     color: "#10B981" // Green
   }

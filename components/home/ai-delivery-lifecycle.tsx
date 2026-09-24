@@ -64,7 +64,7 @@ const STAGES: LifecycleStage[] = [
       "Deterministic safety guardrails & semantic prompt filters",
       "Zero-data-retention data flow specifications"
     ],
-    businessValue: "Guarantees intuitive enterprise adoption and zero hallucination risk.",
+    businessValue: "Promotes intuitive enterprise adoption with active hallucination mitigation.",
     techStack: ["Next.js 16 Streaming Wireframes", "NeMo Guardrail Specs", "RBAC Flow"]
   },
   {
@@ -94,7 +94,7 @@ const STAGES: LifecycleStage[] = [
       "Enterprise SSO (SAML 2.0 / Okta) and RBAC synchronization",
       "Stress-load testing and latency SLA validation"
     ],
-    businessValue: "Hardened software serving live operational workloads with guaranteed uptime.",
+    businessValue: "Hardened software serving live operational workloads with production-grade uptime targets.",
     techStack: ["Kubernetes", "AWS/Azure VPC Enclaves", "Triton / vLLM", "Docker"]
   },
   {

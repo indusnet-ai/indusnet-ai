@@ -104,7 +104,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/portfolio" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Case Studies & Proof
+                  Solution Showcases
                 </Link>
               </li>
               <li>
@@ -151,12 +151,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/roi-calculator" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  AI ROI & Hardware Sizer
+                  AI ROI Estimator
                 </Link>
               </li>
               <li>
                 <Link href="/assessment" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  AI Scoper Assessment
+                  AI Scoper & Scoping
                 </Link>
               </li>
               <li>

@@ -20,19 +20,19 @@ const industryDetails = [
     challenges: [
       "Physician burnout due to excessive EHR clinical documentation requirements.",
       "Strict data privacy regulations (HIPAA, GDPR) blocking public API use.",
-      "High clinical triage error rates in multi-specialty emergency wards."
+      "Complex clinical triage routing in multi-specialty emergency environments."
     ],
     solutions: [
-      "Custom local ambient voice assistants mapping patient discussions directly into EHR templates.",
-      "VPC-isolated medical document RAG engines searching patient histories securely.",
-      "Machine-learning classification systems routing incoming medical cases with 98%+ precision."
+      "Custom ambient clinical intake models structuring patient consultations directly into EHR templates.",
+      "VPC-isolated medical document RAG engines searching clinical guidelines and research securely.",
+      "High-precision triage classification models assisting medical staff with case routing."
     ],
     outcomes: [
-      "Saves clinicians an average of 2.1 hours per day on data entry.",
-      "Absolute preservation of patient health information (PHI) within private subnet limits.",
-      "ZeroDefect emergency room triage assistance."
+      "Designed to significantly reduce clinician administrative overhead on EHR documentation.",
+      "Strict preservation of patient health information (PHI) within private VPC subnet limits.",
+      "Deterministic clinical triage assistance with mandatory human-in-the-loop escalation."
     ],
-    highlight: "MedIntake Copilot deployed across 14 clinics."
+    highlight: "Architecture Pattern: Ambient Clinical Documentation & EHR Integration (Illustrative)"
   },
   {
     name: "Retail & E-commerce",
@@ -40,21 +40,21 @@ const industryDetails = [
     badge: "Hyper-Growth",
     color: "text-violet-400 bg-violet-500/10 border-violet-500/20",
     challenges: [
-      "High cart abandonment rates due to static recommendation carousels.",
-      "Slow manual catalog classification delaying new SKU arrivals.",
-      "Massive pricing fluctuations of competitors in highly volatile markets."
+      "Cart abandonment and engagement drop-off caused by static product discovery.",
+      "Slow manual catalog classification delaying new SKU arrivals and seasonal promotions.",
+      "Rapid pricing fluctuations requiring dynamic margin protection."
     ],
     solutions: [
-      "Real-time hyper-personalized personal shopper agents recommending matching outfits.",
-      "Computer vision classification models tagging and formatting item uploads in bulk.",
-      "Automated dynamic pricing reinforcement models updating product prices every 60 seconds."
+      "Real-time personalized shopping agents recommending relevant products contextually.",
+      "Multimodal computer vision models auto-tagging attributes and categorizing catalog items in bulk.",
+      "Automated dynamic pricing intelligence models optimizing margins within strict policy bounds."
     ],
     outcomes: [
-      "22% average increase in average order value (AOV).",
-      "Cut inventory onboarding delays from 4 days to less than 15 minutes.",
-      "Maximized gross margins on highly volatile catalog items."
+      "Designed to lift average order value (AOV) through contextual personalization.",
+      "Accelerates catalog onboarding through automated visual and attribute tagging.",
+      "Protects gross margins through automated competitor pricing monitoring."
     ],
-    highlight: "OptiPrice dynamic pricing model managing 1.2M SKUs."
+    highlight: "Architecture Pattern: Dynamic Catalog Tagging & Personalization (Illustrative)"
   },
   {
     name: "Advanced Manufacturing",
@@ -62,21 +62,21 @@ const industryDetails = [
     badge: "Edge Computing",
     color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
     challenges: [
-      "High product defect rates escaping manual conveyor-belt inspections.",
+      "Microscopic product defects escaping manual conveyor-belt visual inspection.",
       "Unplanned machinery breakdowns stopping core production lines.",
-      "Complex warehouse logistics mapping and supply chain bottlenecks."
+      "Complex warehouse material flows and supply chain buffer mismatches."
     ],
     solutions: [
-      "Edge-computing computer vision models scanning products at 60 FPS.",
-      "Predictive machine maintenance tracking thermal and vibration data.",
-      "Autonomous optimization agents coordinating raw material orders."
+      "Edge-computing computer vision models scanning components on conveyor lines in real time.",
+      "Predictive machine maintenance tracking thermal, vibration, and acoustic telemetry.",
+      "Autonomous optimization agents coordinating raw material reorder thresholds."
     ],
     outcomes: [
-      "Reduced defective inventory leakage to under 0.05%.",
-      "Decreased unplanned factory downtime incidents by 44%.",
-      "Eliminated inventory stockouts and excess raw material storage fees."
+      "Minimizes component defect escape through continuous high-speed visual inference.",
+      "Enables proactive maintenance by continuously detecting telemetry anomalies.",
+      "Mitigates inventory stockouts through predictive replenishment triggers."
     ],
-    highlight: "QCScan conveyor inspection deployed on 8 assembly lines."
+    highlight: "Architecture Pattern: High-Speed Edge Computer Vision for Inspection (Illustrative)"
   },
   {
     name: "Banking & Finance",
@@ -84,21 +84,21 @@ const industryDetails = [
     badge: "Maximum Security",
     color: "text-amber-400 bg-amber-500/10 border-amber-500/20",
     challenges: [
-      "Massive transaction volumes delaying critical AML fraud detections.",
-      "Long regulatory research times for complex legal loan underwriting.",
-      "Data privacy leakage risks through external LLM APIs."
+      "Massive transaction volumes delaying critical anti-money-laundering (AML) fraud detection.",
+      "Extended research cycles required for regulatory compliance and commercial loan underwriting.",
+      "Strict data sovereignty rules prohibiting public cloud model API exposure."
     ],
     solutions: [
-      "Anomaly detection engines scanning transactions in sub-5ms latency window.",
-      "Private secure RAG knowledge engines summarizing regulatory guidelines.",
-      "On-premises deployment of open-source Llama-3 underwriting copilots."
+      "Sub-second anomaly detection engines evaluating transaction telemetry in real time.",
+      "Private air-gapped RAG knowledge engines summarizing regulatory filings and loan dossiers.",
+      "Private VPC deployment of open-weights models for underwriting assistance."
     ],
     outcomes: [
-      "Blocks fraudulent credit profile applications before transaction clearance.",
-      "Underwriters compile credit summary files 85% faster.",
-      "No data escapes internal bank subnets; fully audit-ready."
+      "Flags anomalous transactions and credit applications prior to settlement.",
+      "Substantially reduces manual credit file compilation and compliance audit cycle times.",
+      "Zero customer financial data traverses external subnets; fully audit-ready."
     ],
-    highlight: "SecurUnderwrite RAG deployed for Metro Financial."
+    highlight: "Architecture Pattern: Air-Gapped Regulatory RAG & Underwriting Synthesis (Illustrative)"
   },
   {
     name: "Education & EdTech",
@@ -106,21 +106,21 @@ const industryDetails = [
     badge: "Interactive Learning",
     color: "text-rose-400 bg-rose-500/10 border-rose-500/20",
     challenges: [
-      "One-size-fits-all curricula failing to help slow-learning pupils.",
-      "Heavy grading and essay scoring workloads for teaching staff.",
-      "Static interactive learning platforms reducing student interest."
+      "One-size-fits-all curricula failing to accommodate varying student learning paces.",
+      "Heavy routine grading and essay feedback workloads for academic staff.",
+      "Static course content resulting in declining student engagement and completion."
     ],
     solutions: [
-      "Custom conversational tutors adapting explanations to individual pupil speed.",
-      "Deterministic grading copilots flagging logical writing gaps for teacher review.",
-      "Dynamic curriculum generation creating customized quiz modules on the fly."
+      "Conversational learning tutors adapting explanations to individual pupil comprehension.",
+      "Structured grading copilots flagging logical writing gaps for teacher review.",
+      "Dynamic curriculum generation creating customized practice modules and problem sets."
     ],
     outcomes: [
-      "40% improvement in student retention and homework completion rates.",
-      "Saves instructors up to 12 hours per week on manual grading tasks.",
-      "Highly interactive, gamified, and responsive learning loops."
+      "Designed to improve student engagement through responsive, personalized learning loops.",
+      "Reduces repetitive manual grading time by providing structured evaluation assistance.",
+      "Enables continuous interactive practice with immediate explanatory feedback."
     ],
-    highlight: "SmartTutor AI active for 12,000 global students."
+    highlight: "Architecture Pattern: Adaptive Learning Copilot & Automated Curriculum (Illustrative)"
   },
   {
     name: "Logistics & Supply Chain",
@@ -128,21 +128,21 @@ const industryDetails = [
     badge: "Deterministic Routing",
     color: "text-blue-400 bg-blue-500/10 border-blue-500/20",
     challenges: [
-      "Inefficient multi-stop delivery routes raising heavy fuel costs.",
-      "Slow manual customs document and freight invoice processing.",
-      "Inaccurate warehouse storage capacity predictions leading to overflows."
+      "Inefficient multi-stop delivery routes driving up fleet fuel and maintenance costs.",
+      "Slow manual customs document and multi-vendor freight invoice reconciliation.",
+      "Inaccurate warehouse storage capacity predictions leading to overflow charges."
     ],
     solutions: [
-      "Autonomous agent systems calculating weather, traffic, and vehicle schedules.",
-      "Multimodal OCR document scanners extracting invoice data with 99.8% precision.",
+      "Autonomous agent systems optimizing dispatch schedules and multi-stop route plans.",
+      "Multimodal OCR document scanners extracting invoice, bill-of-lading, and customs data.",
       "Predictive machine learning models forecasting weekly warehouse slot occupancy."
     ],
     outcomes: [
-      "18% average reduction in monthly transport fleet fuel expenditures.",
-      "Reconcile incoming freight manifest documents in seconds.",
-      "Reduced warehouse overflow fees by 62% through predictive slotting."
+      "Optimizes multi-stop routes to reduce fuel burn and driver turnaround times.",
+      "Automates cross-system 3-way invoice matching between ERP, POs, and freight bills.",
+      "Improves warehouse capacity utilization through predictive slotting models."
     ],
-    highlight: "OptiRoute AI Agent active across 4 regional hubs."
+    highlight: "Architecture Pattern: Autonomous Freight Reconciliation & Routing (Illustrative)"
   }
 ];
 
@@ -179,7 +179,15 @@ export default function IndustriesClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
         >
-          One-size-fits-all AI models fail to respect compliance and legacy constraints. We design secure, deterministic systems engineered for your specific sector's boundaries.
+          One-size-fits-all AI models fail to respect compliance and legacy constraints. We design secure, deterministic systems engineered for your specific sector&apos;s boundaries.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-xs text-muted-foreground/60 italic"
+        >
+          Industry architectures and target outcomes below represent illustrative solution blueprints engineered by Indusnet AI.
         </motion.p>
       </section>
 
@@ -245,9 +253,14 @@ export default function IndustriesClient() {
                   {/* Outcomes Column */}
                   <div className="flex flex-col gap-4 bg-muted/20 border border-border rounded-2xl p-6 justify-between h-full">
                     <div className="flex flex-col gap-4">
-                      <h3 className="font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
-                        <TrendingUp className="w-4 h-4 text-emerald-400" /> Measurable Outcomes
-                      </h3>
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
+                          <TrendingUp className="w-4 h-4 text-emerald-400" /> Target Business Impact
+                        </h3>
+                        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                          Illustrative
+                        </span>
+                      </div>
                       <ul className="flex flex-col gap-4">
                         {ind.outcomes.map((out, index) => (
                           <li key={index} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">

@@ -24,7 +24,7 @@ const caseStudies = [
     solution: "We engineered a VPC-isolated RAG architecture. The system parses PDF, DOCX, and tabular files, structures them using hierarchical chunking, and indexes them in a secure vector store with sub-second hybrid retrieval and role-based access control.",
     architecture: "Document ingestion pipeline -> Hierarchical chunking -> VPC-isolated vector store -> Private GPU LLM node with citation verification.",
     results: [
-      "Document discovery time reduced from hours to under 30 seconds.",
+      "Document discovery time targeted from hours down to sub-minute retrieval.",
       "VPC-isolated deployment: zero proprietary or regulatory data traverses public subnets.",
       "Comprehensive verification citations provided for every compliance query."
     ],
@@ -90,9 +90,14 @@ export default function PortfolioClient() {
           transition={{ duration: 0.5 }}
           className="mx-auto"
         >
-          <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-3 py-1 text-xs">
-            Proven Engineering
-          </Badge>
+          <div className="flex items-center justify-center gap-2">
+            <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-3 py-1 text-xs">
+              Solution Showcases
+            </Badge>
+            <Badge className="bg-amber-500/10 border-amber-500/20 text-amber-400 rounded-full px-3 py-1 text-xs">
+              Illustrative Scenarios
+            </Badge>
+          </div>
         </motion.div>
 
         <motion.h1
@@ -101,7 +106,7 @@ export default function PortfolioClient() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] font-heading"
         >
-          Bespoke AI <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Case Studies</span>
+          Enterprise AI <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Solution Showcases</span>
         </motion.h1>
 
         <motion.p
@@ -110,7 +115,7 @@ export default function PortfolioClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
         >
-          We do not just construct simple mockups. We deploy high-performance, high-compliance machine learning systems that save actual enterprise capital.
+          Explore representative solution architectures we design and build. Each showcase illustrates how we solve complex enterprise friction points with private, production-grade AI systems.
         </motion.p>
       </section>
 
@@ -122,16 +127,20 @@ export default function PortfolioClient() {
               {/* Header */}
               <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
                 <div>
-                  <Badge className="bg-primary/10 border border-primary/20 text-primary rounded px-2.5 py-0.5 text-xs font-semibold">
-                    {study.badge}
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-primary/10 border border-primary/20 text-primary rounded px-2.5 py-0.5 text-xs font-semibold">
+                      {study.badge}
+                    </Badge>
+                    <Badge className="bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded px-2.5 py-0.5 text-[10px] font-semibold">
+                      Illustrative Architecture
+                    </Badge>
+                  </div>
                   <h2 className="text-2xl font-extrabold text-foreground tracking-tight mt-2">{study.title}</h2>
-                  <p className="text-xs text-muted-foreground mt-1">Client: <span className="text-foreground font-medium">{study.client}</span></p>
+                  <p className="text-xs text-muted-foreground mt-1">Context: <span className="text-foreground font-medium">{study.client}</span></p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-
-                  <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0 animate-pulse">
-                    <span className="text-sm font-bold text-emerald-400">{study.metric}</span>
+                  <div className="bg-primary/10 border border-primary/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-bold text-primary">{study.metric}</span>
                   </div>
                 </div>
               </div>
@@ -177,13 +186,13 @@ export default function PortfolioClient() {
 
                   {/* Metrics/Outcomes list */}
                   <div className="flex flex-col gap-3 bg-muted/30 border border-border rounded-2xl p-5">
-                    <h3 className="font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-emerald-400" /> Quantifiable Outcomes
+                    <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
+                      <Check className="w-4 h-4 text-primary" /> Target System Outcomes (Illustrative)
                     </h3>
                     <ul className="flex flex-col gap-2">
                       {study.results.map((res, index) => (
                         <li key={index} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                          <Check className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
                           <span className="text-foreground font-medium">{res}</span>
                         </li>
                       ))}

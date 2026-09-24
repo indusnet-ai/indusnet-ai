@@ -76,7 +76,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Inference Mesh", technology: "Private VPC (AWS Bedrock / Azure OpenAI / On-Prem vLLM)" }
     ],
     timeline: "4 to 6 Weeks to Production Deployment",
-    roiProjection: "Sub-400ms token latency with 99.8% compliance accuracy and zero hallucination risk",
+    roiProjection: "Sub-400ms target token latency with deterministic compliance guardrails and source verification",
     targetServiceUrl: "/services/generative-ai",
     targetServiceName: "Generative AI Application Engineering"
   },
@@ -100,7 +100,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Human-in-the-Loop", technology: "Automated Escalation Gates for High-Value Transactions" }
     ],
     timeline: "4 to 7 Weeks to Autonomous Autopilot",
-    roiProjection: "85% reduction in manual back-office cycle time with automated cryptographic audit trails",
+    roiProjection: "Designed for high-ratio reduction in manual back-office cycle times with automated audit trails",
     targetServiceUrl: "/services/generative-ai",
     targetServiceName: "Autonomous AI Agents"
   },
@@ -124,7 +124,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Audit Trail", technology: "Exact Page/Paragraph Attribution with Hallucination Scorer" }
     ],
     timeline: "3 to 4 Weeks to Staging Ingestion",
-    roiProjection: "94% reduction in manual document research latency with verified zero-hallucination citations",
+    roiProjection: "Designed for rapid document retrieval with verified source-grounded citations",
     targetServiceUrl: "/services/generative-ai",
     targetServiceName: "Enterprise RAG Solutions"
   },
@@ -148,7 +148,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "System Connector", technology: "SAP / Salesforce / Workday Integration API" }
     ],
     timeline: "3 to 5 Weeks",
-    roiProjection: "90% faster processing cycle, cutting invoice and claims turnarounds from 3 days to seconds",
+    roiProjection: "Designed to cut invoice and claims turnarounds from days to seconds via automated matching",
     targetServiceUrl: "/services/generative-ai",
     targetServiceName: "AI Workflow Automation"
   },
@@ -172,7 +172,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Monitoring", technology: "Langfuse / OpenTelemetry End-to-End LLM Tracing" }
     ],
     timeline: "6 to 8 Weeks",
-    roiProjection: "Up to 60% reduction in cloud LLM inference expenditure via semantic caching",
+    roiProjection: "Substantial reduction in cloud LLM inference expenditure via semantic caching",
     targetServiceUrl: "/services",
     targetServiceName: "Technical AI Consulting & Modernization"
   },
@@ -181,8 +181,8 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
     label: "Explore AI Use Cases",
     tag: "Case Studies",
     icon: "Layers",
-    defaultChallenge: "Understanding how peer enterprise leaders deployed AI with measured, proven business returns.",
-    recommendedApproach: "Sector-Specific Production Blueprints & Verified Case Studies",
+    defaultChallenge: "Understanding how peer enterprise leaders deploy AI with measured business returns.",
+    recommendedApproach: "Sector-Specific Architecture Blueprints & Solution Showcases",
     capabilities: [
       "Financial Services Compliance RAG",
       "Logistics Freight Reconciliation Swarm",
@@ -196,9 +196,9 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Manufacturing", technology: "Edge Computer Vision Defect Detection (< 0.1% Escape Rate)" }
     ],
     timeline: "Instant Blueprint Review",
-    roiProjection: "Proven operational payback within 1.5 to 3.5 months across enterprise deployments",
+    roiProjection: "Targeted operational payback within 2 to 4 months for representative deployments",
     targetServiceUrl: "/portfolio",
-    targetServiceName: "Enterprise AI Portfolio & Case Studies"
+    targetServiceName: "Enterprise AI Portfolio & Solution Showcases"
   },
   {
     id: "talk-expert",
@@ -220,7 +220,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
       { layer: "Output", technology: "Formal Architectural Recommendation & Milestone Budget" }
     ],
     timeline: "Bookable within 24 to 48 Hours",
-    roiProjection: "Accelerates enterprise decision timelines by 4–6 months",
+    roiProjection: "Accelerates enterprise architecture and vendor decision timelines",
     targetServiceUrl: "/contact",
     targetServiceName: "Book Architectural Consultation"
   }
@@ -238,7 +238,7 @@ export const INDUSTRIES: IndustryOption[] = [
 export const SCALES: ScaleOption[] = [
   { id: "enterprise", name: "Global Enterprise / Multitenant", complianceFocus: "SOC-2, HIPAA, Okta SSO, VPC Isolation" },
   { id: "midmarket", name: "Mid-Market / High Growth", complianceFocus: "Rapid Time-to-Value, AWS/Azure Bedrock Managed Services" },
-  { id: "airgapped", name: "Strictly Air-Gapped / Sovereign", complianceFocus: "100% On-Premise Open-Weights Models, Zero Cloud Egress" }
+  { id: "airgapped", name: "Strictly Air-Gapped / Sovereign", complianceFocus: "Dedicated On-Premise Open-Weights Models, Zero Cloud Egress" }
 ];
 
 export function generateCustomPath(

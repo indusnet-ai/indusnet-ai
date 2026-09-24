@@ -381,7 +381,7 @@ export default function JobDetailClient({ jobId }: Props) {
                 INDUSNET <span className="text-primary">AI</span>
               </h2>
               <p className="text-muted-foreground text-xs leading-relaxed max-w-sm">
-                A pioneer in building and deploying verified cognitive orchestration tools for enterprise scale compliance audits and recruitment models.
+                A pioneer in building and deploying production-grade cognitive orchestration tools for enterprise scale compliance audits and recruitment models.
               </p>
             </div>
             

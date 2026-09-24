@@ -23,19 +23,19 @@ const serviceDetails = [
   {
     id: "chatbot",
     category: "core",
-    title: "AI Chatbot Development",
-    desc: "Deploy highly custom, multi-channel conversational agents that resolve customer or employee inquiries with human-grade empathy and accuracy.",
+    title: "AI Chatbot & Copilot Development",
+    desc: "Deploy custom, multi-channel conversational agents that resolve customer or employee inquiries with human-grade contextual accuracy and deterministic safety.",
     icon: Bot,
     features: [
       "Natural Language understanding with custom prompt engineering",
       "Direct API integrations with Zendesk, Salesforce, and internal CRMs",
-      "Deterministic safety rails guarding against offensive outputs",
+      "Deterministic safety rails guarding against ungrounded outputs",
       "Seamless human-in-the-loop transition triggers"
     ],
     benefits: [
-      "Up to 80% automated resolution of primary support tickets",
-      "24/7/365 availability across Web, WhatsApp, and Slack",
-      "Instantaneous, latency-optimized sub-second responses"
+      "High automated resolution of routine tier-1 support inquiries (Illustrative target)",
+      "Continuous multi-channel availability across Web, WhatsApp, and Slack",
+      "Streaming, latency-optimized conversational responses"
     ],
     tech: ["GPT-4o", "Claude 3.5 Sonnet", "LangChain", "Node.js"]
   },
@@ -44,7 +44,7 @@ const serviceDetails = [
     id: "rag",
     category: "core",
     title: "Enterprise RAG Solutions",
-    desc: "Connect LLMs directly to your private data corpus without risk of hallucinations or third-party leakage. Search SharePoint, Notion, or custom SQL databases semantically.",
+    desc: "Connect LLMs directly to your private data corpus with deterministic grounding. Search SharePoint, Notion, or custom SQL databases semantically with verified citations.",
     icon: Search,
     features: [
       "Hybrid vector + keyword search index configurations",
@@ -53,9 +53,9 @@ const serviceDetails = [
       "Source citation links attached to every generated response"
     ],
     benefits: [
-      "Eliminate time spent manually searching massive compliance files",
-      "100% private data hosting (VPC, private subnet, or on-prem)",
-      "Drastic reduction in information research times (90%+)"
+      "Substantial reduction in manual document research cycle times",
+      "Dedicated private data hosting (VPC, private subnet, or on-prem)",
+      "Verifiable source-page attribution for regulatory compliance"
     ],
     tech: ["Qdrant", "pgvector", "LlamaIndex", "Azure AI Search"]
   },
@@ -64,7 +64,7 @@ const serviceDetails = [
     id: "agents",
     category: "core",
     title: "Autonomous AI Agents",
-    desc: "Build self-correcting agentic workflows capable of using digital tools, calling external APIs, handling loops, and reconciling execution errors without manual intervention.",
+    desc: "Build self-correcting agentic workflows capable of using digital tools, calling external APIs, handling loops, and reconciling execution errors with human oversight.",
     icon: Zap,
     features: [
       "Multi-agent collaborative networks using supervisor models",
@@ -73,9 +73,9 @@ const serviceDetails = [
       "State preservation and audit logs for debugging agent steps"
     ],
     benefits: [
-      "Fully automate end-to-end accounting or logistics workflows",
-      "Scale operations without adding redundant administrative personnel",
-      "Detect and resolve process errors proactively in real time"
+      "Automate multi-step back-office accounting or logistics workflows",
+      "Scale operational throughput without linear headcount growth",
+      "Detect and resolve process exceptions with automated escalation"
     ],
     tech: ["LangGraph", "CrewAI", "Python", "Supabase"]
   },
@@ -84,18 +84,18 @@ const serviceDetails = [
     id: "genai",
     category: "core",
     title: "Generative AI Applications",
-    desc: "Custom-built marketing copy generators, legal document drafting copilots, product image background replacers, and automated audio transcription systems.",
+    desc: "Custom-built document drafting copilots, product catalog enrichers, specialized domain assistants, and multimodal speech-to-text pipelines.",
     icon: BrainCircuit,
     features: [
       "Custom UI/UX designed specifically for content workflows",
       "Fine-tuned niche models capturing brand voice and style",
-      "Image manipulation using Stable Diffusion and ControlNet",
+      "Multimodal document extraction and image processing",
       "High-speed whisper audio processing pipelines"
     ],
     benefits: [
-      "10x increase in weekly marketing material output",
-      "Streamlined legal drafting lowering legal counsel billable hours",
-      "Standardize tone and branding guidelines across the globe"
+      "Accelerated content creation and multi-variant testing",
+      "Streamlined legal drafting lowering routine contract review times",
+      "Standardized tone and compliance guidelines across enterprise units"
     ],
     tech: ["Stable Diffusion", "Whisper", "Next.js", "AWS Bedrock"]
   },
@@ -113,9 +113,9 @@ const serviceDetails = [
       "Multi-camera CCTV analysis stream processing"
     ],
     benefits: [
-      "Automate factory quality control checks with zero human fatigue",
-      "Reduce defective inventory escaping production to under 0.1%",
-      "Enhance high-security premise monitoring with automated alarms"
+      "Automated factory quality control checks with continuous vigilance",
+      "Designed to minimize defective components escaping assembly lines",
+      "Real-time edge inference for automated defect sorting and PLC alerts"
     ],
     tech: ["YOLOv8", "PyTorch", "OpenCV", "Docker"]
   },
@@ -123,19 +123,19 @@ const serviceDetails = [
   {
     id: "analytics",
     category: "data",
-    title: "Predictive Analytics",
-    desc: "Harness historical enterprise data to forecast inventory requirements, detect fraudulent payment profiles, and identify customers high at risk of churning.",
+    title: "Predictive Analytics & Decision Intelligence",
+    desc: "Harness historical enterprise data to forecast inventory requirements, detect anomalous payment profiles, and identify accounts at risk of churn.",
     icon: BarChart3,
     features: [
       "Time-series forecasting models adapting to seasonal demand",
-      "Anomaly detection engines analyzing merchant transactional data",
+      "Anomaly detection engines analyzing transactional data streams",
       "User behavior analysis modeling retention triggers",
       "Interactive executive dashboards built in web platforms"
     ],
     benefits: [
-      "Prevent costly stockouts and warehouse storage fees",
-      "Instantly block fraudulent transactions before clearance occurs",
-      "Target active churn risks with automated customer retention plays"
+      "Forecast demand to minimize stockouts and warehouse holding costs",
+      "Flag suspicious transactions in real time before settlement",
+      "Identify high-risk churn patterns with proactive automated alerts"
     ],
     tech: ["XGBoost", "Scikit-Learn", "FastAPI", "PostgreSQL"]
   },
@@ -144,7 +144,7 @@ const serviceDetails = [
     id: "automation",
     category: "data",
     title: "AI Workflow Automation",
-    desc: "Construct highly visual intelligent automation nodes integrating OCR invoice scanners, document categorizers, and email draft automation.",
+    desc: "Construct visual intelligent automation pipelines integrating multimodal OCR document scanners, automated categorizers, and system reconciliation bots.",
     icon: Cpu,
     features: [
       "Multimodal OCR document data extraction pipelines",
@@ -153,9 +153,9 @@ const serviceDetails = [
       "Automated PDF report generators compiling weekly progress"
     ],
     benefits: [
-      "Cut down manual document copy-pasting times by 95%",
-      "Instantly process incoming invoices and route approval requests",
-      "Ensure clean, structured, and error-free CRM updating"
+      "Substantial reduction in manual cross-document copy-paste entry",
+      "Automated invoice verification and multi-tier approval routing",
+      "Clean, structured, and error-free CRM and ERP synchronization"
     ],
     tech: ["n8n", "Tesseract OCR", "Python", "FastAPI"]
   },
@@ -164,7 +164,7 @@ const serviceDetails = [
     id: "consulting",
     category: "strategy",
     title: "Technical AI Consulting",
-    desc: "Formulate your technical AI roadmap. We evaluate security policies, hardware dependencies, cost-to-benefit metrics, and cloud requirements.",
+    desc: "Formulate your technical AI roadmap. We evaluate security policies, hardware dependencies, cost-to-benefit metrics, and private cloud architecture requirements.",
     icon: Users,
     features: [
       "Comprehensive AI feasibility audits of current IT software",
@@ -173,9 +173,9 @@ const serviceDetails = [
       "Detailed ROI spreadsheets calculating projected savings"
     ],
     benefits: [
-      "Avoid expensive model subscription fees and useless projects",
-      "Ensure absolute compliance with federal data privacy regulations",
-      "Equip executive leadership with clean, data-backed decisions"
+      "Avoid expensive unvetted tool subscriptions and misaligned pilots",
+      "Ensure adherence to enterprise data privacy and VPC boundaries",
+      "Equip executive leadership with structured, data-backed roadmaps"
     ],
     tech: ["CPMAI Framework", "Infrastructure Auditing", "ROI Mapping"]
   },
@@ -184,7 +184,7 @@ const serviceDetails = [
     id: "training",
     category: "strategy",
     title: "Corporate AI Training",
-    desc: "Upgrade your team's skills with certified developer workshops, prompt engineering masterclasses, and certified CPMAI methodology implementation.",
+    desc: "Upgrade your team's skills with developer workshops, prompt engineering masterclasses, and certified CPMAI methodology implementation.",
     icon: GraduationCap,
     features: [
       "Custom curricula tailored to your company's technology stack",
@@ -195,7 +195,7 @@ const serviceDetails = [
     benefits: [
       "Empower internal developers to build and maintain AI in-house",
       "Raise employee alignment and lower adoption resistance",
-      "Establish active AI safety governance inside the enterprise"
+      "Establish active AI safety governance and prompt standards inside the enterprise"
     ],
     tech: ["Developer Bootcamps", "Prompt Engineering", "CPMAI Prep"]
   }
@@ -317,7 +317,7 @@ export default function ServicesClient() {
 
                         <Button asChild className="w-fit rounded-full bg-muted border border-border hover:bg-muted/80 text-muted-foreground hover:text-foreground mt-2" variant="outline">
                           <Link href="/contact" className="flex items-center gap-1.5 text-xs font-semibold">
-                            Request Consultation <ArrowRight className="w-3.5 h-3.5" />
+                            Discuss Architecture <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                         </Button>
                       </div>
@@ -341,9 +341,14 @@ export default function ServicesClient() {
 
                         {/* Benefits Column */}
                         <div className="flex flex-col gap-4">
-                          <h3 className="font-bold text-xs uppercase text-accent tracking-wider flex items-center gap-1.5">
-                            <Shield className="w-4 h-4 text-accent" /> Business Value
-                          </h3>
+                          <div className="flex items-center justify-between">
+                            <h3 className="font-bold text-xs uppercase text-accent tracking-wider flex items-center gap-1.5">
+                              <Shield className="w-4 h-4 text-accent" /> Target Impact
+                            </h3>
+                            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                              Illustrative
+                            </span>
+                          </div>
                           <ul className="flex flex-col gap-3">
                             {srv.benefits.map((bene, index) => (
                               <li key={index} className="text-xs text-muted-foreground flex items-start gap-2">

@@ -15,14 +15,14 @@ import { Linkedin } from "@/components/ui/brand-icons";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const servicesList = [
-  "RAG Search Systems",
-  "Custom AI Chatbots",
+  "Enterprise RAG & Knowledge Systems",
+  "AI Applications & Copilots",
   "Autonomous AI Agents",
-  "AI Workflow Automation",
+  "Intelligent Workflow Automation",
   "Computer Vision Systems",
-  "Predictive Analytics",
-  "Corporate AI Training",
-  "Technical AI Consulting"
+  "Predictive Analytics & Decision Intelligence",
+  "Corporate AI Training & CPMAI",
+  "Technical AI Consulting & Roadmap"
 ];
 
 // Simulated available calendar slots
@@ -36,7 +36,7 @@ export default function ContactClient() {
     name: "",
     email: "",
     company: "",
-    service: "RAG Search Systems",
+    service: "Enterprise RAG & Knowledge Systems",
     message: ""
   });
   const [inquiryStatus, setInquiryStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
@@ -71,7 +71,7 @@ export default function ContactClient() {
         trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "inquiry", service: formData.service });
         setInquiryStatus("success");
         setInquiryMessage(data.message || "Consultation inquiry received! We will reply within one business day.");
-        setFormData({ name: "", email: "", company: "", service: "RAG Search Systems", message: "" });
+        setFormData({ name: "", email: "", company: "", service: "Enterprise RAG & Knowledge Systems", message: "" });
       } else {
         setInquiryStatus("error");
         setInquiryMessage(data.error || "Failed to submit enquiry. Please email info@indusnet-ai.com.");

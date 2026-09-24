@@ -82,7 +82,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
         id: "rag",
         name: "RAG (Retrieval-Augmented Generation)",
         whatItIs: "A design pattern that fetches proprietary company documents and injects them as verifiable context into LLM prompts.",
-        whyItMatters: "Eliminates model hallucinations by forcing answers to be grounded in private, permissioned corporate archives.",
+        whyItMatters: "Actively mitigates model hallucinations by grounding answers directly in private, permissioned corporate archives.",
         whereItIsUsed: "Internal corporate Q&A, HR benefit portals, compliance audit bots, and legal discovery.",
         relevantUseCase: "Instant cross-checking of regulatory filings with verified source citations."
       },
@@ -172,7 +172,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
         id: "copilots",
         name: "Enterprise Copilots",
         whatItIs: "Context-aware AI assistants embedded directly into employee IDEs, CRMs, or browser workflows.",
-        whyItMatters: "Accelerates daily worker throughput by 20% to 50% without requiring context switching.",
+        whyItMatters: "Substantially accelerates daily worker throughput without requiring disruptive context switching (Illustrative scenario).",
         whereItIsUsed: "Developer code synthesis, legal contract drafting, medical record transcription, and sales outreach.",
         relevantUseCase: "A sales copilot drafting personalized enterprise proposals with real-time pricing and margin checks."
       },
@@ -190,7 +190,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
         whatItIs: "Cognitive decision support engines synthesizing real-time operational telemetry, news, and risk thresholds.",
         whyItMatters: "Provides executive decision-makers with probabilistic forecasting rather than lagging historical reports.",
         whereItIsUsed: "Boardroom risk briefings, credit line approvals, and automated algorithmic trading.",
-        relevantUseCase: "Evaluating $5M commercial loan applications against 40 compliance variables in 10 minutes."
+        relevantUseCase: "Rapidly evaluating commercial loan applications against complex compliance variables (Illustrative scenario)."
       }
     ]
   },
@@ -229,7 +229,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
         id: "security-gov",
         name: "Security & Governance",
         whatItIs: "Deterministic prompt firewalls (NeMo Guardrails), PII masking filters, and immutable audit logs.",
-        whyItMatters: "Guarantees SOC-2, HIPAA, and GDPR compliance, protecting against prompt injection and data leaks.",
+        whyItMatters: "Enforces SOC-2, HIPAA, and GDPR compliance controls, protecting against prompt injection and data leaks.",
         whereItIsUsed: "Every inbound and outbound model token transmission across the enterprise.",
         relevantUseCase: "Automatically redacting Social Security and credit card numbers before inference happens."
       },

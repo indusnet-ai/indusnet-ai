@@ -17,7 +17,7 @@ const trainingPrograms = [
     badge: "Enterprise Standard",
     duration: "4 Days (Facilitator-Led)",
     audience: "Project Managers, AI Directors, Business Analysts, IT Leaders",
-    outcome: "Certified CPMAI facilitating rights + implementation template database",
+    outcome: "CPMAI methodology alignment + enterprise implementation template library",
     desc: "Cognitive Project Management for AI (CPMAI) is the leading global methodology for managing AI, machine learning, and cognitive computing projects successfully.",
     curriculum: [
       "Phase 1: Business Case Alignment & AI Feasibility Auditing",
@@ -35,7 +35,7 @@ const trainingPrograms = [
     badge: "Engineering Focus",
     duration: "4 Weeks (Weekend Format)",
     audience: "Software Engineers, Full-Stack Developers, Database Architects",
-    outcome: "Working secure RAG search engine + autonomous agent deployed on private cloud",
+    outcome: "Hands-on prototype: secure RAG search engine + autonomous agent pipeline on private cloud",
     desc: "A hands-on, high-intensity technical program designed to transition standard developers into enterprise-grade GenAI application engineers.",
     curriculum: [
       "System Prompting & Advanced Engineering Safety Rails (Guardrails)",
@@ -71,7 +71,7 @@ const trainingPrograms = [
     badge: "All-Staff Alignment",
     duration: "2 Days (Virtual Facilitated)",
     audience: "Department Managers, Operations Teams, Corporate Personnel",
-    outcome: "Certified Prompt Engineer credentials + custom workflow automation scripts",
+    outcome: "Prompt Engineering completion certificate + custom workflow automation scripts",
     desc: "Elevate the baseline AI literacy of your entire organization. Learn how to securely use AI tools to automate daily spreadsheets, report writing, and emails.",
     curriculum: [
       "Understanding LLMs: How prompt engines function under the hood",
@@ -199,7 +199,7 @@ export default function TrainingClient() {
         </div>
         <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">CPMAI Certification Facilitation</h2>
         <p className="text-muted-foreground text-xs md:text-sm max-w-xl leading-relaxed">
-          As accredited CPMAI training facilitators, we align our curricula strictly with the global Cognitive Project Management for AI methodology. This ensures your workforce learns the deterministic project guidelines proven to avoid common model deployment bottlenecks.
+          As accredited CPMAI training facilitators, we align our curricula strictly with the global Cognitive Project Management for AI methodology. This ensures your workforce learns the deterministic project guidelines designed to mitigate common model deployment bottlenecks.
         </p>
       </section>
 

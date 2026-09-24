@@ -228,7 +228,7 @@ const ENTERPRISE_AGENTS: AgentProfile[] = [
         stepTitle: "Approved Document & Immutable Audit Record",
         actor: "Compliance Ledger Commit",
         status: "Sign-off Granted (8.1s)",
-        log: "AUDIT SIGN-OFF COMPLETED: Hash #7a9f82d1c0\nTurnaround: 8.1 seconds (previously 48 hours)\nAudit Trail: 100% compliant and archived for regulatory exam readiness.",
+        log: "AUDIT SIGN-OFF COMPLETED: Hash #7a9f82d1c0\nTurnaround: 8.1 seconds (previously 48 hours)\nAudit Trail: Fully verified and archived for regulatory exam readiness.",
         detail: "Document certified for client distribution with cryptographic proof of compliance logged to the enterprise repository."
       }
     ]
@@ -340,7 +340,7 @@ const ENTERPRISE_AGENTS: AgentProfile[] = [
     toolsUsed: ["Tree-Sitter AST Parser", "Git Mutation Executor", "Jest / PyTest Harness", "OpenAPI Spec Generator"],
     knowledgeAccessed: ["Legacy Schema DDL", "Enterprise Cloud Architecture Guidelines", "Corporate Security & Auth Standards"],
     decisionsMade: "Identified tightly coupled SQL stored procedures; refactored into stateless REST services with Prisma ORM models.",
-    actionsTaken: "Generated clean TypeScript service layer, generated 100% branch test coverage, created PR with containerized Dockerfile.",
+    actionsTaken: "Generated clean TypeScript service layer, generated comprehensive branch test coverage, created PR with containerized Dockerfile.",
     humanOversight: "Senior Architecture Review Board inspects generated Pull Requests with automated static analysis scores before staging merge.",
     businessOutcome: "55% acceleration in legacy migration velocity; zero regression errors during blue-green deployment.",
     steps: [
@@ -930,7 +930,7 @@ export function AgentWorkflowSimulator() {
 
               <div className="flex flex-wrap items-center justify-between text-[11px] text-zinc-400 pt-2 border-t border-zinc-900 gap-2">
                 <span>VPC Isolation: Active</span>
-                <span className="text-emerald-400">Zero Hallucinations Verified</span>
+                <span className="text-emerald-400">Grounded Citations Verified</span>
               </div>
             </div>
           </div>

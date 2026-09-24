@@ -14,7 +14,7 @@ const navLinks = [
   { name: "AI Capabilities", href: "/services/generative-ai" },
   { name: "Solutions", href: "/services" },
   { name: "Industries", href: "/industries" },
-  { name: "AI ROI Sizer", href: "/roi-calculator" },
+  { name: "AI ROI Estimator", href: "/roi-calculator" },
   { name: "AI Scoper", href: "/assessment" },
   { name: "Insights", href: "/blog" },
   { name: "About", href: "/about" },

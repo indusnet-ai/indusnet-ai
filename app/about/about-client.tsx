@@ -22,7 +22,7 @@ const timelineEvents = [
   {
     year: "2025",
     title: "Scale & RAG Search Launch",
-    desc: "Shipped our flagship secure enterprise RAG knowledge engine, enabling fortune-500 banks and healthcare systems to ingest private data safely.",
+    desc: "Engineered our flagship private enterprise RAG architecture, designed to allow regulated banking and healthcare environments to index private documentation safely.",
   },
   {
     year: "2026",
@@ -31,11 +31,11 @@ const timelineEvents = [
   },
 ];
 
-const accreditations = [
-  { title: "CPMAI Facilitator", desc: "Certified Cognitive Project Management for AI methodology facilitator, ensuring highest success rates.", icon: Award },
-  { title: "Azure Gold Partner", desc: "Enterprise partnership providing state-of-the-art Azure AI, Cognitive Services, and secure cloud environments.", icon: ShieldCheck },
-  { title: "AWS Select Partner", desc: "Specialized AWS Bedrock and SageMaker architects delivering high-speed inference setups.", icon: Cpu },
-  { title: "LangChain Integrator", desc: "Officially recognized integration consultants for custom autonomous LLM workflows and orchestrations.", icon: Zap }
+const competencies = [
+  { title: "CPMAI Methodology", desc: "Cognitive Project Management for AI framework alignment, bringing structured governance to machine learning delivery.", icon: Award },
+  { title: "Azure AI Ecosystem", desc: "Enterprise architecture leveraging Azure OpenAI, Cognitive Search, and private cloud enclaves.", icon: ShieldCheck },
+  { title: "AWS Bedrock & VPC", desc: "Specialized AWS Bedrock and SageMaker architectures delivering low-latency, isolated VPC deployments.", icon: Cpu },
+  { title: "LangChain & Agent Tooling", desc: "Advanced orchestration implementations using LangChain, LangGraph, and deterministic state machines.", icon: Zap }
 ];
 
 export default function AboutClient() {
@@ -187,27 +187,27 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* 5. ACCREDITATIONS & ACCREDITED PARTNERS */}
+      {/* 5. TECHNOLOGY ECOSYSTEM & COMPETENCIES */}
       <section className="container mx-auto px-4 md:px-6 flex flex-col gap-12 text-center max-w-5xl">
         <div className="flex flex-col gap-3 max-w-xl mx-auto">
           <Badge className="bg-primary/10 border-primary/20 text-primary w-fit mx-auto rounded-full px-3 py-1 text-xs">
-            Authorized Partner
+            Technology Ecosystem
           </Badge>
-          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Our Accreditations</h2>
+          <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Our Core Competencies</h2>
           <p className="text-muted-foreground text-sm">
-            We are deeply aligned with global cloud nodes, certified methodology providers, and active frameworks.
+            We engineer across enterprise cloud environments, certified cognitive methodologies, and modern AI orchestration frameworks.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {accreditations.map((acc, idx) => (
+          {competencies.map((comp, idx) => (
             <Card key={idx} className="glassmorphism-card border-none text-left">
               <CardContent className="p-6 flex flex-col gap-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <acc.icon className="w-5 h-5 text-primary" />
+                  <comp.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-bold text-base text-foreground">{acc.title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">{acc.desc}</p>
+                <h3 className="font-bold text-base text-foreground">{comp.title}</h3>
+                <p className="text-muted-foreground text-xs leading-relaxed">{comp.desc}</p>
               </CardContent>
             </Card>
           ))}
