@@ -71,7 +71,7 @@ export default function AboutClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
         >
-          We bridge the massive gap between cutting-edge AI academic models and actual, high-security, high-ROI enterprise production workloads.
+          We bridge the gap between frontier AI foundation models and secure, private enterprise software in production workloads.
         </motion.p>
       </section>
 
@@ -221,10 +221,10 @@ export default function AboutClient() {
               Careers & Talent Acquisition
             </Badge>
             <h2 className="text-3xl font-extrabold text-foreground tracking-tight leading-tight">
-              Join the <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Next Generation</span> of AI Engineering
+              Build Production <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Enterprise AI Systems</span>
             </h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              We are constantly seeking brilliant software architects, prompt engineers, and AI developers who want to build secure, agentic machine learning solutions for enterprise environments.
+              We are constantly seeking exceptional software architects, systems engineers, and AI developers who want to build secure, agentic machine learning solutions for enterprise environments.
             </p>
           </div>
           <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-3 justify-center w-full">
@@ -241,13 +241,13 @@ export default function AboutClient() {
       {/* 7. CALL TO ACTION */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="bg-[#08111F] border border-[#162238] rounded-3xl py-12 px-6 md:px-12 text-center flex flex-col gap-6 items-center shadow-xl">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Let's Create Your AI Strategy Together</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Move From AI Strategy to Production Software</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
-            Partner with certified CPMAI facilitators and full-stack software architects to construct a compliant, highly secure roadmap for your company.
+            Partner with certified CPMAI methodology practitioners and full-stack software architects to construct a compliant, highly secure roadmap for your company.
           </p>
           <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
             <Link href="/contact" className="flex items-center gap-1.5">
-              Let's Consult
+              Discuss Architecture
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </Button>

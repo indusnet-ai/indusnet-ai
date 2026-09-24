@@ -138,8 +138,8 @@ Payback Period: ${results.paybackMonths} months
           <p className="text-[#A7B4C5] text-sm sm:text-base leading-relaxed">
             Enter your organization&apos;s workload assumptions to model a potential AI opportunity — including estimated cost reduction, hours saved, and private GPU compute sizing.
           </p>
-          <p className="text-xs text-[#6F7E91] italic border border-[#162238] rounded-xl px-4 py-2 bg-[#050B14]/60">
-            <strong className="text-[#A7B4C5] not-italic">Estimator Disclaimer:</strong> Results are illustrative projections based entirely on the assumptions you provide. Automation rates, speedup multipliers, and hardware sizing are modelled estimates, not documented client outcomes. Actual results will depend on your specific workflows, data quality, and implementation approach.
+          <p className="text-xs text-[#6F7E91] italic border border-[#162238] rounded-xl px-4 py-2.5 bg-[#050B14]/60 leading-relaxed">
+            <strong className="text-[#A7B4C5] not-italic">Directional Business-Case Model:</strong> This tool provides illustrative estimates based entirely on the operational variables and assumed automation rates you configure. It is a directional planning model, not a guaranteed client outcome. Verified financial and performance metrics require formal architectural scoping, private data profiling, and production pilot validation.
           </p>
         </div>
 

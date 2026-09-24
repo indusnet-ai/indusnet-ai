@@ -299,7 +299,7 @@ export default function HomeClient() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-xl leading-relaxed font-normal"
               >
-                We design, engineer and deploy enterprise AI applications, autonomous agents and intelligent systems that turn AI strategy into measurable business outcomes.
+                We partner with enterprise leadership to design, engineer, and deploy production AI applications, autonomous agents, and private knowledge systems—bridging strategic intent with robust software architecture.
               </motion.p>
 
               {/* Strategic Journey Pipeline Indicator */}
@@ -316,6 +316,8 @@ export default function HomeClient() {
                 <span>Applications</span>
                 <span className="text-[#6F7E91]">→</span>
                 <span>Agents</span>
+                <span className="text-[#6F7E91]">→</span>
+                <span>Integration</span>
                 <span className="text-[#6F7E91]">→</span>
                 <span className="text-emerald-400 font-bold">Production</span>
               </motion.div>
@@ -786,10 +788,10 @@ export default function HomeClient() {
               <Button
                 onClick={() => triggerConcierge()}
                 size="lg"
-                className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(22,119,255,0.4)] transition-all px-8 py-6 text-base shadow-xl shadow-primary/25 flex items-center gap-2.5 group"
+                className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(22,119,255,0.4)] transition-all px-8 py-6 text-base shadow-xl shadow-primary/25 flex items-center gap-2.5 group cursor-pointer"
               >
                 <Bot className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                Talk to Our AI Advisor
+                Talk to Our AI
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
@@ -822,7 +824,7 @@ export default function HomeClient() {
             <Button
               onClick={() => triggerConcierge()}
               size="lg"
-              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(22,119,255,0.4)] transition-all px-8 shadow-lg shadow-primary/25 flex items-center gap-2"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(22,119,255,0.4)] transition-all px-8 shadow-lg shadow-primary/25 flex items-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4" />
               Talk to Our AI
@@ -834,7 +836,7 @@ export default function HomeClient() {
               className="rounded-full border-border hover:border-primary hover:text-primary transition-all px-8 font-semibold"
             >
               <Link href="/contact" className="flex items-center gap-2">
-                Talk to an AI Expert
+                Discuss Architecture
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>

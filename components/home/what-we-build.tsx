@@ -15,13 +15,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 // What We Build — 6 executive-level capability categories
-// Organized around what enterprise buyers are trying to achieve, not technologies.
+// Systematically answering: 1) What is it? 2) Problem solved 3) What we build 4) Who needs it
 const CAPABILITIES = [
   {
     id: "applications",
     title: "AI Applications",
-    description:
-      "Production-ready applications powered by enterprise AI — from intelligent copilots and knowledge assistants to decision-support systems used daily by your teams.",
+    whatItIs: "Production software and intuitive interfaces powered by enterprise AI models.",
+    problemSolved: "Workforces and customers lose hours to fragmented data silos, static portals, and repetitive manual queries.",
+    whatWeBuild: "Custom enterprise copilots, streaming web/mobile portals, and decision cockpits integrated into existing software stacks.",
+    whoNeedsIt: "Chief Product Officers, Enterprise Business Unit Heads, and Digital Experience Leaders.",
     icon: Cpu,
     color: "text-[#1677FF]",
     bg: "bg-[#1677FF]/10",
@@ -31,8 +33,10 @@ const CAPABILITIES = [
   {
     id: "agents",
     title: "AI Agents",
-    description:
-      "Autonomous intelligent systems that understand intent, access enterprise tools, execute multi-step workflows, and deliver verified outcomes — with human oversight built in.",
+    whatItIs: "Goal-driven autonomous systems that plan, invoke enterprise tools, and execute multi-step workflows.",
+    problemSolved: "Complex cross-system tasks require manual coordination, error-prone data re-entry, and extended turnaround cycles.",
+    whatWeBuild: "Multi-agent coordinated swarms with sandboxed API tool calling, state memory, and human-in-the-loop escalation gates.",
+    whoNeedsIt: "COOs, VP of Operations, and Engineering Leaders modernizing critical business processes.",
     icon: Bot,
     color: "text-[#7C5CFF]",
     bg: "bg-[#7C5CFF]/10",
@@ -42,8 +46,10 @@ const CAPABILITIES = [
   {
     id: "knowledge",
     title: "Enterprise Knowledge",
-    description:
-      "RAG-powered knowledge systems that give employees and AI agents instant, accurate access to your private organizational data — with verified source citations and grounded attribution.",
+    whatItIs: "Private RAG and knowledge graph systems connecting AI directly to organizational data.",
+    problemSolved: "Analysts spend hours searching through unindexed SharePoint, Confluence, PDFs, and SQL records with risk of misinformation.",
+    whatWeBuild: "VPC-isolated hybrid RAG pipelines with dense/sparse retrieval, hierarchical chunking, and verifiable source citations.",
+    whoNeedsIt: "Chief Legal Officers, Compliance Directors, and Knowledge Management Executives.",
     icon: Search,
     color: "text-[#00D4FF]",
     bg: "bg-[#00D4FF]/10",
@@ -53,8 +59,10 @@ const CAPABILITIES = [
   {
     id: "automation",
     title: "Intelligent Automation",
-    description:
-      "AI-powered workflows that eliminate manual, repetitive operations across document processing, cross-system reconciliation, approvals, and multi-step business processes.",
+    whatItIs: "End-to-end cognitive automation that eliminates repetitive back-office and document operations.",
+    problemSolved: "Teams spend thousands of hours manually reviewing unstructured invoices, shipping bills, and multi-system reconciliations.",
+    whatWeBuild: "Multimodal document extraction pipelines, automated 3-way reconciliation engines, and policy verification bots.",
+    whoNeedsIt: "CFOs, Finance Directors, Procurement Leaders, and Shared Services Heads.",
     icon: Zap,
     color: "text-[#1677FF]",
     bg: "bg-[#1677FF]/10",
@@ -64,8 +72,10 @@ const CAPABILITIES = [
   {
     id: "modernization",
     title: "AI Modernization",
-    description:
-      "Upgrade existing software, legacy codebases, and manual workflows with AI capabilities — extending the life and value of enterprise systems without rebuilding from scratch.",
+    whatItIs: "Upgrading existing legacy applications, codebases, and systems with embedded AI capabilities.",
+    problemSolved: "Legacy enterprise architectures are costly to rewrite from scratch, yet hold back modernization initiatives.",
+    whatWeBuild: "API adapter layers, automated legacy code translation pipelines, regression test harnesses, and microservice refactoring.",
+    whoNeedsIt: "CIOs, Chief Architects, and VP of Application Development managing core system debt.",
     icon: Network,
     color: "text-[#7C5CFF]",
     bg: "bg-[#7C5CFF]/10",
@@ -75,8 +85,10 @@ const CAPABILITIES = [
   {
     id: "decision",
     title: "Decision Intelligence",
-    description:
-      "Turning enterprise data into timely, actionable decisions — from predictive risk synthesis and scenario modeling to boardroom-ready intelligence briefings.",
+    whatItIs: "Predictive analytics and scenario synthesis transforming raw operational data into forward-looking decisions.",
+    problemSolved: "Leadership relies on lagging historical dashboards rather than predictive foresight and real-time anomaly detection.",
+    whatWeBuild: "Time-series forecasting models, automated fraud and anomaly scoring engines, and boardroom predictive telemetry cockpits.",
+    whoNeedsIt: "Chief Risk Officers, VP of Strategy, and Revenue Operations Leaders.",
     icon: BarChart3,
     color: "text-[#10B981]",
     bg: "bg-[#10B981]/10",
@@ -108,14 +120,13 @@ export function WhatWeBuild() {
             <span className="text-primary">real business problems.</span>
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl">
-            We design and engineer AI systems organized around what your
-            organization needs to achieve — not around technology for its own
-            sake.
+            We design, engineer, and deploy AI systems organized around what your
+            organization needs to achieve — bridging strategic intent with robust, production-grade software.
           </p>
         </motion.div>
 
         {/* Capability Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {CAPABILITIES.map((cap, idx) => {
             const Icon = cap.icon;
             const isFeatured = idx === 0;
@@ -136,31 +147,58 @@ export function WhatWeBuild() {
                   }`}
                 >
                   <div className="space-y-4">
-                    {/* Icon */}
-                    <div
-                      className={`w-11 h-11 rounded-xl ${cap.bg} border border-[#162238] flex items-center justify-center group-hover:scale-105 transition-transform duration-300`}
-                    >
-                      <Icon className={`w-5 h-5 ${cap.color}`} />
+                    {/* Header: Icon + Title */}
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-11 h-11 rounded-xl ${cap.bg} border border-[#162238] flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shrink-0`}
+                      >
+                        <Icon className={`w-5 h-5 ${cap.color}`} />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold font-heading text-[#F5F7FA] group-hover:text-primary transition-colors">
+                          {cap.title}
+                        </h3>
+                        <p className="text-[11px] text-[#A7B4C5] leading-snug">
+                          {cap.whatItIs}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Content */}
-                    <div className="flex flex-col gap-2">
-                      <h3
-                        className="text-base font-bold font-heading text-[#F5F7FA] group-hover:text-primary transition-colors"
-                      >
-                        {cap.title}
-                      </h3>
-                      <p className="text-xs text-[#A7B4C5] leading-relaxed">
-                        {cap.description}
-                      </p>
+                    {/* 4-Question Structured Body */}
+                    <div className="space-y-3 pt-1 text-xs">
+                      {/* Business Problem */}
+                      <div className="bg-[#050B14]/60 border border-[#162238] rounded-xl p-3">
+                        <span className="text-[10px] font-mono uppercase font-bold text-muted-foreground block mb-0.5">
+                          Problem Solved
+                        </span>
+                        <p className="text-[11px] text-[#A7B4C5] leading-relaxed">
+                          {cap.problemSolved}
+                        </p>
+                      </div>
+
+                      {/* What Indusnet AI Builds */}
+                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-3">
+                        <span className="text-[10px] font-mono uppercase font-bold text-primary block mb-0.5">
+                          What We Deliver
+                        </span>
+                        <p className="text-[11px] text-[#F5F7FA] font-medium leading-relaxed">
+                          {cap.whatWeBuild}
+                        </p>
+                      </div>
+
+                      {/* Target Stakeholder */}
+                      <div className="flex items-center gap-2 text-[10px] text-muted-foreground font-mono">
+                        <span className="text-primary font-bold">Target Stakeholders:</span>
+                        <span className="truncate">{cap.whoNeedsIt}</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Footer */}
+                  {/* Footer CTA */}
                   <div
-                    className="flex items-center gap-1.5 text-xs font-semibold text-primary pt-2 group-hover:translate-x-1 transition-transform"
+                    className="flex items-center gap-1.5 text-xs font-semibold text-primary pt-2 border-t border-[#162238] group-hover:translate-x-1 transition-transform"
                   >
-                    <span>Explore Architecture</span>
+                    <span>Explore AI Capabilities</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </Link>
@@ -175,11 +213,11 @@ export function WhatWeBuild() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="mt-10 flex items-center gap-3 text-sm text-muted-foreground"
+          className="mt-12 flex items-center gap-3 text-sm text-muted-foreground"
         >
           <span className="w-8 h-px bg-border/80" />
           <span>
-            Not sure where to start?{" "}
+            Not sure where to begin?{" "}
             <button
               onClick={() => {
                 if (typeof window !== "undefined") {
@@ -188,9 +226,9 @@ export function WhatWeBuild() {
                   );
                 }
               }}
-              className="text-primary font-semibold hover:underline underline-offset-2"
+              className="text-primary font-semibold hover:underline underline-offset-2 cursor-pointer"
             >
-              Talk to our AI and get a recommendation in 2 minutes →
+              Talk to Our AI to discover your AI opportunity →
             </button>
           </span>
         </motion.div>

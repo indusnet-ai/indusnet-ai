@@ -70,7 +70,7 @@ export default function ContactClient() {
       if (response.ok) {
         trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "inquiry", service: formData.service });
         setInquiryStatus("success");
-        setInquiryMessage(data.message || "Consultation inquiry received! We will reply within one business day.");
+        setInquiryMessage(data.message || "Consultation inquiry received! An enterprise AI architect will review your project constraints and follow up promptly.");
         setFormData({ name: "", email: "", company: "", service: "Enterprise RAG & Knowledge Systems", message: "" });
       } else {
         setInquiryStatus("error");
@@ -150,7 +150,7 @@ export default function ContactClient() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] font-heading"
         >
-          Book a Strategy Consultation with our <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AI Engineering Team</span>
+          Discuss Your AI Architecture with our <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Engineering Team</span>
         </motion.h1>
 
         <motion.p
@@ -159,8 +159,38 @@ export default function ContactClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto"
         >
-          Have technical questions about private subnets, security policies, vector indexing, or custom agent networks? Let's connect.
+          Have questions about private VPC isolation, regulatory compliance boundaries, multi-agent orchestration, or legacy ERP integration? Connect directly with our enterprise AI architects.
         </motion.p>
+
+        {/* What Happens Next 3-Step Process */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto pt-4 text-left"
+        >
+          <div className="p-4 rounded-xl bg-[#08111F] border border-[#162238] space-y-1">
+            <span className="text-[10px] font-mono uppercase font-bold text-primary block">Step 1 · Direct Scoping</span>
+            <h3 className="text-xs font-bold text-foreground">Technical Review</h3>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              We review your workflow friction, data readiness, and security boundaries.
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#08111F] border border-[#162238] space-y-1">
+            <span className="text-[10px] font-mono uppercase font-bold text-cyan-400 block">Step 2 · Architecture</span>
+            <h3 className="text-xs font-bold text-foreground">Stack & Model Sizing</h3>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              We evaluate model selection, private VPC hosting, and integration touchpoints.
+            </p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#08111F] border border-[#162238] space-y-1">
+            <span className="text-[10px] font-mono uppercase font-bold text-emerald-400 block">Step 3 · Blueprint</span>
+            <h3 className="text-xs font-bold text-foreground">Production Roadmap</h3>
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              You receive an actionable 90-day milestone roadmap with bounded budgets.
+            </p>
+          </div>
+        </motion.div>
       </section>
 
       {/* 2. CORE WORKSPACE: FORM + CALENDAR SIMULATOR */}

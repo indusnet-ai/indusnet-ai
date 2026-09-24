@@ -207,15 +207,15 @@ export default function AssessmentClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mx-auto"
         >
-          Share your business context, the challenges you are trying to solve, and your data environment. A senior Indusnet AI solutions architect will review your submission and follow up with a tailored AI opportunity assessment.
+          Provide your business context, operational bottlenecks, and data landscape. Our senior AI architects evaluate technical feasibility, data readiness, and compliance boundaries to formulate a tailored AI opportunity roadmap.
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-xs text-muted-foreground/60 italic"
+          className="text-xs text-muted-foreground/70 italic border border-[#162238] rounded-xl px-4 py-2.5 bg-[#050B14]/60 max-w-2xl mx-auto leading-relaxed"
         >
-          This is a scoping and discovery process — outputs are tailored recommendations from a human architect, not AI-generated predictions or guaranteed business case projections.
+          <strong className="text-muted-foreground not-italic">Scoping Notice:</strong> This assessment evaluates high-level feasibility and architecture requirements. Outputs represent directional engineering recommendations, not an automated magic wand or validated final commercial contract. To review detailed VPC sizing and pilot milestones, schedule a discussion with an architect.
         </motion.p>
       </section>
 
@@ -614,7 +614,7 @@ export default function AssessmentClient() {
                     </span>
                   ) : (
                     <span className="flex items-center gap-1">
-                      Forward to Management <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      Submit Assessment for Review <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </span>
                   )}
                 </Button>
@@ -637,17 +637,17 @@ export default function AssessmentClient() {
                 
                 <div className="flex flex-col gap-2 max-w-md">
                   <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] rounded px-3 py-1 font-mono font-semibold w-fit mx-auto uppercase">
-                    Queue Created Successfully
+                    Assessment Submitted
                   </Badge>
-                  <h2 className="text-2xl font-black text-white tracking-tight mt-2">Assessment Forwarded!</h2>
+                  <h2 className="text-2xl font-black text-white tracking-tight mt-2">Assessment Received</h2>
                   <p className="text-xs leading-relaxed text-muted-foreground mt-2">
-                    Our Senior AI Systems Engineers are compiling your POC specifications. Your detailed architecture options document is prioritized. A solutions architect will email you at <span className="text-white font-semibold">{contactEmail}</span> in under 4 hours.
+                    Our senior AI systems architects are reviewing your specifications. An architect will review your architecture options and follow up with you at <span className="text-white font-semibold">{contactEmail}</span> promptly.
                   </p>
                 </div>
 
                 <div className="border-t border-[#162238] w-full pt-6 mt-2 flex flex-col sm:flex-row gap-3 items-center justify-center">
                   <Button asChild variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-xs px-6 py-2">
-                    <a href="/contact">Book Call Directly</a>
+                    <a href="/contact">Discuss Architecture</a>
                   </Button>
                   <Button onClick={() => {
                     setSuccess(false);

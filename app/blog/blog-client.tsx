@@ -228,11 +228,11 @@ export default function BlogClient() {
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="glassmorphism-card rounded-3xl py-12 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
           <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-2.5 py-0.5 text-xs">
-            Join 4,000+ Subscribers
+            Enterprise AI Intelligence
           </Badge>
           <h2 className="text-2xl md:text-3xl font-extrabold text-white">Subscribe to AI Insights</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
-            Receive our exhaustive monthly briefings compiling deployment diagrams, open-source model ratings, and CPMAI course updates.
+            Receive our curated monthly briefings compiling deployment architectures, open-source model evaluations, and enterprise AI engineering patterns.
           </p>
           <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300">
             <a href="#subscribe-footer" className="flex items-center gap-1.5">

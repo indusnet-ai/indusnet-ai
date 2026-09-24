@@ -224,17 +224,30 @@ export default function PortfolioClient() {
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="bg-[#08111F] border border-[#162238] rounded-3xl py-14 px-6 md:px-12 text-center flex flex-col gap-6 items-center shadow-xl">
           <Badge className="bg-primary/10 border-primary/25 text-primary font-mono rounded-full px-3 py-1 text-xs">
-            Secure Prototyping
+            Production AI Architecture
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Let's Design Your Secure Proof-of-Concept</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Let's Architect Your Production System</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
-            Unsure of LLM hallucinations or vector storage setups? We build secure, sandbox environments loaded with your private data to illustrate functionality before committing to heavy scaling costs.
+            Need clarity on retrieval accuracy, multi-agent governance, or private VPC deployment? We design and engineer secure, production-ready AI software grounded in your enterprise data.
           </p>
-          <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
-            <Link href="/contact" className="flex items-center gap-1.5">
-              Consult a Solutions Architect <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                }
+              }}
+              size="lg"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 cursor-pointer"
+            >
+              Talk to Our AI
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground">
+              <Link href="/contact" className="flex items-center gap-1.5">
+                Discuss Architecture <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>

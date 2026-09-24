@@ -605,35 +605,35 @@ export function AgentWorkflowSimulator() {
           </p>
         </div>
 
-        {/* Conceptual Educational Pillars: Chatbots vs Agents */}
+        {/* Conceptual Educational Pillars: Chatbots vs Agents vs Enterprise Controls */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
-          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2.5">
             <div className="flex items-center gap-2.5 text-primary font-bold text-sm">
               <Bot className="w-4 h-4" />
-              <span>What is an AI Agent?</span>
+              <span>Agents vs. Chatbots</span>
             </div>
             <p className="text-xs text-[#A7B4C5] leading-relaxed">
-              Unlike static chatbots that only generate conversational text, an AI agent possesses <strong>perception</strong>, <strong>memory</strong>, <strong>planning</strong>, and <strong>tool execution capabilities</strong> to accomplish end-to-end multi-step goals autonomously.
+              Unlike static chatbots that merely generate conversational text, enterprise AI agents possess <strong>state memory</strong>, <strong>sub-goal planning</strong>, and <strong>sandboxed API tool execution</strong> to autonomously complete complex multi-step business objectives across external systems.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2.5">
             <div className="flex items-center gap-2.5 text-violet-400 font-bold text-sm">
               <GitBranch className="w-4 h-4" />
-              <span>Multi-Agent Collaboration</span>
+              <span>Orchestration & Systems Tooling</span>
             </div>
             <p className="text-xs text-[#A7B4C5] leading-relaxed">
-              Complex tasks are handled by specialized agent swarms: an <strong>Orchestrator</strong> plans the roadmap, specialized <strong>Worker Agents</strong> execute specific APIs, and an independent <strong>Critic Agent</strong> validates safety.
+              Workflows are coordinated through state-machine orchestration: an <strong>Orchestrator Agent</strong> breaks tasks into structured steps, specialized <strong>Worker Agents</strong> interface with SAP, Salesforce, or SQL databases, and an independent <strong>Critic Agent</strong> validates precision.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2.5">
             <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
               <ShieldCheck className="w-4 h-4" />
-              <span>Human-in-the-Loop Governance</span>
+              <span>Enterprise Governance & Human Gates</span>
             </div>
             <p className="text-xs text-[#A7B4C5] leading-relaxed">
-              Autonomous execution is strictly bounded. High-risk actions, financial commitments above configured thresholds, or regulatory edge cases trigger <strong>deterministic escalation gates</strong> requiring human leadership approval.
+              Autonomy is strictly bounded by deterministic policy guardrails. High-value transactions, PII handling, or policy exceptions automatically trigger <strong>human-in-the-loop (HITL) escalation gates</strong> with cryptographic audit trails for compliance.
             </p>
           </div>
         </div>

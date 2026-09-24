@@ -24,6 +24,7 @@ interface CapabilityLayer {
   layerNumber: number;
   layerTitle: string;
   tagline: string;
+  executiveSummary: string;
   icon: any;
   accentColor: string;
   capabilities: CapabilityItem[];
@@ -34,6 +35,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerNumber: 1,
     layerTitle: "LAYER 1 — INTELLIGENCE",
     tagline: "Foundation Models, Multimodal Reasoning & ML",
+    executiveSummary: "Model-agnostic cognitive power balanced across accuracy, latency, and cost — avoiding single-vendor lock-in.",
     icon: Cpu,
     accentColor: "#7C5CFF", // Violet
     capabilities: [
@@ -75,6 +77,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerNumber: 2,
     layerTitle: "LAYER 2 — KNOWLEDGE",
     tagline: "RAG, Enterprise Search & Knowledge Graphs",
+    executiveSummary: "Deterministic grounding in private corporate archives with zero public leakage and verifiable source citations.",
     icon: Network,
     accentColor: "#00D4FF", // Cyan
     capabilities: [
@@ -116,6 +119,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerNumber: 3,
     layerTitle: "LAYER 3 — AGENTS",
     tagline: "Autonomous Swarms, Workflows & Tool Execution",
+    executiveSummary: "Autonomous task completion via coordinated agent swarms operating under explicit human-in-the-loop governance.",
     icon: Bot,
     accentColor: "#7C5CFF", // Violet
     capabilities: [
@@ -157,6 +161,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerNumber: 4,
     layerTitle: "LAYER 4 — APPLICATIONS",
     tagline: "Copilots, Decision Cockpits & Software",
+    executiveSummary: "Intuitive interfaces and copilots that drive daily employee adoption and automate frontline business processes.",
     icon: Layout,
     accentColor: "#1677FF", // Electric Blue
     capabilities: [
@@ -198,6 +203,7 @@ const ARCHITECTURE_LAYERS: CapabilityLayer[] = [
     layerNumber: 5,
     layerTitle: "LAYER 5 — ENTERPRISE",
     tagline: "Data, APIs, Cloud VPC, Security & Governance",
+    executiveSummary: "Defense-in-depth security, zero-trust network boundaries, and VPC isolation ensuring enterprise IP remains protected.",
     icon: ShieldCheck,
     accentColor: "#1677FF", // Electric Blue
     capabilities: [
@@ -306,7 +312,7 @@ export function AiCapabilityStack() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start max-w-6xl mx-auto">
           {/* Left: Capability Cards in Active Layer */}
           <div className="lg:col-span-6 space-y-3">
-            <div className="flex items-center justify-between px-1 pb-1">
+            <div className="flex items-start justify-between px-1 pb-1 gap-4">
               <div>
                 <span className="text-[11px] font-mono uppercase text-primary font-bold block">
                   {activeLayer.layerTitle}
@@ -314,8 +320,11 @@ export function AiCapabilityStack() {
                 <h3 className="text-lg font-bold font-heading text-[#F5F7FA]">
                   {activeLayer.tagline}
                 </h3>
+                <p className="text-xs text-primary/90 font-medium mt-1">
+                  {activeLayer.executiveSummary}
+                </p>
               </div>
-              <Badge variant="outline" className="text-[10px] font-mono border-[#162238] text-[#A7B4C5]">
+              <Badge variant="outline" className="text-[10px] font-mono border-[#162238] text-[#A7B4C5] shrink-0 mt-1">
                 {activeLayer.capabilities.length} Capabilities
               </Badge>
             </div>
@@ -423,8 +432,8 @@ export function AiCapabilityStack() {
                   size="sm"
                   className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-5 shadow-md shadow-primary/20"
                 >
-                  <Link href="/services/generative-ai" className="flex items-center gap-1.5">
-                    Explore Implementation Details
+                  <Link href="/contact" className="flex items-center gap-1.5">
+                    Discuss Architecture
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </Button>

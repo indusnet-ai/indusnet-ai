@@ -292,17 +292,30 @@ export default function IndustriesClient() {
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
         <div className="bg-[#08111F] border border-[#162238] rounded-3xl py-14 px-6 md:px-12 text-center flex flex-col gap-6 items-center shadow-xl">
           <Badge className="bg-primary/10 border-primary/25 text-primary font-mono rounded-full px-3 py-1 text-xs">
-            Custom Architecture Feasibility
+            Enterprise Architecture Review
           </Badge>
           <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">How Will AI Fit Inside Your Stack?</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
-            Schedule a feasibility call. Our full-stack engineering team will review your database access models, data volumes, security compliance, and draft a baseline workflow schema.
+            Connect directly with our engineering team to review your legacy database models, private data volumes, security compliance boundaries, and baseline workflow schemas.
           </p>
-          <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
-            <Link href="/contact" className="flex items-center gap-1.5">
-              Request Stack Feasibility <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                }
+              }}
+              size="lg"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 cursor-pointer"
+            >
+              Talk to Our AI
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground">
+              <Link href="/contact" className="flex items-center gap-1.5">
+                Discuss Architecture <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>

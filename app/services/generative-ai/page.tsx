@@ -136,7 +136,7 @@ export default function GenerativeAiServicesPage() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1] font-heading"
         >
-          Unlock the Full Potential of <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Generative AI</span>
+          Enterprise Generative AI. <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">From Strategy to Software.</span>
         </motion.h1>
 
         <motion.p
@@ -145,7 +145,7 @@ export default function GenerativeAiServicesPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl"
         >
-          Expert guidance to design, test, build, and scale enterprise applications powered by Large Language Models. Move securely from sandbox ideas to heavy production workloads.
+          Expert engineering to design, benchmark, build, and deploy production AI applications, private knowledge systems, and autonomous agents in your secure cloud environment.
         </motion.p>
 
         <motion.div
@@ -154,11 +154,11 @@ export default function GenerativeAiServicesPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap items-center gap-4 justify-center pt-2"
         >
-          <Button onClick={scrollToForm} size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300">
-            Schedule Free Workshop <ArrowDown className="ml-2 w-4 h-4" />
+          <Button onClick={scrollToForm} size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 cursor-pointer">
+            Discuss Architecture <ArrowDown className="ml-2 w-4 h-4" />
           </Button>
           <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] transition-all text-muted-foreground hover:text-foreground">
-            <Link href="/services">View Core Services</Link>
+            <Link href="/services">Explore AI Capabilities</Link>
           </Button>
         </motion.div>
       </section>
@@ -330,13 +330,13 @@ export default function GenerativeAiServicesPage() {
           <CardContent className="p-0 flex flex-col gap-6 text-left">
             <div className="flex flex-col gap-2">
               <Badge className="bg-primary/10 border-primary/25 text-primary w-fit px-3 py-0.5 text-[10px] rounded font-mono font-bold uppercase tracking-wider">
-                Strategy Kickoff
+                Strategy & Architecture Review
               </Badge>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground font-heading tracking-tight">
-                Schedule Your Free Workshop
+                Discuss Your Architecture
               </h2>
               <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-                Sit down with our lead AI architects to align on use case discovery, data readiness, model hosting strategies, and projected ROI.
+                Connect directly with our lead AI architects to align on use case feasibility, enterprise data readiness, model hosting strategies, and projected ROI.
               </p>
             </div>
 
@@ -380,7 +380,7 @@ export default function GenerativeAiServicesPage() {
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-foreground/90 font-mono">AI Objectives or Desired Use Cases</label>
                 <Textarea 
-                  placeholder="What business challenges or model goals would you like to explore during the workshop?"
+                  placeholder="What business challenges or model goals would you like to explore?"
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -398,9 +398,9 @@ export default function GenerativeAiServicesPage() {
                 type="submit" 
                 size="lg"
                 disabled={submitting}
-                className="w-full sm:w-fit rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 mt-2 ml-auto"
+                className="w-full sm:w-fit rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 mt-2 ml-auto cursor-pointer"
               >
-                {submitting ? "Submitting..." : "Schedule My Workshop"} <Send className="ml-2 w-4 h-4" />
+                {submitting ? "Submitting..." : "Request Architecture Consultation"} <Send className="ml-2 w-4 h-4" />
               </Button>
             </form>
           </CardContent>

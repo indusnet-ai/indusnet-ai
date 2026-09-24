@@ -177,7 +177,7 @@ export function AiConciergeModal() {
                         Indusnet AI Advisor
                       </h2>
                       <Badge variant="outline" className="text-[10px] py-0 px-1.5 border-primary/30 text-primary font-mono">
-                        Enterprise AI Concierge
+                        Enterprise Architecture Advisor
                       </Badge>
                     </div>
                     <p className="text-[11px] text-muted-foreground flex items-center gap-1.5 mt-0.5 font-mono">

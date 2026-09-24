@@ -30,7 +30,7 @@ const serviceDetails = [
       "Natural Language understanding with custom prompt engineering",
       "Direct API integrations with Zendesk, Salesforce, and internal CRMs",
       "Deterministic safety rails guarding against ungrounded outputs",
-      "Seamless human-in-the-loop transition triggers"
+      "Deterministic human-in-the-loop escalation triggers"
     ],
     benefits: [
       "High automated resolution of routine tier-1 support inquiries (Illustrative target)",
@@ -124,7 +124,7 @@ const serviceDetails = [
     id: "analytics",
     category: "data",
     title: "Predictive Analytics & Decision Intelligence",
-    desc: "Harness historical enterprise data to forecast inventory requirements, detect anomalous payment profiles, and identify accounts at risk of churn.",
+    desc: "Transform historical enterprise data into predictive operational models to forecast inventory requirements, detect anomalous payment profiles, and identify accounts at risk of churn.",
     icon: BarChart3,
     features: [
       "Time-series forecasting models adapting to seasonal demand",
@@ -378,6 +378,26 @@ export default function ServicesClient() {
           <p className="text-muted-foreground text-xs md:text-sm max-w-xl leading-relaxed">
             Every custom implementation we deploy includes complete observability dashboards, error-logging databases, model alignment metrics, and strict VPC constraints protecting your company's legal integrity.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <Button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                }
+              }}
+              size="lg"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Talk to Our AI
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground">
+              <Link href="/contact" className="flex items-center gap-2">
+                Discuss Architecture
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>

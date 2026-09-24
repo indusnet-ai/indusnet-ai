@@ -16,8 +16,9 @@ interface LifecycleStage {
   summary: string;
   icon: any;
   duration: string;
+  executiveMeaning: string;
+  deliveryActivity: string;
   deliverables: string[];
-  businessValue: string;
   techStack: string[];
 }
 
@@ -25,91 +26,113 @@ const STAGES: LifecycleStage[] = [
   {
     step: "01",
     title: "Discover",
-    summary: "Identify valuable AI opportunities.",
+    summary: "Identify valuable AI opportunities and evaluate enterprise feasibility.",
     icon: Search,
-    duration: "Week 1–2",
+    duration: "Weeks 1–2",
+    executiveMeaning: "Leadership gains objective clarity on high-impact workflows, data readiness, and ROI boundaries before capital commitment.",
+    deliveryActivity: "We audit cognitive task friction, profile private data sources, define security perimeters, and calculate payback timelines.",
     deliverables: [
-      "Cognitive task friction & bottleneck scoring",
-      "Proprietary enterprise data readiness audit",
+      "Cognitive task friction & workflow bottleneck audit",
+      "Enterprise data readiness & access permission audit",
       "Regulatory, privacy, and compliance boundary mapping",
-      "Feasibility matrix ranked by measurable business return"
+      "Feasibility matrix prioritized by measurable business value"
     ],
-    businessValue: "Pinpoints high-ROI enterprise use cases with rapid feasibility validation.",
-    techStack: ["CPMAI Matrix", "Data Audit Scorer", "Security Boundary Review"]
+    techStack: ["CPMAI Matrix", "Data Readiness Audit", "Zero-Trust Security Review"]
   },
   {
     step: "02",
     title: "Strategize",
-    summary: "Define roadmap and architecture.",
+    summary: "Formulate architecture, model selection, and milestone roadmap.",
     icon: Compass,
-    duration: "Week 2–3",
+    duration: "Weeks 2–3",
+    executiveMeaning: "Eliminates proof-of-concept paralysis by establishing a cost-bounded technical and operational blueprint.",
+    deliveryActivity: "We select optimal frontier vs private open-weights models, size GPU compute environments, and establish 90-day production milestones.",
     deliverables: [
-      "Frontier vs Private open-weights SLM selection",
-      "Hardware compute & VRAM sizing (Cloud VPC vs On-Prem)",
-      "Financial ROI and payback timeline modeling",
-      "Boardroom-ready 90-day execution milestone plan"
+      "Model selection matrix (Frontier APIs vs Private SLMs)",
+      "Compute & VRAM sizing (Cloud VPC vs Dedicated On-Prem)",
+      "Payback timeline & token cost boundary modeling",
+      "Boardroom-ready 90-day production milestone plan"
     ],
-    businessValue: "Eliminates prototype paralysis with a hardened, cost-bounded architecture roadmap.",
-    techStack: ["NVIDIA Sizing Models", "VPC Architecture Blueprint", "ROI Projections"]
+    techStack: ["Model Routing Specs", "VPC Architecture Blueprint", "ROI Projections"]
   },
   {
     step: "03",
     title: "Design",
-    summary: "Design the AI experience and system.",
+    summary: "Design the user experience, interaction paradigms, and safety guardrails.",
     icon: Palette,
-    duration: "Week 3–4",
+    duration: "Weeks 3–4",
+    executiveMeaning: "Ensures rapid employee adoption, intuitive interfaces, and strict hallucination mitigation before writing application code.",
+    deliveryActivity: "We wireframe conversational and streaming cockpits, define human-in-the-loop escalation gates, and craft semantic guardrails.",
     deliverables: [
-      "Human-in-the-loop interaction & escalation design",
-      "Streaming copilot interface & feedback wireframes",
+      "Streaming copilot and conversational interface wireframes",
+      "Human-in-the-loop escalation workflows & approval gates",
       "Deterministic safety guardrails & semantic prompt filters",
       "Zero-data-retention data flow specifications"
     ],
-    businessValue: "Promotes intuitive enterprise adoption with active hallucination mitigation.",
-    techStack: ["Next.js 16 Streaming Wireframes", "NeMo Guardrail Specs", "RBAC Flow"]
+    techStack: ["Next.js Streaming UIs", "NeMo Guardrail Specs", "RBAC Policy Matrix"]
   },
   {
     step: "04",
     title: "Build",
-    summary: "Engineer applications, agents and workflows.",
+    summary: "Engineer applications, agents, knowledge pipelines, and APIs.",
     icon: Cpu,
-    duration: "Week 4–7",
+    duration: "Weeks 4–7",
+    executiveMeaning: "Translates strategic architecture into robust, unit-tested enterprise software with ground-truth validation.",
+    deliveryActivity: "We implement hybrid RAG indices, multi-agent state machines, OpenAPI sandboxes, and semantic caching layers.",
     deliverables: [
-      "Hybrid RAG vector indexing with dense-sparse re-ranking",
-      "Multi-agent swarm coordination with sandboxed OpenAPI tools",
-      "Semantic caching layers for sub-second latency and significant LLM API cost reduction",
-      "Unit testing, regression benchmarking, and ground-truth evaluation"
+      "Hybrid dense-sparse vector indexing with cross-encoder re-ranking",
+      "Autonomous multi-agent execution loops with sandboxed tools",
+      "Semantic caching layers minimizing latency and token costs",
+      "Comprehensive evaluation suites with ground-truth regression benchmarks"
     ],
-    businessValue: "Production-grade, test-covered AI software components ready for integration.",
-    techStack: ["PostgreSQL pgvector", "LangChain / LlamaIndex", "Redis Cache", "vLLM"]
+    techStack: ["PostgreSQL pgvector", "LangChain / LlamaIndex", "Redis", "vLLM Engine"]
   },
   {
     step: "05",
-    title: "Deploy",
-    summary: "Move AI into production.",
-    icon: Rocket,
-    duration: "Week 7–9",
+    title: "Integrate",
+    summary: "Connect intelligence directly into installed enterprise systems.",
+    icon: Layers,
+    duration: "Weeks 7–8",
+    executiveMeaning: "Unlocks the value of existing investments in ERP, CRM, and databases without requiring disruptive system overhauls.",
+    deliveryActivity: "We engineer bidirectional adapters for SAP, Salesforce, SQL data warehouses, and identity providers under strict zero-trust controls.",
     deliverables: [
-      "Private VPC deployment (AWS Bedrock / Azure OpenAI / GCP / On-Prem)",
-      "Containerized inference clustering with autoscaling policies",
-      "Enterprise SSO (SAML 2.0 / Okta) and RBAC synchronization",
-      "Stress-load testing and latency SLA validation"
+      "Bidirectional connectors for ERP, CRM, and transactional systems",
+      "Enterprise SSO (SAML 2.0 / Okta) and role-based access synchronization",
+      "Zero-trust API gateways with rate limiting and payload validation",
+      "End-to-end integration and data consistency stress testing"
     ],
-    businessValue: "Hardened software serving live operational workloads with production-grade uptime targets.",
-    techStack: ["Kubernetes", "AWS/Azure VPC Enclaves", "Triton / vLLM", "Docker"]
+    techStack: ["REST / gRPC Gateways", "SAP / Salesforce RFC", "SAML 2.0 / Okta", "OAuth2 Scoping"]
   },
   {
     step: "06",
+    title: "Deploy",
+    summary: "Roll out hardened software into isolated enterprise production environments.",
+    icon: Rocket,
+    duration: "Weeks 8–9",
+    executiveMeaning: "Achieves safe production launch in your private VPC with strict compliance, high availability, and zero vendor lock-in.",
+    deliveryActivity: "We orchestrate containerized inference clusters, configure auto-scaling policies, and conduct live production readiness reviews.",
+    deliverables: [
+      "Private VPC enclave deployment (AWS Bedrock / Azure / GCP / On-Prem)",
+      "High-availability containerized clustering with autoscaling policies",
+      "Production latency SLA and load validation under peak concurrency",
+      "SOC-2 / HIPAA compliance audit signoff and disaster recovery runbooks"
+    ],
+    techStack: ["Kubernetes", "AWS / Azure VPC Enclaves", "Docker", "Triton Server"]
+  },
+  {
+    step: "07",
     title: "Scale",
-    summary: "Govern, optimize and expand.",
+    summary: "Monitor, optimize token economics, and expand agent capabilities.",
     icon: TrendingUp,
     duration: "Ongoing",
+    executiveMeaning: "Compounds operational returns over time through continuous performance optimization and cross-departmental leverage.",
+    deliveryActivity: "We monitor real-time token drift, fine-tune models on feedback loops, dynamically route queries for cost reduction, and scale agent swarms.",
     deliverables: [
-      "Real-time drift detection and hallucination scoring",
-      "Continuous prompt regression testing and model fine-tuning",
+      "Real-time latency, drift detection, and hallucination scoring",
       "Dynamic model routing for continuous token cost reduction",
-      "Expansion into cross-departmental agentic swarms"
+      "Continuous regression testing and selective parameter fine-tuning",
+      "Expansion blueprints for cross-departmental agentic swarms"
     ],
-    businessValue: "Compounding operational returns with enterprise-wide cognitive leverage.",
     techStack: ["Langfuse Observability", "OpenTelemetry", "Continuous Eval CI/CD"]
   }
 ];
@@ -131,7 +154,7 @@ export function AiDeliveryLifecycle() {
             From Strategy <span className="text-primary">to Software</span>
           </h2>
           <p className="text-[#A7B4C5] text-base sm:text-lg leading-relaxed">
-            Move seamlessly from boardroom strategy to hardened production code. A disciplined, 6-stage engineering journey built for enterprise speed, security, and measurable ROI.
+            Move systematically from boardroom strategy to hardened production code. A disciplined, 7-stage engineering journey built for enterprise velocity, governance, and measurable ROI.
           </p>
         </div>
 
@@ -141,7 +164,7 @@ export function AiDeliveryLifecycle() {
           <div className="hidden lg:block absolute top-1/2 left-6 right-6 h-0.5 bg-[#162238] -translate-y-1/2 -z-10" />
 
           {/* Stepper Nodes */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
             {STAGES.map((s, idx) => {
               const isSelected = activeStepIndex === idx;
               const isPast = activeStepIndex > idx;
@@ -150,7 +173,7 @@ export function AiDeliveryLifecycle() {
                 <button
                   key={s.step}
                   onClick={() => setActiveStepIndex(idx)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative cursor-pointer ${
+                  className={`p-3 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-2.5 group relative cursor-pointer ${
                     isSelected
                       ? "bg-[#0D1828] border-primary shadow-xl shadow-primary/20 scale-[1.02]"
                       : isPast
@@ -163,7 +186,7 @@ export function AiDeliveryLifecycle() {
                       {s.step}
                     </span>
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center transition-colors ${
                         isSelected
                           ? "bg-primary text-white shadow-sm"
                           : "bg-[#0D1828] text-[#A7B4C5] group-hover:text-primary"
@@ -178,7 +201,7 @@ export function AiDeliveryLifecycle() {
                       {s.title}
                     </h3>
                     <p className="text-[10px] text-[#A7B4C5] line-clamp-1 mt-0.5">
-                      {s.summary}
+                      {s.duration}
                     </p>
                   </div>
                 </button>
@@ -194,9 +217,9 @@ export function AiDeliveryLifecycle() {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             {/* Left: Stage Overview & Value */}
-            <div className="md:col-span-6 space-y-5">
+            <div className="md:col-span-6 space-y-4">
               <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-sm shrink-0">
                   <StepIcon className="w-6 h-6" />
                 </div>
                 <div>
@@ -212,16 +235,27 @@ export function AiDeliveryLifecycle() {
                 </div>
               </div>
 
-              <p className="text-base font-semibold text-[#F5F7FA] leading-snug">
+              <p className="text-sm font-semibold text-[#F5F7FA] leading-snug">
                 {current.summary}
               </p>
 
-              <div className="p-4 rounded-2xl bg-[#0D1828] border border-[#162238] space-y-1">
+              {/* Executive Meaning */}
+              <div className="p-3.5 rounded-2xl bg-[#0D1828] border border-[#162238] space-y-1">
                 <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
-                  What this means for your business
+                  Executive Meaning (Business Perspective)
                 </span>
                 <p className="text-xs text-[#A7B4C5] leading-relaxed">
-                  {current.businessValue}
+                  {current.executiveMeaning}
+                </p>
+              </div>
+
+              {/* Delivery Activity */}
+              <div className="p-3.5 rounded-2xl bg-primary/5 border border-primary/20 space-y-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
+                  Delivery Activity (What Indusnet AI Does)
+                </span>
+                <p className="text-xs text-[#F5F7FA] leading-relaxed">
+                  {current.deliveryActivity}
                 </p>
               </div>
 
