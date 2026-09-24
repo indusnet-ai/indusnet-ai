@@ -9,9 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { 
   Mail, Phone, MapPin, Loader2, CheckCircle2, 
-  Calendar as CalendarIcon, Clock, Sparkles, Map, Globe, Cpu 
+  Calendar as CalendarIcon, Clock, Sparkles, Map, Globe, Cpu, ArrowRight, ShieldCheck 
 } from "lucide-react";
 import { Linkedin } from "@/components/ui/brand-icons";
+import { useSearchParams } from "next/navigation";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const servicesList = [
@@ -31,13 +32,26 @@ const calendarSlots = [
 ];
 
 export default function ContactClient() {
+  const searchParams = useSearchParams();
+  const paramService = searchParams.get("service") || "";
+  const paramMessage = searchParams.get("message") || searchParams.get("challenge") || "";
+  const paramDomain = searchParams.get("domain") || "";
+
+  // Dynamic services list to include incoming custom service if not in standard list
+  const activeServicesList = React.useMemo(() => {
+    if (paramService && !servicesList.includes(paramService)) {
+      return [paramService, ...servicesList];
+    }
+    return servicesList;
+  }, [paramService]);
+
   // Inquiry Form State
   const [formData, setFormData] = React.useState({
     name: "",
     email: "",
     company: "",
-    service: "Enterprise RAG & Knowledge Systems",
-    message: ""
+    service: paramService || "Enterprise RAG & Knowledge Systems",
+    message: paramMessage ? `Regarding ${paramDomain ? paramDomain + ": " : ""}${paramMessage}` : ""
   });
   const [inquiryStatus, setInquiryStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [inquiryMessage, setInquiryMessage] = React.useState("");
@@ -68,6 +82,7 @@ export default function ContactClient() {
 
       const data = await response.json().catch(() => ({}));
       if (response.ok) {
+        trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, { form_type: "inquiry", service: formData.service });
         trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "inquiry", service: formData.service });
         setInquiryStatus("success");
         setInquiryMessage(data.message || "Consultation inquiry received! An enterprise AI architect will review your project constraints and follow up promptly.");
@@ -114,6 +129,7 @@ export default function ContactClient() {
 
       const errorData = await response.json().catch(() => ({}));
       if (response.ok) {
+        trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, { form_type: "booking", slot: `${selectedDay} at ${selectedSlot}` });
         trackEvent(ConversionEvents.CONTACT_SUBMIT, { form_type: "booking", slot: `${selectedDay} at ${selectedSlot}` });
         setBookingStatus("success");
       } else {
@@ -257,7 +273,7 @@ export default function ContactClient() {
                       disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
                       className="flex h-10 w-full rounded-xl border border-[#162238] bg-[#0D1828] px-3 py-1 text-xs text-foreground shadow-sm transition-colors focus:outline-none focus:border-primary"
                     >
-                      {servicesList.map((srv, idx) => (
+                      {activeServicesList.map((srv, idx) => (
                         <option key={idx} value={srv} className="bg-[#08111F] text-foreground text-xs">
                           {srv}
                         </option>
@@ -288,12 +304,16 @@ export default function ContactClient() {
                   >
                     {inquiryStatus === "loading" ? (
                       <span className="flex items-center gap-2">
-                        <Loader2 className="w-4 h-4 animate-spin" /> Logging Inquiry...
+                        <Loader2 className="w-4 h-4 animate-spin" /> Submitting Inquiry...
                       </span>
                     ) : (
-                      "Submit Inquiry"
+                      "Discuss Architecture with an Architect"
                     )}
                   </Button>
+
+                  <p className="text-[10px] text-muted-foreground/70 italic text-center font-mono">
+                    Privacy: Information is used strictly to evaluate technical architecture requirements and project feasibility. No third-party sharing.
+                  </p>
 
                   {inquiryStatus === "success" && (
                     <div className="flex items-start gap-2.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 mt-2 font-mono">
@@ -330,9 +350,9 @@ export default function ContactClient() {
                       <CheckCircle2 className="w-8 h-8 text-emerald-400" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg text-foreground">Call Scheduled Successfully!</h3>
+                      <h3 className="font-bold text-lg text-foreground">Call Request Scheduled</h3>
                       <p className="text-xs text-muted-foreground mt-1 max-w-xs mx-auto">
-                        Your meeting for <strong className="text-foreground">{selectedDay} at {selectedSlot}</strong> has been logged. An email alert has been sent to info@indusnet-ai.com, and a calendar invite will arrive shortly.
+                        Your meeting request for <strong className="text-foreground">{selectedDay} at {selectedSlot}</strong> has been logged. An email alert has been sent to our solutions engineering team, and a calendar invite will be confirmed promptly.
                       </p>
                     </div>
                     <Button onClick={() => {

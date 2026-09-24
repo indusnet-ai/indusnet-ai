@@ -240,8 +240,11 @@ const EDITORIAL_INSIGHTS = [
   }
 ];
 
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
+
 export default function HomeClient() {
   const triggerConcierge = (starterId?: string) => {
+    trackEvent(ConversionEvents.CTA_TALK_TO_AI, { starterId: starterId || "default" });
     if (typeof window !== "undefined") {
       window.dispatchEvent(
         new CustomEvent("open-ai-concierge", {
@@ -419,6 +422,40 @@ export default function HomeClient() {
           </div>
         </div>
         <AgentWorkflowSimulator />
+
+        {/* Contextual CTA: Explore AI Agent Opportunities */}
+        <div className="container mx-auto px-4 md:px-6 pt-10 pb-8">
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#08111F] border border-[#162238] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#7C5CFF] font-bold">
+                Agentic Engineering
+              </span>
+              <p className="text-sm font-semibold text-foreground">
+                Interested in deploying autonomous, tool-calling agent systems in your enterprise?
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <Button
+                asChild
+                size="sm"
+                className="rounded-full bg-[#7C5CFF] text-white hover:bg-[#6a48f3] text-xs px-5 shadow-md shadow-[#7C5CFF]/20 font-bold"
+              >
+                <Link href="/services/generative-ai" className="flex items-center gap-1.5">
+                  Explore AI Agent Opportunities
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => triggerConcierge("deploy-agents")}
+                className="rounded-full border-[#7C5CFF]/30 text-foreground hover:bg-[#7C5CFF]/10 text-xs px-4 cursor-pointer"
+              >
+                Talk to Our AI
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
 
 
@@ -522,7 +559,7 @@ export default function HomeClient() {
                 <Button asChild className="w-full rounded-full bg-primary text-white font-bold hover:bg-primary/90 text-xs shadow-md shadow-primary/20">
                   <a href="#roi-calculator" className="flex items-center justify-center gap-2">
                     <Calculator className="w-4 h-4" />
-                    Open AI ROI Estimator
+                    Model Your AI Business Case
                   </a>
                 </Button>
               </div>
@@ -812,8 +849,7 @@ export default function HomeClient() {
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
-            Ready to build what <br />
-            <span className="text-primary">AI makes possible?</span>
+            Ready to move from AI idea to <span className="text-primary">production?</span>
           </h2>
 
           <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto leading-relaxed">

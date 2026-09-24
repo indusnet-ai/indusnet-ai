@@ -160,8 +160,8 @@ export async function POST(request: Request) {
         {
           success: true,
           message: isBooking
-            ? "Consultation request received! A calendar invitation will be confirmed within one business day."
-            : "Thank you! Your enquiry has been received. We will reply within one business day.",
+            ? "Consultation request received! A calendar invitation will be confirmed by our solutions engineering team."
+            : "Thank you! Your architectural inquiry has been received. Our solutions engineering team will review your specifications.",
           receivedByEmail: true,
         },
         { status: 200 }
@@ -172,7 +172,7 @@ export async function POST(request: Request) {
       {
         success: false,
         error:
-          "Our automated systems are temporarily unable to process this request. Please email us directly at info@indusnet-ai.com, and our team will respond within one business day.",
+          "Our automated systems are temporarily unable to process this request. Please email us directly at info@indusnet-ai.com.",
       },
       { status: 503 }
     );
@@ -182,8 +182,8 @@ export async function POST(request: Request) {
     {
       success: true,
       message: isBooking
-        ? "Consultation scheduled successfully! A calendar invitation will be confirmed within one business day."
-        : "Thank you! Your enquiry has been received. We will reply within one business day.",
+        ? "Consultation scheduled successfully! A calendar invitation will be confirmed by our solutions engineering team."
+        : "Thank you! Your architectural inquiry has been received. Our solutions engineering team will review your specifications.",
     },
     { status: 200 }
   );

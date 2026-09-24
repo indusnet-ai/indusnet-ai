@@ -8,6 +8,7 @@ import { Menu, ArrowUpRight, Cpu, Sun, Moon, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -115,6 +116,7 @@ export function Navbar() {
           <ThemeToggle />
           <Button
             onClick={() => {
+              trackEvent(ConversionEvents.CTA_TALK_TO_AI, { location: "desktop_navbar" });
               if (typeof window !== "undefined") {
                 window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
               }
@@ -128,7 +130,11 @@ export function Navbar() {
           </Button>
 
           <Button asChild size="sm" className="rounded-full bg-primary text-white font-semibold hover:bg-primary/90 hover:shadow-[0_4px_20px_rgba(22,119,255,0.4)] transition-all duration-300 group px-4 text-xs">
-            <Link href="/contact" className="flex items-center gap-1.5">
+            <Link 
+              href="/contact" 
+              onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { location: "desktop_navbar" })}
+              className="flex items-center gap-1.5"
+            >
               Discuss Architecture
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
@@ -188,6 +194,7 @@ export function Navbar() {
                 <SheetClose render={
                   <Button
                     onClick={() => {
+                      trackEvent(ConversionEvents.CTA_TALK_TO_AI, { location: "mobile_navbar" });
                       if (typeof window !== "undefined") {
                         window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
                       }
@@ -202,7 +209,11 @@ export function Navbar() {
 
                 <SheetClose render={
                   <Button asChild className="w-full rounded-full bg-primary text-white font-semibold py-5 text-xs shadow-lg shadow-primary/25">
-                    <Link href="/contact" className="flex items-center justify-center gap-2">
+                    <Link 
+                      href="/contact" 
+                      onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { location: "mobile_navbar" })}
+                      className="flex items-center justify-center gap-2"
+                    >
                       Discuss Architecture
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>

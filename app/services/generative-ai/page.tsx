@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 // FAQ Array (phData Inspired)
 const faqs = [
@@ -69,6 +70,14 @@ export default function GenerativeAiServicesPage() {
   const [message, setMessage] = React.useState("");
   const [submitting, setSubmitting] = React.useState(false);
   const [submitStatus, setSubmitStatus] = React.useState<{ success?: boolean; message?: string } | null>(null);
+  const formStartedRef = React.useRef(false);
+
+  const handleFieldFocus = () => {
+    if (!formStartedRef.current) {
+      formStartedRef.current = true;
+      trackEvent(ConversionEvents.LEAD_FORM_STARTED, { form: "generative_ai_page" });
+    }
+  };
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -99,6 +108,10 @@ export default function GenerativeAiServicesPage() {
 
       const data = await res.json();
       if (res.ok) {
+        trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, {
+          form: "generative_ai_page",
+          service: "Generative AI Workshop Request"
+        });
         setSubmitStatus({ success: true, message: "Success! Your workshop request has been submitted. Our team will contact you shortly." });
         setName("");
         setEmail("");
@@ -348,6 +361,7 @@ export default function GenerativeAiServicesPage() {
                     type="text" 
                     placeholder="Enter name"
                     value={name}
+                    onFocus={handleFieldFocus}
                     onChange={(e) => setName(e.target.value)}
                     className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-foreground rounded-xl placeholder:text-muted-foreground text-xs"
                     required
@@ -359,6 +373,7 @@ export default function GenerativeAiServicesPage() {
                     type="email" 
                     placeholder="Enter email"
                     value={email}
+                    onFocus={handleFieldFocus}
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-foreground rounded-xl placeholder:text-muted-foreground text-xs"
                     required
@@ -372,6 +387,7 @@ export default function GenerativeAiServicesPage() {
                   type="text" 
                   placeholder="Enter organization name"
                   value={company}
+                  onFocus={handleFieldFocus}
                   onChange={(e) => setCompany(e.target.value)}
                   className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-foreground rounded-xl placeholder:text-muted-foreground text-xs"
                 />
@@ -383,6 +399,7 @@ export default function GenerativeAiServicesPage() {
                   placeholder="What business challenges or model goals would you like to explore?"
                   rows={4}
                   value={message}
+                  onFocus={handleFieldFocus}
                   onChange={(e) => setMessage(e.target.value)}
                   className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-foreground rounded-xl resize-none placeholder:text-muted-foreground text-xs"
                 />
@@ -394,14 +411,19 @@ export default function GenerativeAiServicesPage() {
                 </div>
               )}
 
-              <Button 
-                type="submit" 
-                size="lg"
-                disabled={submitting}
-                className="w-full sm:w-fit rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 mt-2 ml-auto cursor-pointer"
-              >
-                {submitting ? "Submitting..." : "Request Architecture Consultation"} <Send className="ml-2 w-4 h-4" />
-              </Button>
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
+                <p className="text-[11px] text-muted-foreground/60 text-center sm:text-left">
+                  Zero spam. Architecture consultations are conducted under NDA upon request.
+                </p>
+                <Button 
+                  type="submit" 
+                  size="lg"
+                  disabled={submitting}
+                  className="w-full sm:w-fit rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 cursor-pointer"
+                >
+                  {submitting ? "Submitting..." : "Discuss Architecture with an Architect"} <Send className="ml-2 w-4 h-4" />
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>

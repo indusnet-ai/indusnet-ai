@@ -359,6 +359,29 @@ export default function ServicesClient() {
                           </ul>
                         </div>
                       </div>
+
+                      {/* Card Action Row */}
+                      <div className="border-t border-[#162238] pt-5 mt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground font-mono">
+                          <span className="text-[11px] text-primary font-bold mr-1">Stack:</span>
+                          {srv.tech.map((t, ti) => (
+                            <span key={ti} className="px-2 py-0.5 rounded bg-[#08111F] border border-[#162238] text-[10px] text-foreground font-medium">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                          <Button
+                            asChild
+                            size="sm"
+                            className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 text-xs px-4 shadow-md shadow-primary/20 w-full sm:w-auto"
+                          >
+                            <Link href={`/contact?service=${encodeURIComponent(srv.title)}`}>
+                              Discuss Architecture <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 ))}

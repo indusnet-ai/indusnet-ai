@@ -124,7 +124,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/contact" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
-                  Book Technical Consultation
+                  Discuss Architecture
                 </Link>
               </li>
             </ul>

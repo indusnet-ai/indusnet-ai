@@ -13,6 +13,7 @@ import {
   Truck, BookOpen, Scale, ArrowRight, ShieldCheck 
 } from "lucide-react";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+import Link from "next/link";
 
 // 1. Industry Domain Card Configurations
 interface DomainOption {
@@ -622,47 +623,213 @@ export default function AssessmentClient() {
             </div>
           </div>
         ) : (
-          /* SUCCESS VIEW */
+          /* SUCCESS VIEW: Opportunity Summary & Recommended AI Path */
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="w-full text-center"
           >
-            <Card className="bg-[#08111F] border border-[#162238] max-w-2xl mx-auto shadow-2xl relative overflow-hidden rounded-2xl">
-              <div className="absolute top-0 right-0 -z-10 w-48 h-48 rounded-full bg-emerald-500/5 blur-2xl" />
-              <CardContent className="p-10 flex flex-col items-center gap-6 justify-center">
-                <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center animate-bounce text-emerald-400">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
+            <Card className="bg-[#08111F] border border-[#162238] max-w-3xl mx-auto shadow-2xl relative overflow-hidden rounded-2xl text-left">
+              <div className="absolute top-0 right-0 -z-10 w-64 h-64 rounded-full bg-emerald-500/5 blur-3xl" />
+              <CardContent className="p-6 sm:p-10 flex flex-col gap-6">
                 
-                <div className="flex flex-col gap-2 max-w-md">
-                  <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] rounded px-3 py-1 font-mono font-semibold w-fit mx-auto uppercase">
-                    Assessment Submitted
-                  </Badge>
-                  <h2 className="text-2xl font-black text-white tracking-tight mt-2">Assessment Received</h2>
-                  <p className="text-xs leading-relaxed text-muted-foreground mt-2">
-                    Our senior AI systems architects are reviewing your specifications. An architect will review your architecture options and follow up with you at <span className="text-white font-semibold">{contactEmail}</span> promptly.
-                  </p>
+                {/* Header Confirmation */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#162238]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shrink-0">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] rounded px-2.5 py-0.5 font-mono font-semibold uppercase">
+                        Assessment Submitted
+                      </Badge>
+                      <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight mt-1">
+                        Opportunity Scoping Summary
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="text-right sm:block hidden">
+                    <span className="text-[11px] font-mono text-muted-foreground block">Notification Sent To:</span>
+                    <span className="text-xs font-semibold text-primary font-mono">{contactEmail}</span>
+                  </div>
                 </div>
 
-                <div className="border-t border-[#162238] w-full pt-6 mt-2 flex flex-col sm:flex-row gap-3 items-center justify-center">
-                  <Button asChild variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-xs px-6 py-2">
-                    <a href="/contact">Discuss Architecture</a>
-                  </Button>
-                  <Button onClick={() => {
-                    setSuccess(false);
-                    setStep(1);
-                    setDomain("");
-                    setBusinessStyle("");
-                    setCustomerProblem("");
-                    setAiObjectives([]);
-                    setDataProfile([]);
-                    setDataSize("");
-                    setContactName("");
-                    setContactEmail("");
-                  }} className="rounded-full bg-primary text-white font-bold text-xs px-6 py-2 hover:bg-primary/90 shadow-md shadow-primary/20">
-                    Start New Scoper
-                  </Button>
+                {/* 1. Scoped Opportunity Summary */}
+                <div className="bg-[#0D1828]/70 border border-[#162238] rounded-xl p-5 space-y-3">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
+                    YOUR SCOPED AI PROFILE
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase block">Sector Domain</span>
+                      <span className="font-bold text-foreground capitalize">{domain}</span>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase block">Operating Style</span>
+                      <span className="font-bold text-foreground capitalize">{businessStyle}</span>
+                    </div>
+                  </div>
+                  {customerProblem && (
+                    <div className="p-3 rounded-lg bg-[#08111F] border border-[#162238] text-xs">
+                      <span className="text-[10px] font-mono text-muted-foreground uppercase block mb-1">Target Bottleneck</span>
+                      <p className="text-foreground/90 italic leading-relaxed">"{customerProblem}"</p>
+                    </div>
+                  )}
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                    <span className="text-[11px] font-mono text-muted-foreground">POC Scale:</span>
+                    <Badge variant="outline" className="text-[10px] font-mono border-primary/30 text-primary">
+                      {dataSize}
+                    </Badge>
+                    {dataProfile.length > 0 && (
+                      <span className="text-[11px] text-muted-foreground">
+                        · Data: {dataProfile.join(", ")}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* 2. Recommended AI Capabilities Path */}
+                <div className="space-y-3">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
+                    <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+                    RECOMMENDED AI CAPABILITY PATH
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {aiObjectives.includes("Intelligent RAG Search") && (
+                      <Link
+                        href="/services/generative-ai"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-primary/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                            Enterprise RAG & Search
+                            <ArrowRight className="w-3 h-3 text-primary group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Private vector retrieval across documents with verified source grounding.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-primary font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                    {aiObjectives.includes("Automated Agentic Workflows") && (
+                      <Link
+                        href="/services/generative-ai"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-[#7C5CFF]/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-[#7C5CFF] transition-colors flex items-center justify-between">
+                            Autonomous AI Agents
+                            <ArrowRight className="w-3 h-3 text-[#7C5CFF] group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Tool-calling multi-agent systems with human escalation gates.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#7C5CFF] font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                    {aiObjectives.includes("Autonomous Conversational Chatbots") && (
+                      <Link
+                        href="/services/generative-ai"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-emerald-500/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-emerald-400 transition-colors flex items-center justify-between">
+                            Enterprise Copilots & Chatbots
+                            <ArrowRight className="w-3 h-3 text-emerald-400 group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Custom multi-channel conversational agents with deterministic safety rails.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-emerald-400 font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                    {aiObjectives.includes("Predictive Analytics Models") && (
+                      <Link
+                        href="/services"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-cyan-500/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-cyan-400 transition-colors flex items-center justify-between">
+                            Decision Intelligence
+                            <ArrowRight className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Predictive operational models and real-time anomaly detection.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-cyan-400 font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                    {aiObjectives.includes("Computer Vision Systems") && (
+                      <Link
+                        href="/services"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-amber-500/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-amber-400 transition-colors flex items-center justify-between">
+                            Computer Vision Systems
+                            <ArrowRight className="w-3 h-3 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Edge visual defect inspection and camera stream analytics.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-amber-400 font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                    {/* Fallback capability card if none specific matched */}
+                    {aiObjectives.length === 0 && (
+                      <Link
+                        href="/services/generative-ai"
+                        className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] hover:border-primary/50 transition-colors flex flex-col justify-between group"
+                      >
+                        <div className="space-y-1">
+                          <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors flex items-center justify-between">
+                            Enterprise AI Applications
+                            <ArrowRight className="w-3 h-3 text-primary group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                          <p className="text-[11px] text-muted-foreground leading-relaxed">
+                            Custom copilots and streaming enterprise interfaces in private VPCs.
+                          </p>
+                        </div>
+                        <span className="text-[10px] font-mono text-primary font-semibold mt-2">Explore Capability →</span>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+
+                {/* Notice */}
+                <p className="text-[10px] text-muted-foreground/60 italic text-center font-mono">
+                  Directional engineering recommendations. Formal pilot milestones and hardware sizing require technical architecture validation.
+                </p>
+
+                {/* 3. Conversion Actions */}
+                <div className="border-t border-[#162238] pt-6 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                  <p className="text-xs text-muted-foreground">
+                    Next step: Review these parameters with an enterprise solutions architect.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+                    <Button asChild className="rounded-full bg-primary text-white font-bold text-xs px-6 py-2 shadow-md shadow-primary/20 hover:bg-primary/90 w-full sm:w-auto">
+                      <Link href={`/contact?service=${encodeURIComponent(domain + " AI Scoping")}&from=scoper`}>
+                        Discuss Architecture <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                      </Link>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => {
+                        if (typeof window !== "undefined") {
+                          window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                        }
+                      }}
+                      className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-xs px-4 py-2 w-full sm:w-auto cursor-pointer"
+                    >
+                      Talk to Our AI
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

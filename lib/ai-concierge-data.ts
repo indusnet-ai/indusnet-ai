@@ -28,8 +28,27 @@ export interface ScaleOption {
   complianceFocus: string;
 }
 
+export type QualificationTier = "Explorer" | "Evaluator" | "Active Opportunity" | "Enterprise Engagement";
+
+export interface EngagementOption {
+  id: string;
+  label: string;
+  tier: QualificationTier;
+  description: string;
+}
+
 export const CONCIERGE_OPENING_MESSAGE = 
-  "I'm the Indusnet AI Advisor. What are you trying to build, automate or transform?";
+  "What are you trying to build, automate or transform?";
+
+export const ENGAGEMENT_OPTIONS: EngagementOption[] = [
+  { id: "strategy", label: "Strategy & Opportunity Discovery", tier: "Explorer", description: "Identify high-yield workflow opportunities and data readiness." },
+  { id: "poc", label: "Proof of Concept (POC)", tier: "Evaluator", description: "Rapid prototype validating model performance on representative data." },
+  { id: "architecture", label: "Architecture Blueprint & Sizing", tier: "Active Opportunity", description: "Model selection, private VPC topology, and security guardrails." },
+  { id: "application", label: "AI Application Development", tier: "Enterprise Engagement", description: "Production-grade custom copilots and streaming enterprise interfaces." },
+  { id: "agents", label: "Autonomous AI Agents", tier: "Enterprise Engagement", description: "Multi-agent systems with tool invocation and human escalation gates." },
+  { id: "modernization", label: "Legacy AI Modernization", tier: "Enterprise Engagement", description: "Sidecar cognitive microservices modernizing legacy workflows." },
+  { id: "enterprise-deployment", label: "Enterprise Production Rollout", tier: "Enterprise Engagement", description: "Zero data retention, SOC-2/HIPAA compliance, and telemetry monitoring." },
+];
 
 export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
   {
@@ -241,24 +260,33 @@ export const SCALES: ScaleOption[] = [
   { id: "airgapped", name: "Strictly Air-Gapped / Sovereign", complianceFocus: "Dedicated On-Premise Open-Weights Models, Zero Cloud Egress" }
 ];
 
-export function generateCustomPath(
-  starterId: string,
-  industryId?: string,
-  scaleId?: string,
-  customQuery?: string
-): {
+export interface CustomPathResult {
   challenge: string;
   recommendedApproach: string;
+  likelyComponents: string[];
+  enterpriseConsiderations: string[];
+  suggestedNextStep: string;
   capabilities: string[];
   targetArchitecture: { layer: string; technology: string }[];
   timeline: string;
   roiProjection: string;
+  qualificationTier: QualificationTier;
+  engagementType: string;
   nextStepUrl: string;
   nextStepLabel: string;
-} {
+}
+
+export function generateCustomPath(
+  starterId: string,
+  industryId?: string,
+  scaleId?: string,
+  customQuery?: string,
+  engagementTypeId?: string
+): CustomPathResult {
   const starter = CONCIERGE_STARTERS.find((s) => s.id === starterId) || CONCIERGE_STARTERS[0];
   const industry = INDUSTRIES.find((i) => i.id === industryId);
   const scale = SCALES.find((sc) => sc.id === scaleId);
+  const engagement = ENGAGEMENT_OPTIONS.find((e) => e.id === engagementTypeId);
 
   const challengeText = customQuery?.trim()
     ? customQuery.trim()
@@ -283,14 +311,62 @@ export function generateCustomPath(
     };
   }
 
+  // Derive likely system components from starter and architecture
+  const likelyComponents = [
+    architecture[0]?.technology || "Model Gateway & Abstraction Layer",
+    architecture[1]?.technology || "Private Vector Retrieval / RAG Engine",
+    architecture[2]?.technology || "Deterministic Security Guardrails",
+    architecture[3]?.technology || "VPC Isolated Enterprise Subnet"
+  ];
+
+  // Derive enterprise considerations based on industry and scale
+  const enterpriseConsiderations = [
+    scale?.id === "airgapped"
+      ? "Dedicated On-Premise Sovereign Hardware (Zero external cloud egress)"
+      : "Dedicated Private Cloud VPC (AWS Bedrock / Azure OpenAI / GCP) with Zero Data Retention",
+    industry?.id === "healthcare"
+      ? "HIPAA compliance boundary with client-side PII redacting and automated audit logging"
+      : industry?.id === "finance"
+      ? "SOC-2 Type II aligned data handling with cryptographic source verification"
+      : "Role-Based Access Control (RBAC) integrated with enterprise SSO (Okta / Azure AD)",
+    "Deterministic Human-in-the-Loop escalation gates for edge cases and exceptions"
+  ];
+
+  // Determine qualification tier and engagement type
+  let qualificationTier: QualificationTier = engagement?.tier || "Active Opportunity";
+  let engagementTypeLabel = engagement?.label || starter.tag;
+
+  if (!engagement) {
+    if (starter.id === "explore-opportunities") {
+      qualificationTier = "Explorer";
+      engagementTypeLabel = "Strategy & Opportunity Discovery";
+    } else if (starter.id === "explore-use-cases") {
+      qualificationTier = "Evaluator";
+      engagementTypeLabel = "Proof of Concept (POC)";
+    } else if (starter.id === "deploy-agents" || starter.id === "modernize-app") {
+      qualificationTier = "Enterprise Engagement";
+      engagementTypeLabel = starter.label;
+    } else {
+      qualificationTier = "Active Opportunity";
+      engagementTypeLabel = starter.label;
+    }
+  }
+
+  const suggestedNextStep = `Discuss this architecture with an AI solutions architect to evaluate VPC sizing, data ingestion boundaries, and a 90-day production delivery roadmap.`;
+
   return {
     challenge: challengeText,
     recommendedApproach: starter.recommendedApproach,
+    likelyComponents,
+    enterpriseConsiderations,
+    suggestedNextStep,
     capabilities: adjustedCapabilities,
     targetArchitecture: architecture,
     timeline: starter.timeline,
     roiProjection: starter.roiProjection,
+    qualificationTier,
+    engagementType: engagementTypeLabel,
     nextStepUrl: `/contact?service=${encodeURIComponent(starter.label)}`,
-    nextStepLabel: "Talk to an AI Expert"
+    nextStepLabel: "Discuss Architecture"
   };
 }

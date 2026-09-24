@@ -8,9 +8,27 @@ declare global {
 }
 
 export const ConversionEvents = {
-  CONTACT_SUBMIT: "contact_form_submit",
+  // Core CTA Interactions
+  CTA_TALK_TO_AI: "cta_talk_to_ai",
+  CTA_DISCOVER_AI_OPPORTUNITY: "cta_discover_ai_opportunity",
+  CTA_MODEL_BUSINESS_CASE: "cta_model_business_case",
+  CTA_DISCUSS_ARCHITECTURE: "cta_discuss_architecture",
+  CTA_EXPLORE_CAPABILITIES: "cta_explore_capabilities",
+
+  // Interactive Tools Funnel
+  AI_CONCIERGE_STARTED: "ai_concierge_started",
+  AI_CONCIERGE_COMPLETED: "ai_concierge_completed",
+  AI_SCOPER_STARTED: "ai_scoper_started",
+  AI_SCOPER_COMPLETED: "ai_scoper_completed",
+  AI_SCOPER_COMPLETE: "ai_scoper_complete", // backwards-compatible alias
+  ROI_ESTIMATOR_STARTED: "roi_estimator_started",
+  ROI_ESTIMATOR_COMPLETED: "roi_estimator_completed",
+
+  // Lead Generation & Handoff
+  LEAD_FORM_STARTED: "lead_form_started",
+  LEAD_FORM_SUBMITTED: "lead_form_submitted",
+  CONTACT_SUBMIT: "contact_form_submit", // backwards-compatible alias
   NEWSLETTER_SIGNUP: "newsletter_signup",
-  AI_SCOPER_COMPLETE: "ai_scoper_complete",
 } as const;
 
 export function trackEvent(

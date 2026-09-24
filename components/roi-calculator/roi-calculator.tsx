@@ -24,7 +24,9 @@ import {
   HardDrive,
   Gauge,
   X,
+  MessageSquare,
 } from "lucide-react";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 export function RoiCalculator() {
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryProfile>(
@@ -101,6 +103,11 @@ Payback Period: ${results.paybackMonths} months
 
       const data = await res.json();
       if (res.ok && data.success) {
+        trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, {
+          form: "roi_calculator_blueprint",
+          industry: selectedIndustry.name,
+          net_savings: results.netAnnualSavings,
+        });
         setModalSuccess(true);
       } else {
         setModalError(data.error || "Failed to submit request. Please try again.");
@@ -400,14 +407,32 @@ Payback Period: ${results.paybackMonths} months
                 </span>
               </div>
 
-              {/* Call to Action Button */}
-              <Button
-                onClick={() => setIsModalOpen(true)}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-bold text-xs h-10 rounded-full shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-1 cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5" />
-                Request Custom Architecture & ROI Blueprint (PDF)
-              </Button>
+              {/* Conversion CTAs: Primary & Secondary */}
+              <div className="flex flex-col sm:flex-row gap-2 mt-1">
+                <Button
+                  onClick={() => setIsModalOpen(true)}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold text-xs h-10 rounded-full shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  <ArrowRight className="w-3.5 h-3.5" />
+                  Discuss Your Business Case
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(
+                        new CustomEvent("open-ai-concierge", {
+                          detail: { starterId: "explore-opportunities" }
+                        })
+                      );
+                    }
+                  }}
+                  className="rounded-full bg-[#050B14] border-[#162238] hover:bg-[#0D1828] text-xs h-10 px-4 text-foreground cursor-pointer"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 mr-1.5 text-primary" />
+                  Talk to Our AI
+                </Button>
+              </div>
             </div>
 
           </div>
@@ -439,7 +464,7 @@ Payback Period: ${results.paybackMonths} months
                 <div className="flex flex-col gap-1.5">
                   <h3 className="text-lg font-bold text-foreground">Blueprint Request Dispatched!</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Thank you, <strong>{modalName}</strong>. Our enterprise solutions team will email the comprehensive Architectural Blueprint and GPU Sizing calculation to <strong>{modalEmail}</strong> within one business day.
+                    Thank you, <strong>{modalName}</strong>. Our enterprise solutions engineering team will review your business case model and email the comprehensive Architectural Blueprint and GPU Sizing calculation to <strong>{modalEmail}</strong>.
                   </p>
                 </div>
                 <Button

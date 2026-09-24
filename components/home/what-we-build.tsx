@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 // What We Build — 6 executive-level capability categories
 // Systematically answering: 1) What is it? 2) Problem solved 3) What we build 4) Who needs it
@@ -207,17 +208,33 @@ export function WhatWeBuild() {
           })}
         </div>
 
-        {/* Bottom CTA bridge */}
+        {/* Contextual CTA Bridge */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.4 }}
-          className="mt-12 flex items-center gap-3 text-sm text-muted-foreground"
+          className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-[#08111F] border border-[#162238] shadow-sm"
         >
-          <span className="w-8 h-px bg-border/80" />
-          <span>
-            Not sure where to begin?{" "}
+          <div className="space-y-1 text-center sm:text-left">
+            <span className="text-xs font-mono uppercase tracking-wider text-primary font-bold">
+              Strategic Evaluation
+            </span>
+            <p className="text-sm font-semibold text-foreground">
+              Ready to evaluate which capability delivers highest operational leverage for your organization?
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Button
+              asChild
+              size="sm"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 text-xs px-5 shadow-md shadow-primary/20"
+            >
+              <Link href="/assessment" className="flex items-center gap-1.5">
+                Discover Your AI Opportunity
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </Button>
             <button
               onClick={() => {
                 if (typeof window !== "undefined") {
@@ -226,11 +243,11 @@ export function WhatWeBuild() {
                   );
                 }
               }}
-              className="text-primary font-semibold hover:underline underline-offset-2 cursor-pointer"
+              className="text-xs text-muted-foreground hover:text-foreground font-medium px-2 py-1 transition-colors cursor-pointer"
             >
-              Talk to Our AI to discover your AI opportunity →
+              or Talk to Our AI →
             </button>
-          </span>
+          </div>
         </motion.div>
       </div>
     </section>

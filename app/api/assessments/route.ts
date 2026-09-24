@@ -190,7 +190,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: true,
-          message: "AI Scoping Sheet received successfully! A solutions architect will reply within one business day.",
+          message: "AI Scoping Sheet received successfully! A solutions engineering architect will review your project parameters.",
           receivedByEmail: true,
         },
         { status: 200 }
@@ -201,7 +201,7 @@ export async function POST(request: Request) {
       {
         success: false,
         error:
-          "Our automated systems are temporarily unable to process this scoping sheet. Please email your project details directly to info@indusnet-ai.com, and our team will respond within one business day.",
+          "Our automated systems are temporarily unable to process this scoping sheet. Please email your project details directly to info@indusnet-ai.com.",
       },
       { status: 503 }
     );
@@ -210,7 +210,7 @@ export async function POST(request: Request) {
   return NextResponse.json(
     {
       success: true,
-      message: "AI Scoping Sheet received successfully! A solutions architect will reply within one business day.",
+      message: "AI Scoping Sheet received successfully! A solutions engineering architect will review your project parameters.",
     },
     { status: 200 }
   );

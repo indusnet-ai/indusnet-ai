@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Target, Compass, Award, Cpu, ShieldCheck, Zap, ArrowRight, UserCheck, Briefcase, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const timelineEvents = [
   {
@@ -245,12 +246,34 @@ export default function AboutClient() {
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             Partner with certified CPMAI methodology practitioners and full-stack software architects to construct a compliant, highly secure roadmap for your company.
           </p>
-          <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
-            <Link href="/contact" className="flex items-center gap-1.5">
-              Discuss Architecture
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button
+              onClick={() => {
+                trackEvent(ConversionEvents.CTA_TALK_TO_AI, { location: "about_bottom_cta" });
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
+                }
+              }}
+              size="lg"
+              className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 cursor-pointer"
+            >
+              Talk to Our AI
+            </Button>
+            <Button 
+              asChild 
+              size="lg" 
+              variant="outline" 
+              className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground"
+            >
+              <Link 
+                href="/contact" 
+                onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { location: "about_bottom_cta" })}
+                className="flex items-center gap-1.5"
+              >
+                Discuss Architecture <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>

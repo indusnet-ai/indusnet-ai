@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const industryDetails = [
   {
@@ -282,6 +283,32 @@ export default function IndustriesClient() {
                     </div>
                   </div>
                 </div>
+
+                {/* Industry Card Action Footer */}
+                <div className="mt-6 pt-4 border-t border-[#162238] flex flex-wrap items-center justify-between gap-3">
+                  <span className="text-[11px] font-mono text-muted-foreground">Ready to evaluate AI for {ind.name}?</span>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/assessment?domain=${encodeURIComponent(ind.name)}`}
+                      onClick={() => trackEvent(ConversionEvents.CTA_DISCOVER_AI_OPPORTUNITY, { industry: ind.name, location: "industry_card" })}
+                      className="text-xs text-muted-foreground hover:text-primary transition-colors font-mono flex items-center gap-1"
+                    >
+                      Scope Use Cases →
+                    </Link>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="rounded-full bg-primary/90 text-white font-medium hover:bg-primary text-xs"
+                    >
+                      <Link 
+                        href={`/contact?service=${encodeURIComponent(ind.name)}&domain=${encodeURIComponent(ind.name)}`}
+                        onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { industry: ind.name, location: "industry_card" })}
+                      >
+                        Discuss Architecture <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -301,6 +328,7 @@ export default function IndustriesClient() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button
               onClick={() => {
+                trackEvent(ConversionEvents.CTA_TALK_TO_AI, { location: "industries_bottom_cta" });
                 if (typeof window !== "undefined") {
                   window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
                 }
@@ -310,8 +338,17 @@ export default function IndustriesClient() {
             >
               Talk to Our AI
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground">
-              <Link href="/contact" className="flex items-center gap-1.5">
+            <Button 
+              asChild 
+              size="lg" 
+              variant="outline" 
+              className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground"
+            >
+              <Link 
+                href="/contact" 
+                onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { location: "industries_bottom_cta" })}
+                className="flex items-center gap-1.5"
+              >
                 Discuss Architecture <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>

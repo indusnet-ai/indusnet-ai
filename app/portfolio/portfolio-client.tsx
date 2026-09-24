@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Github } from "@/components/ui/brand-icons";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const caseStudies = [
   {
@@ -202,18 +203,32 @@ export default function PortfolioClient() {
                 </div>
               </div>
 
-              {/* Technologies footer */}
-              <div className="border-t border-[#162238] pt-5 mt-1 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                  <Database className="w-3.5 h-3.5 text-primary" /> Integrated Technologies:
+              {/* Technologies & Conversion footer */}
+              <div className="border-t border-[#162238] pt-5 mt-1 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+                    <Database className="w-3.5 h-3.5 text-primary" /> Integrated Technologies:
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {study.tech.map((t, index) => (
+                      <Badge key={index} className="bg-[#0D1828] border border-[#162238] text-muted-foreground font-mono text-[11px] hover:border-primary/30 px-2.5 py-0.5 rounded-md">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {study.tech.map((t, index) => (
-                    <Badge key={index} className="bg-[#0D1828] border border-[#162238] text-muted-foreground font-mono text-[11px] hover:border-primary/30 px-2.5 py-0.5 rounded-md">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
+                <Button
+                  asChild
+                  size="sm"
+                  className="rounded-full bg-primary/90 text-white font-medium hover:bg-primary text-xs shrink-0"
+                >
+                  <Link
+                    href={`/contact?service=${encodeURIComponent(study.title)}`}
+                    onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { showcase: study.title, location: "portfolio_card" })}
+                  >
+                    Discuss Similar Architecture <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -233,6 +248,7 @@ export default function PortfolioClient() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button
               onClick={() => {
+                trackEvent(ConversionEvents.CTA_TALK_TO_AI, { location: "portfolio_bottom_cta" });
                 if (typeof window !== "undefined") {
                   window.dispatchEvent(new CustomEvent("open-ai-concierge", { detail: {} }));
                 }
@@ -242,8 +258,17 @@ export default function PortfolioClient() {
             >
               Talk to Our AI
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground">
-              <Link href="/contact" className="flex items-center gap-1.5">
+            <Button 
+              asChild 
+              size="lg" 
+              variant="outline" 
+              className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-muted-foreground hover:text-foreground"
+            >
+              <Link 
+                href="/contact" 
+                onClick={() => trackEvent(ConversionEvents.CTA_DISCUSS_ARCHITECTURE, { location: "portfolio_bottom_cta" })}
+                className="flex items-center gap-1.5"
+              >
                 Discuss Architecture <ArrowRight className="w-4 h-4" />
               </Link>
             </Button>

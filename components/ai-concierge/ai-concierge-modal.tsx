@@ -6,17 +6,21 @@ import {
   Sparkles, X, Send, Bot, ArrowRight, Cpu, Search, 
   Layers, UserCheck, RefreshCw, Compass, ShieldCheck, 
   Clock, Zap, CheckCircle2, Terminal, Building2, Check,
-  Copy, FileText, ArrowDown
+  Copy, FileText, ArrowDown, ChevronRight, Lock, Calendar, Loader2
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 import { 
   CONCIERGE_OPENING_MESSAGE,
   CONCIERGE_STARTERS, 
   INDUSTRIES,
   SCALES,
+  ENGAGEMENT_OPTIONS,
   generateCustomPath,
+  CustomPathResult,
   AiConciergeStarter
 } from "@/lib/ai-concierge-data";
 
@@ -25,15 +29,28 @@ export function AiConciergeModal() {
   const [selectedStarterId, setSelectedStarterId] = React.useState<string | null>(null);
   const [selectedIndustryId, setSelectedIndustryId] = React.useState<string | null>(null);
   const [selectedScaleId, setSelectedScaleId] = React.useState<string | null>(null);
+  const [selectedEngagementId, setSelectedEngagementId] = React.useState<string | null>(null);
   const [customText, setCustomText] = React.useState("");
   const [isThinking, setIsThinking] = React.useState(false);
-  const [generatedResult, setGeneratedResult] = React.useState<ReturnType<typeof generateCustomPath> | null>(null);
+  const [generatedResult, setGeneratedResult] = React.useState<CustomPathResult | null>(null);
   const [copied, setCopied] = React.useState(false);
+
+  // In-modal Lead Capture State
+  const [showLeadForm, setShowLeadForm] = React.useState(false);
+  const [leadName, setLeadName] = React.useState("");
+  const [leadEmail, setLeadEmail] = React.useState("");
+  const [leadCompany, setLeadCompany] = React.useState("");
+  const [leadRole, setLeadRole] = React.useState("");
+  const [isSubmittingLead, setIsSubmittingLead] = React.useState(false);
+  const [leadSubmitted, setLeadSubmitted] = React.useState(false);
+  const [leadError, setLeadError] = React.useState("");
 
   // Global event listener to open concierge from anywhere
   React.useEffect(() => {
     const handleOpen = (e: CustomEvent<{ starterId?: string }>) => {
       setIsOpen(true);
+      trackEvent(ConversionEvents.CTA_TALK_TO_AI, { trigger: "event_listener" });
+      trackEvent(ConversionEvents.AI_CONCIERGE_STARTED);
       if (e.detail?.starterId) {
         handleStarterSelect(e.detail.starterId);
       }
@@ -53,15 +70,34 @@ export function AiConciergeModal() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+    trackEvent(ConversionEvents.CTA_TALK_TO_AI, { trigger: "floating_pill" });
+    trackEvent(ConversionEvents.AI_CONCIERGE_STARTED);
+  };
+
   const handleStarterSelect = (id: string) => {
     setSelectedStarterId(id);
     setIsThinking(true);
     setGeneratedResult(null);
+    setShowLeadForm(false);
+    setLeadSubmitted(false);
 
     setTimeout(() => {
-      const res = generateCustomPath(id, selectedIndustryId || undefined, selectedScaleId || undefined);
+      const res = generateCustomPath(
+        id, 
+        selectedIndustryId || undefined, 
+        selectedScaleId || undefined,
+        undefined,
+        selectedEngagementId || undefined
+      );
       setGeneratedResult(res);
       setIsThinking(false);
+      trackEvent(ConversionEvents.AI_CONCIERGE_COMPLETED, {
+        starterId: id,
+        tier: res.qualificationTier,
+        industry: selectedIndustryId || "general"
+      });
     }, 400);
   };
 
@@ -70,7 +106,31 @@ export function AiConciergeModal() {
     if (selectedStarterId) {
       setIsThinking(true);
       setTimeout(() => {
-        const res = generateCustomPath(selectedStarterId, industryId, selectedScaleId || undefined);
+        const res = generateCustomPath(
+          selectedStarterId, 
+          industryId || undefined, 
+          selectedScaleId || undefined,
+          customText || undefined,
+          selectedEngagementId || undefined
+        );
+        setGeneratedResult(res);
+        setIsThinking(false);
+      }, 300);
+    }
+  };
+
+  const handleRefineEngagement = (engagementId: string) => {
+    setSelectedEngagementId(engagementId);
+    if (selectedStarterId || customText) {
+      setIsThinking(true);
+      setTimeout(() => {
+        const res = generateCustomPath(
+          selectedStarterId || "explore-opportunities", 
+          selectedIndustryId || undefined, 
+          selectedScaleId || undefined,
+          customText || undefined,
+          engagementId || undefined
+        );
         setGeneratedResult(res);
         setIsThinking(false);
       }, 300);
@@ -82,14 +142,25 @@ export function AiConciergeModal() {
     if (!customText.trim()) return;
 
     const query = customText.trim();
-    setCustomText("");
     setIsThinking(true);
     setSelectedStarterId("build-application");
+    setShowLeadForm(false);
+    setLeadSubmitted(false);
 
     setTimeout(() => {
-      const res = generateCustomPath("build-application", selectedIndustryId || undefined, selectedScaleId || undefined, query);
+      const res = generateCustomPath(
+        "build-application", 
+        selectedIndustryId || undefined, 
+        selectedScaleId || undefined, 
+        query,
+        selectedEngagementId || undefined
+      );
       setGeneratedResult(res);
       setIsThinking(false);
+      trackEvent(ConversionEvents.AI_CONCIERGE_COMPLETED, {
+        query_type: "custom",
+        tier: res.qualificationTier
+      });
     }, 450);
   };
 
@@ -97,17 +168,107 @@ export function AiConciergeModal() {
     setSelectedStarterId(null);
     setSelectedIndustryId(null);
     setSelectedScaleId(null);
+    setSelectedEngagementId(null);
     setGeneratedResult(null);
     setCustomText("");
     setIsThinking(false);
+    setShowLeadForm(false);
+    setLeadSubmitted(false);
+    setLeadError("");
   };
 
   const handleCopyBlueprint = () => {
     if (!generatedResult) return;
-    const text = `INDUSNET AI ARCHITECTURE BLUEPRINT\n\nChallenge:\n${generatedResult.challenge}\n\nRecommended Approach:\n${generatedResult.recommendedApproach}\n\nKey Capabilities:\n${generatedResult.capabilities.map((c) => `- ${c}`).join("\n")}\n\nTarget Architecture:\n${generatedResult.targetArchitecture.map((a) => `${a.layer}: ${a.technology}`).join("\n")}\n\nTimeline: ${generatedResult.timeline}\nEstimated ROI: ${generatedResult.roiProjection}`;
+    const text = `INDUSNET AI — ARCHITECTURE OPPORTUNITY SUMMARY
+
+YOUR AI OPPORTUNITY:
+Business Challenge:
+${generatedResult.challenge}
+
+Potential AI Approach:
+${generatedResult.recommendedApproach}
+
+Likely System Components:
+${generatedResult.likelyComponents.map((c) => `- ${c}`).join("\n")}
+
+Enterprise Considerations:
+${generatedResult.enterpriseConsiderations.map((ec) => `- ${ec}`).join("\n")}
+
+Suggested Next Step:
+${generatedResult.suggestedNextStep}
+
+Target Architecture:
+${generatedResult.targetArchitecture.map((a) => `${a.layer}: ${a.technology}`).join("\n")}
+
+Estimated Timeline: ${generatedResult.timeline}
+Impact Potential: ${generatedResult.roiProjection}
+Notice: Directional assessment based on user inputs. Not a contractual guarantee.`;
+
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadName || !leadEmail) {
+      setLeadError("Please provide your name and corporate email.");
+      return;
+    }
+
+    setIsSubmittingLead(true);
+    setLeadError("");
+
+    trackEvent(ConversionEvents.LEAD_FORM_STARTED, { form: "concierge_modal" });
+
+    try {
+      const notes = `
+AI CONCIERGE QUALIFIED OPPORTUNITY
+Role / Title: ${leadRole || "Not specified"}
+Qualification Tier: ${generatedResult?.qualificationTier || "Active Opportunity"}
+Desired Engagement: ${generatedResult?.engagementType || "AI Architecture Review"}
+
+Business Challenge:
+${generatedResult?.challenge}
+
+Recommended Approach:
+${generatedResult?.recommendedApproach}
+
+Key Components:
+${generatedResult?.likelyComponents.join(", ")}
+
+Enterprise Considerations:
+${generatedResult?.enterpriseConsiderations.join("; ")}
+      `.trim();
+
+      const res = await fetch("/api/consultations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName,
+          email: leadEmail,
+          company: leadCompany || "Enterprise Lead",
+          service: `AI Architecture Review (${generatedResult?.engagementType || "Enterprise AI"})`,
+          message: notes,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) {
+        trackEvent(ConversionEvents.LEAD_FORM_SUBMITTED, {
+          form: "concierge_modal",
+          tier: generatedResult?.qualificationTier,
+          service: generatedResult?.engagementType
+        });
+        setLeadSubmitted(true);
+      } else {
+        setLeadError(data.error || "Unable to forward details right now. Please email info@indusnet-ai.com.");
+      }
+    } catch {
+      setLeadError("Network error. Please try again or reach out at info@indusnet-ai.com.");
+    } finally {
+      setIsSubmittingLead(false);
+    }
   };
 
   const getStarterIcon = (iconName: string) => {
@@ -127,7 +288,7 @@ export function AiConciergeModal() {
     <>
       {/* Floating Concierge Launcher Pill */}
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpenModal}
         className="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#08111F]/95 border border-primary/40 shadow-2xl backdrop-blur-xl hover:border-primary hover:shadow-[0_0_30px_rgba(22,119,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         aria-label="Talk to Our AI Advisor"
       >
@@ -189,7 +350,7 @@ export function AiConciergeModal() {
 
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                  className="rounded-full p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer"
                   aria-label="Close dialog"
                 >
                   <X className="w-5 h-5" />
@@ -206,13 +367,40 @@ export function AiConciergeModal() {
                         <Terminal className="w-4 h-4" />
                       </div>
                       <div className="space-y-1">
-                        <p className="text-sm font-semibold text-foreground">
+                        <h3 className="text-sm font-bold text-foreground">
                           {CONCIERGE_OPENING_MESSAGE}
-                        </p>
+                        </h3>
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                          Select an enterprise mandate below or type your challenge. We will formulate a tailored architectural roadmap, model sizing, and direct engineering pathway.
+                          Select an enterprise mandate below or type your challenge. We formulate a tailored architectural roadmap, model sizing, and direct engineering pathway.
                         </p>
                       </div>
+                    </div>
+
+                    {/* Quick Filters for Progressive Refinement */}
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="text-[11px] font-mono text-muted-foreground font-semibold">Focus Sector:</span>
+                      <select
+                        value={selectedIndustryId || ""}
+                        onChange={(e) => setSelectedIndustryId(e.target.value || null)}
+                        className="bg-[#0D1828] border border-[#162238] rounded-lg px-2.5 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
+                      >
+                        <option value="">All Sectors (Cross-Industry)</option>
+                        {INDUSTRIES.map((ind) => (
+                          <option key={ind.id} value={ind.id}>{ind.name}</option>
+                        ))}
+                      </select>
+
+                      <span className="text-[11px] font-mono text-muted-foreground font-semibold ml-2">Engagement:</span>
+                      <select
+                        value={selectedEngagementId || ""}
+                        onChange={(e) => setSelectedEngagementId(e.target.value || null)}
+                        className="bg-[#0D1828] border border-[#162238] rounded-lg px-2.5 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
+                      >
+                        <option value="">Any Stage (Auto-Detect)</option>
+                        {ENGAGEMENT_OPTIONS.map((eng) => (
+                          <option key={eng.id} value={eng.id}>{eng.label}</option>
+                        ))}
+                      </select>
                     </div>
 
                     <div className="space-y-2.5">
@@ -224,7 +412,7 @@ export function AiConciergeModal() {
                           <button
                             key={starter.id}
                             onClick={() => handleStarterSelect(starter.id)}
-                            className="group text-left p-3.5 rounded-xl border border-[#162238] hover:border-primary/50 bg-[#0D1828]/70 hover:bg-[#101D30] transition-all duration-200 flex flex-col justify-between gap-2 shadow-sm"
+                            className="group text-left p-3.5 rounded-xl border border-[#162238] hover:border-primary/50 bg-[#0D1828]/70 hover:bg-[#101D30] transition-all duration-200 flex flex-col justify-between gap-2 shadow-sm cursor-pointer"
                           >
                             <div className="flex items-center justify-between">
                               <span className="text-[10px] font-semibold text-primary/90 uppercase tracking-wide font-mono">
@@ -262,21 +450,33 @@ export function AiConciergeModal() {
                   </div>
                 )}
 
-                {/* Generated Recommended AI Path */}
+                {/* Generated Recommended AI Path & Opportunity Assessment */}
                 {generatedResult && !isThinking && (
                   <div className="space-y-5">
-                    {/* Control Bar: Reset & Sector Filter */}
+                    {/* Control Bar: Reset & Filters */}
                     <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0D1828] border border-[#162238] rounded-xl px-4 py-2.5 text-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="text-muted-foreground font-mono text-[11px]">Specialized Sector:</span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-muted-foreground font-mono text-[11px]">Sector:</span>
                         <select
                           value={selectedIndustryId || ""}
                           onChange={(e) => handleRefineIndustry(e.target.value)}
-                          className="bg-[#08111F] border border-[#162238] rounded-md px-2.5 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
+                          className="bg-[#08111F] border border-[#162238] rounded-md px-2 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
                         >
                           <option value="">General Enterprise</option>
                           {INDUSTRIES.map((ind) => (
                             <option key={ind.id} value={ind.id}>{ind.name}</option>
+                          ))}
+                        </select>
+
+                        <span className="text-muted-foreground font-mono text-[11px] ml-1">Stage:</span>
+                        <select
+                          value={selectedEngagementId || ""}
+                          onChange={(e) => handleRefineEngagement(e.target.value)}
+                          className="bg-[#08111F] border border-[#162238] rounded-md px-2 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
+                        >
+                          <option value="">{generatedResult.engagementType}</option>
+                          {ENGAGEMENT_OPTIONS.map((eng) => (
+                            <option key={eng.id} value={eng.id}>{eng.label}</option>
                           ))}
                         </select>
                       </div>
@@ -284,7 +484,7 @@ export function AiConciergeModal() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={handleCopyBlueprint}
-                          className="text-[11px] text-muted-foreground hover:text-foreground font-medium flex items-center gap-1.5 transition-colors"
+                          className="text-[11px] text-muted-foreground hover:text-foreground font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                         >
                           {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                           {copied ? "Copied" : "Copy Blueprint"}
@@ -292,86 +492,92 @@ export function AiConciergeModal() {
                         <span className="text-[#162238]">|</span>
                         <button
                           onClick={handleReset}
-                          className="text-[11px] text-primary hover:underline font-semibold"
+                          className="text-[11px] text-primary hover:underline font-semibold cursor-pointer"
                         >
                           Reset
                         </button>
                       </div>
                     </div>
 
-                    {/* Structured Blueprint Container */}
+                    {/* Structured Blueprint Container: "Your AI Opportunity" */}
                     <div className="bg-[#0D1828]/60 border border-[#162238] rounded-xl p-5 shadow-sm space-y-5">
-                      {/* 1. Challenge Box */}
+                      <div className="flex items-center justify-between border-b border-[#162238] pb-3">
+                        <div className="flex items-center gap-2">
+                          <Badge className="bg-primary/10 border-primary/25 text-primary text-[10px] font-mono">
+                            Opportunity Brief
+                          </Badge>
+                          <h3 className="text-sm font-bold text-foreground">Your AI Opportunity</h3>
+                        </div>
+                        <Badge className="bg-muted text-muted-foreground border-border text-[10px] font-mono">
+                          {generatedResult.engagementType}
+                        </Badge>
+                      </div>
+
+                      {/* 1. Business Challenge */}
                       <div className="space-y-1.5">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                          YOUR CHALLENGE
+                          BUSINESS CHALLENGE
                         </span>
                         <div className="p-3 rounded-lg bg-[#08111F] border border-[#162238] text-xs text-foreground leading-relaxed">
                           {generatedResult.challenge}
                         </div>
                       </div>
 
-                      <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-cyan-400" />
-                      </div>
-
-                      {/* 2. Recommended Approach */}
+                      {/* 2. Potential AI Approach */}
                       <div className="space-y-1.5">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          RECOMMENDED APPROACH
+                          POTENTIAL AI APPROACH
                         </span>
                         <div className="p-3 rounded-lg bg-primary/10 border border-primary/30 text-xs font-bold text-foreground">
                           {generatedResult.recommendedApproach}
                         </div>
                       </div>
 
-                      <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-cyan-400" />
-                      </div>
-
-                      {/* 3. AI Capabilities Grid */}
+                      {/* 3. Likely System Components */}
                       <div className="space-y-2">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-                          AI CAPABILITIES
+                          LIKELY SYSTEM COMPONENTS
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                          {generatedResult.capabilities.map((cap, i) => (
+                          {generatedResult.likelyComponents.map((comp, i) => (
                             <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
                               <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-                              <span className="text-foreground text-[11px] font-medium">{cap}</span>
+                              <span className="text-foreground text-[11px] font-medium">{comp}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="flex justify-center -my-2 text-muted-foreground">
-                        <ArrowDown className="w-4 h-4 text-cyan-400" />
-                      </div>
-
-                      {/* 4. Target Architecture & Infrastructure */}
+                      {/* 4. Enterprise Considerations */}
                       <div className="space-y-2">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                          TARGET ARCHITECTURE & INFRASTRUCTURE
+                          ENTERPRISE CONSIDERATIONS
                         </span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                          {generatedResult.targetArchitecture.map((arch, i) => (
-                            <div key={i} className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
-                              <span className="text-[10px] font-mono text-primary uppercase font-bold block">
-                                {arch.layer}
-                              </span>
-                              <span className="text-[11px] text-foreground font-medium">
-                                {arch.technology}
-                              </span>
+                        <div className="space-y-1.5">
+                          {generatedResult.enterpriseConsiderations.map((ec, i) => (
+                            <div key={i} className="flex items-start gap-2 p-2 rounded-lg bg-[#08111F] border border-[#162238] text-xs">
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                              <span className="text-muted-foreground text-[11px] leading-relaxed">{ec}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      {/* Timeline & ROI Projection */}
+                      {/* 5. Suggested Next Step */}
+                      <div className="space-y-1.5 bg-primary/5 border border-primary/20 rounded-xl p-3.5">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-primary font-bold block">
+                          SUGGESTED NEXT STEP
+                        </span>
+                        <p className="text-xs text-foreground font-medium leading-relaxed">
+                          {generatedResult.suggestedNextStep}
+                        </p>
+                      </div>
+
+                      {/* Timeline & Impact Potential */}
                       <div className="pt-2 border-t border-[#162238] text-xs space-y-2">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238] flex items-center justify-between">
@@ -384,9 +590,150 @@ export function AiConciergeModal() {
                           </div>
                         </div>
                         <p className="text-[10px] text-muted-foreground/60 italic text-center font-mono">
-                          Impact figures are illustrative estimates based on typical deployment patterns, not documented outcomes.
+                          Directional opportunity summary based on provided inputs. Not a validated commercial business case or contractual guarantee.
                         </p>
                       </div>
+                    </div>
+
+                    {/* Integrated Lead Capture: "Would you like an AI architect to review this opportunity with you?" */}
+                    <div className="bg-[#08111F] border border-[#162238] rounded-xl p-5 shadow-sm space-y-4">
+                      {!leadSubmitted ? (
+                        <div className="space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#162238] pb-3">
+                            <div>
+                              <h4 className="text-xs sm:text-sm font-bold text-foreground">
+                                Would you like an AI architect to review this opportunity with you?
+                              </h4>
+                              <p className="text-[11px] text-muted-foreground mt-0.5">
+                                Connect directly with our enterprise solutions engineering team to review technical feasibility.
+                              </p>
+                            </div>
+                            {!showLeadForm && (
+                              <Button
+                                size="sm"
+                                onClick={() => setShowLeadForm(true)}
+                                className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-4 font-bold shrink-0 cursor-pointer shadow-md shadow-primary/20"
+                              >
+                                Connect with Architect
+                              </Button>
+                            )}
+                          </div>
+
+                          {showLeadForm && (
+                            <form onSubmit={handleLeadSubmit} className="space-y-3.5 pt-1">
+                              {leadError && (
+                                <div className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-lg p-2.5 font-mono">
+                                  {leadError}
+                                </div>
+                              )}
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-mono uppercase font-bold text-muted-foreground">Full Name *</label>
+                                  <Input
+                                    type="text"
+                                    required
+                                    placeholder="Jane Doe"
+                                    value={leadName}
+                                    onChange={(e) => setLeadName(e.target.value)}
+                                    className="bg-[#0D1828] border-[#162238] text-xs rounded-lg"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-mono uppercase font-bold text-muted-foreground">Work Email *</label>
+                                  <Input
+                                    type="email"
+                                    required
+                                    placeholder="jane@enterprise.com"
+                                    value={leadEmail}
+                                    onChange={(e) => setLeadEmail(e.target.value)}
+                                    className="bg-[#0D1828] border-[#162238] text-xs rounded-lg"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-mono uppercase font-bold text-muted-foreground">Company Name</label>
+                                  <Input
+                                    type="text"
+                                    placeholder="Acme Corp"
+                                    value={leadCompany}
+                                    onChange={(e) => setLeadCompany(e.target.value)}
+                                    className="bg-[#0D1828] border-[#162238] text-xs rounded-lg"
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-mono uppercase font-bold text-muted-foreground">Role / Designation</label>
+                                  <Input
+                                    type="text"
+                                    placeholder="Head of Architecture"
+                                    value={leadRole}
+                                    onChange={(e) => setLeadRole(e.target.value)}
+                                    className="bg-[#0D1828] border-[#162238] text-xs rounded-lg"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                                <span className="text-[10px] text-muted-foreground/80 italic">
+                                  Privacy: Details are used strictly to review architecture feasibility. No third-party sharing.
+                                </span>
+                                <Button
+                                  type="submit"
+                                  size="sm"
+                                  disabled={isSubmittingLead}
+                                  className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-6 font-bold cursor-pointer w-full sm:w-auto shadow-md shadow-primary/20"
+                                >
+                                  {isSubmittingLead ? (
+                                    <span className="flex items-center gap-1.5">
+                                      <Loader2 className="w-3.5 h-3.5 animate-spin" /> Forwarding...
+                                    </span>
+                                  ) : (
+                                    <span className="flex items-center gap-1.5">
+                                      Discuss Architecture <ArrowRight className="w-3.5 h-3.5" />
+                                    </span>
+                                  )}
+                                </Button>
+                              </div>
+                            </form>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="py-4 text-center space-y-2">
+                          <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+                            <CheckCircle2 className="w-5 h-5" />
+                          </div>
+                          <h4 className="text-sm font-bold text-foreground">Opportunity Summary Dispatched</h4>
+                          <p className="text-xs text-muted-foreground max-w-md mx-auto leading-relaxed">
+                            Thank you, <strong>{leadName}</strong>. Our enterprise solutions engineering team will review your specifications and contact you at <span className="text-foreground font-semibold">{leadEmail}</span>.
+                          </p>
+                          <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+                            <Button
+                              asChild
+                              size="sm"
+                              variant="outline"
+                              className="rounded-full text-xs bg-[#0D1828] border-[#162238]"
+                            >
+                              <Link 
+                                href={`/contact?service=${encodeURIComponent(generatedResult?.engagementType || "AI Architecture")}`}
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center gap-1.5"
+                              >
+                                <Calendar className="w-3 h-3 text-primary" />
+                                Schedule a Call on Calendar
+                              </Link>
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => setIsOpen(false)}
+                              className="rounded-full bg-primary text-white text-xs px-4"
+                            >
+                              Close Advisor
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -397,19 +744,20 @@ export function AiConciergeModal() {
                 {generatedResult ? (
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-xs text-muted-foreground text-center sm:text-left font-mono">
-                      Next Step: Review this architecture with a senior Indusnet AI architect.
+                      Prefer full contact form?
                     </p>
                     <Button
                       size="sm"
                       asChild
-                      className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-6 shadow-md shadow-primary/20 w-full sm:w-auto font-bold"
+                      variant="outline"
+                      className="rounded-full bg-[#0D1828] border-[#162238] hover:border-primary/50 text-foreground text-xs px-5 shadow-xs w-full sm:w-auto font-bold"
                     >
                       <Link
                         href={generatedResult.nextStepUrl}
                         onClick={() => setIsOpen(false)}
                         className="flex items-center justify-center gap-1.5 font-bold"
                       >
-                        Talk to an AI Expert
+                        Discuss Architecture on Contact Page
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </Button>
@@ -427,7 +775,7 @@ export function AiConciergeModal() {
                       type="submit"
                       size="sm"
                       disabled={!customText.trim()}
-                      className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-9 font-bold shrink-0"
+                      className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-9 font-bold shrink-0 cursor-pointer"
                     >
                       <Send className="w-3.5 h-3.5 mr-1" />
                       Formulate Path

@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   description: "Schedule a custom technical engineering consultation or reach our offices in Singapore and Chennai.",
 };
 
+import { Suspense } from "react";
+
 export default function ContactPage() {
-  return <ContactClient />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#050B14]" />}>
+      <ContactClient />
+    </Suspense>
+  );
 }
