@@ -193,36 +193,36 @@ export default function IndustriesClient() {
 
       {/* 2. DENSE INDUSTRIES GRID */}
       <section className="container mx-auto px-4 md:px-6 max-w-6xl">
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-12">
           {industryDetails.map((ind, idx) => (
-            <Card key={idx} className="glassmorphism-card border-none text-left overflow-hidden relative">
+            <Card key={idx} className="bg-[#08111F] border border-[#162238] hover:border-primary/40 rounded-2xl text-left overflow-hidden relative shadow-md transition-all duration-300">
               {/* Radial backdrop highlight */}
-              <div className="absolute top-0 right-0 -z-10 w-64 h-64 rounded-full bg-white/[0.01] blur-3xl" />
+              <div className="absolute top-0 right-0 -z-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
 
-              <CardContent className="p-8 md:p-12 flex flex-col gap-8">
+              <CardContent className="p-8 md:p-10 flex flex-col gap-8">
                 {/* Header */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border/10">
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#162238]">
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${ind.color}`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${ind.color} shadow-sm`}>
                       <ind.icon className="w-6 h-6" />
                     </div>
                     <div>
                       <h2 className="text-2xl font-extrabold text-foreground tracking-tight leading-tight">
                         {ind.name}
                       </h2>
-                      <p className="text-xs text-primary font-semibold mt-1">Facilitator-Led Custom Delivery</p>
+                      <p className="text-xs text-primary font-mono font-bold mt-1">Facilitator-Led Custom Delivery</p>
                     </div>
                   </div>
-                  <Badge className="bg-muted border border-border text-muted-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                  <Badge className="bg-[#0D1828] border border-[#162238] text-muted-foreground font-mono text-xs font-semibold px-3 py-1 rounded-full">
                     {ind.badge}
                   </Badge>
                 </div>
 
                 {/* Grid Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Challenges Column */}
-                  <div className="flex flex-col gap-4 bg-muted/20 border border-border rounded-2xl p-6">
-                    <h3 className="font-bold text-xs uppercase text-rose-400 tracking-wider flex items-center gap-1.5">
+                  <div className="flex flex-col gap-4 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-6">
+                    <h3 className="font-mono font-bold text-xs uppercase text-rose-400 tracking-wider flex items-center gap-1.5">
                       <ShieldAlert className="w-4 h-4 text-rose-400" /> Operational Friction
                     </h3>
                     <ul className="flex flex-col gap-4">
@@ -236,14 +236,14 @@ export default function IndustriesClient() {
                   </div>
 
                   {/* Solutions Column */}
-                  <div className="flex flex-col gap-4 bg-muted/20 border border-border rounded-2xl p-6">
-                    <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
+                  <div className="flex flex-col gap-4 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-6">
+                    <h3 className="font-mono font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
                       <Settings className="w-4 h-4 text-primary animate-[spin_20s_linear_infinite]" /> Bespoke AI Systems
                     </h3>
                     <ul className="flex flex-col gap-4">
                       {ind.solutions.map((sol, index) => (
                         <li key={index} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 flex-shrink-0" />
                           <span>{sol}</span>
                         </li>
                       ))}
@@ -251,20 +251,20 @@ export default function IndustriesClient() {
                   </div>
 
                   {/* Outcomes Column */}
-                  <div className="flex flex-col gap-4 bg-muted/20 border border-border rounded-2xl p-6 justify-between h-full">
+                  <div className="flex flex-col gap-4 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-6 justify-between h-full">
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
+                        <h3 className="font-mono font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
                           <TrendingUp className="w-4 h-4 text-emerald-400" /> Target Business Impact
                         </h3>
-                        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                        <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/25">
                           Illustrative
                         </span>
                       </div>
                       <ul className="flex flex-col gap-4">
                         {ind.outcomes.map((out, index) => (
                           <li key={index} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/60 mt-1.5 flex-shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/70 mt-1.5 flex-shrink-0" />
                             <span className="font-medium text-foreground">{out}</span>
                           </li>
                         ))}
@@ -272,10 +272,10 @@ export default function IndustriesClient() {
                     </div>
 
                     {/* highlight block */}
-                    <div className="mt-6 pt-4 border-t border-border/10">
-                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 flex items-center gap-2.5">
+                    <div className="mt-6 pt-4 border-t border-[#162238]">
+                      <div className="bg-primary/10 border border-primary/25 rounded-xl p-3 flex items-center gap-2.5">
                         <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-[10px] font-bold text-foreground uppercase tracking-wider leading-snug">
+                        <span className="text-[10px] font-mono font-bold text-foreground uppercase tracking-wider leading-snug">
                           {ind.highlight}
                         </span>
                       </div>
@@ -290,15 +290,15 @@ export default function IndustriesClient() {
 
       {/* 3. CTA */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <div className="glassmorphism-card rounded-3xl py-16 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
-          <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-2.5 py-0.5 text-xs">
+        <div className="bg-[#08111F] border border-[#162238] rounded-3xl py-14 px-6 md:px-12 text-center flex flex-col gap-6 items-center shadow-xl">
+          <Badge className="bg-primary/10 border-primary/25 text-primary font-mono rounded-full px-3 py-1 text-xs">
             Custom Architecture Feasibility
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">How Will AI fit inside your stack?</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">How Will AI Fit Inside Your Stack?</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             Schedule a feasibility call. Our full-stack engineering team will review your database access models, data volumes, security compliance, and draft a baseline workflow schema.
           </p>
-          <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300 group">
+          <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
             <Link href="/contact" className="flex items-center gap-1.5">
               Request Stack Feasibility <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>

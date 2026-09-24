@@ -169,7 +169,7 @@ export default function ContactClient() {
           
           {/* Left Column: Form & details */}
           <div className="lg:col-span-6 flex flex-col gap-8">
-            <Card className="glassmorphism-card border-none text-left relative overflow-hidden">
+            <Card className="bg-[#08111F] border border-[#162238] rounded-2xl text-left relative overflow-hidden shadow-xl">
               <CardContent className="p-8 flex flex-col gap-6">
                 <div>
                   <h2 className="text-xl font-bold text-foreground tracking-tight">Submit an Inquiry</h2>
@@ -187,7 +187,7 @@ export default function ContactClient() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                      className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                      className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                     />
                   </div>
 
@@ -202,7 +202,7 @@ export default function ContactClient() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                        className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
@@ -213,7 +213,7 @@ export default function ContactClient() {
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                        className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                       />
                     </div>
                   </div>
@@ -225,10 +225,10 @@ export default function ContactClient() {
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                      className="flex h-9 w-full rounded-lg border border-border bg-muted px-3 py-1 text-xs text-foreground shadow-sm transition-colors focus:outline-none focus:ring-1 focus:ring-primary/60"
+                      className="flex h-10 w-full rounded-xl border border-[#162238] bg-[#0D1828] px-3 py-1 text-xs text-foreground shadow-sm transition-colors focus:outline-none focus:border-primary"
                     >
                       {servicesList.map((srv, idx) => (
-                        <option key={idx} value={srv} className="bg-background text-foreground text-xs">
+                        <option key={idx} value={srv} className="bg-[#08111F] text-foreground text-xs">
                           {srv}
                         </option>
                       ))}
@@ -245,15 +245,16 @@ export default function ContactClient() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                      className="bg-muted border-border focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none text-foreground"
+                      className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs p-4 rounded-xl resize-none text-foreground placeholder:text-muted-foreground"
                     />
                   </div>
 
                   {/* Submit */}
                   <Button
                     type="submit"
+                    size="lg"
                     disabled={inquiryStatus === "loading" || inquiryStatus === "success"}
-                    className="w-full rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110"
+                    className="w-full rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20"
                   >
                     {inquiryStatus === "loading" ? (
                       <span className="flex items-center gap-2">
@@ -265,7 +266,7 @@ export default function ContactClient() {
                   </Button>
 
                   {inquiryStatus === "success" && (
-                    <div className="flex items-start gap-2.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 mt-2">
+                    <div className="flex items-start gap-2.5 text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 mt-2 font-mono">
                       <CheckCircle2 className="w-4 h-4 flex-shrink-0 mt-0.5" />
                       <span>{inquiryMessage}</span>
                     </div>
@@ -277,20 +278,20 @@ export default function ContactClient() {
 
           {/* Right Column: Calendly Booking simulator */}
           <div className="lg:col-span-6 flex flex-col gap-8">
-            <Card className="glassmorphism-card border-none text-left relative overflow-hidden shadow-2xl">
+            <Card className="bg-[#08111F] border border-[#162238] rounded-2xl text-left relative overflow-hidden shadow-xl">
               {/* Radial glow */}
-              <div className="absolute top-0 right-0 -z-10 w-48 h-48 rounded-full bg-accent/5 blur-2xl" />
+              <div className="absolute top-0 right-0 -z-10 w-48 h-48 rounded-full bg-primary/5 blur-2xl" />
 
               <CardContent className="p-8 flex flex-col gap-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <Badge className="bg-accent/15 text-accent border border-accent/25 text-[10px] rounded px-2.5 py-0.5 font-semibold">
+                    <Badge className="bg-primary/10 text-primary border border-primary/25 text-[10px] rounded-md px-2.5 py-0.5 font-mono font-semibold">
                       Live Scheduling
                     </Badge>
                     <h2 className="text-xl font-bold text-foreground tracking-tight mt-2">Book a 30-Min Call</h2>
                     <p className="text-xs text-muted-foreground mt-1">Lock in a calendar slot directly with a Solutions Architect.</p>
                   </div>
-                  <Globe className="w-6 h-6 text-accent animate-pulse" />
+                  <Globe className="w-6 h-6 text-primary animate-pulse" />
                 </div>
 
                 {bookingStatus === "success" ? (
@@ -308,7 +309,7 @@ export default function ContactClient() {
                       setBookingStatus("idle");
                       setBookingStep(1);
                       setBookingFields({ name: "", email: "", company: "" });
-                    }} className="rounded-full border border-border/40 hover:bg-muted text-xs px-6 py-2 text-foreground">
+                    }} className="rounded-full bg-[#0D1828] border border-[#162238] hover:bg-[#101D30] text-xs px-6 py-2 text-foreground font-semibold">
                       Book Another Slot
                     </Button>
                   </div>
@@ -318,7 +319,7 @@ export default function ContactClient() {
                       <>
                         {/* Day selector */}
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                          <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5 font-mono">
                             <CalendarIcon className="w-3.5 h-3.5 text-primary" /> Select Day
                           </label>
                           <div className="grid grid-cols-3 gap-2">
@@ -327,10 +328,10 @@ export default function ContactClient() {
                                 key={day}
                                 type="button"
                                 onClick={() => setSelectedDay(day)}
-                                className={`py-2 px-3 rounded-lg border text-xs font-semibold transition-all ${
+                                className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all ${
                                   selectedDay === day
-                                    ? "bg-primary border-primary text-white shadow-lg"
-                                    : "bg-muted border-border text-muted-foreground hover:text-foreground"
+                                    ? "bg-primary border-primary text-white shadow-md shadow-primary/20"
+                                    : "bg-[#0D1828] border-[#162238] text-muted-foreground hover:text-foreground hover:border-primary/40"
                                 }`}
                               >
                                 {day}
@@ -341,8 +342,8 @@ export default function ContactClient() {
 
                         {/* Time slot selector */}
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-accent" /> Available Times (IST)
+                          <label className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5 font-mono">
+                            <Clock className="w-3.5 h-3.5 text-cyan-400" /> Available Times (IST)
                           </label>
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                             {calendarSlots.map((slot) => (
@@ -350,10 +351,10 @@ export default function ContactClient() {
                                 key={slot}
                                 type="button"
                                 onClick={() => setSelectedSlot(slot)}
-                                className={`py-2 px-3 rounded-lg border text-xs font-semibold transition-all ${
+                                className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all font-mono ${
                                   selectedSlot === slot
-                                    ? "bg-accent border-accent text-white shadow-lg"
-                                    : "bg-muted border-border text-muted-foreground hover:text-foreground hover:border-accent/40"
+                                    ? "bg-primary border-primary text-white shadow-md shadow-primary/20"
+                                    : "bg-[#0D1828] border-[#162238] text-muted-foreground hover:text-foreground hover:border-primary/40"
                                 }`}
                               >
                                 {slot}
@@ -368,12 +369,12 @@ export default function ContactClient() {
                         animate={{ opacity: 1, x: 0 }}
                         className="flex flex-col gap-4 text-left"
                       >
-                        <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 text-xs text-primary flex items-center justify-between">
+                        <div className="bg-primary/10 border border-primary/25 rounded-xl p-3 text-xs text-primary flex items-center justify-between font-mono">
                           <span>Selected: <strong>{selectedDay} at {selectedSlot}</strong></span>
                           <button 
                             type="button" 
                             onClick={() => setBookingStep(1)} 
-                            className="text-xs text-accent hover:underline"
+                            className="text-xs text-cyan-400 hover:underline font-bold"
                           >
                             Change Slot
                           </button>
@@ -381,44 +382,44 @@ export default function ContactClient() {
 
                         {/* Name */}
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] uppercase font-bold text-muted-foreground">Full Name *</label>
+                          <label className="text-[10px] uppercase font-bold text-muted-foreground font-mono">Full Name *</label>
                           <Input 
                             type="text" 
                             required
                             placeholder="John Doe"
                             value={bookingFields.name}
                             onChange={(e) => setBookingFields({ ...bookingFields, name: e.target.value })}
-                            className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                            className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                           />
                         </div>
 
                         {/* Email */}
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] uppercase font-bold text-muted-foreground">Corporate Email *</label>
+                          <label className="text-[10px] uppercase font-bold text-muted-foreground font-mono">Corporate Email *</label>
                           <Input 
                             type="email" 
                             required
                             placeholder="john@company.com"
                             value={bookingFields.email}
                             onChange={(e) => setBookingFields({ ...bookingFields, email: e.target.value })}
-                            className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                            className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                           />
                         </div>
 
                         {/* Company */}
                         <div className="flex flex-col gap-1.5">
-                          <label className="text-[10px] uppercase font-bold text-muted-foreground">Company Name</label>
+                          <label className="text-[10px] uppercase font-bold text-muted-foreground font-mono">Company Name</label>
                           <Input 
                             type="text" 
                             placeholder="Acme Corp"
                             value={bookingFields.company}
                             onChange={(e) => setBookingFields({ ...bookingFields, company: e.target.value })}
-                            className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg text-foreground"
+                            className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                           />
                         </div>
 
                         {bookingError && (
-                          <div className="text-xs text-red-400 font-semibold bg-red-500/5 border border-red-500/20 rounded p-2">
+                          <div className="text-xs text-rose-400 font-semibold bg-rose-500/10 border border-rose-500/20 rounded-xl p-2.5 font-mono">
                             {bookingError}
                           </div>
                         )}
@@ -433,15 +434,16 @@ export default function ContactClient() {
                           variant="ghost"
                           onClick={() => setBookingStep(1)}
                           disabled={bookingStatus === "loading"}
-                          className="rounded-full border border-border/40 text-xs"
+                          className="rounded-full bg-[#0D1828] border border-[#162238] text-xs px-4"
                         >
                           Back
                         </Button>
                       )}
                       <Button
                         type="submit"
+                        size="lg"
                         disabled={!selectedSlot || bookingStatus === "loading"}
-                        className="w-full rounded-full bg-gradient-to-r from-accent to-primary text-white font-medium hover:brightness-110"
+                        className="w-full rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20"
                       >
                         {bookingStatus === "loading" ? (
                           <span className="flex items-center gap-2 justify-center">
@@ -468,16 +470,16 @@ export default function ContactClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Details */}
           <div className="lg:col-span-5 flex flex-col gap-4">
-            <Card className="glassmorphism-card border-none text-left flex-grow">
+            <Card className="bg-[#08111F] border border-[#162238] rounded-2xl text-left flex-grow shadow-lg">
               <CardContent className="p-6 flex flex-col gap-5 justify-center h-full">
-                <h3 className="font-bold text-foreground text-base border-b border-border pb-2">Office Contact Details</h3>
+                <h3 className="font-bold text-foreground text-base border-b border-[#162238] pb-3 tracking-tight">Office Contact Details</h3>
                 <div className="flex flex-col gap-5">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-primary shadow-sm">
                       <Mail className="w-4 h-4 text-primary" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold">Email</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-mono font-bold">Email</p>
                       <a href="mailto:info@indusnet-ai.com" className="text-xs text-foreground hover:text-primary transition-colors">
                         info@indusnet-ai.com
                       </a>
@@ -485,48 +487,48 @@ export default function ContactClient() {
                   </div>
 
                   {/* Chennai HQ */}
-                  <div className="border-t border-border pt-4 flex flex-col gap-2.5">
+                  <div className="border-t border-[#162238] pt-4 flex flex-col gap-2.5">
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-primary/20 text-primary border-primary/30 text-[9px] rounded font-bold uppercase tracking-wider">India (HQ)</Badge>
+                      <Badge className="bg-primary/15 text-primary border-primary/30 text-[9px] rounded font-mono font-bold uppercase tracking-wider">India (HQ)</Badge>
                       <span className="text-xs font-semibold text-foreground/90">Chennai Corporate Campus</span>
                     </div>
 
                     <div className="flex items-start gap-3 pl-0.5">
-                      <MapPin className="w-3.5 h-3.5 text-primary/75 mt-0.5 flex-shrink-0" />
-                      <p className="text-xs text-foreground/80 leading-relaxed">
+                      <MapPin className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                      <p className="text-xs text-muted-foreground leading-relaxed">
                         Number 46 First Floor, Tansi Nagar, Velachery, Chennai 600042
                       </p>
                     </div>
 
                     <div className="flex items-start gap-3 pl-0.5">
-                      <Phone className="w-3.5 h-3.5 text-accent/75 mt-0.5 flex-shrink-0" />
-                      <a href="tel:+919884915977" className="text-xs text-foreground/80 hover:text-accent transition-colors">
+                      <Phone className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
+                      <a href="tel:+919884915977" className="text-xs text-foreground/80 hover:text-cyan-400 transition-colors">
                         +91-988-491-5977
                       </a>
                     </div>
                   </div>
 
                   {/* Singapore Office */}
-                  <div className="border-t border-border pt-4 flex flex-col gap-2.5">
+                  <div className="border-t border-[#162238] pt-4 flex flex-col gap-2.5">
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-accent/20 text-accent border-accent/30 text-[9px] rounded font-bold uppercase tracking-wider">Singapore</Badge>
+                      <Badge className="bg-cyan-500/15 text-cyan-400 border-cyan-500/30 text-[9px] rounded font-mono font-bold uppercase tracking-wider">Singapore</Badge>
                       <span className="text-xs font-semibold text-foreground/90">Singapore Regional Office</span>
                     </div>
 
                     <div className="flex items-start gap-3 pl-0.5">
-                      <MapPin className="w-3.5 h-3.5 text-primary/75 mt-0.5 flex-shrink-0" />
-                      <p className="text-xs text-foreground/80 leading-relaxed">
+                      <MapPin className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                      <p className="text-xs text-muted-foreground leading-relaxed">
                         51 Ubi Ave 1, #05-16 Paya Ubi Industrial Park, Singapore 408933
                       </p>
                     </div>
 
                     <div className="flex items-start gap-3 pl-0.5">
-                      <Phone className="w-3.5 h-3.5 text-accent/75 mt-0.5 flex-shrink-0" />
+                      <Phone className="w-3.5 h-3.5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <div className="flex flex-col gap-1">
-                        <a href="tel:+6594483805" className="text-xs text-foreground/80 hover:text-accent transition-colors">
+                        <a href="tel:+6594483805" className="text-xs text-foreground/80 hover:text-cyan-400 transition-colors">
                           +65-9448-3805
                         </a>
-                        <a href="tel:+6567474753" className="text-xs text-foreground/80 hover:text-accent transition-colors">
+                        <a href="tel:+6567474753" className="text-xs text-foreground/80 hover:text-cyan-400 transition-colors">
                           +65-6747-4753
                         </a>
                       </div>
@@ -539,31 +541,31 @@ export default function ContactClient() {
 
           {/* Maps Static Placeholder Card */}
           <div className="lg:col-span-7">
-            <Card className="glassmorphism-card border-none text-left overflow-hidden h-full flex flex-col justify-center">
-              <CardContent className="p-8 relative h-full flex flex-col justify-center bg-muted/40 group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-accent/10 opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+            <Card className="bg-[#08111F] border border-[#162238] rounded-2xl text-left overflow-hidden h-full flex flex-col justify-center shadow-lg">
+              <CardContent className="p-8 relative h-full flex flex-col justify-center bg-[#0D1828]/40 group">
+                <div className="absolute inset-0 bg-primary/5 opacity-50 group-hover:opacity-75 transition-opacity duration-300" />
                 <div className="z-10 flex flex-col gap-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-sm">
                       <Map className="w-4 h-4 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-bold text-foreground text-sm">Our Global Presence</h4>
-                      <p className="text-[10px] text-muted-foreground">Certified AI infrastructure and consulting spaces</p>
+                      <p className="text-[10px] text-muted-foreground font-mono">Certified AI infrastructure and consulting spaces</p>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                    <div className="bg-muted border border-border p-4 rounded-xl flex flex-col gap-2 hover:border-primary/30 transition-colors">
-                      <span className="text-[10px] font-bold text-primary uppercase tracking-wide">India Campus</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                    <div className="bg-[#08111F] border border-[#162238] p-4 rounded-xl flex flex-col gap-2 hover:border-primary/40 transition-colors">
+                      <span className="text-[10px] font-mono font-bold text-primary uppercase tracking-wide">India Campus</span>
                       <h5 className="font-semibold text-foreground text-xs">Chennai Technical HQ</h5>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Fully equipped with private GPU computing clusters, certified CPMAI training spaces, and core engineering hubs.
                       </p>
                     </div>
 
-                    <div className="bg-muted border border-border p-4 rounded-xl flex flex-col gap-2 hover:border-accent/30 transition-colors">
-                      <span className="text-[10px] font-bold text-accent uppercase tracking-wide">Singapore Hub</span>
+                    <div className="bg-[#08111F] border border-[#162238] p-4 rounded-xl flex flex-col gap-2 hover:border-cyan-400/40 transition-colors">
+                      <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-wide">Singapore Hub</span>
                       <h5 className="font-semibold text-foreground text-xs">Asia-Pacific Regional Office</h5>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         Serving APAC enterprises with bespoke LLM implementations, AI governance alignment, and strategic consulting.

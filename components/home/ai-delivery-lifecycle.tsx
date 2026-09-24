@@ -120,17 +120,17 @@ export function AiDeliveryLifecycle() {
   const StepIcon = current.icon;
 
   return (
-    <section className="relative py-24 overflow-hidden border-t border-border/60">
+    <section className="relative py-24 overflow-hidden bg-[#050B14] border-t border-[#162238]">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
+          <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full bg-primary/5">
             Engineering Methodology
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-[#F5F7FA]">
             From Strategy <span className="text-primary">to Software</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="text-[#A7B4C5] text-base sm:text-lg leading-relaxed">
             Move seamlessly from boardroom strategy to hardened production code. A disciplined, 6-stage engineering journey built for enterprise speed, security, and measurable ROI.
           </p>
         </div>
@@ -138,7 +138,7 @@ export function AiDeliveryLifecycle() {
         {/* Animated Journey Road Map Line */}
         <div className="relative max-w-5xl mx-auto mb-10">
           {/* Connecting Background Line */}
-          <div className="hidden lg:block absolute top-1/2 left-6 right-6 h-0.5 bg-border/80 -translate-y-1/2 -z-10" />
+          <div className="hidden lg:block absolute top-1/2 left-6 right-6 h-0.5 bg-[#162238] -translate-y-1/2 -z-10" />
 
           {/* Stepper Nodes */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -150,23 +150,23 @@ export function AiDeliveryLifecycle() {
                 <button
                   key={s.step}
                   onClick={() => setActiveStepIndex(idx)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative ${
+                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative cursor-pointer ${
                     isSelected
-                      ? "bg-card border-primary shadow-xl shadow-primary/15 scale-102"
+                      ? "bg-[#0D1828] border-primary shadow-xl shadow-primary/20 scale-[1.02]"
                       : isPast
-                      ? "bg-muted/40 border-emerald-500/40 text-foreground"
-                      : "bg-background/50 border-border/70 text-muted-foreground hover:border-border"
+                      ? "bg-[#08111F] border-emerald-500/40 text-[#F5F7FA]"
+                      : "bg-[#08111F] border-[#162238] text-[#A7B4C5] hover:border-primary/40 hover:text-[#F5F7FA]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`font-mono text-xs font-bold ${isSelected ? "text-primary" : "text-muted-foreground"}`}>
+                    <span className={`font-mono text-xs font-bold ${isSelected ? "text-primary" : "text-[#6F7E91]"}`}>
                       {s.step}
                     </span>
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
                         isSelected
                           ? "bg-primary text-white shadow-sm"
-                          : "bg-muted text-muted-foreground group-hover:text-primary"
+                          : "bg-[#0D1828] text-[#A7B4C5] group-hover:text-primary"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -174,10 +174,10 @@ export function AiDeliveryLifecycle() {
                   </div>
 
                   <div>
-                    <h3 className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="text-xs font-bold text-[#F5F7FA] group-hover:text-primary transition-colors">
                       {s.title}
                     </h3>
-                    <p className="text-[10px] text-muted-foreground line-clamp-1 mt-0.5">
+                    <p className="text-[10px] text-[#A7B4C5] line-clamp-1 mt-0.5">
                       {s.summary}
                     </p>
                   </div>
@@ -188,7 +188,7 @@ export function AiDeliveryLifecycle() {
         </div>
 
         {/* Active Stage Deep-Dive Showcase Card */}
-        <div className="max-w-4xl mx-auto bg-card border border-border rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-[#08111F] border border-[#162238] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
           {/* Subtle Ambient Radial Highlight */}
           <div className="absolute top-0 right-0 w-72 h-72 bg-primary/6 rounded-full blur-3xl pointer-events-none" />
 
@@ -202,39 +202,39 @@ export function AiDeliveryLifecycle() {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold text-primary">Stage {current.step}</span>
-                    <Badge variant="outline" className="text-[10px] py-0 border-border">
+                    <Badge variant="outline" className="text-[10px] py-0 border-[#162238] text-[#A7B4C5]">
                       {current.duration}
                     </Badge>
                   </div>
-                  <h3 className="text-2xl font-bold font-heading text-foreground mt-0.5">
+                  <h3 className="text-2xl font-bold font-heading text-[#F5F7FA] mt-0.5">
                     {current.title}
                   </h3>
                 </div>
               </div>
 
-              <p className="text-base font-semibold text-foreground/90 leading-snug">
+              <p className="text-base font-semibold text-[#F5F7FA] leading-snug">
                 {current.summary}
               </p>
 
-              <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 space-y-1">
+              <div className="p-4 rounded-2xl bg-[#0D1828] border border-[#162238] space-y-1">
                 <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
                   What this means for your business
                 </span>
-                <p className="text-xs text-foreground/90 leading-relaxed">
+                <p className="text-xs text-[#A7B4C5] leading-relaxed">
                   {current.businessValue}
                 </p>
               </div>
 
               {/* Tech Stack Pills */}
               <div className="space-y-1.5 pt-1">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground block font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#6F7E91] block font-bold">
                   Key Tooling & Frameworks
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {current.techStack.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-[10px] font-mono bg-background border border-border px-2.5 py-1 rounded-md text-foreground"
+                      className="text-[10px] font-mono bg-[#0D1828] border border-[#162238] px-2.5 py-1 rounded-md text-[#F5F7FA]"
                     >
                       {tech}
                     </span>
@@ -244,7 +244,7 @@ export function AiDeliveryLifecycle() {
             </div>
 
             {/* Right: Technical Deliverables */}
-            <div className="md:col-span-6 bg-background/60 border border-border/70 rounded-2xl p-6 space-y-4">
+            <div className="md:col-span-6 bg-[#050B14] border border-[#162238] rounded-2xl p-6 space-y-4">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary block">
                 Deliverables & Verification
               </span>

@@ -307,17 +307,17 @@ export default function HomeClient() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
-                className="px-2.5 sm:px-3 py-2 sm:py-3 rounded-2xl bg-muted/30 border border-border/60 max-w-xl flex items-center justify-between text-[9.5px] sm:text-[11px] font-mono font-semibold text-muted-foreground"
+                className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-[#08111F]/80 border border-[#162238] max-w-xl flex items-center justify-between text-[10px] sm:text-[11px] font-mono font-semibold text-[#A7B4C5] shadow-xs"
               >
                 <span className="text-primary font-bold">Strategy</span>
-                <span className="opacity-40">→</span>
+                <span className="text-[#6F7E91]">→</span>
                 <span>Architecture</span>
-                <span className="opacity-40">→</span>
+                <span className="text-[#6F7E91]">→</span>
                 <span>Applications</span>
-                <span className="opacity-40">→</span>
+                <span className="text-[#6F7E91]">→</span>
                 <span>Agents</span>
-                <span className="opacity-40">→</span>
-                <span className="text-emerald-500 font-bold">Production</span>
+                <span className="text-[#6F7E91]">→</span>
+                <span className="text-emerald-400 font-bold">Production</span>
               </motion.div>
 
               {/* Primary & Secondary Call to Actions */}
@@ -330,10 +330,10 @@ export default function HomeClient() {
                 {/* Primary CTA: Talk to Our AI */}
                 <Button
                   onClick={() => triggerConcierge()}
-                  size="lg"
-                  className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_25px_rgba(22,119,255,0.4)] transition-all duration-300 group px-7 flex items-center gap-2 shadow-lg shadow-primary/25"
+                  size="xl"
+                  className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 hover:shadow-[0_4px_30px_rgba(22,119,255,0.4)] transition-all duration-300 group px-7 flex items-center gap-2 shadow-lg shadow-primary/25 cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                  <Sparkles className="w-4 h-4 text-cyan-300 group-hover:rotate-12 transition-transform" />
                   Talk to Our AI
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -343,21 +343,21 @@ export default function HomeClient() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-border/80 hover:border-primary hover:text-primary transition-all px-6 font-semibold"
+                  className="rounded-full border-[#162238] bg-[#08111F]/70 hover:border-primary/50 hover:text-white transition-all px-6 font-semibold"
                 >
-                  <a href="#capabilities">Explore Capabilities</a>
+                  <a href="#capabilities">Explore AI Capabilities</a>
                 </Button>
 
-                {/* Tertiary CTA: Calculate ROI */}
+                {/* Tertiary CTA: Model Your AI Business Case */}
                 <Button
                   asChild
                   size="lg"
                   variant="ghost"
-                  className="rounded-full border border-primary/20 hover:bg-primary/10 text-primary transition-all px-5 text-xs font-semibold"
+                  className="rounded-full border border-primary/25 hover:bg-primary/10 text-cyan-400 hover:text-cyan-300 transition-all px-5 text-xs font-semibold"
                 >
                   <a href="#roi-calculator" className="flex items-center gap-1.5">
                     <Calculator className="w-3.5 h-3.5" />
-                    Calculate AI ROI
+                    Model Your AI Business Case
                   </a>
                 </Button>
               </motion.div>

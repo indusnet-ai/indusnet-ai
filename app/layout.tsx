@@ -85,7 +85,7 @@ export default function RootLayout({
         >
           <div className="relative flex flex-col min-h-screen bg-grid-pattern">
             {/* Ambient background glows */}
-            <div className="pointer-events-none absolute top-0 left-1/2 -z-10 h-[600px] w-full max-w-[1200px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.08),transparent_70%)] blur-[80px]" />
+            <div className="pointer-events-none absolute top-0 left-1/2 -z-10 h-[600px] w-full max-w-[1200px] -translate-x-1/2 bg-[radial-gradient(circle_at_center,rgba(22,119,255,0.08),transparent_70%)] blur-[80px]" />
             <ScrollProgress />
             <Navbar />
             <main className="flex-grow">{children}</main>

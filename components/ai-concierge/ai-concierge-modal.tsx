@@ -128,7 +128,7 @@ export function AiConciergeModal() {
       {/* Floating Concierge Launcher Pill */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-background/95 dark:bg-card/95 border border-primary/40 shadow-2xl backdrop-blur-xl hover:border-primary hover:shadow-[0_0_30px_rgba(22,119,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#08111F]/95 border border-primary/40 shadow-2xl backdrop-blur-xl hover:border-primary hover:shadow-[0_0_30px_rgba(22,119,255,0.4)] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         aria-label="Talk to Our AI Advisor"
       >
         <span className="relative flex h-2.5 w-2.5">
@@ -139,7 +139,7 @@ export function AiConciergeModal() {
           <Sparkles className="w-3.5 h-3.5 text-primary group-hover:rotate-12 transition-transform" />
           Talk to Our AI
         </span>
-        <span className="text-[10px] bg-primary/10 text-primary font-bold px-1.5 py-0.5 rounded-md border border-primary/20">
+        <span className="text-[10px] bg-primary/15 text-primary font-mono font-bold px-2 py-0.5 rounded-md border border-primary/30">
           Advisor
         </span>
       </button>
@@ -154,7 +154,7 @@ export function AiConciergeModal() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/75 backdrop-blur-md"
+              className="fixed inset-0 bg-[#050B14]/85 backdrop-blur-md"
             />
 
             {/* Modal Dialog Card */}
@@ -163,10 +163,10 @@ export function AiConciergeModal() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl max-h-[92vh] bg-card border border-border shadow-[0_25px_80px_rgba(0,0,0,0.6)] rounded-2xl flex flex-col overflow-hidden z-10"
+              className="relative w-full max-w-3xl max-h-[92vh] bg-[#08111F] border border-[#162238] shadow-[0_25px_80px_rgba(0,0,0,0.85)] rounded-2xl flex flex-col overflow-hidden z-10"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border/60 bg-muted/30">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[#162238] bg-[#050B14]/80">
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shadow-sm">
                     <Bot className="w-5 h-5" />
@@ -201,8 +201,8 @@ export function AiConciergeModal() {
                 {/* Initial Screen: Opening Greeting & 8 Starters */}
                 {!generatedResult && !isThinking && (
                   <div className="space-y-6">
-                    <div className="bg-muted/40 border border-border/70 rounded-xl p-4 sm:p-5 flex items-start gap-3.5">
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="bg-[#0D1828] border border-[#162238] rounded-xl p-4 sm:p-5 flex items-start gap-3.5">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/25 text-primary flex items-center justify-center shrink-0 mt-0.5">
                         <Terminal className="w-4 h-4" />
                       </div>
                       <div className="space-y-1">
@@ -216,7 +216,7 @@ export function AiConciergeModal() {
                     </div>
 
                     <div className="space-y-2.5">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                      <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-muted-foreground/80">
                         Select an Objective to Formulate Path
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -224,13 +224,13 @@ export function AiConciergeModal() {
                           <button
                             key={starter.id}
                             onClick={() => handleStarterSelect(starter.id)}
-                            className="group text-left p-3.5 rounded-xl border border-border/70 hover:border-primary/50 bg-background/50 hover:bg-primary/5 transition-all duration-200 flex flex-col justify-between gap-2"
+                            className="group text-left p-3.5 rounded-xl border border-[#162238] hover:border-primary/50 bg-[#0D1828]/70 hover:bg-[#101D30] transition-all duration-200 flex flex-col justify-between gap-2 shadow-sm"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="text-[10px] font-semibold text-primary/80 uppercase tracking-wide font-mono">
+                              <span className="text-[10px] font-semibold text-primary/90 uppercase tracking-wide font-mono">
                                 {starter.tag}
                               </span>
-                              <div className="w-6 h-6 rounded-md bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                              <div className="w-6 h-6 rounded-md bg-[#08111F] border border-[#162238] flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-colors">
                                 {getStarterIcon(starter.icon)}
                               </div>
                             </div>
@@ -266,13 +266,13 @@ export function AiConciergeModal() {
                 {generatedResult && !isThinking && (
                   <div className="space-y-5">
                     {/* Control Bar: Reset & Sector Filter */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 bg-muted/30 border border-border/60 rounded-xl px-4 py-2.5 text-xs">
+                    <div className="flex flex-wrap items-center justify-between gap-2 bg-[#0D1828] border border-[#162238] rounded-xl px-4 py-2.5 text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Specialized Sector:</span>
+                        <span className="text-muted-foreground font-mono text-[11px]">Specialized Sector:</span>
                         <select
                           value={selectedIndustryId || ""}
                           onChange={(e) => handleRefineIndustry(e.target.value)}
-                          className="bg-background border border-border rounded-md px-2 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
+                          className="bg-[#08111F] border border-[#162238] rounded-md px-2.5 py-1 text-xs text-foreground font-medium focus:outline-none focus:border-primary"
                         >
                           <option value="">General Enterprise</option>
                           {INDUSTRIES.map((ind) => (
@@ -281,15 +281,15 @@ export function AiConciergeModal() {
                         </select>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-3">
                         <button
                           onClick={handleCopyBlueprint}
-                          className="text-[11px] text-muted-foreground hover:text-foreground font-medium flex items-center gap-1 transition-colors"
+                          className="text-[11px] text-muted-foreground hover:text-foreground font-medium flex items-center gap-1.5 transition-colors"
                         >
-                          {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                           {copied ? "Copied" : "Copy Blueprint"}
                         </button>
-                        <span className="text-border">|</span>
+                        <span className="text-[#162238]">|</span>
                         <button
                           onClick={handleReset}
                           className="text-[11px] text-primary hover:underline font-semibold"
@@ -300,14 +300,14 @@ export function AiConciergeModal() {
                     </div>
 
                     {/* Structured Blueprint Container */}
-                    <div className="bg-card border border-border rounded-xl p-5 shadow-sm space-y-5">
+                    <div className="bg-[#0D1828]/60 border border-[#162238] rounded-xl p-5 shadow-sm space-y-5">
                       {/* 1. Challenge Box */}
                       <div className="space-y-1.5">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                           YOUR CHALLENGE
                         </span>
-                        <div className="p-3 rounded-lg bg-muted/40 border border-border/80 text-xs text-foreground leading-relaxed">
+                        <div className="p-3 rounded-lg bg-[#08111F] border border-[#162238] text-xs text-foreground leading-relaxed">
                           {generatedResult.challenge}
                         </div>
                       </div>
@@ -334,12 +334,12 @@ export function AiConciergeModal() {
                       {/* 3. AI Capabilities Grid */}
                       <div className="space-y-2">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-violet-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
                           AI CAPABILITIES
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                           {generatedResult.capabilities.map((cap, i) => (
-                            <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-muted/40 border border-border/60">
+                            <div key={i} className="flex items-center gap-2 p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
                               <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
                               <span className="text-foreground text-[11px] font-medium">{cap}</span>
                             </div>
@@ -354,12 +354,12 @@ export function AiConciergeModal() {
                       {/* 4. Target Architecture & Infrastructure */}
                       <div className="space-y-2">
                         <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-bold flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           TARGET ARCHITECTURE & INFRASTRUCTURE
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                           {generatedResult.targetArchitecture.map((arch, i) => (
-                            <div key={i} className="p-2.5 rounded-lg bg-muted/30 border border-border/60">
+                            <div key={i} className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238]">
                               <span className="text-[10px] font-mono text-primary uppercase font-bold block">
                                 {arch.layer}
                               </span>
@@ -372,18 +372,18 @@ export function AiConciergeModal() {
                       </div>
 
                       {/* Timeline & ROI Projection */}
-                      <div className="pt-2 border-t border-border/60 text-xs space-y-2">
+                      <div className="pt-2 border-t border-[#162238] text-xs space-y-2">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="p-2.5 rounded-lg bg-muted/30 border border-border/60 flex items-center justify-between">
-                            <span className="text-muted-foreground">Estimated Timeline:</span>
+                          <div className="p-2.5 rounded-lg bg-[#08111F] border border-[#162238] flex items-center justify-between">
+                            <span className="text-muted-foreground font-mono text-[11px]">Estimated Timeline:</span>
                             <span className="font-bold text-foreground font-mono">{generatedResult.timeline}</span>
                           </div>
                           <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/25 flex items-center justify-between gap-2">
-                            <span className="text-muted-foreground shrink-0">Impact Potential:</span>
+                            <span className="text-muted-foreground font-mono text-[11px] shrink-0">Impact Potential:</span>
                             <span className="font-semibold text-amber-400 text-right">{generatedResult.roiProjection}</span>
                           </div>
                         </div>
-                        <p className="text-[10px] text-muted-foreground/60 italic text-center">
+                        <p className="text-[10px] text-muted-foreground/60 italic text-center font-mono">
                           Impact figures are illustrative estimates based on typical deployment patterns, not documented outcomes.
                         </p>
                       </div>
@@ -393,16 +393,16 @@ export function AiConciergeModal() {
               </div>
 
               {/* Footer CTA & Input */}
-              <div className="px-6 py-4 border-t border-border/60 bg-muted/20 space-y-3">
+              <div className="px-6 py-4 border-t border-[#162238] bg-[#050B14]/90 space-y-3">
                 {generatedResult ? (
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-xs text-muted-foreground text-center sm:text-left">
+                    <p className="text-xs text-muted-foreground text-center sm:text-left font-mono">
                       Next Step: Review this architecture with a senior Indusnet AI architect.
                     </p>
                     <Button
                       size="sm"
                       asChild
-                      className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-6 shadow-md shadow-primary/20 w-full sm:w-auto"
+                      className="rounded-full bg-primary text-white hover:bg-primary/90 text-xs px-6 shadow-md shadow-primary/20 w-full sm:w-auto font-bold"
                     >
                       <Link
                         href={generatedResult.nextStepUrl}
@@ -421,13 +421,13 @@ export function AiConciergeModal() {
                       value={customText}
                       onChange={(e) => setCustomText(e.target.value)}
                       placeholder="Type your challenge (e.g. 'How do we connect HIPAA clinical notes to an open-source LLM?')"
-                      className="flex-1 bg-background border border-border/80 rounded-full px-4 py-2 text-xs text-foreground focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
+                      className="flex-1 bg-[#0D1828] border border-[#162238] rounded-full px-4 py-2 text-xs text-foreground focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground"
                     />
                     <Button
                       type="submit"
                       size="sm"
                       disabled={!customText.trim()}
-                      className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-8 font-bold"
+                      className="rounded-full bg-primary text-white hover:bg-primary/90 px-4 text-xs h-9 font-bold shrink-0"
                     >
                       <Send className="w-3.5 h-3.5 mr-1" />
                       Formulate Path

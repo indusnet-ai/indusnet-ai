@@ -245,20 +245,20 @@ export default function ServicesClient() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Card className="relative overflow-hidden border border-primary/20 bg-gradient-to-r from-primary/5 via-accent/5 to-transparent backdrop-blur-xl">
+          <Card className="relative overflow-hidden border border-primary/30 bg-gradient-to-br from-[#0D1828] via-[#08111F] to-[#050B14] shadow-xl">
             <div className="absolute top-0 right-0 -z-10 w-60 h-60 rounded-full bg-primary/10 blur-[80px]" />
             <CardContent className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-left">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-primary/25 text-primary border-primary/30 text-xs">Featured Services</Badge>
-                  <span className="text-xs font-semibold text-accent flex items-center gap-1"><Sparkles className="w-3 h-3"/> Free Workshop Scoping</span>
+                  <Badge className="bg-primary/20 text-primary border-primary/30 text-xs font-mono font-bold">Featured Capability</Badge>
+                  <span className="text-xs font-semibold text-cyan-400 flex items-center gap-1"><Sparkles className="w-3.5 h-3.5"/> Free Architecture Scoping</span>
                 </div>
-                <h3 className="text-2xl font-extrabold text-foreground">Generative AI Services & LLM Deployments</h3>
+                <h3 className="text-2xl font-extrabold text-foreground tracking-tight">Generative AI Services & LLM Deployments</h3>
                 <p className="text-muted-foreground text-xs sm:text-sm max-w-xl leading-relaxed">
                   Design roadmap workshops, private RAG installations, custom agent pipelines, and local model training. Move securely from sandbox validation to high-volume production.
                 </p>
               </div>
-              <Button asChild className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 shrink-0">
+              <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shrink-0 shadow-md shadow-primary/20">
                 <Link href="/services/generative-ai" className="flex items-center gap-1.5">
                   Explore GenAI <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -271,12 +271,12 @@ export default function ServicesClient() {
       {/* 2. TABBED SERVICES EXPLORER */}
       <section className="container mx-auto px-4 md:px-6 max-w-6xl">
         <Tabs defaultValue="core" className="w-full flex flex-col items-center gap-12">
-          <TabsList className="bg-muted border border-border rounded-full p-1.5 h-auto flex flex-wrap gap-2 max-w-full justify-center">
+          <TabsList className="bg-[#08111F] border border-[#162238] rounded-full p-1.5 h-auto flex flex-wrap gap-2 max-w-full justify-center">
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat.id}
                 value={cat.id}
-                className="rounded-full px-6 py-2.5 text-xs font-semibold data-[state=active]:bg-primary data-[state=active]:text-white transition-all"
+                className="rounded-full px-6 py-2.5 text-xs font-semibold text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-white transition-all"
               >
                 {cat.name}
               </TabsTrigger>
@@ -288,11 +288,11 @@ export default function ServicesClient() {
             return (
               <TabsContent key={cat.id} value={cat.id} className="w-full grid grid-cols-1 gap-10 mt-0">
                 {list.map((srv, idx) => (
-                  <Card key={idx} className="glassmorphism-card border-none text-left overflow-hidden">
+                  <Card key={idx} className="bg-[#08111F] border border-[#162238] hover:border-primary/40 rounded-2xl text-left overflow-hidden transition-all duration-300 shadow-md">
                     <CardContent className="p-8 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                       {/* Left: Summary */}
                       <div className="lg:col-span-5 flex flex-col gap-5">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-sm">
                           <srv.icon className="w-6 h-6 text-primary" />
                         </div>
                         <h2 className="text-2xl font-extrabold text-foreground tracking-tight leading-tight">
@@ -303,19 +303,19 @@ export default function ServicesClient() {
                         </p>
                         
                         <div className="flex flex-col gap-2 pt-2">
-                          <p className="text-xs uppercase font-bold text-foreground tracking-wider flex items-center gap-1.5">
+                          <p className="text-xs uppercase font-mono font-bold text-foreground tracking-wider flex items-center gap-1.5">
                             <Server className="w-3.5 h-3.5 text-primary" /> Core Tech Stack
                           </p>
                           <div className="flex flex-wrap gap-1.5">
                             {srv.tech.map((t, index) => (
-                              <Badge key={index} className="bg-muted border border-border text-muted-foreground text-xs hover:bg-muted/80 px-2 py-0.5 rounded">
+                              <Badge key={index} className="bg-[#0D1828] border border-[#162238] text-muted-foreground font-mono text-[11px] hover:border-primary/30 px-2.5 py-0.5 rounded-md">
                                 {t}
                               </Badge>
                             ))}
                           </div>
                         </div>
 
-                        <Button asChild className="w-fit rounded-full bg-muted border border-border hover:bg-muted/80 text-muted-foreground hover:text-foreground mt-2" variant="outline">
+                        <Button asChild className="w-fit rounded-full bg-[#0D1828] border border-[#162238] hover:bg-[#101D30] hover:border-primary/40 text-muted-foreground hover:text-foreground mt-2" variant="outline">
                           <Link href="/contact" className="flex items-center gap-1.5 text-xs font-semibold">
                             Discuss Architecture <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
@@ -323,16 +323,16 @@ export default function ServicesClient() {
                       </div>
 
                       {/* Right: Detailed lists */}
-                      <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 bg-muted/30 border border-border rounded-2xl p-6">
+                      <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#0D1828]/70 border border-[#162238] rounded-2xl p-6">
                         {/* Features Column */}
                         <div className="flex flex-col gap-4">
-                          <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
+                          <h3 className="font-mono font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
                             <Check className="w-4 h-4 text-primary" /> Key Features
                           </h3>
                           <ul className="flex flex-col gap-3">
                             {srv.features.map((feat, index) => (
                               <li key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 flex-shrink-0" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 flex-shrink-0" />
                                 <span className="leading-relaxed">{feat}</span>
                               </li>
                             ))}
@@ -342,17 +342,17 @@ export default function ServicesClient() {
                         {/* Benefits Column */}
                         <div className="flex flex-col gap-4">
                           <div className="flex items-center justify-between">
-                            <h3 className="font-bold text-xs uppercase text-accent tracking-wider flex items-center gap-1.5">
-                              <Shield className="w-4 h-4 text-accent" /> Target Impact
+                            <h3 className="font-mono font-bold text-xs uppercase text-cyan-400 tracking-wider flex items-center gap-1.5">
+                              <Shield className="w-4 h-4 text-cyan-400" /> Target Impact
                             </h3>
-                            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                            <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/25">
                               Illustrative
                             </span>
                           </div>
                           <ul className="flex flex-col gap-3">
                             {srv.benefits.map((bene, index) => (
                               <li key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent/60 mt-1.5 flex-shrink-0" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/70 mt-1.5 flex-shrink-0" />
                                 <span className="leading-relaxed font-medium text-foreground/90">{bene}</span>
                               </li>
                             ))}
@@ -370,11 +370,11 @@ export default function ServicesClient() {
 
       {/* 3. TRUST BANNER */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <div className="glassmorphism-card rounded-3xl p-8 md:p-12 text-center flex flex-col gap-6 items-center">
-          <Badge className="bg-accent/10 border-accent/20 text-accent rounded-full px-2.5 py-0.5 text-xs">
+        <div className="bg-[#08111F] border border-[#162238] rounded-3xl p-8 md:p-12 text-center flex flex-col gap-6 items-center shadow-lg">
+          <Badge className="bg-primary/10 border-primary/25 text-primary font-mono rounded-full px-3 py-1 text-xs">
             Security & Governance Standard
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Deterministic & Audit-Ready Models</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Deterministic & Audit-Ready Models</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-xl leading-relaxed">
             Every custom implementation we deploy includes complete observability dashboards, error-logging databases, model alignment metrics, and strict VPC constraints protecting your company's legal integrity.
           </p>

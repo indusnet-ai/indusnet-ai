@@ -587,9 +587,9 @@ export function AgentWorkflowSimulator() {
   };
 
   return (
-    <section className="relative py-24 bg-card/40 border-t border-border/60 overflow-hidden">
+    <section className="relative py-24 bg-[#050B14] border-t border-[#162238] overflow-hidden">
       {/* Subtle Background Glows */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[350px] rounded-full bg-primary/6 blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[350px] rounded-full bg-primary/8 blur-[140px] pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
@@ -597,42 +597,42 @@ export function AgentWorkflowSimulator() {
           <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full bg-primary/5">
             Agentic AI Systems
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-[#F5F7FA]">
             How Enterprise AI Agents <span className="text-primary">Actually Work</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="text-[#A7B4C5] text-base sm:text-lg leading-relaxed">
             Beyond chatbots: See how our multi-agent swarms interpret intent, query enterprise databases, execute API tools, self-correct errors, and deliver audited business results under strict governance.
           </p>
         </div>
 
         {/* Conceptual Educational Pillars: Chatbots vs Agents */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
-          <div className="p-5 rounded-2xl bg-card border border-border/80 shadow-xs space-y-2">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
             <div className="flex items-center gap-2.5 text-primary font-bold text-sm">
               <Bot className="w-4 h-4" />
               <span>What is an AI Agent?</span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-xs text-[#A7B4C5] leading-relaxed">
               Unlike static chatbots that only generate conversational text, an AI agent possesses <strong>perception</strong>, <strong>memory</strong>, <strong>planning</strong>, and <strong>tool execution capabilities</strong> to accomplish end-to-end multi-step goals autonomously.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-card border border-border/80 shadow-xs space-y-2">
-            <div className="flex items-center gap-2.5 text-violet-500 font-bold text-sm">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
+            <div className="flex items-center gap-2.5 text-violet-400 font-bold text-sm">
               <GitBranch className="w-4 h-4" />
               <span>Multi-Agent Collaboration</span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-xs text-[#A7B4C5] leading-relaxed">
               Complex tasks are handled by specialized agent swarms: an <strong>Orchestrator</strong> plans the roadmap, specialized <strong>Worker Agents</strong> execute specific APIs, and an independent <strong>Critic Agent</strong> validates safety.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-card border border-border/80 shadow-xs space-y-2">
-            <div className="flex items-center gap-2.5 text-emerald-500 font-bold text-sm">
+          <div className="p-5 rounded-2xl bg-[#08111F] border border-[#162238] shadow-xs space-y-2">
+            <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
               <ShieldCheck className="w-4 h-4" />
               <span>Human-in-the-Loop Governance</span>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-xs text-[#A7B4C5] leading-relaxed">
               Autonomous execution is strictly bounded. High-risk actions, financial commitments above configured thresholds, or regulatory edge cases trigger <strong>deterministic escalation gates</strong> requiring human leadership approval.
             </p>
           </div>
@@ -657,10 +657,10 @@ export function AgentWorkflowSimulator() {
                 <button
                   key={agent.id}
                   onClick={() => handleSelectAgent(agent.id)}
-                  className={`p-3 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-2.5 ${
+                  className={`p-3 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-2.5 cursor-pointer ${
                     isSelected
-                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-[1.02]"
-                      : "bg-card/70 border-border/80 text-foreground hover:border-primary/50 hover:bg-muted/40"
+                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/25 scale-[1.02]"
+                      : "bg-[#08111F] border-[#162238] text-[#F5F7FA] hover:border-primary/50 hover:bg-[#0D1828]"
                   }`}
                 >
                   <div className="flex items-center justify-between w-full">
@@ -675,7 +675,7 @@ export function AgentWorkflowSimulator() {
                     <h4 className="text-xs font-bold font-heading line-clamp-1">
                       {agent.name.replace(" Agent", "")}
                     </h4>
-                    <span className={`text-[10px] block line-clamp-1 ${isSelected ? "text-white/80" : "text-muted-foreground"}`}>
+                    <span className={`text-[10px] block line-clamp-1 ${isSelected ? "text-white/80" : "text-[#A7B4C5]"}`}>
                       {agent.category}
                     </span>
                   </div>
@@ -686,21 +686,21 @@ export function AgentWorkflowSimulator() {
         </div>
 
         {/* Selected Agent Specifications Matrix Card */}
-        <div className="max-w-5xl mx-auto bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-xl mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-border/60">
+        <div className="max-w-5xl mx-auto bg-[#08111F] border border-[#162238] rounded-3xl p-6 sm:p-8 shadow-xl mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-[#162238]">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] font-mono">
                   {activeAgent.category}
                 </Badge>
-                <span className="text-xs text-muted-foreground font-mono">
+                <span className="text-xs text-[#A7B4C5] font-mono">
                   Active Blueprint: {activeAgent.id}
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-extrabold font-heading text-foreground">
+              <h3 className="text-xl sm:text-2xl font-extrabold font-heading text-[#F5F7FA]">
                 {activeAgent.name}
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl">
+              <p className="text-xs sm:text-sm text-[#A7B4C5] max-w-2xl">
                 {activeAgent.objective}
               </p>
             </div>
@@ -711,7 +711,7 @@ export function AgentWorkflowSimulator() {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="rounded-full text-xs h-9 px-4 border-border hover:border-primary"
+                className="rounded-full text-xs h-9 px-4 border-[#162238] bg-[#0D1828] text-[#F5F7FA] hover:border-primary hover:bg-primary/10 cursor-pointer"
               >
                 {isPlaying ? (
                   <>
@@ -732,7 +732,7 @@ export function AgentWorkflowSimulator() {
                   setIsPlaying(false);
                   setCurrentStepIndex(0);
                 }}
-                className="rounded-full text-xs h-9 px-3 text-muted-foreground hover:text-foreground"
+                className="rounded-full text-xs h-9 px-3 text-[#A7B4C5] hover:text-[#F5F7FA] cursor-pointer"
                 title="Reset simulation to step 1"
               >
                 <RotateCcw className="w-3.5 h-3.5 mr-1" />
@@ -743,55 +743,55 @@ export function AgentWorkflowSimulator() {
 
           {/* 6-Part Agent Governance Specification Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-6 text-xs">
-            <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] space-y-1.5">
               <span className="text-[10px] font-mono uppercase tracking-wider text-primary font-bold block">
                 Tools Used:
               </span>
               <div className="flex flex-wrap gap-1">
                 {activeAgent.toolsUsed.map((tool, i) => (
-                  <span key={i} className="text-[10px] bg-background px-2 py-0.5 rounded border border-border/70 text-foreground font-mono">
+                  <span key={i} className="text-[10px] bg-[#08111F] px-2 py-0.5 rounded border border-[#162238] text-[#F5F7FA] font-mono">
                     {tool}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-violet-500 font-bold block">
+            <div className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] space-y-1.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-[#7C5CFF] font-bold block">
                 Knowledge Accessed:
               </span>
               <div className="flex flex-wrap gap-1">
                 {activeAgent.knowledgeAccessed.map((k, i) => (
-                  <span key={i} className="text-[10px] bg-background px-2 py-0.5 rounded border border-border/70 text-foreground font-mono">
+                  <span key={i} className="text-[10px] bg-[#08111F] px-2 py-0.5 rounded border border-[#162238] text-[#F5F7FA] font-mono">
                     {k}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-amber-500 font-bold block">
+            <div className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] space-y-1.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold block">
                 Decisions Made:
               </span>
-              <p className="text-muted-foreground leading-relaxed text-[11px]">
+              <p className="text-[#A7B4C5] leading-relaxed text-[11px]">
                 {activeAgent.decisionsMade}
               </p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-500 font-bold block">
+            <div className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] space-y-1.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
                 Actions Taken:
               </span>
-              <p className="text-muted-foreground leading-relaxed text-[11px]">
+              <p className="text-[#A7B4C5] leading-relaxed text-[11px]">
                 {activeAgent.actionsTaken}
               </p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-muted/30 border border-border/60 space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-[#0D1828] border border-[#162238] space-y-1.5">
               <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
                 Human Oversight Mechanism:
               </span>
-              <p className="text-muted-foreground leading-relaxed text-[11px]">
+              <p className="text-[#A7B4C5] leading-relaxed text-[11px]">
                 {activeAgent.humanOversight}
               </p>
             </div>
@@ -800,7 +800,7 @@ export function AgentWorkflowSimulator() {
               <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">
                 Measured Business Outcome:
               </span>
-              <p className="font-semibold text-foreground leading-relaxed text-[11px]">
+              <p className="font-semibold text-[#F5F7FA] leading-relaxed text-[11px]">
                 {activeAgent.businessOutcome}
               </p>
             </div>
@@ -808,7 +808,7 @@ export function AgentWorkflowSimulator() {
         </div>
 
         {/* The 9-Stage Agent Workflow Stepper */}
-        <div className="max-w-5xl mx-auto bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+        <div className="max-w-5xl mx-auto bg-[#08111F] border border-[#162238] rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
           <div className="flex items-center justify-between pb-4 mb-4 border-b border-border/60">
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold uppercase text-primary">
@@ -835,19 +835,19 @@ export function AgentWorkflowSimulator() {
                     setIsPlaying(false);
                     setCurrentStepIndex(idx);
                   }}
-                  className={`p-2 rounded-xl border text-left transition-all duration-200 flex flex-col justify-between gap-1 ${
+                  className={`p-2 rounded-xl border text-left transition-all duration-200 flex flex-col justify-between gap-1 cursor-pointer ${
                     isCurrent
                       ? getStageActiveClasses(s.stageName) + " scale-[1.03]"
                       : isPast
-                      ? "bg-muted/70 border-emerald-500/40 text-foreground"
-                      : "bg-background/40 border-border/70 text-muted-foreground hover:border-border"
+                      ? "bg-[#0D1828] border-emerald-500/40 text-[#F5F7FA]"
+                      : "bg-[#08111F] border-[#162238] text-[#A7B4C5] hover:border-primary/40 hover:text-[#F5F7FA]"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`text-[9px] font-mono font-bold ${isCurrent ? "" : isPast ? "text-emerald-500" : "text-muted-foreground"}`}>
+                    <span className={`text-[9px] font-mono font-bold ${isCurrent ? "" : isPast ? "text-emerald-400" : "text-[#6F7E91]"}`}>
                       0{s.stepNumber}
                     </span>
-                    {isPast && <CheckCircle2 className="w-2.5 h-2.5 text-emerald-500" />}
+                    {isPast && <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />}
                   </div>
                   <span className="text-[10px] font-bold line-clamp-1 leading-tight">
                     {s.stageName.split(" ")[0]}
@@ -860,43 +860,43 @@ export function AgentWorkflowSimulator() {
           {/* Active Step Details & Live Telemetry Terminal */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch pt-2">
             {/* Left: Step Context & Action Details */}
-            <div className="lg:col-span-5 bg-muted/30 border border-border/70 rounded-2xl p-6 flex flex-col justify-between space-y-4">
+            <div className="lg:col-span-5 bg-[#0D1828] border border-[#162238] rounded-2xl p-6 flex flex-col justify-between space-y-4">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Badge variant="outline" className={`text-[10px] font-mono uppercase tracking-wider ${getStageBadgeClasses(activeStep.stageName)}`}>
                     {activeStep.stageName}
                   </Badge>
-                  <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px]">
+                  <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px]">
                     {activeStep.status}
                   </Badge>
                 </div>
 
                 <div>
-                  <h4 className="text-base font-bold font-heading text-foreground">
+                  <h4 className="text-base font-bold font-heading text-[#F5F7FA]">
                     {activeStep.stepTitle}
                   </h4>
-                  <span className="text-[11px] font-mono text-muted-foreground">
+                  <span className="text-[11px] font-mono text-[#A7B4C5]">
                     Actor: {activeStep.actor}
                   </span>
                 </div>
 
-                <p className="text-xs text-muted-foreground leading-relaxed pt-1">
+                <p className="text-xs text-[#A7B4C5] leading-relaxed pt-1">
                   {activeStep.detail}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-border/60 flex items-center justify-between">
+              <div className="pt-4 border-t border-[#162238] flex items-center justify-between">
                 <button
                   disabled={currentStepIndex === 0}
                   onClick={() => setCurrentStepIndex((prev) => Math.max(0, prev - 1))}
-                  className="text-xs font-semibold text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                  className="text-xs font-semibold text-[#A7B4C5] hover:text-[#F5F7FA] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
                 >
                   ← Previous Stage
                 </button>
                 <button
                   disabled={currentStepIndex === steps.length - 1}
                   onClick={() => setCurrentStepIndex((prev) => Math.min(steps.length - 1, prev + 1))}
-                  className="text-xs font-bold text-primary hover:underline disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1"
+                  className="text-xs font-bold text-primary hover:underline disabled:opacity-30 disabled:pointer-events-none flex items-center gap-1 cursor-pointer"
                 >
                   Next Stage →
                 </button>
@@ -904,15 +904,15 @@ export function AgentWorkflowSimulator() {
             </div>
 
             {/* Right: Live Agent Telemetry & Execution Terminal */}
-            <div className="lg:col-span-7 bg-zinc-950 text-zinc-100 border border-zinc-800 rounded-2xl p-5 font-mono text-xs shadow-inner flex flex-col justify-between space-y-4">
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+            <div className="lg:col-span-7 bg-[#050B14] text-zinc-100 border border-[#162238] rounded-2xl p-5 font-mono text-xs shadow-inner flex flex-col justify-between space-y-4">
+              <div className="flex items-center justify-between border-b border-[#162238] pb-3">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                   </div>
-                  <span className="text-[11px] text-zinc-400 pl-2">
+                  <span className="text-[11px] text-[#A7B4C5] pl-2 font-mono">
                     agent-telemetry-stdout.log
                   </span>
                 </div>
@@ -922,13 +922,13 @@ export function AgentWorkflowSimulator() {
                 </span>
               </div>
 
-              <div className="bg-black/50 rounded-xl p-4 border border-zinc-900 overflow-x-auto min-h-[160px] flex items-center">
-                <pre className="text-zinc-300 text-[11px] leading-relaxed whitespace-pre-wrap font-mono w-full">
+              <div className="bg-[#08111F]/80 rounded-xl p-4 border border-[#162238] overflow-x-auto min-h-[160px] flex items-center">
+                <pre className="text-zinc-200 text-[11px] leading-relaxed whitespace-pre-wrap font-mono w-full">
                   {activeStep.log}
                 </pre>
               </div>
 
-              <div className="flex flex-wrap items-center justify-between text-[11px] text-zinc-400 pt-2 border-t border-zinc-900 gap-2">
+              <div className="flex flex-wrap items-center justify-between text-[11px] text-[#A7B4C5] pt-2 border-t border-[#162238] gap-2">
                 <span>VPC Isolation: Active</span>
                 <span className="text-emerald-400">Grounded Citations Verified</span>
               </div>

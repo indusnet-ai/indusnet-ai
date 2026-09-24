@@ -114,38 +114,38 @@ Payback Period: ${results.paybackMonths} months
 
   return (
     <section id="roi-calculator" className="container mx-auto px-4 md:px-6">
-      <div className="glassmorphism-card rounded-3xl p-6 md:p-10 lg:p-12 flex flex-col gap-10 border border-primary/20 relative overflow-hidden">
+      <div className="bg-[#08111F] rounded-3xl p-6 md:p-10 lg:p-12 flex flex-col gap-10 border border-[#162238] shadow-2xl relative overflow-hidden">
         {/* Glow backdrop decorative */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto flex flex-col gap-3 relative z-10">
           <div className="flex items-center justify-center gap-2 flex-wrap">
-            <Badge className="bg-primary/10 border-primary/20 text-primary px-3 py-1 text-xs rounded-full font-bold flex items-center gap-1.5">
+            <Badge className="bg-primary/10 border-primary/30 text-primary px-3 py-1 text-xs rounded-full font-bold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-primary" /> AI ROI Estimator
             </Badge>
-            <Badge className="bg-amber-500/10 border-amber-500/20 text-amber-400 px-3 py-1 text-xs rounded-full font-bold">
+            <Badge className="bg-amber-500/10 border-amber-500/25 text-amber-400 px-3 py-1 text-xs rounded-full font-bold">
               Estimator / Projection
             </Badge>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading text-foreground">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading text-[#F5F7FA]">
             Model Your{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-cyan-400 to-[#7C5CFF] bg-clip-text text-transparent">
               AI Business Case
             </span>
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+          <p className="text-[#A7B4C5] text-sm sm:text-base leading-relaxed">
             Enter your organization&apos;s workload assumptions to model a potential AI opportunity — including estimated cost reduction, hours saved, and private GPU compute sizing.
           </p>
-          <p className="text-xs text-muted-foreground/60 italic border border-border/60 rounded-xl px-4 py-2 bg-muted/20">
-            <strong className="text-muted-foreground not-italic">Estimator Disclaimer:</strong> Results are illustrative projections based entirely on the assumptions you provide. Automation rates, speedup multipliers, and hardware sizing are modelled estimates, not documented client outcomes. Actual results will depend on your specific workflows, data quality, and implementation approach.
+          <p className="text-xs text-[#6F7E91] italic border border-[#162238] rounded-xl px-4 py-2 bg-[#050B14]/60">
+            <strong className="text-[#A7B4C5] not-italic">Estimator Disclaimer:</strong> Results are illustrative projections based entirely on the assumptions you provide. Automation rates, speedup multipliers, and hardware sizing are modelled estimates, not documented client outcomes. Actual results will depend on your specific workflows, data quality, and implementation approach.
           </p>
         </div>
 
         {/* 1. Industry Sector Selector */}
         <div className="flex flex-col gap-3 relative z-10">
-          <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+          <span className="text-xs font-bold text-[#A7B4C5] uppercase tracking-wider flex items-center gap-2">
             <Building2 className="w-4 h-4 text-primary" /> Step 1: Select Industry Domain
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
@@ -155,10 +155,10 @@ Payback Period: ${results.paybackMonths} months
                 <button
                   key={ind.id}
                   onClick={() => handleIndustryChange(ind)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col gap-1.5 ${
+                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col gap-1.5 cursor-pointer ${
                     isSelected
-                      ? "bg-primary/15 border-primary shadow-md shadow-primary/10 text-foreground"
-                      : "bg-muted/40 border-border hover:border-primary/40 hover:bg-muted/70 text-muted-foreground"
+                      ? "bg-[#0D1828] border-primary shadow-md shadow-primary/20 text-[#F5F7FA] ring-1 ring-primary/40"
+                      : "bg-[#08111F] border-[#162238] hover:border-primary/40 hover:bg-[#0D1828] text-[#A7B4C5]"
                   }`}
                 >
                   <span className="text-xs font-bold leading-snug line-clamp-2">
@@ -177,7 +177,7 @@ Payback Period: ${results.paybackMonths} months
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
           
           {/* Left Column: Workload Sliders (7 Cols) */}
-          <div className="lg:col-span-6 flex flex-col gap-6 bg-card/60 rounded-2xl p-6 border border-border">
+          <div className="lg:col-span-6 flex flex-col gap-6 bg-[#08111F] rounded-2xl p-6 border border-[#162238]">
             <div className="flex items-center justify-between border-b border-border pb-3">
               <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
                 <Gauge className="w-4 h-4 text-primary" /> Step 2: Configure Workload Variables
@@ -306,45 +306,45 @@ Payback Period: ${results.paybackMonths} months
           <div className="lg:col-span-6 flex flex-col gap-5">
             
             {/* Top KPI Card: Net Projected Savings */}
-            <div className="bg-gradient-to-br from-primary/20 via-background to-accent/15 border border-primary/30 rounded-2xl p-6 shadow-xl relative overflow-hidden text-left flex flex-col gap-2">
+            <div className="bg-gradient-to-br from-[#0D1828] via-[#08111F] to-[#0D1828] border border-primary/40 rounded-2xl p-6 shadow-xl relative overflow-hidden text-left flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground flex items-center gap-1.5">
+                <span className="text-xs uppercase tracking-wider font-bold text-[#A7B4C5] flex items-center gap-1.5">
                   <Coins className="w-4 h-4 text-primary" /> Estimated Net Annual Savings
                 </span>
-                <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[10px] font-bold">
+                <Badge className="bg-amber-500/15 text-amber-400 border-amber-500/30 text-[10px] font-bold">
                   Illustrative Estimate
                 </Badge>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl sm:text-5xl font-black text-foreground tracking-tight font-heading">
+                <span className="text-4xl sm:text-5xl font-black text-[#F5F7FA] tracking-tight font-heading">
                   ${results.netAnnualSavings.toLocaleString()}
                 </span>
-                <span className="text-xs font-semibold text-muted-foreground">/ year</span>
+                <span className="text-xs font-semibold text-[#A7B4C5]">/ year</span>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-xs text-[#A7B4C5] leading-relaxed">
                 Net labor savings after factoring dedicated GPU compute costs and human-in-the-loop review overhead.
               </p>
 
               {/* Secondary Stats Row */}
-              <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border/60 mt-1">
+              <div className="grid grid-cols-3 gap-3 pt-3 border-t border-[#162238] mt-1">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
+                  <span className="text-[10px] text-[#A7B4C5] font-semibold flex items-center gap-1">
                     <Clock className="w-3 h-3 text-primary" /> Hours Saved
                   </span>
-                  <span className="text-sm font-bold text-foreground">
-                    {results.automatedHoursSaved.toLocaleString()} <span className="text-[10px] font-normal">hrs/yr</span>
+                  <span className="text-sm font-bold text-[#F5F7FA]">
+                    {results.automatedHoursSaved.toLocaleString()} <span className="text-[10px] font-normal text-[#A7B4C5]">hrs/yr</span>
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                    <Zap className="w-3 h-3 text-accent" /> Turnaround
+                  <span className="text-[10px] text-[#A7B4C5] font-semibold flex items-center gap-1">
+                    <Zap className="w-3 h-3 text-cyan-400" /> Turnaround
                   </span>
-                  <span className="text-sm font-bold text-accent">
+                  <span className="text-sm font-bold text-cyan-400">
                     {results.speedupMultiplier}x Faster
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
+                  <span className="text-[10px] text-[#A7B4C5] font-semibold flex items-center gap-1">
                     <Coins className="w-3 h-3 text-emerald-400" /> Payback
                   </span>
                   <span className="text-sm font-bold text-emerald-400">
@@ -355,62 +355,60 @@ Payback Period: ${results.paybackMonths} months
             </div>
 
             {/* Hardware & Compute Architecture Sizing Box */}
-            <Card className="glassmorphism-card border-border text-left">
-              <CardContent className="p-5 flex flex-col gap-4">
-                <div className="flex items-center justify-between border-b border-border pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-                      <Cpu className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-xs font-bold text-foreground">Recommended Compute Sizing</span>
+            <div className="bg-[#08111F] border border-[#162238] rounded-2xl text-left p-5 flex flex-col gap-4 shadow-sm">
+              <div className="flex items-center justify-between border-b border-[#162238] pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Cpu className="w-4 h-4 text-primary" />
                   </div>
-                  <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] font-bold">
-                    Peak {results.hardware.throughputQps} QPS
-                  </Badge>
+                  <span className="text-xs font-bold text-[#F5F7FA]">Recommended Compute Sizing</span>
                 </div>
+                <Badge className="bg-primary/10 border-primary/20 text-primary text-[10px] font-bold">
+                  Peak {results.hardware.throughputQps} QPS
+                </Badge>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
-                  <div className="bg-muted/40 p-3 rounded-xl border border-border flex flex-col gap-1">
-                    <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                      <Server className="w-3 h-3 text-primary" /> Inference Hardware
-                    </span>
-                    <span className="font-bold text-foreground leading-snug">
-                      {results.hardware.gpuModel}
-                    </span>
-                    <span className="text-[10px] text-primary">{results.hardware.vram}</span>
-                  </div>
-
-                  <div className="bg-muted/40 p-3 rounded-xl border border-border flex flex-col gap-1">
-                    <span className="text-[10px] text-muted-foreground font-semibold flex items-center gap-1">
-                      <HardDrive className="w-3 h-3 text-accent" /> Vector DB Footprint
-                    </span>
-                    <span className="font-bold text-foreground leading-snug">
-                      {results.hardware.vectorDbStorage}
-                    </span>
-                    <span className="text-[10px] text-accent font-semibold">Latency: {results.hardware.expectedLatency}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between bg-primary/5 border border-primary/20 rounded-xl px-3.5 py-2.5 text-xs">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Coins className="w-3.5 h-3.5 text-primary" />
-                    <span>Estimated Cloud GPU Budget:</span>
-                  </div>
-                  <span className="font-bold text-foreground">
-                    ~${results.hardware.estimatedMonthlyCloudCost.toLocaleString()} <span className="text-[10px] font-normal text-muted-foreground">/ month</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+                <div className="bg-[#050B14] p-3 rounded-xl border border-[#162238] flex flex-col gap-1">
+                  <span className="text-[10px] text-[#A7B4C5] font-semibold flex items-center gap-1">
+                    <Server className="w-3 h-3 text-primary" /> Inference Hardware
                   </span>
+                  <span className="font-bold text-[#F5F7FA] leading-snug">
+                    {results.hardware.gpuModel}
+                  </span>
+                  <span className="text-[10px] text-cyan-400 font-mono">{results.hardware.vram}</span>
                 </div>
 
-                {/* Call to Action Button */}
-                <Button
-                  onClick={() => setIsModalOpen(true)}
-                  className="w-full bg-gradient-to-r from-primary to-accent hover:brightness-110 text-white font-bold text-xs h-10 rounded-xl shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-1"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Request Custom Architecture & ROI Blueprint (PDF)
-                </Button>
-              </CardContent>
-            </Card>
+                <div className="bg-[#050B14] p-3 rounded-xl border border-[#162238] flex flex-col gap-1">
+                  <span className="text-[10px] text-[#A7B4C5] font-semibold flex items-center gap-1">
+                    <HardDrive className="w-3 h-3 text-cyan-400" /> Vector DB Footprint
+                  </span>
+                  <span className="font-bold text-[#F5F7FA] leading-snug">
+                    {results.hardware.vectorDbStorage}
+                  </span>
+                  <span className="text-[10px] text-cyan-400 font-semibold">Latency: {results.hardware.expectedLatency}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between bg-primary/5 border border-primary/20 rounded-xl px-3.5 py-2.5 text-xs">
+                <div className="flex items-center gap-2 text-[#A7B4C5]">
+                  <Coins className="w-3.5 h-3.5 text-primary" />
+                  <span>Estimated Cloud GPU Budget:</span>
+                </div>
+                <span className="font-bold text-[#F5F7FA]">
+                  ~${results.hardware.estimatedMonthlyCloudCost.toLocaleString()} <span className="text-[10px] font-normal text-[#A7B4C5]">/ month</span>
+                </span>
+              </div>
+
+              {/* Call to Action Button */}
+              <Button
+                onClick={() => setIsModalOpen(true)}
+                className="w-full bg-primary hover:bg-primary/90 text-white font-bold text-xs h-10 rounded-full shadow-md shadow-primary/20 flex items-center justify-center gap-2 transition-all mt-1 cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Request Custom Architecture & ROI Blueprint (PDF)
+              </Button>
+            </div>
 
           </div>
 
@@ -420,15 +418,15 @@ Payback Period: ${results.paybackMonths} months
 
       {/* LEAD CAPTURE MODAL: Export Blueprint */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-card border border-border rounded-3xl max-w-md w-full p-6 text-left relative shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#08111F] border border-[#162238] rounded-3xl max-w-md w-full p-6 text-left relative shadow-2xl animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => {
                 setIsModalOpen(false);
                 setModalSuccess(false);
                 setModalError("");
               }}
-              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
+              className="absolute top-4 right-4 text-[#A7B4C5] hover:text-[#F5F7FA] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>

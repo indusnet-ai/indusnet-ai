@@ -43,13 +43,13 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border/40 bg-background/50 backdrop-blur-sm pt-20 pb-10 overflow-hidden">
+    <footer className="relative border-t border-[#162238] bg-[#050B14] pt-20 pb-10 overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute bottom-0 right-0 -z-10 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute top-0 left-0 -z-10 w-96 h-96 rounded-full bg-accent/5 blur-3xl" />
 
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 pb-16 border-b border-border/15">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 pb-16 border-b border-[#162238]">
           {/* Brand Card */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <Link href="/" className="flex items-center group w-fit">
@@ -65,11 +65,11 @@ export function Footer() {
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">
               AI-First. From Strategy to Software. Designing and deploying production-grade AI applications, autonomous agentic workflows, and private knowledge systems for enterprise leaders.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <Link
                 href="https://linkedin.com/company/indusnet-ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
+                className="w-9 h-9 rounded-lg flex items-center justify-center border border-[#162238] bg-[#0D1828] text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-[#101D30] transition-all duration-200"
               >
                 <Linkedin className="w-4 h-4" />
                 <span className="sr-only">LinkedIn</span>
@@ -77,7 +77,7 @@ export function Footer() {
               <Link
                 href="https://twitter.com/indusnet_ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
+                className="w-9 h-9 rounded-lg flex items-center justify-center border border-[#162238] bg-[#0D1828] text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-[#101D30] transition-all duration-200"
               >
                 <Twitter className="w-4 h-4" />
                 <span className="sr-only">Twitter</span>
@@ -85,7 +85,7 @@ export function Footer() {
               <Link
                 href="https://github.com/indusnet-ai"
                 target="_blank"
-                className="w-10 h-10 rounded-full flex items-center justify-center border border-border/60 bg-muted/30 text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_15px_rgba(22,119,255,0.3)] transition-all duration-300"
+                className="w-9 h-9 rounded-lg flex items-center justify-center border border-[#162238] bg-[#0D1828] text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-[#101D30] transition-all duration-200"
               >
                 <Github className="w-4 h-4" />
                 <span className="sr-only">GitHub</span>
@@ -170,7 +170,7 @@ export function Footer() {
           {/* Contact Details & Newsletter Column */}
           <div className="flex flex-col gap-6 lg:col-span-1 min-w-[200px]">
             <div className="flex flex-col gap-5">
-              <h3 className="font-bold text-xs text-primary uppercase tracking-widest">Subscribe</h3>
+              <h3 className="font-mono font-bold text-xs text-primary uppercase tracking-widest">Subscribe</h3>
               <p className="text-muted-foreground text-xs leading-normal">
                 Receive curated monthly briefings on enterprise AI deployment, case studies, and workshops.
               </p>
@@ -183,13 +183,13 @@ export function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={status === "loading" || status === "success"}
-                    className="rounded-full bg-muted border-border focus-visible:ring-primary text-xs px-4"
+                    className="rounded-xl bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 text-foreground placeholder:text-muted-foreground"
                   />
                   <Button
                     type="submit"
                     size="icon"
                     disabled={status === "loading" || status === "success"}
-                    className="rounded-full bg-primary text-white flex-shrink-0 hover:bg-primary/90 shadow-md shadow-primary/20"
+                    className="rounded-xl bg-primary text-white flex-shrink-0 hover:bg-primary/90 shadow-md shadow-primary/20"
                   >
                     {status === "loading" ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -199,20 +199,20 @@ export function Footer() {
                   </Button>
                 </div>
                 {status === "success" && (
-                  <div className="flex items-center gap-1.5 text-xs text-emerald-500 mt-2">
+                  <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-2 font-mono">
                     <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" />
                     <span>{message}</span>
                   </div>
                 )}
                 {status === "error" && (
-                  <div className="flex items-center gap-1.5 text-xs text-destructive mt-2">
+                  <div className="flex items-center gap-1.5 text-xs text-destructive mt-2 font-mono">
                     <span>{message}</span>
                   </div>
                 )}
               </form>
             </div>
             
-            <div className="flex flex-col gap-3 border-t border-border/10 pt-4 mt-1">
+            <div className="flex flex-col gap-3 border-t border-[#162238] pt-4 mt-1">
               <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                 <Mail className="w-3.5 h-3.5 text-primary" />
                 <a href="mailto:info@indusnet-ai.com" className="hover:text-foreground transition-colors">
@@ -250,7 +250,7 @@ export function Footer() {
         </div>
 
         {/* Legal & Copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-10 text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-10 text-xs text-muted-foreground border-t border-[#162238]/60 mt-4">
           <p>© {new Date().getFullYear()} Indusnet AI. All rights reserved. Registered under Indusnet Technologies Ltd.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-foreground transition-colors">

@@ -260,17 +260,17 @@ export function AiCapabilityStack() {
   };
 
   return (
-    <section className="relative py-24 bg-muted/15 border-t border-border/60">
+    <section className="relative py-24 bg-[#050B14] border-t border-[#162238]">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
+          <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full bg-primary/5">
             Enterprise Architecture Map
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-[#F5F7FA]">
             The AI <span className="text-primary">Capability Architecture</span>
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="text-[#A7B4C5] text-base sm:text-lg leading-relaxed">
             Enterprise AI requires a modular, defense-in-depth architecture. Explore the 5 interactive layers powering our enterprise deployments. Click any capability to inspect its technical details.
           </p>
         </div>
@@ -284,10 +284,10 @@ export function AiCapabilityStack() {
               <button
                 key={layer.layerNumber}
                 onClick={() => handleSelectLayer(idx)}
-                className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-2 border ${
+                className={`px-4 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shrink-0 flex items-center gap-2 border cursor-pointer ${
                   isSelected
-                    ? "bg-card border-primary text-foreground shadow-lg shadow-primary/10"
-                    : "bg-background/60 hover:bg-muted border-border/70 text-muted-foreground hover:text-foreground"
+                    ? "bg-[#0D1828] border-primary text-[#F5F7FA] shadow-lg shadow-primary/20 ring-1 ring-primary/40"
+                    : "bg-[#08111F] hover:bg-[#0D1828] border-[#162238] text-[#A7B4C5] hover:text-[#F5F7FA]"
                 }`}
               >
                 <div
@@ -311,11 +311,11 @@ export function AiCapabilityStack() {
                 <span className="text-[11px] font-mono uppercase text-primary font-bold block">
                   {activeLayer.layerTitle}
                 </span>
-                <h3 className="text-lg font-bold font-heading text-foreground">
+                <h3 className="text-lg font-bold font-heading text-[#F5F7FA]">
                   {activeLayer.tagline}
                 </h3>
               </div>
-              <Badge variant="outline" className="text-[10px] font-mono">
+              <Badge variant="outline" className="text-[10px] font-mono border-[#162238] text-[#A7B4C5]">
                 {activeLayer.capabilities.length} Capabilities
               </Badge>
             </div>
@@ -327,23 +327,23 @@ export function AiCapabilityStack() {
                   <button
                     key={cap.id}
                     onClick={() => setSelectedCapability(cap)}
-                    className={`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative ${
+                    className={`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between gap-3 group relative cursor-pointer ${
                       isSelected
-                        ? "bg-card border-primary shadow-lg shadow-primary/15 scale-102"
-                        : "bg-card/60 hover:bg-card border-border/70 hover:border-border"
+                        ? "bg-[#0D1828] border-primary shadow-lg shadow-primary/20 scale-[1.01]"
+                        : "bg-[#08111F] hover:bg-[#0D1828] border-[#162238] hover:border-primary/40"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">
+                      <span className="text-xs font-bold text-[#F5F7FA] group-hover:text-primary transition-colors">
                         {cap.name}
                       </span>
                       {isSelected ? (
                         <span className="w-2 h-2 rounded-full bg-primary" />
                       ) : (
-                        <Info className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground" />
+                        <Info className="w-3.5 h-3.5 text-[#6F7E91] group-hover:text-[#A7B4C5]" />
                       )}
                     </div>
-                    <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] text-[#A7B4C5] line-clamp-2 leading-relaxed">
                       {cap.whatItIs}
                     </p>
                   </button>
@@ -353,7 +353,7 @@ export function AiCapabilityStack() {
           </div>
 
           {/* Right: Detailed Capability Inspector Card */}
-          <div className="lg:col-span-6 bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-md relative overflow-hidden">
+          <div className="lg:col-span-6 bg-[#08111F] border border-[#162238] rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl relative overflow-hidden">
             {/* Ambient Background Glow */}
             <div
               className="absolute -top-24 -right-24 w-60 h-60 rounded-full blur-3xl opacity-20 pointer-events-none"

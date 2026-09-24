@@ -120,38 +120,39 @@ export default function PortfolioClient() {
       </section>
 
       {/* 2. CASE STUDIES DEEP showcase */}
-      <section className="container mx-auto px-4 md:px-6 max-w-5xl flex flex-col gap-16">
+      <section className="container mx-auto px-4 md:px-6 max-w-5xl flex flex-col gap-12">
         {caseStudies.map((study, idx) => (
-          <Card key={idx} className="glassmorphism-card border-none text-left overflow-hidden">
-            <CardContent className="p-8 md:p-12 flex flex-col gap-8">
+          <Card key={idx} className="bg-[#08111F] border border-[#162238] hover:border-primary/40 rounded-2xl text-left overflow-hidden shadow-md transition-all duration-300">
+            <CardContent className="p-8 md:p-10 flex flex-col gap-8">
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
+              <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#162238]">
                 <div>
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-primary/10 border border-primary/20 text-primary rounded px-2.5 py-0.5 text-xs font-semibold">
+                    <Badge className="bg-primary/10 border border-primary/25 text-primary rounded-md px-2.5 py-0.5 text-xs font-mono font-semibold">
                       {study.badge}
                     </Badge>
-                    <Badge className="bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded px-2.5 py-0.5 text-[10px] font-semibold">
+                    <Badge className="bg-amber-500/10 border border-amber-500/25 text-amber-400 rounded-md px-2.5 py-0.5 text-[10px] font-mono font-semibold">
                       Illustrative Architecture
                     </Badge>
                   </div>
                   <h2 className="text-2xl font-extrabold text-foreground tracking-tight mt-2">{study.title}</h2>
                   <p className="text-xs text-muted-foreground mt-1">Context: <span className="text-foreground font-medium">{study.client}</span></p>
                 </div>
+
                 <div className="flex flex-wrap items-center gap-3">
-                  <div className="bg-primary/10 border border-primary/20 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold text-primary">{study.metric}</span>
+                  <div className="bg-primary/10 border border-primary/25 rounded-xl px-4 py-2 flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs font-mono font-bold text-primary">{study.metric}</span>
                   </div>
                 </div>
               </div>
 
               {/* Core Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 {/* Problem & Solution */}
-                <div className="lg:col-span-7 flex flex-col gap-6">
+                <div className="lg:col-span-7 flex flex-col gap-5">
                   {/* Problem */}
-                  <div className="flex flex-col gap-2.5 bg-muted/30 border border-border rounded-2xl p-5">
-                    <h3 className="font-bold text-xs uppercase text-rose-400 tracking-wider flex items-center gap-1.5">
+                  <div className="flex flex-col gap-2.5 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-5">
+                    <h3 className="font-mono font-bold text-xs uppercase text-rose-400 tracking-wider flex items-center gap-1.5">
                       <ShieldAlert className="w-4 h-4 text-rose-400" /> The Friction
                     </h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -160,9 +161,9 @@ export default function PortfolioClient() {
                   </div>
 
                   {/* Solution */}
-                  <div className="flex flex-col gap-2.5 bg-muted/30 border border-border rounded-2xl p-5">
+                  <div className="flex flex-col gap-2.5 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-5">
                     <div className="flex items-center justify-between flex-wrap gap-2">
-                      <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
+                      <h3 className="font-mono font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
                         <Zap className="w-4 h-4 text-primary" /> Engineered Solution
                       </h3>
                     </div>
@@ -173,21 +174,21 @@ export default function PortfolioClient() {
                 </div>
 
                 {/* Architecture & Metrics */}
-                <div className="lg:col-span-5 flex flex-col gap-6 justify-between h-full">
+                <div className="lg:col-span-5 flex flex-col gap-5 justify-between h-full">
                   {/* Architecture */}
-                  <div className="flex flex-col gap-3 bg-muted/30 border border-border rounded-2xl p-5">
-                    <h3 className="font-bold text-xs uppercase text-accent tracking-wider flex items-center gap-1.5">
-                      <Terminal className="w-4 h-4 text-accent" /> System Architecture
+                  <div className="flex flex-col gap-3 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-5">
+                    <h3 className="font-mono font-bold text-xs uppercase text-cyan-400 tracking-wider flex items-center gap-1.5">
+                      <Terminal className="w-4 h-4 text-cyan-400" /> System Architecture
                     </h3>
-                    <p className="text-[11px] text-muted-foreground font-mono leading-relaxed bg-background border border-border rounded-xl p-3">
+                    <p className="text-[11px] text-muted-foreground font-mono leading-relaxed bg-[#050B14] border border-[#162238] rounded-lg p-3">
                       {study.architecture}
                     </p>
                   </div>
 
                   {/* Metrics/Outcomes list */}
-                  <div className="flex flex-col gap-3 bg-muted/30 border border-border rounded-2xl p-5">
-                    <h3 className="font-bold text-xs uppercase text-primary tracking-wider flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-primary" /> Target System Outcomes (Illustrative)
+                  <div className="flex flex-col gap-3 bg-[#0D1828]/70 border border-[#162238] rounded-xl p-5">
+                    <h3 className="font-mono font-bold text-xs uppercase text-emerald-400 tracking-wider flex items-center gap-1.5">
+                      <Check className="w-4 h-4 text-emerald-400" /> Target System Outcomes (Illustrative)
                     </h3>
                     <ul className="flex flex-col gap-2">
                       {study.results.map((res, index) => (
@@ -202,13 +203,13 @@ export default function PortfolioClient() {
               </div>
 
               {/* Technologies footer */}
-              <div className="border-t border-border pt-6 mt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Database className="w-4 h-4 text-primary" /> Integrated Technologies:
+              <div className="border-t border-[#162238] pt-5 mt-1 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+                  <Database className="w-3.5 h-3.5 text-primary" /> Integrated Technologies:
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {study.tech.map((t, index) => (
-                    <Badge key={index} className="bg-muted border border-border text-muted-foreground text-xs hover:bg-muted/80 px-2.5 py-0.5 rounded">
+                    <Badge key={index} className="bg-[#0D1828] border border-[#162238] text-muted-foreground font-mono text-[11px] hover:border-primary/30 px-2.5 py-0.5 rounded-md">
                       {t}
                     </Badge>
                   ))}
@@ -221,15 +222,15 @@ export default function PortfolioClient() {
 
       {/* 3. CTA */}
       <section className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <div className="glassmorphism-card rounded-3xl py-16 px-6 md:px-12 text-center flex flex-col gap-6 items-center">
-          <Badge className="bg-primary/10 border-primary/20 text-primary rounded-full px-2.5 py-0.5 text-xs">
+        <div className="bg-[#08111F] border border-[#162238] rounded-3xl py-14 px-6 md:px-12 text-center flex flex-col gap-6 items-center shadow-xl">
+          <Badge className="bg-primary/10 border-primary/25 text-primary font-mono rounded-full px-3 py-1 text-xs">
             Secure Prototyping
           </Badge>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground">Let's Design Your Secure Proof-of-Concept</h2>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">Let's Design Your Secure Proof-of-Concept</h2>
           <p className="text-muted-foreground text-xs md:text-sm max-w-lg leading-relaxed">
             Unsure of LLM hallucinations or vector storage setups? We build secure, sandbox environments loaded with your private data to illustrate functionality before committing to heavy scaling costs.
           </p>
-          <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(124,58,237,0.3)] transition-all duration-300 group">
+          <Button asChild size="lg" className="rounded-full bg-primary text-white font-bold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-300 group">
             <Link href="/contact" className="flex items-center gap-1.5">
               Consult a Solutions Architect <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>

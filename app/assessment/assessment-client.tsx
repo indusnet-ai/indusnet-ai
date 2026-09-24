@@ -225,7 +225,7 @@ export default function AssessmentClient() {
           <div className="flex flex-col gap-8">
             {/* Step Progress Bar */}
             <div className="hidden sm:flex items-center justify-between relative px-2 mb-6">
-              <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5 -z-10 -translate-y-1/2" />
+              <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-[#162238] -z-10 -translate-y-1/2" />
               {stepTitles.map((title, idx) => {
                 const stepNum = idx + 1;
                 const isCompleted = step > stepNum;
@@ -233,18 +233,18 @@ export default function AssessmentClient() {
                 return (
                   <div key={idx} className="flex flex-col items-center gap-2 z-10">
                     <div 
-                      className={`w-8 h-8 rounded-full border flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                      className={`w-8 h-8 rounded-full border flex items-center justify-center text-xs font-mono font-bold transition-all duration-300 ${
                         isCompleted 
                           ? "bg-primary border-primary text-white" 
                           : isActive 
-                          ? "bg-accent border-accent text-white shadow-[0_0_15px_rgba(6,182,212,0.4)] scale-110" 
-                          : "bg-background border-border/40 text-muted-foreground"
+                          ? "bg-[#0D1828] border-primary text-primary shadow-[0_0_15px_rgba(22,119,255,0.4)] scale-110" 
+                          : "bg-[#08111F] border-[#162238] text-muted-foreground"
                       }`}
                     >
                       {isCompleted ? "✓" : stepNum}
                     </div>
-                    <span className={`text-[10px] font-semibold tracking-tight transition-colors duration-300 ${
-                      isActive ? "text-accent" : isCompleted ? "text-primary" : "text-muted-foreground/60"
+                    <span className={`text-[10px] font-mono font-semibold tracking-tight transition-colors duration-300 ${
+                      isActive ? "text-primary font-bold" : isCompleted ? "text-primary/80" : "text-muted-foreground/60"
                     }`}>
                       {title}
                     </span>
@@ -254,7 +254,7 @@ export default function AssessmentClient() {
             </div>
 
             {/* Mobile Step Header */}
-            <div className="sm:hidden text-center text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-2">
+            <div className="sm:hidden text-center text-xs text-muted-foreground font-mono font-semibold uppercase tracking-wider mb-2">
               Step {step} of 5: <span className="text-foreground">{stepTitles[step - 1]}</span>
             </div>
 
@@ -285,17 +285,17 @@ export default function AssessmentClient() {
                           <Card 
                             key={dom.id}
                             onClick={() => setDomain(dom.name)}
-                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 group hover:bg-muted ${
+                            className={`border text-left cursor-pointer transition-all duration-300 rounded-xl ${
                               isSelected 
-                                ? "border-primary bg-primary/5 shadow-[0_0_20px_rgba(124,58,237,0.15)]" 
-                                : "border-border/40 bg-transparent"
+                                ? "border-primary bg-primary/10 shadow-md shadow-primary/10" 
+                                : "border-[#162238] bg-[#08111F] hover:border-primary/40 hover:bg-[#0D1828]"
                             }`}
                           >
                             <CardContent className="p-5 flex items-start gap-4">
-                              <div className={`w-10 h-10 rounded-lg border flex items-center justify-center flex-shrink-0 transition-colors ${
+                              <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 transition-colors ${
                                 isSelected 
                                   ? "bg-primary/20 border-primary/40 text-primary" 
-                                  : "bg-muted border-border/40 text-muted-foreground group-hover:text-foreground"
+                                  : "bg-[#0D1828] border-[#162238] text-muted-foreground"
                               }`}>
                                 <Icon className="w-5 h-5" />
                               </div>
@@ -322,7 +322,7 @@ export default function AssessmentClient() {
                   >
                     <div>
                       <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
-                        <Cpu className="w-5 h-5 text-accent" /> Business Style & Operations
+                        <Cpu className="w-5 h-5 text-primary" /> Business Style & Operations
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Help us understand the scale, style, and runtime environment of your organization.</p>
                     </div>
@@ -334,10 +334,10 @@ export default function AssessmentClient() {
                           <Card 
                             key={sty.id}
                             onClick={() => setBusinessStyle(sty.name)}
-                            className={`glassmorphism-card border text-left cursor-pointer transition-all duration-300 hover:bg-muted ${
+                            className={`border text-left cursor-pointer transition-all duration-300 rounded-xl ${
                               isSelected 
-                                ? "border-accent bg-accent/5 shadow-[0_0_20px_rgba(6,182,212,0.15)]" 
-                                : "border-border/40 bg-transparent"
+                                ? "border-primary bg-primary/10 shadow-md shadow-primary/10" 
+                                : "border-[#162238] bg-[#08111F] hover:border-primary/40 hover:bg-[#0D1828]"
                             }`}
                           >
                             <CardContent className="p-5 flex flex-col gap-1.5 h-full justify-between">
@@ -355,7 +355,7 @@ export default function AssessmentClient() {
                         placeholder="Detail your operational constraints, user demographics, compliance constraints (e.g. SOC2, GDPR, HIPAA)..."
                         value={businessContext}
                         onChange={(e) => setBusinessContext(e.target.value)}
-                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
+                        className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs p-4 rounded-xl resize-none text-foreground placeholder:text-muted-foreground"
                         rows={4}
                       />
                     </div>
@@ -385,7 +385,7 @@ export default function AssessmentClient() {
                         value={customerProblem}
                         onChange={(e) => setCustomerProblem(e.target.value)}
                         required
-                        className="bg-muted border-border focus-visible:ring-primary/60 text-xs p-4 rounded-lg resize-none"
+                        className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs p-4 rounded-xl resize-none text-foreground placeholder:text-muted-foreground"
                         rows={4}
                       />
                     </div>
@@ -400,10 +400,10 @@ export default function AssessmentClient() {
                               key={idx}
                               type="button"
                               onClick={() => handleObjectiveToggle(obj)}
-                              className={`px-4.5 py-2 text-xs font-semibold rounded-full border transition-all ${
+                              className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all ${
                                 isSelected 
-                                  ? "bg-primary border-primary text-white shadow-lg" 
-                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
+                                  ? "bg-primary border-primary text-white shadow-md shadow-primary/20" 
+                                  : "bg-[#08111F] border-[#162238] text-muted-foreground hover:text-foreground hover:border-primary/40"
                               }`}
                             >
                               {obj}
@@ -426,7 +426,7 @@ export default function AssessmentClient() {
                   >
                     <div>
                       <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
-                        <HardDrive className="w-5 h-5 text-accent" /> Data Assets & POC Sizing
+                        <HardDrive className="w-5 h-5 text-cyan-400" /> Data Assets & POC Sizing
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Detail the format, state, and size profile of your evaluation or historical logs.</p>
                     </div>
@@ -441,10 +441,10 @@ export default function AssessmentClient() {
                               key={idx}
                               type="button"
                               onClick={() => handleDataTypeToggle(dt)}
-                              className={`px-4.5 py-2 text-xs font-semibold rounded-full border transition-all ${
+                              className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all ${
                                 isSelected 
-                                  ? "bg-accent border-accent text-white shadow-lg" 
-                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
+                                  ? "bg-primary border-primary text-white shadow-md shadow-primary/20" 
+                                  : "bg-[#08111F] border-[#162238] text-muted-foreground hover:text-foreground hover:border-primary/40"
                               }`}
                             >
                               {dt}
@@ -455,7 +455,7 @@ export default function AssessmentClient() {
                     </div>
 
                     <div className="flex flex-col gap-3">
-                      <label className="text-xs font-semibold text-muted-foreground">Approximate Size of POC Sample Data *</label>
+                      <label className="text-xs font-semibold text-muted-foreground font-mono">Approximate Size of POC Sample Data *</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                         {dataSizesList.map((sz, idx) => {
                           const isSelected = dataSize === sz;
@@ -464,10 +464,10 @@ export default function AssessmentClient() {
                               key={idx}
                               type="button"
                               onClick={() => setDataSize(sz)}
-                              className={`py-2.5 px-4 text-xs font-semibold border text-left rounded-lg transition-all ${
+                              className={`py-2.5 px-4 text-xs font-mono font-semibold border text-left rounded-xl transition-all ${
                                 isSelected 
-                                  ? "bg-primary border-primary text-white shadow-lg" 
-                                  : "bg-muted border-border text-muted-foreground hover:text-foreground"
+                                  ? "bg-primary border-primary text-white shadow-md shadow-primary/20" 
+                                  : "bg-[#08111F] border-[#162238] text-muted-foreground hover:text-foreground hover:border-primary/40"
                               }`}
                             >
                               {sz}
@@ -490,7 +490,7 @@ export default function AssessmentClient() {
                   >
                     <div>
                       <h2 className="text-lg font-bold text-foreground tracking-tight flex items-center gap-2">
-                        <ShieldCheck className="w-5 h-5 text-primary animate-pulse" /> Forward to Indus Management
+                        <ShieldCheck className="w-5 h-5 text-primary" /> Forward to Indus Management
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">Specify your professional details to submit the compiled project architecture sheet.</p>
                     </div>
@@ -506,7 +506,7 @@ export default function AssessmentClient() {
                           value={contactName}
                           onChange={(e) => setContactName(e.target.value)}
                           disabled={loading}
-                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                         />
                       </div>
                       
@@ -520,7 +520,7 @@ export default function AssessmentClient() {
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
                           disabled={loading}
-                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                         />
                       </div>
                     </div>
@@ -535,7 +535,7 @@ export default function AssessmentClient() {
                           value={contactCompany}
                           onChange={(e) => setContactCompany(e.target.value)}
                           disabled={loading}
-                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                         />
                       </div>
                       
@@ -548,14 +548,14 @@ export default function AssessmentClient() {
                           value={contactRole}
                           onChange={(e) => setContactRole(e.target.value)}
                           disabled={loading}
-                          className="bg-muted border-border focus-visible:ring-primary/60 text-xs px-4 rounded-lg"
+                          className="bg-[#0D1828] border-[#162238] focus-visible:ring-primary text-xs px-4 rounded-xl text-foreground placeholder:text-muted-foreground"
                         />
                       </div>
                     </div>
 
                     {/* Final Submission Card Preview */}
-                    <Card className="bg-primary/5 border border-primary/20 p-4.5 rounded-xl flex items-start gap-3 mt-2">
-                      <div className="w-8 h-8 rounded-full bg-primary/25 border border-primary/40 flex items-center justify-center flex-shrink-0 mt-0.5 text-primary">
+                    <Card className="bg-[#08111F] border border-[#162238] p-5 rounded-2xl flex items-start gap-3.5 mt-2">
+                      <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-primary shadow-sm font-mono text-xs">
                         🚀
                       </div>
                       <div className="flex flex-col gap-1 text-xs">
@@ -575,14 +575,14 @@ export default function AssessmentClient() {
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xs text-red-400 bg-red-500/5 border border-red-500/20 rounded-lg p-3 text-left font-medium"
+                className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3 text-left font-mono font-medium"
               >
                 ⚠️ {errorMsg}
               </motion.div>
             )}
 
             {/* Navigation Actions */}
-            <div className="flex items-center justify-between border-t border-border/10 pt-6 mt-4">
+            <div className="flex items-center justify-between border-t border-[#162238] pt-6 mt-4">
               <Button
                 type="button"
                 variant="ghost"
@@ -597,7 +597,7 @@ export default function AssessmentClient() {
                 <Button
                   type="button"
                   onClick={handleNextStep}
-                  className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs px-6 py-2 shadow-lg"
+                  className="rounded-full bg-primary text-white font-bold text-xs px-6 py-2 shadow-md shadow-primary/20 hover:bg-primary/90"
                 >
                   Continue <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
@@ -606,7 +606,7 @@ export default function AssessmentClient() {
                   type="submit"
                   onClick={handleSubmit}
                   disabled={loading}
-                  className="rounded-full bg-gradient-to-r from-accent to-primary text-white font-bold text-xs px-8 py-2.5 shadow-[0_0_20px_rgba(6,182,212,0.3)] animate-pulse"
+                  className="rounded-full bg-primary text-white font-bold text-xs px-8 py-2.5 shadow-md shadow-primary/20 hover:bg-primary/90"
                 >
                   {loading ? (
                     <span className="flex items-center gap-1.5">
@@ -628,15 +628,15 @@ export default function AssessmentClient() {
             animate={{ opacity: 1, scale: 1 }}
             className="w-full text-center"
           >
-            <Card className="glassmorphism-card border-none max-w-2xl mx-auto shadow-2xl relative overflow-hidden">
+            <Card className="bg-[#08111F] border border-[#162238] max-w-2xl mx-auto shadow-2xl relative overflow-hidden rounded-2xl">
               <div className="absolute top-0 right-0 -z-10 w-48 h-48 rounded-full bg-emerald-500/5 blur-2xl" />
               <CardContent className="p-10 flex flex-col items-center gap-6 justify-center">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center animate-bounce">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+                <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center animate-bounce text-emerald-400">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
                 
                 <div className="flex flex-col gap-2 max-w-md">
-                  <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] rounded px-3 py-1 font-semibold w-fit mx-auto uppercase">
+                  <Badge className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px] rounded px-3 py-1 font-mono font-semibold w-fit mx-auto uppercase">
                     Queue Created Successfully
                   </Badge>
                   <h2 className="text-2xl font-black text-white tracking-tight mt-2">Assessment Forwarded!</h2>
@@ -645,8 +645,8 @@ export default function AssessmentClient() {
                   </p>
                 </div>
 
-                <div className="border-t border-border/10 w-full pt-6 mt-2 flex flex-col sm:flex-row gap-3 items-center justify-center">
-                  <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-muted text-xs px-6 py-2">
+                <div className="border-t border-[#162238] w-full pt-6 mt-2 flex flex-col sm:flex-row gap-3 items-center justify-center">
+                  <Button asChild variant="outline" className="rounded-full bg-[#0D1828] border-[#162238] hover:bg-[#101D30] text-xs px-6 py-2">
                     <a href="/contact">Book Call Directly</a>
                   </Button>
                   <Button onClick={() => {
@@ -660,7 +660,7 @@ export default function AssessmentClient() {
                     setDataSize("");
                     setContactName("");
                     setContactEmail("");
-                  }} className="rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold text-xs px-6 py-2">
+                  }} className="rounded-full bg-primary text-white font-bold text-xs px-6 py-2 hover:bg-primary/90 shadow-md shadow-primary/20">
                     Start New Scoper
                   </Button>
                 </div>
