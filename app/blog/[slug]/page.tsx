@@ -9,10 +9,12 @@ import {
   ArrowLeft, Calendar, Clock, Sparkles, BrainCircuit, HeartPulse, 
   Building2, ShieldCheck, CheckCircle2, ChevronRight 
 } from "lucide-react";
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -316,8 +318,23 @@ export default async function ArticlePage({ params }: PageProps) {
   const Icon = article.icon;
 
   return (
-    <div className="flex flex-col gap-12 md:gap-16 pt-32 pb-24 relative overflow-hidden">
-      {/* Background Glow */}
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Blog", url: "/blog" },
+          { name: article.title, url: `/blog/${slug}` },
+        ]}
+      />
+      <ArticleJsonLd
+        title={article.title}
+        description={article.desc}
+        url={`/blog/${slug}`}
+        datePublished={article.date}
+        authorName={article.author}
+      />
+      <div className="flex flex-col gap-12 md:gap-16 pt-32 pb-24 relative overflow-hidden">
+        {/* Background Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[140px]" />
 
       {/* Header breadcrumb & Title */}
@@ -402,5 +419,7 @@ export default async function ArticlePage({ params }: PageProps) {
         </Card>
       </section>
     </div>
+    </>
   );
 }
+

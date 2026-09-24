@@ -185,7 +185,7 @@ const DIFFERENTIATION_PILLARS = [
   },
   {
     title: "Deterministic Safety Guardrails",
-    description: "We deploy active semantic middleware that eliminates hallucinations, blocks prompt injections, and guarantees strict regulatory compliance across all model interactions.",
+    description: "We deploy active semantic middleware that systematically mitigates hallucination risk, blocks prompt injections, and enforces strict regulatory compliance policies across all model interactions.",
     icon: ShieldCheck
   },
   {

@@ -103,6 +103,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/governance" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                  Responsible AI & Governance
+                </Link>
+              </li>
+              <li>
                 <Link href="/portfolio" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
                   Solution Showcases
                 </Link>
@@ -253,6 +258,9 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-10 text-xs text-muted-foreground border-t border-[#162238]/60 mt-4">
           <p>© {new Date().getFullYear()} Indusnet AI. All rights reserved. Registered under Indusnet Technologies Ltd.</p>
           <div className="flex items-center gap-6">
+            <Link href="/governance" className="hover:text-foreground transition-colors">
+              Governance & Security
+            </Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>

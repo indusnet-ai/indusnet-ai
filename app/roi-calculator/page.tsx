@@ -2,11 +2,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, Home, Calculator, Sparkles } from "lucide-react";
 import { RoiCalculator } from "@/components/roi-calculator/roi-calculator";
+import { BreadcrumbJsonLd } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   title: "Enterprise AI ROI Estimator & GPU Sizing | Indusnet AI",
   description:
     "Model your enterprise AI business case. Calculate illustrative net savings and private GPU compute sizing based on your operational inputs.",
+  alternates: {
+    canonical: "/roi-calculator",
+  },
   openGraph: {
     title: "Enterprise AI ROI Estimator & GPU Sizing | Indusnet AI",
     description:
@@ -36,6 +40,12 @@ export const metadata: Metadata = {
 export default function RoiCalculatorPage() {
   return (
     <div className="pt-24 pb-20 flex flex-col gap-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: "/" },
+          { name: "ROI Estimator", url: "/roi-calculator" },
+        ]}
+      />
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-4 md:px-6">
         <nav className="flex items-center gap-2 text-xs text-muted-foreground">
