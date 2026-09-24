@@ -138,7 +138,7 @@ const CASE_STUDIES = [
   },
   {
     client: "Healthcare Network — Illustrative Scenario",
-    title: "HIPAA-Compliant Clinical Triage & EHR Intake Assistant",
+    title: "HIPAA-Aligned Clinical Triage & EHR Intake Assistant",
     challenge: "Emergency intake staff spend extended time per patient recording symptoms and transcribing medical histories into EHR systems.",
     solution: "Designed a secure clinical intake assistant with medical entity extraction, generating structured physician summaries prior to consultation.",
     tech: ["Med-PaLM", "Next.js", "Tailwind CSS", "Private Cloud VPC"],

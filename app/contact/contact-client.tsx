@@ -601,7 +601,7 @@ export default function ContactClient() {
                     </div>
                     <div>
                       <h4 className="font-bold text-foreground text-sm">Our Global Presence</h4>
-                      <p className="text-[10px] text-muted-foreground font-mono">Certified AI infrastructure and consulting spaces</p>
+                      <p className="text-[10px] text-muted-foreground font-mono">Dedicated AI engineering hubs and consulting facilities</p>
                     </div>
                   </div>
 

@@ -119,24 +119,24 @@ const complianceFrameworks = [
     desc: "Architectural blueprints align strictly with SOC 2 Trust Services Criteria for security, availability, and processing integrity.",
   },
   {
-    name: "ISO/IEC 42001 & 27001",
+    name: "ISO/IEC 42001 & 27001 Alignment",
     category: "AI Management & Information Security",
-    desc: "AI engineering processes adhere to international standards for Artificial Intelligence Management Systems and information risk controls.",
+    desc: "AI engineering processes are designed around international standards for Artificial Intelligence Management Systems and information risk controls.",
   },
   {
     name: "HIPAA & BAA Readiness",
     category: "Healthcare Data Protection",
-    desc: "Healthcare workloads are deployed within BAA-covered cloud enclaves with PHI token redaction and audit logging.",
+    desc: "Healthcare workloads are designed for deployment within BAA-covered cloud enclaves with PHI token redaction and audit logging.",
   },
   {
-    name: "GDPR & DPDP Act Compliance",
+    name: "GDPR & DPDP Act Alignment",
     category: "Data Privacy & Sovereignty",
-    desc: "Strict regional data residency routing, deterministic right-to-erasure procedures, and zero cross-border vector replication.",
+    desc: "Architecture supports strict regional data residency routing, deterministic right-to-erasure procedures, and zero cross-border vector replication.",
   },
   {
     name: "CPMAI Methodology",
     category: "Cognitive Project Governance",
-    desc: "Certified Cognitive Project Management for AI methodology ensures rigorous scoping, data hygiene, and lifecycle management.",
+    desc: "Certified CPMAI facilitation methodology brings structured scoping, data hygiene, and lifecycle management to AI engineering.",
   },
   {
     name: "Vendor Neutrality",

@@ -16,7 +16,7 @@ const industryDetails = [
   {
     name: "Healthcare & Life Sciences",
     icon: Activity,
-    badge: "HIPAA Compliant",
+    badge: "HIPAA-Aligned Architecture",
     color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
     challenges: [
       "Physician burnout due to excessive EHR clinical documentation requirements.",

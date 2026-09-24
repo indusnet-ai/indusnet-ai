@@ -37,7 +37,7 @@ export const INDUSTRY_PROFILES: IndustryProfile[] = [
     id: "healthcare",
     name: "Healthcare & Life Sciences",
     badge: "Healthcare & Pharma",
-    description: "HIPAA-compliant clinical note summarization, medical prior-authorization triage, and claims processing.",
+    description: "HIPAA-aligned clinical note summarization, medical prior-authorization triage, and claims processing.",
     defaultVolume: 25000,
     defaultReviewMinutes: 20,
     defaultHourlyRate: 50,

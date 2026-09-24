@@ -229,14 +229,14 @@ const ENTERPRISE_AGENTS: AgentProfile[] = [
         actor: "Compliance Ledger Commit",
         status: "Sign-off Granted (8.1s)",
         log: "AUDIT SIGN-OFF COMPLETED: Hash #7a9f82d1c0\nTurnaround: 8.1 seconds (previously 48 hours)\nAudit Trail: Fully verified and archived for regulatory exam readiness.",
-        detail: "Document certified for client distribution with cryptographic proof of compliance logged to the enterprise repository."
+        detail: "Document approved for client distribution with cryptographic audit record logged to the enterprise repository."
       }
     ]
   },
   {
     id: "clinical",
     name: "Clinical Intake Assistant",
-    role: "HIPAA-Compliant Patient Intake & EHR Triage",
+    role: "HIPAA-Aligned Patient Intake & EHR Triage",
     category: "Customer Experience",
     icon: HeartPulse,
     objective: "Triage patient symptoms, extract clinical entities, verify insurance eligibility, and prep structured EHR notes prior to physician review.",
@@ -278,7 +278,7 @@ const ENTERPRISE_AGENTS: AgentProfile[] = [
         stepNumber: 4,
         stageName: "KNOWLEDGE RETRIEVAL",
         stepTitle: "Query Private Clinical History & Protocols",
-        actor: "HIPAA-Isolated Hybrid RAG",
+        actor: "VPC-Isolated Hybrid RAG",
         status: "Historical Records Pulled",
         log: "Retrieving EHR Record #88219:\nHistory: Hypertension (5 yrs), Penicillin allergy (Anaphylaxis risk).\nActive Medication: Lisinopril 20mg daily.",
         detail: "Accesses patient's prior medical records within an isolated VPC with zero data logging."

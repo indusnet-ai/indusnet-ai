@@ -404,7 +404,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </Badge>
           <h2 className="text-lg md:text-xl font-bold text-foreground">Need structured, secure AI deployment?</h2>
           <p className="text-muted-foreground text-xs max-w-md leading-relaxed">
-            Partner with certified solutions architects to construct a highly secure, high-performance roadmap for your enterprise.
+            Partner with experienced solutions architects and CPMAI practitioners to construct a secure, high-performance roadmap for your enterprise.
           </p>
           <div className="flex gap-2">
             <Button asChild variant="outline" className="rounded-full border-border/40 hover:bg-muted/40 text-xs px-5">

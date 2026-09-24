@@ -54,15 +54,13 @@ export async function GET() {
     database: {
       status: dbStatus,
       configured: Boolean(dbUrl),
-      host: dbUrl ? (dbUrl.split("@")[1] || "").split("/")[0] : null,
-      error: dbError,
-      tables,
+      error: dbError ? "Database connection error" : null,
+      tablesCount: tables.length,
     },
     resend: {
       status: resendStatus,
       configured: Boolean(resendKey),
-      prefix: resendKey ? resendKey.substring(0, 5) + "..." : null,
-      error: resendError,
+      error: resendError ? "Email service connection error" : null,
     },
     careersMode: process.env.NEXT_PUBLIC_CAREERS_MODE || "static",
     showTestimonials: process.env.NEXT_PUBLIC_SHOW_TESTIMONIALS || "false",

@@ -47,7 +47,7 @@ export const ENGAGEMENT_OPTIONS: EngagementOption[] = [
   { id: "application", label: "AI Application Development", tier: "Enterprise Engagement", description: "Production-grade custom copilots and streaming enterprise interfaces." },
   { id: "agents", label: "Autonomous AI Agents", tier: "Enterprise Engagement", description: "Multi-agent systems with tool invocation and human escalation gates." },
   { id: "modernization", label: "Legacy AI Modernization", tier: "Enterprise Engagement", description: "Sidecar cognitive microservices modernizing legacy workflows." },
-  { id: "enterprise-deployment", label: "Enterprise Production Rollout", tier: "Enterprise Engagement", description: "Zero data retention, SOC-2/HIPAA compliance, and telemetry monitoring." },
+  { id: "enterprise-deployment", label: "Enterprise Production Rollout", tier: "Enterprise Engagement", description: "Zero data retention, SOC-2/HIPAA-aligned architecture, and telemetry monitoring." },
 ];
 
 export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
@@ -205,12 +205,12 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
     capabilities: [
       "Financial Services Compliance RAG",
       "Logistics Freight Reconciliation Swarm",
-      "Healthcare HIPAA Triage Assistant",
+      "Healthcare HIPAA-Aligned Triage Assistant",
       "Manufacturing Edge Vision Defect Inspection"
     ],
     architectureLayers: [
       { layer: "Banking & Finance", technology: "Private VPC RAG across 100k+ Filings — Sub-Second Retrieval" },
-      { layer: "Healthcare & Life Sci", technology: "HIPAA Clinical Intake & Diagnostic Summarization Bots" },
+      { layer: "Healthcare & Life Sci", technology: "HIPAA-Aligned Clinical Intake & Diagnostic Summarization Bots" },
       { layer: "Logistics & Supply", technology: "Autonomous Freight Invoice 3-Way Reconciliation Agents" },
       { layer: "Manufacturing", technology: "Edge Computer Vision Defect Detection (< 0.1% Escape Rate)" }
     ],
@@ -247,7 +247,7 @@ export const CONCIERGE_STARTERS: AiConciergeStarter[] = [
 
 export const INDUSTRIES: IndustryOption[] = [
   { id: "finance", name: "Banking & Financial Services", sampleChallenge: "Private regulatory compliance, loan underwriting, and audit speed." },
-  { id: "healthcare", name: "Healthcare & Life Sciences", sampleChallenge: "HIPAA-compliant clinical note summarization and triage workflows." },
+  { id: "healthcare", name: "Healthcare & Life Sciences", sampleChallenge: "HIPAA-aligned clinical note summarization and triage workflows." },
   { id: "logistics", name: "Supply Chain & Logistics", sampleChallenge: "Multi-vendor freight reconciliation and invoice 3-way matching." },
   { id: "retail", name: "Retail & E-commerce", sampleChallenge: "Autonomous support ticket resolution and personal shopping agents." },
   { id: "manufacturing", name: "Industrial & Manufacturing", sampleChallenge: "Computer vision defect inspection and predictive maintenance." },
@@ -298,7 +298,7 @@ export function generateCustomPath(
   if (scale?.id === "airgapped") {
     adjustedCapabilities[adjustedCapabilities.length - 1] = "Air-Gapped On-Premises Host Deployment";
   } else if (industry?.id === "healthcare") {
-    adjustedCapabilities[0] = "HIPAA-Compliant Diagnostic Data Isolation";
+    adjustedCapabilities[0] = "HIPAA-Aligned Diagnostic Data Isolation";
   } else if (industry?.id === "finance") {
     adjustedCapabilities[0] = "SOC-2 Aligned Cryptographic Audit Trails";
   }
@@ -325,7 +325,7 @@ export function generateCustomPath(
       ? "Dedicated On-Premise Sovereign Hardware (Zero external cloud egress)"
       : "Dedicated Private Cloud VPC (AWS Bedrock / Azure OpenAI / GCP) with Zero Data Retention",
     industry?.id === "healthcare"
-      ? "HIPAA compliance boundary with client-side PII redacting and automated audit logging"
+      ? "HIPAA-aligned boundary with client-side PII redacting and automated audit logging"
       : industry?.id === "finance"
       ? "SOC-2 Type II aligned data handling with cryptographic source verification"
       : "Role-Based Access Control (RBAC) integrated with enterprise SSO (Okta / Azure AD)",

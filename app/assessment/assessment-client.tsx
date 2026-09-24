@@ -25,7 +25,7 @@ interface DomainOption {
 
 const domainsList: DomainOption[] = [
   { id: "fintech", name: "FinTech & Banking", desc: "Automated risk, asset models, and conversational agents.", icon: DollarSign },
-  { id: "healthcare", name: "Healthcare & Life Sciences", desc: "HIPAA-compliant document parsing and clinic notes search.", icon: Activity },
+  { id: "healthcare", name: "Healthcare & Life Sciences", desc: "HIPAA-aligned document parsing and clinic notes search.", icon: Activity },
   { id: "ecommerce", name: "E-Commerce & Retail", desc: "Personalized recommendation, agent-driven support ticketing.", icon: ShoppingBag },
   { id: "logistics", name: "Supply Chain & Logistics", desc: "Predictive routing, warehouse planning, and inventory analytics.", icon: Truck },
   { id: "edtech", name: "EdTech & Education", desc: "Adaptive grading systems, RAG-based syllabus indexing.", icon: BookOpen },
