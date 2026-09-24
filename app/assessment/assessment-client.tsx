@@ -198,7 +198,7 @@ export default function AssessmentClient() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] font-heading"
         >
-          Define Your <span className="bg-gradient-to-r from-primary via-white to-accent bg-clip-text text-transparent">AI POC Objectives</span>
+          Discover where <span className="bg-gradient-to-r from-primary via-white to-accent bg-clip-text text-transparent">AI creates value</span> in your organization.
         </motion.h1>
 
         <motion.p
@@ -207,7 +207,15 @@ export default function AssessmentClient() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mx-auto"
         >
-          Map your business requirements, customer pain points, and sample data parameters using our Cognitive Project Management for AI (CPMAI) architect wizard.
+          Share your business context, the challenges you are trying to solve, and your data environment. A senior Indusnet AI solutions architect will review your submission and follow up with a tailored AI opportunity assessment.
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-xs text-muted-foreground/60 italic"
+        >
+          This is a scoping and discovery process — outputs are tailored recommendations from a human architect, not AI-generated predictions or guaranteed business case projections.
         </motion.p>
       </section>
 

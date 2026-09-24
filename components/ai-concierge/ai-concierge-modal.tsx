@@ -372,15 +372,20 @@ export function AiConciergeModal() {
                       </div>
 
                       {/* Timeline & ROI Projection */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-border/60 text-xs">
-                        <div className="p-2.5 rounded-lg bg-muted/30 border border-border/60 flex items-center justify-between">
-                          <span className="text-muted-foreground">Estimated Timeline:</span>
-                          <span className="font-bold text-foreground font-mono">{generatedResult.timeline}</span>
+                      <div className="pt-2 border-t border-border/60 text-xs space-y-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="p-2.5 rounded-lg bg-muted/30 border border-border/60 flex items-center justify-between">
+                            <span className="text-muted-foreground">Estimated Timeline:</span>
+                            <span className="font-bold text-foreground font-mono">{generatedResult.timeline}</span>
+                          </div>
+                          <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/25 flex items-center justify-between gap-2">
+                            <span className="text-muted-foreground shrink-0">Impact Potential:</span>
+                            <span className="font-semibold text-amber-400 text-right">{generatedResult.roiProjection}</span>
+                          </div>
                         </div>
-                        <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-between">
-                          <span className="text-muted-foreground">Projected Impact:</span>
-                          <span className="font-bold text-emerald-400">{generatedResult.roiProjection}</span>
-                        </div>
+                        <p className="text-[10px] text-muted-foreground/60 italic text-center">
+                          Impact figures are illustrative estimates based on typical deployment patterns, not documented outcomes.
+                        </p>
                       </div>
                     </div>
                   </div>

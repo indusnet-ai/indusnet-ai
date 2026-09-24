@@ -121,19 +121,25 @@ Payback Period: ${results.paybackMonths} months
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto flex flex-col gap-3 relative z-10">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
             <Badge className="bg-primary/10 border-primary/20 text-primary px-3 py-1 text-xs rounded-full font-bold flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-primary" /> Interactive Architecture Engine
+              <Sparkles className="w-3.5 h-3.5 text-primary" /> AI ROI Estimator
             </Badge>
-            <Badge className="bg-accent/10 border-accent/20 text-accent px-3 py-1 text-xs rounded-full font-bold">
-              Real-Time Sizing
+            <Badge className="bg-amber-500/10 border-amber-500/20 text-amber-400 px-3 py-1 text-xs rounded-full font-bold">
+              Estimator / Projection
             </Badge>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-heading text-foreground">
-            Enterprise <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AI ROI & Hardware</span> Sizer
+            Model Your{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              AI Business Case
+            </span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Model your unstructured document or agentic workloads. Calculate projected annual cost reductions, labor reallocation, and tailored private GPU cluster sizing.
+            Enter your organization&apos;s workload assumptions to model a potential AI opportunity — including estimated cost reduction, hours saved, and private GPU compute sizing.
+          </p>
+          <p className="text-xs text-muted-foreground/60 italic border border-border/60 rounded-xl px-4 py-2 bg-muted/20">
+            <strong className="text-muted-foreground not-italic">Estimator Disclaimer:</strong> Results are illustrative projections based entirely on the assumptions you provide. Automation rates, speedup multipliers, and hardware sizing are modelled estimates, not documented client outcomes. Actual results will depend on your specific workflows, data quality, and implementation approach.
           </p>
         </div>
 
@@ -303,10 +309,10 @@ Payback Period: ${results.paybackMonths} months
             <div className="bg-gradient-to-br from-primary/20 via-background to-accent/15 border border-primary/30 rounded-2xl p-6 shadow-xl relative overflow-hidden text-left flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground flex items-center gap-1.5">
-                  <Coins className="w-4 h-4 text-primary" /> Projected Net Annual Savings
+                  <Coins className="w-4 h-4 text-primary" /> Estimated Net Annual Savings
                 </span>
-                <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-[10px] font-bold">
-                  ROI Positive
+                <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[10px] font-bold">
+                  Illustrative Estimate
                 </Badge>
               </div>
               <div className="flex items-baseline gap-2">

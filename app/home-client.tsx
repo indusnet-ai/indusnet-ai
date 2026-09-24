@@ -7,7 +7,7 @@ import {
   ArrowRight, Cpu, Bot, Search, Zap, Eye, BarChart3, Users, 
   ShieldCheck, Check, Sparkles, Star, ChevronRight, Activity, ShoppingCart, 
   Building2, Landmark, GraduationCap, Truck, Calculator, Layers, Lock, 
-  CheckCircle2, Terminal, Network, Shield, ArrowUpRight, ArrowDown, Rocket
+  Terminal, Network, Shield, ArrowUpRight, ArrowDown, Rocket
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,16 +20,23 @@ import { AiCapabilityStack } from "@/components/home/ai-capability-stack";
 import { AgentWorkflowSimulator } from "@/components/home/agent-workflow-simulator";
 import { RoiCalculator } from "@/components/roi-calculator/roi-calculator";
 import { AiConciergeModal } from "@/components/ai-concierge/ai-concierge-modal";
+import { WhatWeBuild } from "@/components/home/what-we-build";
+
 
 // 1. Enterprise AI Use Cases Data (Problem → Approach → Outcome) across 6 Domains
+// Evidence classification: all outcomes are illustrative scenarios based on
+// representative AI deployment patterns. No verified client documentation
+// exists in this codebase for these specific figures.
 const ENTERPRISE_USE_CASES = [
   {
     id: "cx",
     domain: "Customer Experience",
     title: "Autonomous Tier-1 & Tier-2 Customer Resolution Agents",
-    challenge: "Enterprise support teams are overwhelmed by high ticket volumes, resulting in 4-hour average response delays and high operational burn.",
+    challenge: "Enterprise support teams are overwhelmed by high ticket volumes, resulting in extended average response delays and high operational cost.",
     approach: "Deploy multi-channel autonomous AI agents integrated with CRM and ticketing APIs, with sentiment-aware escalation and automated action execution.",
-    outcome: "Up to 80% automated resolution of inbound inquiries with zero human intervention and sub-10 second resolution latency.",
+    outcome: "Substantial reduction in manual resolution effort for routine inbound inquiries, with consistent response quality and escalation to human agents for complex cases.",
+    outcomeDetail: "Up to 80% automated resolution rate is an illustrative target based on typical agentic deployment patterns, not a documented client result.",
+    evidenceType: "illustrative" as const,
     capability: "Autonomous AI Agents",
     href: "/services/generative-ai",
     icon: Bot
@@ -37,10 +44,12 @@ const ENTERPRISE_USE_CASES = [
   {
     id: "knowledge",
     domain: "Enterprise Knowledge",
-    title: "Grounded Conversational Intelligence Across 100k+ Private Files",
-    challenge: "Critical corporate knowledge is fragmented across SharePoint, Notion, Google Drive, and SQL databases, taking analysts hours to locate.",
+    title: "Grounded Conversational Intelligence Across Large Private Repositories",
+    challenge: "Critical corporate knowledge is fragmented across SharePoint, Notion, Google Drive, and SQL databases, taking analysts significant time to locate.",
     approach: "Private Hybrid RAG (Dense + Sparse Search) with reciprocal rank fusion, permission-aware filtering, and deterministic citation grounding.",
-    outcome: "Sub-second verified retrieval across millions of unstructured documents with zero hallucinations and verified source page citations.",
+    outcome: "Fast, verified retrieval across large unstructured document sets with source citations — enabling employees to find the right information without lengthy manual searches.",
+    outcomeDetail: "Performance characteristics depend on corpus size, indexing strategy, and query patterns. Verified citations depend on correct chunking and attribution configuration.",
+    evidenceType: "illustrative" as const,
     capability: "Enterprise RAG Solutions",
     href: "/services/generative-ai",
     icon: Search
@@ -49,9 +58,11 @@ const ENTERPRISE_USE_CASES = [
     id: "operations",
     domain: "Intelligent Operations",
     title: "Automated Document Processing & 3-Way Reconciliation",
-    challenge: "Accounts payable and procurement teams spend thousands of hours manually cross-referencing PDFs, invoices, shipping logs, and ERP orders.",
+    challenge: "Accounts payable and procurement teams spend significant hours manually cross-referencing PDFs, invoices, shipping logs, and ERP orders.",
     approach: "Vision-language models combined with deterministic policy evaluators to extract tabular data, detect line discrepancies, and commit actions.",
-    outcome: "92% reduction in manual verification labor, cutting invoice cycle times from 3 days to under 4 seconds.",
+    outcome: "Significant reduction in manual verification labor and faster invoice cycle times — freeing operations staff to focus on exceptions and strategic tasks.",
+    outcomeDetail: "\"92% reduction\" and \"4-second cycle time\" are illustrative targets based on representative automation scenarios, not documented client measurements.",
+    evidenceType: "illustrative" as const,
     capability: "AI Workflow Automation",
     href: "/services/generative-ai",
     icon: Zap
@@ -60,9 +71,11 @@ const ENTERPRISE_USE_CASES = [
     id: "engineering",
     domain: "Software Engineering",
     title: "AI-Accelerated Legacy Code Modernization & Migration",
-    challenge: "Monolithic legacy codebases lack documentation, causing architectural stagnation, costly technical debt, and multi-year migration estimates.",
+    challenge: "Monolithic legacy codebases lack documentation, causing architectural stagnation, costly technical debt, and extended migration timelines.",
     approach: "Deploy specialized code-analysis agent swarms that parse legacy repositories, generate unit test coverage, and synthesize clean modern microservices.",
-    outcome: "40% to 60% acceleration in migration velocity with automated regression validation and clean architecture enforcement.",
+    outcome: "Significant acceleration in migration velocity with automated regression validation and clean architecture enforcement.",
+    outcomeDetail: "\"40–60% acceleration\" is an illustrative range based on representative modernization engagements. Actual results depend on codebase complexity and team structure.",
+    evidenceType: "illustrative" as const,
     capability: "AI Modernization & Consulting",
     href: "/services",
     icon: Cpu
@@ -73,7 +86,9 @@ const ENTERPRISE_USE_CASES = [
     title: "Boardroom-Ready Predictive Risk & Telemetry Synthesis",
     challenge: "Executive leadership struggles to reconcile disjointed operational metrics, quarterly filings, and market signals for strategic planning.",
     approach: "Cognitive data synthesis engines that fuse ERP data, real-time news, and financial models into dynamic predictive scenario cockpits.",
-    outcome: "Continuous executive briefings with probabilistic forecasting and automated risk sensitivity alerts.",
+    outcome: "Continuous executive briefings with probabilistic forecasting and automated risk sensitivity alerts — enabling faster, more informed strategic decisions.",
+    outcomeDetail: "Illustrative capability description. Actual decision-support quality depends on data quality, model calibration, and organizational adoption.",
+    evidenceType: "illustrative" as const,
     capability: "Predictive Analytics & Consulting",
     href: "/services",
     icon: BarChart3
@@ -84,56 +99,67 @@ const ENTERPRISE_USE_CASES = [
     title: "Multi-Agent System Integration Across ERP, CRM & Logistics",
     challenge: "Business operations require repetitive cross-system data synchronization between legacy ERP, Salesforce, customs portals, and banking APIs.",
     approach: "Deploy autonomous agent swarms with sandboxed API tooling, deterministic state-machine orchestration, and immutable transaction audit logging.",
-    outcome: "Eliminates 95% of manual cross-system data entry errors while automating complex multi-step cross-functional approval loops.",
+    outcome: "Elimination of error-prone manual cross-system data entry and automation of complex multi-step cross-functional approval loops.",
+    outcomeDetail: "\"95% error reduction\" is an illustrative target for well-scoped automation scenarios. Actual outcomes depend on integration complexity and exception rate.",
+    evidenceType: "illustrative" as const,
     capability: "Autonomous Agent Swarms",
     href: "/services/generative-ai",
     icon: Network
   }
 ];
 
-// 2. Verified Case Studies (Evidence-Based)
+
+// 2. Solution Showcases (Illustrative Scenarios)
+// These scenarios represent the type of AI systems Indusnet AI engineers.
+// Client names, specific metrics, and outcomes are illustrative examples.
+// No verified client documentation supporting these specific figures exists in this codebase.
 const CASE_STUDIES = [
   {
-    client: "Global Financial Services Institution",
-    title: "Private VPC RAG Engine Across 100k+ Regulatory Filings",
-    challenge: "Analysts spent 45 minutes manually researching cross-jurisdictional compliance filings, risking regulatory oversight.",
+    client: "Financial Services — Illustrative Scenario",
+    title: "Private VPC RAG Engine for Regulatory Knowledge Management",
+    challenge: "Compliance analysts spend significant time manually researching cross-jurisdictional regulatory filings, creating risk of oversight gaps.",
     solution: "Engineered an air-gapped hybrid RAG system with open-weights Llama-3 running inside an AWS VPC with zero data retention.",
     tech: ["Llama-3 70B", "PostgreSQL pgvector", "Cohere Rerank", "Docker VPC"],
-    metric: "Sub-Second Retrieval",
-    metricLabel: "Across 100k+ documents with 100% verified citation accuracy",
-    tag: "Banking & Finance"
+    metric: "Fast, Cited Retrieval",
+    metricLabel: "Designed for large regulatory corpora with verifiable source attribution",
+    tag: "Banking & Finance",
+    evidenceType: "illustrative" as const
   },
   {
-    client: "Enterprise Retail Logistics Carrier",
+    client: "Logistics & Supply Chain — Illustrative Scenario",
     title: "Autonomous Agent Swarm for Multi-Vendor Freight Reconciliation",
-    challenge: "Manual 3-way invoice matching between freight bills, bills of lading, and ERP purchase orders caused $1.2M in annual uncaptured billing errors.",
+    challenge: "Manual 3-way invoice matching between freight bills, bills of lading, and ERP purchase orders creates reconciliation delays and error risk.",
     solution: "Deployed a 5-agent ReAct swarm that extracts table data, validates variances, invokes SAP APIs, and flags discrepancies autonomously.",
     tech: ["GPT-4o", "FastAPI", "SAP ERP Connector", "Python"],
-    metric: "88% Cycle-Time Drop",
-    metricLabel: "Reconciles 15,000+ monthly shipments in under 5 seconds each",
-    tag: "Logistics & Supply Chain"
+    metric: "Automated Reconciliation",
+    metricLabel: "Designed to process high-volume monthly shipment reconciliation autonomously",
+    tag: "Logistics & Supply Chain",
+    evidenceType: "illustrative" as const
   },
   {
-    client: "Regional Healthcare Network",
+    client: "Healthcare Network — Illustrative Scenario",
     title: "HIPAA-Compliant Clinical Triage & EHR Intake Assistant",
-    challenge: "Emergency intake staff spent 20 minutes per patient recording symptoms and transcribing medical histories into EHR systems.",
+    challenge: "Emergency intake staff spend extended time per patient recording symptoms and transcribing medical histories into EHR systems.",
     solution: "Designed a secure clinical intake assistant with medical entity extraction, generating structured physician summaries prior to consultation.",
     tech: ["Med-PaLM", "Next.js", "Tailwind CSS", "Private Cloud VPC"],
-    metric: "14 Min Saved / Intake",
-    metricLabel: "Full HIPAA compliance with zero PII exposure to public APIs",
-    tag: "Healthcare & Life Sciences"
+    metric: "Faster Structured Intake",
+    metricLabel: "Designed for HIPAA compliance with zero PII exposure to public APIs",
+    tag: "Healthcare & Life Sciences",
+    evidenceType: "illustrative" as const
   },
   {
-    client: "Precision Manufacturing Corporation",
+    client: "Manufacturing — Illustrative Scenario",
     title: "High-Speed Edge Computer Vision for Assembly Defect Detection",
-    challenge: "Manual visual inspection allowed a 2.4% component defect escape rate, leading to costly warranty claims.",
+    challenge: "Manual visual inspection creates defect escape risk and inconsistent quality enforcement across high-throughput assembly lines.",
     solution: "Built custom edge deep learning models running on on-premise NVIDIA inference accelerators with real-time video defect flagging.",
     tech: ["PyTorch", "NVIDIA TensorRT", "OpenCV", "Edge Kubernetes"],
-    metric: "< 0.1% Defect Escape",
-    metricLabel: "Processed 120 parts per minute with 99.9% classification precision",
-    tag: "Manufacturing"
+    metric: "Near-Zero Defect Escape",
+    metricLabel: "Designed for real-time inference on production assembly lines with high classification precision",
+    tag: "Manufacturing",
+    evidenceType: "illustrative" as const
   }
 ];
+
 
 // 3. Why Indusnet AI (Differentiation Pillars)
 const DIFFERENTIATION_PILLARS = [
@@ -351,36 +377,67 @@ export default function HomeClient() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. THE 6-STAGE DELIVERY LIFECYCLE: FROM IDEA TO PRODUCTION               */}
+      {/* 2. WHAT WE BUILD — Executive-level capability overview                   */}
+      {/* ========================================================================= */}
+      <WhatWeBuild />
+
+      {/* ========================================================================= */}
+      {/* 3. THE 6-STAGE DELIVERY LIFECYCLE: FROM IDEA TO PRODUCTION               */}
       {/* ========================================================================= */}
       <AiDeliveryLifecycle />
 
       {/* ========================================================================= */}
-      {/* 3. INTERACTIVE AI CAPABILITY STACK: 5-TIER ENTERPRISE ARCHITECTURE       */}
+      {/* 4. INTERACTIVE AI CAPABILITY STACK: 5-TIER ENTERPRISE ARCHITECTURE       */}
       {/* ========================================================================= */}
       <div id="capabilities">
         <AiCapabilityStack />
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. AGENTIC AI IN ACTION: WORKFLOW SIMULATOR                              */}
+      {/* 5. AGENTIC AI IN ACTION: WORKFLOW SIMULATOR (with executive intro)       */}
       {/* ========================================================================= */}
-      <AgentWorkflowSimulator />
+      <section className="relative pt-20 pb-0 border-t border-border/60">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
+            <Badge variant="outline" className="px-3.5 py-1 text-xs border-[#7C5CFF]/30 text-[#7C5CFF] font-bold uppercase tracking-widest rounded-full">
+              Agentic AI Systems
+            </Badge>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
+              AI Agents That Don&apos;t Just Answer —{" "}
+              <span className="text-[#7C5CFF]">They Act.</span>
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              Our agents understand your intent, access enterprise knowledge,
+              use approved tools, execute workflows, and verify results —
+              with human oversight at every critical decision point.
+            </p>
+            <p className="text-sm text-muted-foreground/80 italic">
+              Select a production agent persona below to see how a real deployment would operate.
+            </p>
+          </div>
+        </div>
+        <AgentWorkflowSimulator />
+      </section>
+
 
       {/* ========================================================================= */}
-      {/* 5. ENTERPRISE AI USE CASES (OUTCOME-DRIVEN)                               */}
+      {/* 6. ENTERPRISE AI USE CASES (OUTCOME-DRIVEN)                               */}
       {/* ========================================================================= */}
-      <section className="relative py-20 bg-muted/15 border-t border-border/60">
+      <section className="relative py-20 md:py-28 bg-muted/15 border-t border-border/60">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
             <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
-              Real Enterprise Solutions
+              Where We Operate
             </Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
-              Built for <span className="text-primary">Measurable Outcomes</span>
+              High-impact AI applications{" "}
+              <span className="text-primary">across every enterprise function.</span>
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              We focus on high-impact enterprise friction points where AI delivers quantified operational acceleration, error elimination, and clear financial payback.
+              From customer operations to back-office automation — we engineer AI systems where they create the most measurable value.
+            </p>
+            <p className="text-xs text-muted-foreground/70 italic pt-1">
+              Scenarios below are illustrative examples of the type of AI systems we engineer.
             </p>
           </div>
 
@@ -417,10 +474,15 @@ export default function HomeClient() {
                       </div>
 
                       <div className="bg-primary/5 p-2.5 rounded-lg border border-primary/20">
-                        <span className="text-[10px] font-bold uppercase text-primary block mb-0.5">
-                          Measured Business Outcome:
-                        </span>
-                        <p className="font-semibold text-foreground leading-relaxed">
+                        <div className="flex items-center gap-1.5 mb-0.5">
+                          <span className="text-[10px] font-bold uppercase text-primary">
+                            AI Impact:
+                          </span>
+                          <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                            Illustrative Scenario
+                          </span>
+                        </div>
+                        <p className="font-medium text-foreground leading-relaxed">
                           {uc.outcome}
                         </p>
                       </div>
@@ -442,15 +504,15 @@ export default function HomeClient() {
               );
             })}
 
-            {/* Interactive Sizer CTA Card in Use Cases Grid */}
+            {/* ROI Estimator CTA Card in Use Cases Grid */}
             <div className="bg-gradient-to-br from-primary/10 via-card to-card border border-primary/40 rounded-2xl p-6 shadow-md flex flex-col justify-between">
               <div className="space-y-3">
-                <Badge className="bg-primary text-white text-[10px]">Interactive Sizer</Badge>
+                <Badge className="bg-primary/15 text-primary border border-primary/30 text-[10px]">AI ROI Estimator</Badge>
                 <h3 className="text-lg font-bold font-heading text-foreground">
-                  Estimate Your Organization's AI ROI & Hardware Sizing
+                  Model Your AI Opportunity
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Model your unstructured document volume, calculate annual financial savings, and get dedicated NVIDIA GPU cluster specifications in real time.
+                  Enter your workload assumptions to estimate potential cost reduction, hours saved, and recommended compute sizing. Results are illustrative projections based on your inputs.
                 </p>
               </div>
 
@@ -458,13 +520,14 @@ export default function HomeClient() {
                 <Button asChild className="w-full rounded-full bg-primary text-white font-bold hover:bg-primary/90 text-xs shadow-md shadow-primary/20">
                   <a href="#roi-calculator" className="flex items-center justify-center gap-2">
                     <Calculator className="w-4 h-4" />
-                    Open ROI & GPU Sizer
+                    Open AI ROI Estimator
                   </a>
                 </Button>
               </div>
             </div>
           </div>
         </div>
+
       </section>
 
       {/* ========================================================================= */}
@@ -474,20 +537,25 @@ export default function HomeClient() {
         <RoiCalculator />
       </div>
 
+
       {/* ========================================================================= */}
-      {/* 7. VERIFIED ENTERPRISE EVIDENCE & CASE STUDIES                           */}
+      {/* 8. SOLUTION SHOWCASES (Illustrative Scenarios)                            */}
       {/* ========================================================================= */}
-      <section className="relative py-20 bg-muted/20 border-t border-border/60">
+      <section className="relative py-20 md:py-28 bg-muted/20 border-t border-border/60">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
             <Badge variant="outline" className="px-3.5 py-1 text-xs border-primary/30 text-primary font-bold uppercase tracking-widest rounded-full">
-              Production Evidence
+              Solution Showcases
             </Badge>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-foreground">
-              Proven Production <span className="text-primary">Track Record</span>
+              The type of AI systems{" "}
+              <span className="text-primary">we engineer.</span>
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-              We measure our engineering success by production SLAs, verified retrieval accuracy, and measurable cycle-time reductions.
+              Representative AI architectures we build across industries — showing our approach to real enterprise challenges.
+            </p>
+            <p className="text-xs text-muted-foreground/70 italic pt-1">
+              These are illustrative scenarios demonstrating our engineering approach, not documented client case studies.
             </p>
           </div>
 
@@ -502,8 +570,8 @@ export default function HomeClient() {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-primary font-bold">
                       {cs.tag}
                     </span>
-                    <span className="text-xs text-muted-foreground font-medium">
-                      {cs.client}
+                    <span className="text-[9px] font-semibold px-2 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                      Illustrative Scenario
                     </span>
                   </div>
 
@@ -513,7 +581,7 @@ export default function HomeClient() {
 
                   <div className="space-y-2 text-xs text-muted-foreground">
                     <p><strong className="text-foreground">Challenge:</strong> {cs.challenge}</p>
-                    <p><strong className="text-foreground">AI Solution:</strong> {cs.solution}</p>
+                    <p><strong className="text-foreground">AI Approach:</strong> {cs.solution}</p>
                   </div>
 
                   <div className="flex flex-wrap gap-1.5 pt-2">
@@ -525,7 +593,7 @@ export default function HomeClient() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20 flex items-center justify-between">
+                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/20 flex items-start justify-between gap-3">
                   <div>
                     <span className="text-lg sm:text-xl font-extrabold font-heading text-primary block">
                       {cs.metric}
@@ -534,13 +602,16 @@ export default function HomeClient() {
                       {cs.metricLabel}
                     </span>
                   </div>
-                  <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                  <span className="text-[9px] font-semibold px-1.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
+                    Illustrative
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* ========================================================================= */}
       {/* 8. WHY INDUSNET AI (DIFFERENTIATION & CORE PILLARS)                      */}

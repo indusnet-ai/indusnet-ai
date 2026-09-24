@@ -76,7 +76,7 @@ const STAGES: LifecycleStage[] = [
     deliverables: [
       "Hybrid RAG vector indexing with dense-sparse re-ranking",
       "Multi-agent swarm coordination with sandboxed OpenAPI tools",
-      "Semantic caching layers for sub-second latency and 60% cost reduction",
+      "Semantic caching layers for sub-second latency and significant LLM API cost reduction",
       "Unit testing, regression benchmarking, and ground-truth evaluation"
     ],
     businessValue: "Production-grade, test-covered AI software components ready for integration.",
@@ -218,7 +218,7 @@ export function AiDeliveryLifecycle() {
 
               <div className="p-4 rounded-2xl bg-muted/40 border border-border/60 space-y-1">
                 <span className="text-[10px] font-mono uppercase font-bold text-primary tracking-wider block">
-                  Business Value Multiplier
+                  What this means for your business
                 </span>
                 <p className="text-xs text-foreground/90 leading-relaxed">
                   {current.businessValue}
